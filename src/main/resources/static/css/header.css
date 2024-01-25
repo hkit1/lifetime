@@ -26,7 +26,7 @@ header {
 }
 
 .logo a {
-    text-decoration-line: none;
+    text-decoration: none;
     display: flex;
     flex-direction: row-reverse;
     justify-content: center;
@@ -92,17 +92,9 @@ ul {
     display: flex;
     align-items: center;
     justify-content: center;
-}
-
-.reg a {
     font-size: 0.8em;
     color: white;
     text-decoration: none;
-}
-
-.reg a img {
-    width: 30px;
-    height: 30px;
 }
 
 .login {
@@ -115,9 +107,6 @@ ul {
     display: flex;
     align-items: center;
     justify-content: center;
-}
-
-.login a {
     font-size: 0.8em;
     color: white;
     text-decoration: none;
