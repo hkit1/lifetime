@@ -7,8 +7,5 @@ import java.io.Serializable;
 /**
  * DTO for {@link Company}
  */
-@Value
-public class CompanyDto implements Serializable {
-    String name;
-    String uuid;
+public record CompanyDto(String name, String uuid) implements Serializable {
 }
