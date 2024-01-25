@@ -1,9 +1,7 @@
 package com.hkit.lifetime.exam;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.hkit.lifetime.lecture.Lecture;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,7 +14,8 @@ public class Exam {
     @Column(name = "uuid", nullable = false, length = 36)
     private String uuid;
 
-    @Column(name = "lecture_id", nullable = false)
-    private Integer lectureId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "lecture_id", nullable = false)
+    private Lecture lecture;
 
 }

@@ -13,7 +13,6 @@ public class Category {
     @Column(name = "category_id", nullable = false)
     private Integer id;
 
-    @Lob
     @Column(name = "name")
     private String name;
 

@@ -13,10 +13,10 @@ public class SubCategory {
     @Column(name = "category", nullable = false)
     private Integer id;
 
-    @Column(name = "category_id", nullable = false)
-    private Integer categoryId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category_id", nullable = false)
+    private Category categoryId;
 
-    @Lob
     @Column(name = "name")
     private String name;
 

@@ -1,9 +1,7 @@
 package com.hkit.lifetime.company;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.hkit.lifetime.account.Account;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,7 +14,8 @@ public class Company {
     @Column(name = "name", nullable = false, length = 30)
     private String name;
 
-    @Column(name = "uuid", length = 36)
-    private String uuid;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "uuid")
+    private Account uuid;
 
 }

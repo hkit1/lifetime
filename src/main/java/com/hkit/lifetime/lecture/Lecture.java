@@ -1,5 +1,8 @@
 package com.hkit.lifetime.lecture;
 
+import com.hkit.lifetime.category.SubCategory;
+import com.hkit.lifetime.company.Company;
+import com.hkit.lifetime.teacher.Teacher;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -15,7 +18,6 @@ public class Lecture {
     @Column(name = "lecture_id", nullable = false)
     private Integer lectureId;
 
-    @Lob
     @Column(name = "name")
     private String name;
 
@@ -25,15 +27,17 @@ public class Lecture {
     @Column(name = "closed_at")
     private LocalDate closedAt;
 
-    @Lob
-    @Column(name = "company_name", nullable = false)
-    private String companyName;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "company_name", nullable = false)
+    private Company company;
 
-    @Lob
-    @Column(name = "uuid", nullable = false)
-    private String uuid;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "uuid", nullable = false)
+    private Teacher teacher;
 
-    @Column(name = "category", nullable = false)
-    private Integer category;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category", nullable = false)
+    private SubCategory category;
 
 }
