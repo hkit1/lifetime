@@ -10,7 +10,8 @@ import lombok.Setter;
 @Entity
 @Table(name = "exam")
 public class Exam {
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue
     @Column(name = "uuid", nullable = false, length = 36)
     private String uuid;
 

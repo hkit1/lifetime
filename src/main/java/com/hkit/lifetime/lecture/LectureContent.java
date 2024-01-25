@@ -9,7 +9,8 @@ import lombok.Setter;
 @Entity
 @Table(name = "lecture_content")
 public class LectureContent {
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue
     @Column(name = "id")
     private Long id;
 

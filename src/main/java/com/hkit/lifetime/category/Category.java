@@ -9,7 +9,8 @@ import lombok.Setter;
 @Entity
 @Table(name = "category")
 public class Category {
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue
     @Column(name = "category_id", nullable = false)
     private Integer id;
 
