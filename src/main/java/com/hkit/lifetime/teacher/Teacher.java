@@ -9,7 +9,7 @@ import lombok.Setter;
 @Entity
 @Table(name = "teacher")
 public class Teacher {
-    @Id
+    @Id @GeneratedValue
     @Column(name = "uuid", nullable = false, length = 36)
     private String uuid;
 

@@ -11,7 +11,7 @@ import java.time.LocalDate;
 @Entity
 @Table(name = "account")
 public class Account {
-    @Id
+    @Id @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "uuid")
     private String uuid;
 

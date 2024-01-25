@@ -14,7 +14,7 @@ import java.time.LocalDate;
 @Entity
 @Table(name = "lecture")
 public class Lecture {
-    @Id
+    @Id @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "lecture_id", nullable = false)
     private Integer lectureId;
 
