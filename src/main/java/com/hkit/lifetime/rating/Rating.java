@@ -9,7 +9,8 @@ import lombok.Setter;
 @Entity
 @Table(name = "rating")
 public class Rating {
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue
     @Column(name = "id", nullable = false)
     private Integer id;
 

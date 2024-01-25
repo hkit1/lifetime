@@ -1,8 +1,5 @@
 package com.hkit.lifetime.teacher;
 
-import lombok.EqualsAndHashCode;
-import lombok.Value;
-
 import java.io.Serializable;
 
 /**

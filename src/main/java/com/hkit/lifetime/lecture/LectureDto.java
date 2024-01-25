@@ -1,7 +1,5 @@
 package com.hkit.lifetime.lecture;
 
-import lombok.Value;
-
 import java.io.Serializable;
 import java.time.LocalDate;
 

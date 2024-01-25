@@ -9,7 +9,8 @@ import lombok.Setter;
 @Entity
 @Table(name = "lecture_list")
 public class LectureList {
-    @Id @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id", nullable = false)
     private Integer id;
 

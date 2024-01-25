@@ -1,8 +1,5 @@
 package com.hkit.lifetime.survey;
 
-import com.hkit.lifetime.account.AccountDto;
-import lombok.Value;
-
 import java.io.Serializable;
 
 /**

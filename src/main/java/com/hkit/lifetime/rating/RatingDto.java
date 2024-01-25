@@ -1,7 +1,5 @@
 package com.hkit.lifetime.rating;
 
-import lombok.Value;
-
 import java.io.Serializable;
 
 /**
