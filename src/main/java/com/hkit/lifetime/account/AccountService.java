@@ -1,7 +1,5 @@
-package com.hkit.lifetime.service;
+package com.hkit.lifetime.account;
 
-import com.hkit.lifetime.entity.Account;
-import com.hkit.lifetime.repository.AccountRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

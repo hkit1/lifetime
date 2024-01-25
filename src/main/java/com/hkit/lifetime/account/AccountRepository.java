@@ -1,6 +1,5 @@
-package com.hkit.lifetime.repository;
+package com.hkit.lifetime.account;
 
-import com.hkit.lifetime.entity.Account;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.UUID;
