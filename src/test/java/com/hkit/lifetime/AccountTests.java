@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.mock.web.MockHttpSession;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -18,6 +19,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -59,11 +63,13 @@ public class AccountTests extends LifetimeApplicationTests {
     }
 
     @Test
+    //Spring security 권한 문제로 추가
+    @WithMockUser(username = "테스트_최고관리자", roles = {"SUPER"})
     void createAndLogin() throws Exception {
         // 계정 정보 무작위 생성
         MultiValueMap<String, String> info = createAccountInfo();
 
-        mockmvc.perform(put("/api/account/register").params(info))
+        mockmvc.perform(post("/api/account/register").params(info))
                 .andExpect(status().isOk());
 
         // 계정 등록이 잘 되었는지 확인
@@ -84,6 +90,8 @@ public class AccountTests extends LifetimeApplicationTests {
     }
 
     @Test
+    //Spring security 권한 문제로 추가
+    @WithMockUser(username = "테스트_최고관리자", roles = {"SUPER"})
     void loginAccount() throws Exception {
         // 로그인할 계정 생성 (create 테스트가 먼저 완료 되어야 함)
         MultiValueMap<String, String> info = createAccountInfo();
@@ -106,7 +114,9 @@ public class AccountTests extends LifetimeApplicationTests {
     }
 
     @Test
+    @WithMockUser(username = "테스트_최고관리자", roles = {"SUPER"})
     void deleteAccount() throws Exception {
+    //Spring security 권한 문제로 추가
         // 로그인할 계정 생성 (create 테스트가 먼저 완료 되어야 함)
         MultiValueMap<String, String> info = createAccountInfo();
         mockmvc.perform(put("/api/account/register").params(info))
@@ -115,7 +125,6 @@ public class AccountTests extends LifetimeApplicationTests {
         // 계정 삭제 테스트 - 200
         mockmvc.perform(delete("/api/account/delete")
                 .param("sessionId", info.getFirst("id"))
-                .param("pw", info.getFirst("pw"))
         ).andExpect(status().isOk());
 
         // 검색된 계정이 없어야 함
@@ -123,6 +132,8 @@ public class AccountTests extends LifetimeApplicationTests {
     }
 
     @Test
+    //Spring security 권한 문제로 추가
+    @WithMockUser(username = "테스트_최고관리자", roles = {"SUPER"})
     void updateAccount() throws Exception {
         // 로그인할 계정 생성 (create 테스트가 먼저 완료 되어야 함)
         MultiValueMap<String, String> info = createAccountInfo();
@@ -139,7 +150,10 @@ public class AccountTests extends LifetimeApplicationTests {
         mockmvc.perform(patch("/api/account/update").params(info))
                 .andExpect(status().isOk());
 
+        Optional<Account> account2 = repository.findAccountById(info.getFirst("id"));
+        assertTrue(account2.isPresent());
+
         // 수정이 되었는지 확인
-        assertNotEquals(oldAddress, account.get().getAddress1());
+        assertNotEquals(account2.get().getAddress1(), oldAddress);
     }
 }

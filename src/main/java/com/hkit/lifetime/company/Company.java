@@ -18,4 +18,6 @@ public class Company {
     @JoinColumn(name = "uuid")
     private Account account;
 
+    // api/company/add?name=이름?account=아이디, 세션 id
+
 }
