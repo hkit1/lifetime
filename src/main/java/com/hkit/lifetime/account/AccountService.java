@@ -27,12 +27,15 @@ public class AccountService {
 
     public void update(AccountDto accountDto){
         Optional<Account> accountById = accountRepository.findAccountById(accountDto.id());
-        if (accountById.isEmpty()){
-            //회원 검색 실패
-        }
-        Account account = new Account();
 
-        accountRepository.save();
+        if (accountById.isPresent()){
+
+            Account account = accountById.get();
+            account.updateAccount(accountDto);
+
+            accountRepository.save(account);
+
+        }
 
     }
 }

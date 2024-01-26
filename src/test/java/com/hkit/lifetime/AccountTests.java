@@ -162,7 +162,11 @@ public class AccountTests extends LifetimeApplicationTests {
         mockmvc.perform(post("/api/account/update").with(csrf()).params(info))
                 .andExpect(status().isOk());
 
+        //
+        Optional<Account> account2 = repository.findAccountById(info.getFirst("id"));
+        assertTrue(account2.isPresent());
+
         // 수정이 되었는지 확인
-        assertNotEquals(account.get().getAddress1(), oldAddress);
+        assertNotEquals(account2.get().getAddress1(), oldAddress);
     }
 }

@@ -36,8 +36,8 @@ public class AccountController {
     }
 
     @PostMapping("/api/account/update")
-    public String accountUpdate(){
-        accountService.update();
+    public String accountUpdate(AccountDto accountDto){
+        accountService.update(accountDto);
         return "home";
     }
 
