@@ -18,22 +18,22 @@ public class Account {
     @Column(name = "id", nullable = false)
     private String id;
 
-    @Column(name = "pw")
+    @Column(name = "pw", nullable = false)
     private String pw;
 
-    @Column(name = "birth")
+    @Column(name = "birth", nullable = false)
     private LocalDate birth;
 
-    @Column(name = "email")
+    @Column(name = "email", nullable = false)
     private String email;
 
-    @Column(name = "tel")
+    @Column(name = "tel", nullable = false)
     private String tel;
 
-    @Column(name = "gender")
+    @Column(name = "gender", nullable = false)
     private Integer gender;
 
-    @Column(name = "address1")
+    @Column(name = "address1", nullable = false)
     private String address1;
 
     @Column(name = "address2")
