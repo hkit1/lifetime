@@ -11,16 +11,15 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.mock.web.MockHttpSession;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.Random;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -49,6 +48,7 @@ public class AccountTests extends LifetimeApplicationTests {
 
         info.add("id", faker.internet().username());
         info.add("pw", faker.internet().password());
+        info.add("name", faker.name().fullName());
         info.add("birth", faker.date().birthday().toLocalDateTime().format(DateTimeFormatter.BASIC_ISO_DATE));
         info.add("email", faker.internet().emailAddress());
         info.add("tel", faker.phoneNumber().phoneNumber());
@@ -98,10 +98,13 @@ public class AccountTests extends LifetimeApplicationTests {
         ).andExpect(status().isUnauthorized());
 
         // 정상 로그인 테스트 - 200
-        mockmvc.perform(post("/api/account/login")
+        ResultActions result = mockmvc.perform(post("/api/account/login")
                 .param("id", info.getFirst("id"))
                 .param("pw", info.getFirst("pw"))
         ).andExpect(status().isOk());
+
+        // 로그인 후 세션 ID 값이 있는지 확인
+        assertDoesNotThrow(() -> Objects.requireNonNull(result.andReturn().getRequest().getSession()).getId());
     }
 
     @Test

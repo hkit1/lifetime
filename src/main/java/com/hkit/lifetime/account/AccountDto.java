@@ -6,5 +6,5 @@ import java.util.UUID;
 /**
  * DTO for {@link Account}
  */
-public record AccountDto(UUID uuid, String id, String pw, String birth, String email, String tel, String sex, String address1, String address2) implements Serializable {
+public record AccountDto(UUID uuid, String id, String pw, String name, String birth, String email, String tel, String sex, String address1, String address2) implements Serializable {
 }

@@ -21,6 +21,9 @@ public class Account {
     @Column(name = "pw", nullable = false)
     private String pw;
 
+    @Column(name = "name", nullable = false)
+    private String name;
+
     @Column(name = "birth", nullable = false)
     private LocalDate birth;
 
