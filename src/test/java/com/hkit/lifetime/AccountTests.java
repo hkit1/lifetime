@@ -43,7 +43,7 @@ public class AccountTests extends LifetimeApplicationTests {
         oauthRepository.deleteAll();
     }
 
-    MultiValueMap<String, String> createAccountInfo() {
+    static MultiValueMap<String, String> createAccountInfo() {
         Faker faker = new Faker();
         MultiValueMap<String, String> info = new LinkedMultiValueMap<>();
 
