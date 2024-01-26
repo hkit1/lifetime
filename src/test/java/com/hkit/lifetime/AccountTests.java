@@ -81,7 +81,7 @@ public class AccountTests extends LifetimeApplicationTests {
         assertTrue(repository.findAccountById(info.getFirst("id")).isPresent());
 
         // 비밀번호가 평문으로 저장되어 있지 않는지 확인
-        assertNotEquals(repository.findAccountById(info.getFirst("id")).get().getPw(), info.getFirst("pw"));
+        assertNotEquals(info.getFirst("pw"), repository.findAccountById(info.getFirst("id")).get().getPw());
     }
 
     @Test
@@ -139,6 +139,6 @@ public class AccountTests extends LifetimeApplicationTests {
                 .andExpect(status().isOk());
 
         // 수정이 되었는지 확인
-        assertNotEquals(account.get().getAddress1(), oldAddress);
+        assertNotEquals(oldAddress, account.get().getAddress1());
     }
 }
