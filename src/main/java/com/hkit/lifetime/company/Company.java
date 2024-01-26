@@ -16,6 +16,6 @@ public class Company {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "uuid")
-    private Account uuid;
+    private Account account;
 
 }

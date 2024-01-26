@@ -42,4 +42,7 @@ public class Account {
     @Column(name = "address2")
     private String address2;
 
+    @Column(name = "role", nullable = false)
+    private String role;
+
 }

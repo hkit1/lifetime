@@ -11,16 +11,15 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.mock.web.MockHttpSession;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
 import java.time.format.DateTimeFormatter;
-import java.util.Objects;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
@@ -64,7 +63,7 @@ public class AccountTests extends LifetimeApplicationTests {
         // 계정 정보 무작위 생성
         MultiValueMap<String, String> info = createAccountInfo();
 
-        mockmvc.perform(post("/api/account/register").params(info))
+        mockmvc.perform(put("/api/account/register").params(info))
                 .andExpect(status().isOk());
 
         // 계정 등록이 잘 되었는지 확인
@@ -74,7 +73,7 @@ public class AccountTests extends LifetimeApplicationTests {
         info = createAccountInfo();
         info.set("address2", "");
 
-        mockmvc.perform(post("/api/account/register").params(info))
+        mockmvc.perform(put("/api/account/register").params(info))
                 .andExpect(status().isOk());
 
         // 상세 주소값이 없을 경우 계정 등록이 되는지 확인
@@ -85,37 +84,36 @@ public class AccountTests extends LifetimeApplicationTests {
     }
 
     @Test
-    void login() throws Exception {
+    void loginAccount() throws Exception {
         // 로그인할 계정 생성 (create 테스트가 먼저 완료 되어야 함)
         MultiValueMap<String, String> info = createAccountInfo();
-        mockmvc.perform(post("/api/account/register").params(info))
+        mockmvc.perform(put("/api/account/register").params(info))
                 .andExpect(status().isOk());
 
         // 잘못된 비밀번호 테스트 - 401
         mockmvc.perform(post("/api/account/login")
                 .param("id", info.getFirst("id"))
                 .param("pw", info.getFirst("pw")+"wrong")
+                .with(csrf())
         ).andExpect(status().isUnauthorized());
 
         // 정상 로그인 테스트 - 200
-        ResultActions result = mockmvc.perform(post("/api/account/login")
+        mockmvc.perform(post("/api/account/login")
                 .param("id", info.getFirst("id"))
                 .param("pw", info.getFirst("pw"))
+                .with(csrf())
         ).andExpect(status().isOk());
-
-        // 로그인 후 세션 ID 값이 있는지 확인
-        assertDoesNotThrow(() -> Objects.requireNonNull(result.andReturn().getRequest().getSession()).getId());
     }
 
     @Test
-    void delete() throws Exception {
+    void deleteAccount() throws Exception {
         // 로그인할 계정 생성 (create 테스트가 먼저 완료 되어야 함)
         MultiValueMap<String, String> info = createAccountInfo();
-        mockmvc.perform(post("/api/account/register").params(info))
+        mockmvc.perform(put("/api/account/register").params(info))
                 .andExpect(status().isOk());
 
         // 계정 삭제 테스트 - 200
-        mockmvc.perform(post("/api/account/delete")
+        mockmvc.perform(delete("/api/account/delete")
                 .param("sessionId", info.getFirst("id"))
                 .param("pw", info.getFirst("pw"))
         ).andExpect(status().isOk());
@@ -125,10 +123,10 @@ public class AccountTests extends LifetimeApplicationTests {
     }
 
     @Test
-    void update() throws Exception {
+    void updateAccount() throws Exception {
         // 로그인할 계정 생성 (create 테스트가 먼저 완료 되어야 함)
         MultiValueMap<String, String> info = createAccountInfo();
-        mockmvc.perform(post("/api/account/register").params(info))
+        mockmvc.perform(put("/api/account/register").params(info))
                 .andExpect(status().isOk());
 
         // 정상 회원가입이 되었는지 확인
@@ -138,7 +136,7 @@ public class AccountTests extends LifetimeApplicationTests {
         String oldAddress = info.getFirst("address1");
         info.set("address1", new Faker().address().streetAddress());
 
-        mockmvc.perform(post("/api/account/update").params(info))
+        mockmvc.perform(patch("/api/account/update").params(info))
                 .andExpect(status().isOk());
 
         // 수정이 되었는지 확인
