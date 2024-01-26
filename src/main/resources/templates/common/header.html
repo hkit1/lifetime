@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
+<header th:fragment="header">
+    <nav class="inner_1280">
+        <div class="top_nav">
+            <div class="nav_login">
+                <ul>
+                    <li sec:authorize="isAnonymous()">
+                        <a href="/member/login">로그인</a>
+                    </li>
+                    <li sec:authorize="isAnonymous()">
+                        <a href="/member/register">회원가입</a>
+                    </li>
+                    <li sec:authorize="isAuthenticated()">
+                        <a sec:authentication="name"></a>
+                        <span> 님 환영합니다.</span>
+                    </li>
+                    <li sec:authorize="isAuthenticated()">
+                        <a href="/member/logout">로그아웃</a>
+                    </li>
+                    <li sec:authorize="hasRole('ROLE_ADMIN')">
+                        <a href="/seller/item/register">상품등록</a>
+                    </li>
+                    <li>
+                        <a href="#">고객센터</a>
+                    </li>
+                    <li>
+                        <a href="#">장바구니</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="btm_nav">
+            <div class="nav_logo">
+                <a href="/" class="logo_img"></a>
+            </div>
+            <div class="nav_menu">
+                <input type="text" placeholder="상품을 검색하세요">
+                <a href="#" class="search_ico">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </a>
+            </div>
+            <div class="nav_cate">
+                <a href="#">
+                    <i class="fa-solid fa-bars"></i>
+                </a>
+                <div class="nav_cate_lst">
+                    <ul class="nav_cate_left">
+                        <li>
+                            <a href="#">패션의류 잡화 뷰티</a>
+                        </li>
+                        <li>
+                            <a href="#">유아동</a>
+                        </li>
+                        <li>
+                            <a href="#">식품</a>
+                        </li>
+                        <li>
+                            <a href="#">메뉴1</a>
+                        </li>
+                        <li>
+                            <a href="#">메뉴2</a>
+                        </li>
+                        <li>
+                            <a href="#">메뉴3</a>
+                        </li>
+                    </ul>
+                    <div class="nav_cate_right">
+                        <ul>
+                            <li>
+                                <a href="#" class="nav_cate_tit">세부메뉴1</a>
+                            </li>
+                            <li>
+                                <a href="#">세부메뉴1-1</a>
+                            </li>
+                            <li>
+                                <a href="#">세부메뉴1-2</a>
+                            </li>
+                            <li>
+                                <a href="#">세부메뉴1-3</a>
+                            </li>
+                        </ul>
+                        <ul>
+                            <li>
+                                <a href="#" class="nav_cate_tit">세부메뉴2</a>
+                            </li>
+                            <li>
+                                <a href="#">세부메뉴2-1</a>
+                            </li>
+                            <li>
+                                <a href="#">세부메뉴2-2</a>
+                            </li>
+                            <li>
+                                <a href="#">세부메뉴2-3</a>
+                            </li>
+                            <li>
+                                <a href="#">세부메뉴2-4</a>
+                            </li>
+                        </ul>
+                        <ul>
+                            <li>
+                                <a href="#" class="nav_cate_tit">세부메뉴3</a>
+                            </li>
+                            <li>
+                                <a href="#">세부메뉴3-1</a>
+                            </li>
+                            <li>
+                                <a href="#">세부메뉴3-2</a>
+                            </li>
+                            <li>
+                                <a href="#">세부메뉴3-3</a>
+                            </li>
+                            <li>
+                                <a href="#">세부메뉴3-4</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>
+</html>

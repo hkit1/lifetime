@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.mock.web.MockHttpSession;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -20,6 +21,7 @@ import java.util.Optional;
 import java.util.Random;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -33,14 +35,14 @@ public class AccountTests extends LifetimeApplicationTests {
 
     @Autowired
     AccountRepository repository;
-    @Autowired
-    OauthRepository oauthRepository;
+//    @Autowired
+//    OauthRepository oauthRepository;
 
     // 매 테스트 마다 DB 초기화
     @BeforeEach
     void setUp() {
         repository.deleteAll();
-        oauthRepository.deleteAll();
+//        oauthRepository.deleteAll();
     }
 
     MultiValueMap<String, String> createAccountInfo() {
@@ -60,11 +62,14 @@ public class AccountTests extends LifetimeApplicationTests {
     }
 
     @Test
+    //Spring security 권한 문제로 추가
+    @WithMockUser(username = "테스트_최고관리자", roles = {"SUPER"})
     void createAndLogin() throws Exception {
         // 계정 정보 무작위 생성
         MultiValueMap<String, String> info = createAccountInfo();
 
-        mockmvc.perform(post("/api/account/register").params(info))
+        //spring security csrf 토큰으로 인한 403에러 발생. with(csrf()) 추가
+        mockmvc.perform(post("/api/account/register").with(csrf()).params(info))
                 .andExpect(status().isOk());
 
         // 계정 등록이 잘 되었는지 확인
@@ -74,7 +79,8 @@ public class AccountTests extends LifetimeApplicationTests {
         info = createAccountInfo();
         info.set("address2", "");
 
-        mockmvc.perform(post("/api/account/register").params(info))
+        //spring security csrf 토큰으로 인한 403에러 발생. with(csrf()) 추가
+        mockmvc.perform(post("/api/account/register").with(csrf()).params(info))
                 .andExpect(status().isOk());
 
         // 상세 주소값이 없을 경우 계정 등록이 되는지 확인
@@ -85,36 +91,49 @@ public class AccountTests extends LifetimeApplicationTests {
     }
 
     @Test
+    //Spring security 권한 문제로 추가
+    @WithMockUser(username = "테스트_최고관리자", roles = {"SUPER"})
     void login() throws Exception {
         // 로그인할 계정 생성 (create 테스트가 먼저 완료 되어야 함)
         MultiValueMap<String, String> info = createAccountInfo();
-        mockmvc.perform(post("/api/account/register").params(info))
+
+        //spring security csrf 토큰으로 인한 403에러 발생. with(csrf()) 추가
+        mockmvc.perform(post("/api/account/register").with(csrf()).params(info))
                 .andExpect(status().isOk());
 
         // 잘못된 비밀번호 테스트 - 401
+        //spring security csrf 토큰으로 인한 403에러 발생. with(csrf()) 추가
         mockmvc.perform(post("/api/account/login")
+                .with(csrf())
                 .param("id", info.getFirst("id"))
                 .param("pw", info.getFirst("pw")+"wrong")
         ).andExpect(status().isUnauthorized());
 
         // 정상 로그인 테스트 - 200
+        //spring security csrf 토큰으로 인한 403에러 발생. with(csrf()) 추가
         mockmvc.perform(post("/api/account/login")
+                .with(csrf())
                 .param("id", info.getFirst("id"))
                 .param("pw", info.getFirst("pw"))
         ).andExpect(status().isOk());
     }
 
     @Test
+    //Spring security 권한 문제로 추가
+    @WithMockUser(username = "테스트_최고관리자", roles = {"SUPER"})
     void delete() throws Exception {
         // 로그인할 계정 생성 (create 테스트가 먼저 완료 되어야 함)
         MultiValueMap<String, String> info = createAccountInfo();
-        mockmvc.perform(post("/api/account/register").params(info))
+
+        //spring security csrf 토큰으로 인한 403에러 발생. with(csrf()) 추가
+        mockmvc.perform(post("/api/account/register").with(csrf()).params(info))
                 .andExpect(status().isOk());
 
         // 계정 삭제 테스트 - 200
+        //spring security csrf 토큰으로 인한 403에러 발생. with(csrf()) 추가
         mockmvc.perform(post("/api/account/delete")
+                .with(csrf())
                 .param("sessionId", info.getFirst("id"))
-                .param("pw", info.getFirst("pw"))
         ).andExpect(status().isOk());
 
         // 검색된 계정이 없어야 함
@@ -122,10 +141,14 @@ public class AccountTests extends LifetimeApplicationTests {
     }
 
     @Test
+    //Spring security 권한 문제로 추가
+    @WithMockUser(username = "테스트_최고관리자", roles = {"SUPER"})
     void update() throws Exception {
         // 로그인할 계정 생성 (create 테스트가 먼저 완료 되어야 함)
         MultiValueMap<String, String> info = createAccountInfo();
-        mockmvc.perform(post("/api/account/register").params(info))
+
+        //spring security csrf 토큰으로 인한 403에러 발생. with(csrf()) 추가
+        mockmvc.perform(post("/api/account/register").with(csrf()).params(info))
                 .andExpect(status().isOk());
 
         // 정상 회원가입이 되었는지 확인
@@ -135,7 +158,8 @@ public class AccountTests extends LifetimeApplicationTests {
         String oldAddress = info.getFirst("address1");
         info.set("address1", new Faker().address().streetAddress());
 
-        mockmvc.perform(post("/api/account/update").params(info))
+        //spring security csrf 토큰으로 인한 403에러 발생. with(csrf()) 추가
+        mockmvc.perform(post("/api/account/update").with(csrf()).params(info))
                 .andExpect(status().isOk());
 
         // 수정이 되었는지 확인
