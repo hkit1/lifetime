@@ -59,8 +59,8 @@ public class CompanyTests {
     }
 
     @Test
-    void deleteCompany(){
-        mockmvc.perform()
+    void deleteCompany() throws Exception {
+
     }
 
     @Test
