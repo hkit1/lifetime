@@ -19,10 +19,10 @@ public class AccountSecurityService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String id) throws UsernameNotFoundException {
-        try{
+        try {
 
             Optional<Account> accountById = accountRepository.findAccountById(id);
-            if (accountById.isEmpty()){
+            if (accountById.isEmpty()) {
                 return null;
             }
 
@@ -36,7 +36,7 @@ public class AccountSecurityService implements UserDetailsService {
             accountSecurity.setAuthorities(Collections.singleton(new SimpleGrantedAuthority(role.getValue())));
 
             return accountSecurity;
-        } catch (Exception e){
+        } catch (Exception e) {
             return null;
         }
 

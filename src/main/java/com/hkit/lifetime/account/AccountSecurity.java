@@ -11,11 +11,16 @@ import java.util.Collection;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class AccountSecurity implements UserDetails{
+public class AccountSecurity implements UserDetails {
 
     private String id;
     private String pw;
     private Collection<? extends GrantedAuthority> authorities;
+
+    public AccountSecurity(String id, String pw) {
+        this.id = id;
+        this.pw = pw;
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -70,10 +75,5 @@ public class AccountSecurity implements UserDetails{
     @Override
     public boolean isEnabled() {
         return true;
-    }
-
-    public AccountSecurity(String id, String pw) {
-        this.id = id;
-        this.pw = pw;
     }
 }

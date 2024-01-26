@@ -3,6 +3,7 @@ package com.hkit.lifetime;
 import com.hkit.lifetime.account.Account;
 import com.hkit.lifetime.account.AccountRepository;
 import com.hkit.lifetime.oauth.OauthRepository;
+import com.hkit.lifetime.security.SecurityRole;
 import net.datafaker.Faker;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -20,10 +21,7 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
@@ -58,6 +56,7 @@ public class AccountTests extends LifetimeApplicationTests {
         info.add("gender", String.valueOf(Math.round(Math.random())));
         info.add("address1", faker.address().streetAddress());
         info.add("address2", faker.address().secondaryAddress());
+        info.add("role", SecurityRole.USER.getValue());
 
         return info;
     }
@@ -69,7 +68,7 @@ public class AccountTests extends LifetimeApplicationTests {
         // 계정 정보 무작위 생성
         MultiValueMap<String, String> info = createAccountInfo();
 
-        mockmvc.perform(post("/api/account/register").params(info))
+        mockmvc.perform(post("/api/account/register").params(info).with(csrf()))
                 .andExpect(status().isOk());
 
         // 계정 등록이 잘 되었는지 확인
@@ -79,7 +78,7 @@ public class AccountTests extends LifetimeApplicationTests {
         info = createAccountInfo();
         info.set("address2", "");
 
-        mockmvc.perform(put("/api/account/register").params(info))
+        mockmvc.perform(post("/api/account/register").params(info).with(csrf()))
                 .andExpect(status().isOk());
 
         // 상세 주소값이 없을 경우 계정 등록이 되는지 확인
@@ -95,7 +94,7 @@ public class AccountTests extends LifetimeApplicationTests {
     void loginAccount() throws Exception {
         // 로그인할 계정 생성 (create 테스트가 먼저 완료 되어야 함)
         MultiValueMap<String, String> info = createAccountInfo();
-        mockmvc.perform(put("/api/account/register").params(info))
+        mockmvc.perform(post("/api/account/register").params(info).with(csrf()))
                 .andExpect(status().isOk());
 
         // 잘못된 비밀번호 테스트 - 401
@@ -119,12 +118,13 @@ public class AccountTests extends LifetimeApplicationTests {
     //Spring security 권한 문제로 추가
         // 로그인할 계정 생성 (create 테스트가 먼저 완료 되어야 함)
         MultiValueMap<String, String> info = createAccountInfo();
-        mockmvc.perform(put("/api/account/register").params(info))
+        mockmvc.perform(post("/api/account/register").params(info).with(csrf()))
                 .andExpect(status().isOk());
 
         // 계정 삭제 테스트 - 200
-        mockmvc.perform(delete("/api/account/delete")
+        mockmvc.perform(post("/api/account/delete")
                 .param("sessionId", info.getFirst("id"))
+                .with(csrf())
         ).andExpect(status().isOk());
 
         // 검색된 계정이 없어야 함
@@ -137,7 +137,7 @@ public class AccountTests extends LifetimeApplicationTests {
     void updateAccount() throws Exception {
         // 로그인할 계정 생성 (create 테스트가 먼저 완료 되어야 함)
         MultiValueMap<String, String> info = createAccountInfo();
-        mockmvc.perform(put("/api/account/register").params(info))
+        mockmvc.perform(post("/api/account/register").params(info).with(csrf()))
                 .andExpect(status().isOk());
 
         // 정상 회원가입이 되었는지 확인
@@ -147,7 +147,7 @@ public class AccountTests extends LifetimeApplicationTests {
         String oldAddress = info.getFirst("address1");
         info.set("address1", new Faker().address().streetAddress());
 
-        mockmvc.perform(patch("/api/account/update").params(info))
+        mockmvc.perform(post("/api/account/update").params(info).with(csrf()))
                 .andExpect(status().isOk());
 
         Optional<Account> account2 = repository.findAccountById(info.getFirst("id"));

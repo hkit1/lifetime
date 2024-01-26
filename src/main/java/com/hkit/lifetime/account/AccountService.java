@@ -13,7 +13,7 @@ public class AccountService {
     public void save(AccountDto accountDto) {
         //아이디 중복 검사
         Optional<Account> accountById = accountRepository.findAccountById(accountDto.id());
-        if (accountById.isEmpty()){
+        if (accountById.isEmpty()) {
             Account account = Account.toAccount(accountDto);
             accountRepository.save(account);
         }
@@ -25,10 +25,10 @@ public class AccountService {
         accountRepository.delete(accountById.get());
     }
 
-    public void update(AccountDto accountDto){
+    public void update(AccountDto accountDto) {
         Optional<Account> accountById = accountRepository.findAccountById(accountDto.id());
 
-        if (accountById.isPresent()){
+        if (accountById.isPresent()) {
 
             Account account = accountById.get();
             account.updateAccount(accountDto);

@@ -17,12 +17,12 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
 
     @Bean
-    public WebSecurityCustomizer webSecurityCustomizer(){
+    public WebSecurityCustomizer webSecurityCustomizer() {
         return web -> web.ignoring().requestMatchers(PathRequest.toStaticResources().atCommonLocations());
     }
 
     @Bean
-    protected SecurityFilterChain webSecurityFilterChain(HttpSecurity http) throws Exception{
+    protected SecurityFilterChain webSecurityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(requsts -> requsts
                         //권한 없이 들어갈 수 있는 페이지
@@ -57,7 +57,7 @@ public class SecurityConfig {
 
     //Spring security 의 권장 Password Encoder
     @Bean
-    public BCryptPasswordEncoder passwordEncoder(){
+    public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
