@@ -29,7 +29,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class AccountTests extends LifetimeApplicationTests {
     @Autowired
     MockMvc mockmvc;
-    MockHttpSession session = new MockHttpSession();
 
     @Autowired
     AccountRepository repository;
@@ -39,8 +38,8 @@ public class AccountTests extends LifetimeApplicationTests {
     // 매 테스트 마다 DB 초기화
     @BeforeEach
     void setUp() {
-        repository.deleteAll();
         oauthRepository.deleteAll();
+        repository.deleteAll();
     }
 
     static MultiValueMap<String, String> createAccountInfo() {

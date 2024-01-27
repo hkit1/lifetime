@@ -16,7 +16,7 @@ import java.util.Map;
 @Table(name = "oauth")
 public class Oauth implements OAuth2User {
     @Id
-    @Column(name = "oauth_key", nullable = false, length = 1024)
+    @Column(name = "oauth_key", nullable = false, length = 512)
     private String oauthKey;
 
     @ManyToOne(fetch = FetchType.LAZY)
