@@ -5,5 +5,5 @@ import java.io.Serializable;
 /**
  * DTO for {@link Company}
  */
-public record CompanyDto(String name, String uuid) implements Serializable {
+public record CompanyDto(String name) implements Serializable {
 }

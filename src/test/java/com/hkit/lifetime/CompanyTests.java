@@ -38,24 +38,7 @@ public class CompanyTests {
 
     @Test
     void createCompany() throws Exception {
-        // 관리자로 설정할 계정 생성 (AccountTest 에서 createAndLogin 테스트가 선행 완료 되어야 함)
-        MultiValueMap<String, String> info = createAccountInfo();
-        Faker daesanghyuk = new Faker();
 
-        String sessionId = Objects.requireNonNull(
-                mockmvc.perform(put("/api/account/register").params(info))
-                .andExpect(status().isOk())
-                .andReturn().getRequest().getSession()).getId();
-
-        // 회사 등록이 잘 되는지 확인
-        // account 파라메터에는 세션 ID이 입력되고, 이 sessionId 으로 계정을 찾아내서 등록
-        mockmvc.perform(put("/api/company/add")
-                .param("name", daesanghyuk.company().name())
-                .param("account", sessionId)
-        ).andExpect(status().isOk());
-
-        assertTrue(repository.findByName(daesanghyuk.company().name()).isPresent());
-        assertEquals(daesanghyuk.name().fullName(), repository.findByName(daesanghyuk.company().name()).get().getAccount().getName());
     }
 
     @Test

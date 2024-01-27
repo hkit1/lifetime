@@ -13,11 +13,4 @@ public class Company {
     @Id
     @Column(name = "name", nullable = false, length = 30)
     private String name;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "uuid")
-    private Account account;
-
-    // api/company/add?name=이름?account=아이디, 세션 id
-
 }

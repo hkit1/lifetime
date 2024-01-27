@@ -32,8 +32,8 @@ public class CategoryTests {
 
     @BeforeEach
     void setUp() {
-        repository.deleteAll();
         subRepository.deleteAll();
+        repository.deleteAll();
     }
 
     @Test

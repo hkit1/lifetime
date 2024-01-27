@@ -6,10 +6,5 @@ import lombok.Getter;
 @AllArgsConstructor
 @Getter
 public enum SecurityRole {
-
-    USER("USER"),
-    ADMIN("ADMIN");
-
-    private String value;
-
+    USER, ADMIN, OWNER
 }

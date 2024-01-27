@@ -55,14 +55,14 @@ public class AccountTests extends LifetimeApplicationTests {
         info.add("gender", String.valueOf(Math.round(Math.random())));
         info.add("address1", faker.address().streetAddress());
         info.add("address2", faker.address().secondaryAddress());
-        info.add("role", SecurityRole.USER.getValue());
+        info.add("role", SecurityRole.USER.name());
+        info.add("company", SecurityRole.ADMIN.name());
 
         return info;
     }
 
     @Test
-    //Spring security 권한 문제로 추가
-    @WithMockUser(username = "테스트_최고관리자", roles = {"SUPER"})
+    @WithMockUser(username = "테스트_최고관리자", roles = {"OWNER"})
     void createAndLogin() throws Exception {
         // 계정 정보 무작위 생성
         MultiValueMap<String, String> info = createAccountInfo();
@@ -83,13 +83,19 @@ public class AccountTests extends LifetimeApplicationTests {
         // 상세 주소값이 없을 경우 계정 등록이 되는지 확인
         assertTrue(repository.findAccountById(info.getFirst("id")).isPresent());
 
+        // 회사 정보가 없을 경우 계정 등록이 되는지 확인
+        info = createAccountInfo();
+        info.set("company", "");
+
+        mockmvc.perform(post("/api/account/register").params(info).with(csrf()))
+                .andExpect(status().isOk());
+
         // 비밀번호가 평문으로 저장되어 있지 않는지 확인
         assertNotEquals(info.getFirst("pw"), repository.findAccountById(info.getFirst("id")).get().getPw());
     }
 
     @Test
-    //Spring security 권한 문제로 추가
-    @WithMockUser(username = "테스트_최고관리자", roles = {"SUPER"})
+    @WithMockUser(username = "테스트_최고관리자", roles = {"OWNER"})
     void loginAccount() throws Exception {
         // 로그인할 계정 생성 (create 테스트가 먼저 완료 되어야 함)
         MultiValueMap<String, String> info = createAccountInfo();
@@ -112,7 +118,7 @@ public class AccountTests extends LifetimeApplicationTests {
     }
 
     @Test
-    @WithMockUser(username = "테스트_최고관리자", roles = {"SUPER"})
+    @WithMockUser(username = "테스트_최고관리자", roles = {"OWNER"})
     void deleteAccount() throws Exception {
     //Spring security 권한 문제로 추가
         // 로그인할 계정 생성 (create 테스트가 먼저 완료 되어야 함)
@@ -132,7 +138,7 @@ public class AccountTests extends LifetimeApplicationTests {
 
     @Test
     //Spring security 권한 문제로 추가
-    @WithMockUser(username = "테스트_최고관리자", roles = {"SUPER"})
+    @WithMockUser(username = "테스트_최고관리자", roles = {"OWNER"})
     void updateAccount() throws Exception {
         // 로그인할 계정 생성 (create 테스트가 먼저 완료 되어야 함)
         MultiValueMap<String, String> info = createAccountInfo();

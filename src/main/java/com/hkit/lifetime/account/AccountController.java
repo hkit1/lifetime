@@ -56,7 +56,8 @@ public class AccountController {
                 accountDto.gender(),
                 accountDto.address1(),
                 accountDto.address2(),
-                accountDto.role()
+                accountDto.role(),
+                accountDto.company()
         );
     }
 

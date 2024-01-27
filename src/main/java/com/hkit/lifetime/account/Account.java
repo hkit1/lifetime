@@ -49,10 +49,13 @@ public class Account {
     @Enumerated(EnumType.STRING)
     private SecurityRole role;
 
+    @Column(name = "company")
+    private String company;
+
     public Account() {
     }
 
-    public Account(String uuid, String id, String pw, String name, String birth, String email, String tel, Integer gender, String address1, String address2, String role) {
+    public Account(String uuid, String id, String pw, String name, String birth, String email, String tel, Integer gender, String address1, String address2, String role, String company) {
         this.uuid = uuid;
         this.id = id;
         this.pw = pw;
@@ -64,10 +67,11 @@ public class Account {
         this.address1 = address1;
         this.address2 = address2;
         this.role = SecurityRole.valueOf(role);
+        this.company = company;
     }
 
     public static Account toAccount(AccountDto accountDto) {
-        return new Account(null, accountDto.id(), accountDto.pw(), accountDto.name(), accountDto.birth(), accountDto.email(), accountDto.tel(), accountDto.gender(), accountDto.address1(), accountDto.address2(), accountDto.role());
+        return new Account(null, accountDto.id(), accountDto.pw(), accountDto.name(), accountDto.birth(), accountDto.email(), accountDto.tel(), accountDto.gender(), accountDto.address1(), accountDto.address2(), accountDto.role(), accountDto.company());
     }
 
     public void updateAccount(AccountDto accountDto) {

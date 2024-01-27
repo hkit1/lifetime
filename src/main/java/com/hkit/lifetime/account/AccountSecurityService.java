@@ -33,7 +33,7 @@ public class AccountSecurityService implements UserDetailsService {
             );
 
             SecurityRole role = account.getRole();
-            accountSecurity.setAuthorities(Collections.singleton(new SimpleGrantedAuthority(role.getValue())));
+            accountSecurity.setAuthorities(Collections.singleton(new SimpleGrantedAuthority(role.name())));
 
             return accountSecurity;
         } catch (Exception e) {

@@ -17,7 +17,6 @@ public class AccountService {
             Account account = Account.toAccount(accountDto);
             accountRepository.save(account);
         }
-
     }
 
     public void delete(String id) {
@@ -29,12 +28,10 @@ public class AccountService {
         Optional<Account> accountById = accountRepository.findAccountById(accountDto.id());
 
         if (accountById.isPresent()) {
-
             Account account = accountById.get();
             account.updateAccount(accountDto);
 
             accountRepository.save(account);
-
         }
 
     }

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>관리 페이지</title>
+    <style>
+        * {
+            /* 브라우저마다 이 값이 다르므로, 똑같은 값으로 설정 */
+            margin: 0;
+            padding: 0;
+        }
+        nav {
+            width: 300px;
+            height: 100%;
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            background-color: blue;
+        }
+        #body {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background-color: green;
+            margin-left: 300px;
+        }
+        .menu, ul.submenu li {
+            width: 100%;
+            height: 30px;
+            line-height: 30px;
+            padding: 0 20px;
+            background-color: orange;
+        }
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+        ul.submenu, #check01, #check02 {
+            display: none;
+        }
+        label {
+            position: relative;
+            display: block;
+            cursor: pointer;
+        }
+        input:checked~ul.submenu {
+            display: block;
+        }
+    </style>
+    <script>
+        const form = document.getElementById("add_company_form");
+        form.addEventListener("submit", (e) => {
+            e.preventDefault();
+            const formData = new FormData(form);
+            fetch("/api/company/create", {
+                method: "POST",
+                body: formData,
+            })
+                .then((response) => {
+                    window.alert(response.ok)
+                })
+                .then((data) => console.log(data))
+                .catch((error) => console.error(error));
+        });
+    </script>
+</head>
+<body>
+<nav>
+    <div>
+        <input type="checkbox" id="check01" name="menu"/>
+        <label for="check01" class="menu">메뉴</label>
+        <ul class="submenu">
+            <li><a href="#">회사 등록</a></li>
+        </ul>
+    </div>
+    <div>
+        <input type="checkbox" id="check02" name="menu"/>
+        <label for="check02" class="menu">로그인</label>
+        <ul class="submenu">
+            <li><a href="#">아무튼 로그인</a></li>
+        </ul>
+    </div>
+</nav>
+<div id="body">
+    <form action="/api/company/create" method="post" id="add_company_form">
+        <label>
+            등록할 회사 이름 : <input type="text" name="name"/>
+        </label>
+        <button type="submit">전송</button>
+    </form>
+</div>
+</body>
+</html>
