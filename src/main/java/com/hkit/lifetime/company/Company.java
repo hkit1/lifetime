@@ -1,7 +1,9 @@
 package com.hkit.lifetime.company;
 
-import com.hkit.lifetime.account.Account;
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 

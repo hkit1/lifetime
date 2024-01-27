@@ -51,8 +51,8 @@ public class CategoryTests {
 
         // 하위 카테고리를 추가할 경우, 상위 카테고리는 1개 값이, 하위 카테고리에는 2개 값이 있는지 확인
         mockMvc.perform(post("/api/category/add")
-                        .param("main", "메인보드")
-                        .param("sub", "intel")
+                .param("main", "메인보드")
+                .param("sub", "intel")
                 .with(csrf())
         ).andExpect(status().isOk());
 
@@ -61,8 +61,8 @@ public class CategoryTests {
 
         // 웹에서 스크립트 오류 등으로 인해 상위 카테고리만 추가되거나 하위 카테고리만 추가 될 경우 서버에서 오류를 내는지 확인
         mockMvc.perform(post("/api/category/add")
-                        .param("main","메인보드")
-                        .param("sub", "")
+                .param("main", "메인보드")
+                .param("sub", "")
                 .with(csrf())
         ).andExpect(status().isBadRequest());
 
@@ -99,7 +99,7 @@ public class CategoryTests {
 
         // 하위 카테고리 값이 없을 경우, 하위 카테고리와 함께 상위 카테고리를 삭제하는지 확인
         mockMvc.perform(post("/api/category/delete")
-                .param("main","메인보드")
+                .param("main", "메인보드")
                 .param("sub", "")
                 .with(csrf())
         ).andExpect(status().isOk());
@@ -112,14 +112,14 @@ public class CategoryTests {
     void update() throws Exception {
         // 데이터 추가 (create 테스트가 먼저 완료되어야 함)
         mockMvc.perform(post("/api/category/add")
-                        .param("main", "메인보드")
-                        .param("sub", "amd")
+                .param("main", "메인보드")
+                .param("sub", "amd")
                 .with(csrf())
         ).andExpect(status().isOk());
 
         mockMvc.perform(post("/api/category/add")
-                        .param("main", "메인보드")
-                        .param("sub", "intel")
+                .param("main", "메인보드")
+                .param("sub", "intel")
                 .with(csrf())
         ).andExpect(status().isOk());
 
