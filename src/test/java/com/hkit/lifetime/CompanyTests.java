@@ -40,40 +40,46 @@ public class CompanyTests {
     @Test
     void createCompany() throws Exception {
         Faker faker = new Faker();
+        String company_name = faker.company().name();
 
         // 회사 이름이 등록되는지 확인
         mockMvc.perform(post("/api/company/create")
-                        .param("name", faker.company().name())
+                        .param("name", company_name)
                         .with(csrf()))
                 .andExpect(status().isOk());
 
-        assertTrue(repository.findByName(faker.company().name()).isPresent());
+        assertTrue(repository.findByName(company_name).isPresent());
     }
 
     @Test
     void deleteCompany() throws Exception {
         // 삭제할 데이터 생성 (createCompany 테스트가 먼저 완료 되어야 함)
         Faker faker = new Faker();
+        String company_name = faker.company().name();
+
         mockMvc.perform(post("/api/company/create")
-                        .param("name", faker.company().name())
+                        .param("name", company_name)
                         .with(csrf()))
                 .andExpect(status().isOk());
 
         // 회사 이름이 삭제되는지 확인
         mockMvc.perform(post("/api/company/delete")
-                        .param("name", faker.company().name())
+                        .param("name", company_name)
                         .with(csrf()))
                 .andExpect(status().isOk());
 
-        assertFalse(repository.findByName(faker.company().name()).isPresent());
+        assertFalse(repository.findByName(company_name).isPresent());
     }
 
     @Test
     void registerCompany() throws Exception {
         // 등록될 회사 데이터 생성 (createCompany 테스트가 먼저 완료 되어야 함)
         Faker faker = new Faker();
+        String company_name = faker.company().name();
+        String username = faker.internet().username();
+
         mockMvc.perform(post("/api/company/create")
-                        .param("name", faker.company().name())
+                        .param("name", company_name)
                         .with(csrf()))
                 .andExpect(status().isOk());
 
@@ -92,6 +98,6 @@ public class CompanyTests {
         mockMvc.perform(post("/api/account/admin/register").params(info).with(csrf()))
                 .andExpect(status().isOk());
 
-        assertEquals(faker.company().name(), accountRepository.findAccountById(faker.internet().username()).get().getCompany());
+        assertEquals(faker.company().name(), accountRepository.findAccountById(username).get().getCompany());
     }
 }
