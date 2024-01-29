@@ -11,8 +11,8 @@ import lombok.Setter;
 @Table(name = "teacher")
 public class Teacher {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long uuid;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private String uuid;
 
     @OneToOne
     @JoinColumn(name = "account", nullable = false)

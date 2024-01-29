@@ -3,6 +3,7 @@ package com.hkit.lifetime.account;
 import com.hkit.lifetime.security.SecurityRole;
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
@@ -12,6 +13,7 @@ import java.time.format.DateTimeFormatter;
 @Setter
 @Entity
 @Table(name = "account")
+@NoArgsConstructor
 public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -51,9 +53,6 @@ public class Account {
 
     @Column(name = "company")
     private String company;
-
-    public Account() {
-    }
 
     public Account(String uuid, String id, String pw, String name, String birth, String email, String tel, Integer gender, String address1, String address2, String role, String company) {
         this.uuid = uuid;

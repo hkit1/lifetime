@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.mock.web.MockHttpSession;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.util.LinkedMultiValueMap;
@@ -31,14 +32,14 @@ public class AccountTests extends LifetimeApplicationTests {
 
     @Autowired
     AccountRepository repository;
-    @Autowired
-    OauthRepository oauthRepository;
+//    @Autowired
+//    OauthRepository oauthRepository;
 
     // 매 테스트 마다 DB 초기화
     @BeforeEach
     void setUp() {
-        oauthRepository.deleteAll();
         repository.deleteAll();
+//        oauthRepository.deleteAll();
     }
 
     static MultiValueMap<String, String> createAccountInfo() {
@@ -61,7 +62,8 @@ public class AccountTests extends LifetimeApplicationTests {
     }
 
     @Test
-    @WithMockUser(username = "테스트_최고관리자", roles = {"OWNER"})
+    //Spring security 권한 문제로 추가
+    @WithMockUser(username = "테스트_최고관리자", roles = {"SUPER"})
     void createAndLogin() throws Exception {
         // 계정 정보 무작위 생성
         MultiValueMap<String, String> info = createAccountInfo();
