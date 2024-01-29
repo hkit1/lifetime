@@ -13,6 +13,8 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.context.WebApplicationContext;
 
+import java.util.Locale;
+
 import static com.hkit.lifetime.AccountTests.createAccountInfo;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
@@ -39,7 +41,7 @@ public class CompanyTests {
 
     @Test
     void createCompany() throws Exception {
-        Faker faker = new Faker();
+        Faker faker = new Faker(Locale.KOREAN);
         String company_name = faker.company().name();
 
         // 회사 이름이 등록되는지 확인
@@ -54,7 +56,7 @@ public class CompanyTests {
     @Test
     void deleteCompany() throws Exception {
         // 삭제할 데이터 생성 (createCompany 테스트가 먼저 완료 되어야 함)
-        Faker faker = new Faker();
+        Faker faker = new Faker(Locale.KOREAN);
         String company_name = faker.company().name();
 
         mockMvc.perform(post("/api/company/create")
