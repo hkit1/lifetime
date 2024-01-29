@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.context.WebApplicationContext;
@@ -42,8 +41,8 @@ public class CompanyTests {
     void createCompany() throws Exception {
         Faker faker = new Faker();
 
-        // 회사 이름을 등록되는지 확인
-        mockMvc.perform(post("/api/account/register")
+        // 회사 이름이 등록되는지 확인
+        mockMvc.perform(post("/api/company/create")
                         .param("name", faker.company().name())
                         .with(csrf()))
                 .andExpect(status().isOk());
@@ -55,13 +54,13 @@ public class CompanyTests {
     void deleteCompany() throws Exception {
         // 삭제할 데이터 생성 (createCompany 테스트가 먼저 완료 되어야 함)
         Faker faker = new Faker();
-        mockMvc.perform(post("/api/account/register")
+        mockMvc.perform(post("/api/company/create")
                         .param("name", faker.company().name())
                         .with(csrf()))
                 .andExpect(status().isOk());
 
         // 회사 이름이 삭제되는지 확인
-        mockMvc.perform(post("/api/account/register")
+        mockMvc.perform(post("/api/company/delete")
                         .param("name", faker.company().name())
                         .with(csrf()))
                 .andExpect(status().isOk());
@@ -73,7 +72,7 @@ public class CompanyTests {
     void registerCompany() throws Exception {
         // 등록될 회사 데이터 생성 (createCompany 테스트가 먼저 완료 되어야 함)
         Faker faker = new Faker();
-        mockMvc.perform(post("/api/account/register")
+        mockMvc.perform(post("/api/company/create")
                         .param("name", faker.company().name())
                         .with(csrf()))
                 .andExpect(status().isOk());
@@ -82,9 +81,9 @@ public class CompanyTests {
         MultiValueMap<String, String> info = createAccountInfo();
         info.set("company", "nothing");
 
-        // 없는 회사를 입력했을 때 Bad request 출력 (아래 코드를 사용)
+        // 회원가입 창에서 없는 회사를 입력했을 때 Bad request 출력 (아래 코드를 사용)
         // @ResponseStatus(code = HttpStatus.BadRequest, reason = "Company not found")
-        // 관리자 계정을 생성할 때에는 /api/account/admin/register 사용
+        // 관리자 계정 (강사 계정)을 생성할 때에는 /api/account/admin/register 사용
         mockMvc.perform(post("/api/account/admin/register").params(info).with(csrf()))
                 .andExpect(status().isBadRequest());
 

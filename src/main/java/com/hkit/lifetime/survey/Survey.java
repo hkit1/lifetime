@@ -18,7 +18,7 @@ public class Survey {
     @Column(name = "content")
     private String content;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "account_uuid")
     private Account account;
 }

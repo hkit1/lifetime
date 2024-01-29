@@ -1,5 +1,6 @@
 package com.hkit.lifetime.teacher;
 
+import com.hkit.lifetime.account.Account;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -10,14 +11,13 @@ import lombok.Setter;
 @Table(name = "teacher")
 public class Teacher {
     @Id
-    @GeneratedValue
-    @Column(name = "uuid", nullable = false, length = 36)
-    private String uuid;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "account", nullable = false)
+    private Account account;
 
     @Column(name = "name")
     private String name;
 
     @Column(name = "tel")
     private String tel;
-
 }

@@ -37,7 +37,7 @@ public class CategoryTests {
     }
 
     @Test
-    void create() throws Exception {
+    void createCategory() throws Exception {
         // "메인보드" 라는 상위 카테고리가 추가 되는지 확인
         // 웹에서 상위 카테고리를 추가하면 하위 카테고리를 추가할 때 까지 추가 못하도록 해야 함.
         mockMvc.perform(post("/api/category/add")
@@ -109,7 +109,7 @@ public class CategoryTests {
     }
 
     @Test
-    void update() throws Exception {
+    void updateCategory() throws Exception {
         // 데이터 추가 (create 테스트가 먼저 완료되어야 함)
         mockMvc.perform(post("/api/category/add")
                 .param("main", "메인보드")
