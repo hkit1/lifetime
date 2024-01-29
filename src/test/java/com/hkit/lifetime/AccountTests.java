@@ -2,7 +2,6 @@ package com.hkit.lifetime;
 
 import com.hkit.lifetime.account.Account;
 import com.hkit.lifetime.account.AccountRepository;
-import com.hkit.lifetime.oauth.OauthRepository;
 import com.hkit.lifetime.security.SecurityRole;
 import net.datafaker.Faker;
 import org.junit.jupiter.api.BeforeEach;
@@ -10,13 +9,13 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.mock.web.MockHttpSession;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
 import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -43,7 +42,7 @@ public class AccountTests extends LifetimeApplicationTests {
     }
 
     static MultiValueMap<String, String> createAccountInfo() {
-        Faker faker = new Faker();
+        Faker faker = new Faker(Locale.KOREAN);
         MultiValueMap<String, String> info = new LinkedMultiValueMap<>();
 
         info.add("id", faker.internet().username());
@@ -74,9 +73,17 @@ public class AccountTests extends LifetimeApplicationTests {
         // 계정 등록이 잘 되었는지 확인
         assertTrue(repository.findAccountById(info.getFirst("id")).isPresent());
 
+        // 같은 ID로 등록할 경우 오류가 생기는지 확인
+        mockMvc.perform(post("/api/account/check").param("id", info.getFirst("id")).with(csrf()))
+                .andExpect(status().isBadRequest());
+
         // 계정 정보 무작위 생성 그러나 상세 주소는 제외
         info = createAccountInfo();
         info.set("address2", "");
+
+        // 중복 ID 검사에서 통과 되는지 확인
+        mockMvc.perform(post("/api/account/check").param("id", info.getFirst("id")).with(csrf()))
+                .andExpect(status().isOk());
 
         mockMvc.perform(post("/api/account/register").params(info).with(csrf()))
                 .andExpect(status().isOk());
@@ -151,7 +158,7 @@ public class AccountTests extends LifetimeApplicationTests {
         assertTrue(account.isPresent());
 
         String oldAddress = info.getFirst("address1");
-        info.set("address1", new Faker().address().streetAddress());
+        info.set("address1", new Faker(Locale.KOREAN).address().streetAddress());
 
         mockMvc.perform(post("/api/account/update").params(info).with(csrf()))
                 .andExpect(status().isOk());
