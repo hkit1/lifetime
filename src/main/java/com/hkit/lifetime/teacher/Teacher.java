@@ -11,7 +11,10 @@ import lombok.Setter;
 @Table(name = "teacher")
 public class Teacher {
     @Id
-    @ManyToOne(fetch = FetchType.LAZY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long uuid;
+
+    @OneToOne
     @JoinColumn(name = "account", nullable = false)
     private Account account;
 

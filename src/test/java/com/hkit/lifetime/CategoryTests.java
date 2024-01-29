@@ -142,6 +142,6 @@ public class CategoryTests {
 
         Optional<SubCategory> sub = subRepository.findByName("ami");
         assertTrue(sub.isPresent());
-        assertEquals("board", sub.get().getCategory().getName());
+        assertEquals("board", sub.get().getMainCategory().getName());
     }
 }

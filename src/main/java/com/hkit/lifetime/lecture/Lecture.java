@@ -36,7 +36,6 @@ public class Lecture {
     @JoinColumn(name = "uuid", nullable = false)
     private Teacher teacher;
 
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category", nullable = false)
     private SubCategory category;
