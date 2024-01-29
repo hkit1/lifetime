@@ -74,17 +74,14 @@ public class CompanyTests {
     @Test
     void registerCompany() throws Exception {
         // 등록될 회사 데이터 생성 (createCompany 테스트가 먼저 완료 되어야 함)
-        Faker faker = new Faker();
-        String company_name = faker.company().name();
-        String username = faker.internet().username();
+        MultiValueMap<String, String> info = createAccountInfo();
 
         mockMvc.perform(post("/api/company/create")
-                        .param("name", company_name)
+                        .param("name", "testCompany")
                         .with(csrf()))
                 .andExpect(status().isOk());
 
         // 계정 등록할 때 회사 등록이 되는지 확인 (AccountTests 에서 createAndLogin 테스트가 먼저 완료되어야 함)
-        MultiValueMap<String, String> info = createAccountInfo();
         info.set("company", "nothing");
 
         // 회원가입 창에서 없는 회사를 입력했을 때 Bad request 출력 (아래 코드를 사용)
@@ -94,10 +91,10 @@ public class CompanyTests {
                 .andExpect(status().isBadRequest());
 
         // 있는 회사를 입력했을 때 OK
-        info.set("company", faker.company().name());
+        info.set("company", "testCompany");
         mockMvc.perform(post("/api/account/admin/register").params(info).with(csrf()))
                 .andExpect(status().isOk());
 
-        assertEquals(faker.company().name(), accountRepository.findAccountById(username).get().getCompany());
+        assertEquals(accountRepository.findAccountById(info.getFirst("id")).get().getCompany(), repository.findByName(info.getFirst("company")).get().getName());
     }
 }

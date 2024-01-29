@@ -55,7 +55,7 @@ public class AccountTests extends LifetimeApplicationTests {
         info.add("address1", faker.address().streetAddress());
         info.add("address2", faker.address().secondaryAddress());
         info.add("role", SecurityRole.USER.name());
-        info.add("company", SecurityRole.ADMIN.name());
+        info.add("company", "nothing");
 
         return info;
     }
