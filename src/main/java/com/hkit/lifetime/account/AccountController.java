@@ -9,8 +9,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.server.ResponseStatusException;
+
+import java.util.Optional;
 
 @Controller
 @RequiredArgsConstructor
@@ -28,10 +29,15 @@ public class AccountController {
     @PostMapping("/api/account/register")
     public String accountRegister(AccountDto accountDto) {
 
-        AccountDto encodeAccount = encodePw(accountDto);
-        accountService.save(encodeAccount);
+        Optional<Account> account = accountService.duplicateCheck(accountDto.id());
+        if (account.isEmpty()) {
+            AccountDto encodeAccount = encodePw(accountDto);
+            accountService.save(encodeAccount);
+            return "home";
+        }else {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Id in Use");
+        }
 
-        return "home";
     }
 
     @PostMapping("/api/account/admin/register")
@@ -43,6 +49,16 @@ public class AccountController {
         AccountDto encodeAccount = encodePw(accountDto);
         accountService.save(encodeAccount);
         return "home";
+    }
+
+    @PostMapping("/api/account/check")
+    public HttpStatus idCheck(@RequestParam(name = "id") String id){
+        Optional<Account> account = accountService.duplicateCheck(id);
+        if (account.isEmpty()){
+            return HttpStatus.OK;
+        } else {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Id in Use");
+        }
     }
 
     @PostMapping("/api/account/delete")

@@ -10,13 +10,15 @@ import java.util.Optional;
 public class AccountService {
     public final AccountRepository accountRepository;
 
-    public void save(AccountDto accountDto) {
+    public String save(AccountDto accountDto) {
         //아이디 중복 검사
         Optional<Account> accountById = accountRepository.findAccountById(accountDto.id());
         if (accountById.isEmpty()) {
             Account account = Account.toAccount(accountDto);
-            accountRepository.save(account);
+            return accountRepository.save(account).getId();
         }
+
+        return null;
     }
 
     public void delete(String id) {
@@ -35,4 +37,9 @@ public class AccountService {
         }
 
     }
+
+    public Optional<Account> duplicateCheck(String id){
+        return accountRepository.findAccountById(id);
+    }
+
 }
