@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
-  <title>헤더</title>
+  <title>회원가입_회원가입완료</title>
   <style>
       /* 헤더 css 시작 */
       @import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Merienda:wght@700&family=Noto+Sans+KR:wght@100;200&family=Single+Day&display=swap');
@@ -156,6 +156,133 @@
           text-decoration: none;
       }
       /* 헤더 css 끝 */
+
+      /* 회원가입_회원가입완료 css 시작 */
+      .reg_container {
+          width: 1200px;
+          margin: 0 auto;
+      }
+
+      .reg_procedure p {
+          margin-top: 50px;
+          font-weight: bold;
+          font-size: large;
+          text-align: center;
+      }
+
+      .reg_order_icon {
+          margin-top: 40px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+      }
+
+      .reg_order_icon img {
+          width: 110px;
+          height: 12px;
+          margin: 0 40px;
+      }
+
+      .reg_order_round {
+          width: 100px;
+          height: 100px;
+          margin-left: 10px;
+          border-radius: 50%;
+          background-color: #0077cc;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+      }
+
+      .reg_order_round_sub {
+          width: 100px;
+          height: 100px;
+          border-radius: 50%;
+          background-color: rgb(156, 185, 215);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+      }
+
+      .reg_order_text {
+          font-size: 14px;
+          font-weight: bold;
+          color: white;
+          text-align: center;
+      }
+
+      hr {
+          margin-top: 100px;
+      }
+
+      .register_complete_container {
+          width: 100%;
+          height: 800px;
+      }
+
+      .register_complete_window {
+          width: 900px;
+          height: 600px;
+          margin: 100px auto 0;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          background-color: #F7F7F7;
+      }
+
+      .register_complete_title {
+          font-size: 32px;
+          font-weight: 700;
+          line-height: 72px;
+          text-align: center;
+      }
+
+      .register_complete_content {
+          margin: 50px 0;
+          text-align: center;
+      }
+
+      .register_complete_content img {
+          margin-bottom: 30px;
+      }
+
+      .register_complete_content p {
+          font-family: "Droid Sans";
+          color: #767676;
+          font-size: 20px;
+          font-weight: 400;
+          line-height: 30px;
+          text-align: center;
+      }
+
+      .register_complete_decision a {
+          width: 150px;
+          height: 60px;
+          float: left;
+          font-family: "Droid Sans";
+          font-size: 15px;
+          font-weight: 700;
+          line-height: 34px;
+          border-width: 0;
+          border-radius: 10px;
+          text-decoration: none;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+      }
+
+      .register_complete_decision .login {
+          color: #FFFFFF;
+          background-color: #559CE3;
+          margin-right: 30px;
+      }
+
+      .register_complete_decision .main {
+          color: #A1A1A1;
+          background-color: #F2F2F2;
+      }
+      /* 회원가입_회원가입완료 css 끝 */
   </style>
 </head>
 <body>
@@ -224,6 +351,52 @@
       </div>
     </header>
     <!-- 헤더 html 끝 -->
+
+    <!-- 회원가입_회원가입완료 html 시작 -->
+    <div class="reg_container">
+      <div class="reg_procedure">
+        <div>
+          <p>회원가입</p>
+        </div>
+        <div class="reg_order_icon">
+          <div class="reg_order_round_sub">
+            <span class="reg_order_text">회원유형 선택</span>
+          </div>
+          <img src="sub_line.png" alt="">
+          <div class="reg_order_round_sub">
+            <span class="reg_order_text">약관동의</span>
+          </div>
+          <img src="sub_line.png" alt="">
+          <div class="reg_order_round_sub">
+            <span class="reg_order_text">회원정보 입력</span>
+          </div>
+          <img src="sub_line.png" alt="">
+          <div class="reg_order_round">
+            <span class="reg_order_text">가입완료</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <hr>
+
+    <div class="register_complete_container">
+      <div class="register_complete_window">
+        <div class="register_complete_title">
+          <p>회원가입 완료</p>
+        </div>
+        <div class="register_complete_content">
+          <img src="group.png" alt="">
+          <p>회원가입이 완료되었습니다.</p>
+          <p>이제 온라인 평생학습 플랫폼의 다양한 서비스를 만나보세요.</p>
+        </div>
+        <div class="register_complete_decision">
+          <a href="" class="login">로 그 인</a>
+          <a href="" class="main">메 인</a>
+        </div>
+      </div>
+    </div>
+    <!-- 회원가입_회원가입완료 html 시작 -->
   </div>
 
 </body>
