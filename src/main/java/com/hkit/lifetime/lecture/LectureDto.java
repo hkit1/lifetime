@@ -6,6 +6,6 @@ import java.time.LocalDate;
 /**
  * DTO for {@link Lecture}
  */
-public record LectureDto(Integer lectureId, String name, LocalDate createdAt, LocalDate closedAt, String companyName,
-                         String uuid, Integer category) implements Serializable {
+public record LectureDto(Integer id, String name, LocalDate createdAt, LocalDate closedAt, Integer category,
+                         String companyId) implements Serializable {
 }

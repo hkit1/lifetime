@@ -9,23 +9,24 @@ import lombok.Setter;
 @Entity
 @Table(name = "lecture_content")
 public class LectureContent {
+
     @Id
-    @GeneratedValue
-    @Column(name = "id")
-    private Long id;
+    @Column(name = "id", nullable = false)
+    private Integer id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "lecture_id", nullable = false)
-    private Lecture lecture_id;
+    private Lecture lecture;
 
-    @Column(name = "name")
+    @Lob
+    @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "description")
+    @Lob
+    @Column(name = "description", nullable = false)
     private String description;
 
-    @Column(name = "url")
+    @Lob
+    @Column(name = "url", nullable = false)
     private String url;
-
-
 }

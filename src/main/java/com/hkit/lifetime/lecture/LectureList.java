@@ -1,5 +1,6 @@
 package com.hkit.lifetime.lecture;
 
+import com.hkit.lifetime.account.Account;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -9,15 +10,17 @@ import lombok.Setter;
 @Entity
 @Table(name = "lecture_list")
 public class LectureList {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "id", nullable = false)
+    @Column(name = "listId", nullable = false)
     private Integer id;
 
-    @Column(name = "uuid", length = 36)
-    private String uuid;
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "uuid", nullable = false)
+    private Account uuid;
 
-    @Column(name = "lecture_id", nullable = false)
-    private Integer lectureId;
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "lecture_id", nullable = false)
+    private Lecture lecture;
 
 }

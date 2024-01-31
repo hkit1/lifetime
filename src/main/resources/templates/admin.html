@@ -47,6 +47,14 @@
         input:checked~ul.submenu {
             display: block;
         }
+        @media (700px > width) {
+            nav {
+                width: 150px;
+            }
+            #body {
+                margin-left: 150px;
+            }
+        }
     </style>
     <script>
         const form = document.getElementById("add_company_form");

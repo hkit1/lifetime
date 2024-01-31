@@ -1,12 +1,10 @@
 package com.hkit.lifetime.account;
 
-import java.io.Serializable;
-import java.util.UUID;
+import java.time.LocalDate;
 
 /**
  * DTO for {@link Account}
  */
-public record AccountDto(UUID uuid, String id, String pw, String name, String birth, String email, String tel,
-                         Integer gender,
-                         String address1, String address2, String role, String company) implements Serializable {
+public record AccountDto(String uuid, String name, String id, String pw, LocalDate birth, String email, String tel,
+                         Boolean gender, String address1, String address2) {
 }

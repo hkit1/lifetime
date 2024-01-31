@@ -1,8 +1,15 @@
 package com.hkit.lifetime;
 
+import static org.junit.jupiter.api.Assertions.*;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 import com.hkit.lifetime.account.Account;
 import com.hkit.lifetime.account.AccountRepository;
-import com.hkit.lifetime.security.SecurityRole;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
+import java.util.Optional;
 import net.datafaker.Faker;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -13,15 +20,6 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
-
-import java.time.format.DateTimeFormatter;
-import java.util.Locale;
-import java.util.Optional;
-
-import static org.junit.jupiter.api.Assertions.*;
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -54,8 +52,6 @@ public class AccountTests extends LifetimeApplicationTests {
         info.add("gender", String.valueOf(Math.round(Math.random())));
         info.add("address1", faker.address().streetAddress());
         info.add("address2", faker.address().secondaryAddress());
-        info.add("role", SecurityRole.USER.name());
-        info.add("company", "nothing");
 
         return info;
     }
