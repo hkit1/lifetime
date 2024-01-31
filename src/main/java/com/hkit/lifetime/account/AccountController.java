@@ -1,6 +1,5 @@
 package com.hkit.lifetime.account;
 
-import com.hkit.lifetime.company.CompanyDto;
 import com.hkit.lifetime.company.CompanyService;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
@@ -27,7 +26,6 @@ public class AccountController {
 
     @PostMapping("/api/account/register")
     public String accountRegister(AccountDto accountDto) {
-
         Optional<Account> account = accountService.duplicateCheck(accountDto.id());
         if (account.isEmpty()) {
             AccountDto encodeAccount = encodePw(accountDto);
@@ -37,17 +35,6 @@ public class AccountController {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Id in Use");
         }
 
-    }
-
-    @PostMapping("/api/account/admin/register")
-    public String adminRegister(AccountDto accountDto){
-        CompanyDto byCompanyName = companyService.existenceCheck(accountDto.company());
-        if (byCompanyName == null){
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Company not found");
-        }
-        AccountDto encodeAccount = encodePw(accountDto);
-        accountService.save(encodeAccount);
-        return "home";
     }
 
     @PostMapping("/api/account/check")

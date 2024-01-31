@@ -1,6 +1,7 @@
 package com.hkit.lifetime.company;
 
 import jakarta.persistence.*;
+import java.time.LocalDate;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -41,7 +42,13 @@ public class Company {
     @Column(name = "tel", nullable = false, length = 12)
     private String tel;
 
-    public Company(String companyId, String id, String name, String admin, String email, String address1, String address2, String tel) {
+    @Column(name = "authorized", nullable = false)
+    private Boolean authorized;
+
+    @Column(name = "authorized_date", nullable = false)
+    private LocalDate authorizedDate;
+
+    public Company(String companyId, String id, String name, String admin, String email, String address1, String address2, String tel, Boolean authorized, LocalDate authorizedDate) {
         this.companyId = companyId;
         this.id = id;
         this.name = name;
@@ -50,6 +57,8 @@ public class Company {
         this.address1 = address1;
         this.address2 = address2;
         this.tel = tel;
+        this.authorized = authorized;
+        this.authorizedDate = authorizedDate;
     }
 
     public static Company toCompany(CompanyDto companyDto) {
@@ -61,6 +70,8 @@ public class Company {
         companyDto.email(),
         companyDto.address1(),
         companyDto.address2(),
-        companyDto.tel());
+        companyDto.tel(),
+            companyDto.authorized(),
+            companyDto.authorizedDate());
     }
 }

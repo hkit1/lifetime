@@ -1,13 +1,7 @@
 package com.hkit.lifetime.account;
 
-import com.hkit.lifetime.company.CompanyList;
-import com.hkit.lifetime.lecture.LectureList;
-import com.hkit.lifetime.oauth.Oauth;
-import com.hkit.lifetime.rating.Rating;
 import jakarta.persistence.*;
 import java.time.LocalDate;
-import java.util.LinkedHashSet;
-import java.util.Set;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -54,21 +48,6 @@ public class Account {
     @Lob
     @Column(name = "address2")
     private String address2;
-
-    @OneToMany(mappedBy = "uuid")
-    private Set<Attendance> attendances = new LinkedHashSet<>();
-
-    @OneToMany(mappedBy = "uuid")
-    private Set<CompanyList> companyLists = new LinkedHashSet<>();
-
-    @OneToMany(mappedBy = "uuid")
-    private Set<LectureList> lectureLists = new LinkedHashSet<>();
-
-    @OneToMany(mappedBy = "uuid")
-    private Set<Oauth> oauths = new LinkedHashSet<>();
-
-    @OneToMany(mappedBy = "uuid")
-    private Set<Rating> ratings = new LinkedHashSet<>();
 
     public Account(String uuid, String name, String id, String pw, LocalDate birth, String email, String tel, Boolean gender, String address1, String address2) {
         this.uuid = uuid;

@@ -171,7 +171,7 @@ ALTER TABLE `lecture_content`
                                                      `id`
         );
 
-ALTER TABLE `company_list`
+ALTER TABLE company_account_list
     ADD CONSTRAINT `PK_COMPANY_LIST` PRIMARY KEY (
                                                   `relationId`
         );
@@ -277,7 +277,7 @@ ALTER TABLE `lecture_content`
                               `lecture_id`
             );
 
-ALTER TABLE `company_list`
+ALTER TABLE company_account_list
     ADD CONSTRAINT `FK_account_TO_company_list_1` FOREIGN KEY (
                                                                `uuid`
         )
@@ -285,7 +285,7 @@ ALTER TABLE `company_list`
                               `uuid`
             );
 
-ALTER TABLE `company_list`
+ALTER TABLE company_account_list
     ADD CONSTRAINT `FK_company_TO_company_list_1` FOREIGN KEY (
                                                                `companyId`
         )

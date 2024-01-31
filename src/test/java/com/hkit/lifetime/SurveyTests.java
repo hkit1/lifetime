@@ -1,4 +1,3 @@
 package com.hkit.lifetime;
 
-public class SurveyTests {
-}
+public class SurveyTests {}

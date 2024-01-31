@@ -1,15 +1,11 @@
 package com.hkit.lifetime.account;
 
-import com.hkit.lifetime.security.SecurityRole;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-
-import java.util.Collections;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -32,9 +28,10 @@ public class AccountSecurityService implements UserDetailsService {
                     account.getPw()
             );
 
-            SecurityRole role = account.getRole();
+            // todo fix
+            /*SecurityRole role = account.getRole();
             accountSecurity.setAuthorities(Collections.singleton(new SimpleGrantedAuthority(role.name())));
-
+*/
             return accountSecurity;
         } catch (Exception e) {
             return null;

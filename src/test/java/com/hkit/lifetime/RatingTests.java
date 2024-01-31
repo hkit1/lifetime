@@ -9,11 +9,8 @@ import org.springframework.test.web.servlet.MockMvc;
 @SpringBootTest
 @AutoConfigureMockMvc
 public class RatingTests {
-    @Autowired
-    MockMvc mockMvc;
+  @Autowired MockMvc mockMvc;
 
-    @Test
-    void createRating() {
-
-    }
+  @Test
+  void createRating() {}
 }
