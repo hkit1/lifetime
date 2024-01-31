@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>수강신청등록기관</title>
+  <style>
+      /* 헤더 css 시작 */
+      @import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Merienda:wght@700&family=Noto+Sans+KR:wght@100;200&family=Single+Day&display=swap');
+
+      * {
+          margin: 0;
+          padding: 0;
+      }
+
+      .container {
+          width: 1200px;
+          margin: 0 auto;
+          padding: 0;
+          display: flex;
+          flex-direction: column;
+      }
+
+      header {
+          width: 100%;
+          height: 100px;
+      }
+
+      ul {
+          list-style: none;
+      }
+
+      .logo {
+          width: 200px;
+          height: 100px;
+          background: salmon;
+          float: left;
+          display: inline-grid;
+      }
+
+      .logo a {
+          text-decoration: none;
+          display: flex;
+          flex-direction: row-reverse;
+          justify-content: center;
+          align-items: center;
+      }
+
+      .logo a h5 {
+          margin-left: 5px;
+          font-size: 25px;
+          font-weight: 700;
+          font-family: 'Single Day', cursive;
+      }
+
+      .logo a img {
+          width: 50px;
+          height: 50px;
+      }
+
+      nav {
+          width: 800px;
+          height: 100px;
+          background: orange;
+          float: left;
+          position: relative;
+      }
+
+      nav:hover .subMenu_cate {
+          display: flex;
+      }
+
+      .topMenu {
+          height: 100px;
+          margin-left: 30px;
+      }
+
+      .topMenu li {
+          height: 100%;
+          padding: 30px 25px;
+          float: left;
+          display: block;
+          color: blueviolet;
+          font-weight: 600;
+          text-shadow: 0 1px #07c;
+      }
+
+      .topMenu li a {
+          text-decoration: none;
+      }
+
+      .topMenu li:hover {
+          color: #000;
+          text-shadow: 0 -1px #07c;
+      }
+
+      .subMenu_cate {
+          width: 100%;
+          height: 300px;
+          left: 0;
+          top: 100px;
+          background: greenyellow;
+          position: absolute;
+          display: none;
+          z-index: 999;
+      }
+
+      .subMenu {
+          width: calc(100% / 5);
+          text-align: center;
+      }
+
+      .subMenu li {
+          width: 100%;
+      }
+
+      .subMenu li a {
+          font-size: 20px;
+          text-decoration: none;
+      }
+
+      .member_btn {
+          width: 200px;
+          height: 100px;
+          float: right;
+          display: flex;
+          align-items: center;
+          background: aqua;
+      }
+
+      .reg {
+          width: 100px;
+          height: 50px;
+          font-size: 0.8em;
+          color: white;
+          border: 1px solid black;
+          border-radius: 30px;
+          background: #0077cc;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          text-decoration: none;
+      }
+
+      .login {
+          width: 100px;
+          height: 50px;
+          margin-left: 5px;
+          font-size: 0.8em;
+          color: white;
+          border: 1px solid black;
+          border-radius: 30px;
+          background: mediumslateblue;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          text-decoration: none;
+      }
+      /* 헤더 css 끝 */
+
+      /* 수강신청등록기관 css 시작 */
+      .title_container {
+          width: 100%;
+          height: 240px;
+      }
+
+      .title {
+          font-family: "Droid Sans";
+          font-weight: 700;
+          font-size: 28px;
+          line-height: 240px;
+          text-align: center;
+      }
+
+      .personal_information_use_policy {
+          width: 100%;
+          height: 350px;
+          margin-bottom: 60px;
+      }
+
+      .personal_information_use_policy_title {
+          font-size: 18px;
+          font-weight: 700;
+          line-height: 41px;
+      }
+
+      li::marker { /* 불릿 색상 바꾸기 */
+          color: #0BA2D2;
+      }
+
+      /* textarea 스크롤 바 커스텀 시작 */
+      textarea::-webkit-scrollbar {
+          width: 1em; /* 스크롤 바 넓이 */
+      }
+
+      textarea::-webkit-scrollbar-track {
+          -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+          border-radius: 30px;
+      }
+
+      textarea::-webkit-scrollbar-thumb {
+          background-color: rgb(139, 139, 139);
+          outline: 1px solid slategrey;
+          border-radius: 30px;
+      }
+      /* textarea 스크롤 바 커스텀 끝 */
+
+      .personal_information_use_policy_text {
+          width: 100%;
+          height: 305px;
+          background-color: #D9D9D9;
+          resize: none;
+      }
+
+      .institution_input_container {
+          width: 95%;
+          height: 900px;
+          margin: 0 auto;
+      }
+
+      .institution_form {
+          margin-top: 40px;
+      }
+
+      .institution_name {
+          width: 100%;
+          height: 40px;
+          display: flex;
+          align-items: center;
+          margin-bottom: 30px;
+      }
+
+      .category_container {
+          width: 150px;
+      }
+
+      .category_text {
+          font-family: "Droid Sans";
+      }
+
+      .real_input {
+          margin-left: 60px;
+      }
+
+      .institutionName_postcode_dong_file_button {
+          width: 110px;
+          height: 30px;
+          border: 1px;
+          border-radius: 4px;
+          font-size: 11px;
+          font-weight: 400;
+          font-family: "Droid Sans";
+          line-height: 25px;
+          color: #FFFFFF;
+          background-color: #4F4F4F;
+          cursor: pointer;
+      }
+
+      .short_box {
+          width: 100px;
+      }
+
+      .representative_name {
+          width: 100%;
+          height: 40px;
+          display: flex;
+          align-items: center;
+          margin-bottom: 30px;
+      }
+
+      .corporate_registration_number {
+          width: 100%;
+          height: 40px;
+          display: flex;
+          align-items: center;
+          margin-bottom: 30px;
+      }
+
+      .email {
+          width: 100%;
+          height: 40px;
+          display: flex;
+          align-items: center;
+          margin-bottom: 30px;
+      }
+
+      .address {
+          width: 100%;
+          height: 40px;
+          display: flex;
+          align-items: center;
+          margin: 60px 0;
+      }
+
+      .basics_detail_address {
+          display: grid;
+      }
+
+      .basics_detail_address input {
+          margin: 5px 0;
+      }
+
+      .basics_address {
+          width: 340px;
+          background-color: #F5F5F5;
+      }
+
+      .detail_address {
+          width: 340px;
+      }
+
+      .representative_number {
+          width: 100%;
+          height: 40px;
+          display: flex;
+          align-items: center;
+          margin-bottom: 30px;
+      }
+
+      .application_enrollment_decision {
+          margin-top: 60px;
+          text-align: center;
+      }
+
+      .enrollment {
+          width: 100px;
+          height: 55px;
+          margin-right: 30px;
+          color: #FFFFFF;
+          border-width: 0;
+          border-radius: 10px;
+          cursor: pointer;
+          background-color: #559CE3;
+      }
+
+      .list {
+          width: 100px;
+          height: 55px;
+          color: #A1A1A1;
+          border-width: 0;
+          border-radius: 10px;
+          cursor: pointer;
+          background-color: #F2F2F2;
+      }
+      /* 수강신청등록기관 css 끝 */
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- 헤더 html 시작 -->
+    <header>
+      <div class="logo">
+        <a href="">
+          <h5>평생학습플랫폼</h5>
+          <img src="book.png">
+        </a>
+      </div>
+
+      <nav>
+        <ul class="topMenu">
+          <li>
+            <a href="">온라인 학습</a>
+          </li>
+          <li>
+            <a href="">오프라인 교육정보</a>
+          </li>
+          <li>
+            <a href="">행정교육자료</a>
+          </li>
+          <li>
+            <a href="">늘배움 알림</a>
+          </li>
+          <li>
+            <a href="">늘배움 소개</a>
+          </li>
+        </ul>
+
+        <div class="subMenu_cate">
+          <ul class="subMenu">
+            <li><a href="">가</a></li>
+            <li><a href="">나</a></li>
+            <li><a href="">다</a></li>
+          </ul>
+          <ul class="subMenu">
+            <li><a href="">라</a></li>
+            <li><a href="">마</a></li>
+            <li><a href="">바</a></li>
+          </ul>
+          <ul class="subMenu">
+            <li><a href="">사</a></li>
+            <li><a href="">아</a></li>
+            <li><a href="">자</a></li>
+          </ul>
+          <ul class="subMenu">
+            <li><a href="">차</a></li>
+            <li><a href="">카</a></li>
+            <li><a href="">타</a></li>
+          </ul>
+          <ul class="subMenu">
+            <li><a href="">파</a></li>
+            <li><a href="">하</a></li>
+            <li><a href="">굿</a></li>
+          </ul>
+        </div>
+      </nav>
+
+      <div class="member_btn">
+        <a href="" class="reg">👦회원가입</a>
+        <a href="" class="login">🔒로그인</a>
+      </div>
+    </header>
+    <!-- 헤더 html 끝 -->
+
+    <!-- 수강신청등록기관 html 시작-->
+    <div class="title_container">
+      <div class="title">
+        <p>수강신청등록기관</p>
+      </div>
+    </div>
+    <div class="personal_information_use_policy">
+      <ul style="list-style: disc">
+        <li class="personal_information_use_policy_title">개인정보 이용방침</li>
+      </ul>
+      <textarea class="personal_information_use_policy_text" cols="30" rows="10" readonly>대통령·국무총리·국무위원·행정각부의 장·헌법재판소 재판관·법관·중앙선거관리위원회 위원·감사원장·감사위원 기타 법률이 정한 공무원이 그 직무집행에 있어서 헌법이나 법률을 위배한 때에는 국회는 탄핵의 소추를 의결할 수 있다.
+
+대통령이 궐위된 때 또는 대통령 당선자가 사망하거나 판결 기타의 사유로 그 자격을 상실한 때에는 60일 이내에 후임자를 선거한다. 모든 국민은 직업선택의 자유를 가진다.
+
+형사피고인은 유죄의 판결이 확정될 때까지는 무죄로 추정된다. 대통령은 국가의 원수이며, 외국에 대하여 국가를 대표한다. 국가는 주택개발정책등을 통하여 모든 국민이 쾌적한 주거생활을 할 수 있도록 노력하여야 한다.
+
+모든 국민은 양심의 자유를 가진다. 헌법재판소 재판관은 정당에 가입하거나 정치에 관여할 수 없다. 사법권은 법관으로 구성된 법원에 속한다. 모든 국민은 자기의 행위가 아닌 친족의 행위로 인하여 불이익한 처우를 받지 아니한다.
+
+대통령후보자가 1인일 때에는 그 득표수가 선거권자 총수의 3분의 1 이상이 아니면 대통령으로 당선될 수 없다. 한 회계연도를 넘어 계속하여 지출할 필요가 있을 때에는 정부는 연한을 정하여 계속비로서 국회의 의결을 얻어야 한다.
+
+모든 국민은 법률이 정하는 바에 의하여 국가기관에 문서로 청원할 권리를 가진다. 대통령은 제1항과 제2항의 처분 또는 명령을 한 때에는 지체없이 국회에 보고하여 그 승인을 얻어야 한다.
+
+연소자의 근로는 특별한 보호를 받는다. 훈장등의 영전은 이를 받은 자에게만 효력이 있고, 어떠한 특권도 이에 따르지 아니한다. 선거와 국민투표의 공정한 관리 및 정당에 관한 사무를 처리하기 위하여 선거관리위원회를 둔다.
+
+모든 국민의 재산권은 보장된다. 그 내용과 한계는 법률로 정한다. 여자의 근로는 특별한 보호를 받으며, 고용·임금 및 근로조건에 있어서 부당한 차별을 받지 아니한다.
+
+국회가 재적의원 과반수의 찬성으로 계엄의 해제를 요구한 때에는 대통령은 이를 해제하여야 한다. 공무원은 국민전체에 대한 봉사자이며, 국민에 대하여 책임을 진다.
+
+대통령은 법률에서 구체적으로 범위를 정하여 위임받은 사항과 법률을 집행하기 위하여 필요한 사항에 관하여 대통령령을 발할 수 있다. 대법원장의 임기는 6년으로 하며, 중임할 수 없다.</textarea>
+      &ensp;<input type="checkbox">&ensp;개인정보 수집내용 동의
+    </div>
+
+    <hr>
+
+    <div class="institution_input_container">
+      <form action="" method="post" class="institution_form">
+        <div class="institution_name">
+          <div class="category_container">
+            <p class="category_text">기관명&nbsp;<span style="color: red">*</span></p>
+          </div>
+          <div class="real_input">
+            <input type="text" required style="background-color: #F5F5F5">
+            <input type="button" value="기관명검색" class="institutionName_postcode_dong_file_button">
+            &ensp;&ensp;&ensp;&ensp;<span style="color: red; font-size: 12px">* 해당되는 기관이 없으시면 플랫폼 담당자에게 문의 주시길 바랍니다.</span>
+          </div>
+        </div>
+        <div class="representative_name">
+          <div class="category_container">
+            <p class="category_text">대표자명&nbsp;<span style="color: red">*</span></p>
+          </div>
+          <div class="real_input">
+            <input type="text" required>
+          </div>
+        </div>
+        <div class="corporate_registration_number">
+          <div class="category_container">
+            <p class="category_text">사업자등록번호&nbsp;<span style="color: red">*</span></p>
+          </div>
+          <div class="real_input">
+            <input type="text" required>
+            &ensp;&ensp;&ensp;&ensp;<span style="color: red; font-size: 12px">* 사업자등록번호는 '-' 포함하여 입력해주시길 바랍니다.</span>
+          </div>
+        </div>
+
+        <div class="email">
+          <div class="category_container">
+            <p class="category_text">이메일&nbsp;<span style="color: red">*</span></p>
+          </div>
+          <div class="real_input">
+            <input type="email" required>
+            <span> @ </span>
+            <input type="email" placeholder="직접입력" required>
+            <select name="" class="short_box">
+              <option value="">선택</option>
+              <option value="">naver.com</option>
+              <option value="">google.com</option>
+              <option value="">hanmail.net</option>
+              <option value="">nate.com</option>
+              <option value="">kakao.com</option>
+              <option value="">msn.com</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="address">
+          <div class="category_container">
+            <p class="category_text">주소&nbsp;<span style="color: red">*</span></p>
+          </div>
+          <div class="real_input basics_detail_address">
+            <div>
+              <input type="text"  required style="background-color: #F5F5F5">
+              <input type="button" value="우편번호검색" class="institutionName_postcode_dong_file_button">
+            </div>
+            <input type="text" class="basics_address" placeholder="기본주소" required>
+            <input type="text" class="detail_address" placeholder="상세주소" required>
+          </div>
+        </div>
+        <div class="representative_number">
+          <div class="category_container">
+            <p class="category_text">대표번호&nbsp;<span style="color: red">*</span></p>
+          </div>
+          <div class="real_input">
+            <input type="tel" class="short_box" required>
+            <span>-</span>
+            <input type="tel" class="short_box" required>
+            <span>-</span>
+            <input type="tel" class="short_box" required>
+          </div>
+        </div>
+        <div class="application_enrollment_decision">
+          <input type="submit" value="등&nbsp;록" class="enrollment">
+          <input type="submit" value="목&nbsp;록" class="list">
+        </div>
+      </form>
+    </div>
+    <!-- 수강신청등록기관 html 끝-->
+  </div>
+</body>
+</html>

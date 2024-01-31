@@ -350,16 +350,17 @@
         margin: 5px 0;
       }
 
-      .first_box {
+      .short_box {
           width: 100px;
       }
 
       .basics_address {
-          width: 330px;
+          width: 340px;
+          background-color: #F5F5F5;
       }
 
       .detail_address {
-          width: 330px;
+          width: 340px;
       }
 
       .member_phoneNumber {
@@ -383,7 +384,7 @@
           text-align: center;
       }
 
-      .member_information_decision .check {
+      .check {
           width: 100px;
           height: 55px;
           margin-right: 30px;
@@ -394,7 +395,7 @@
           background-color: #559CE3;
       }
 
-      .member_information_decision .cancel {
+      .cancel {
           width: 100px;
           height: 55px;
           color: #A1A1A1;
@@ -573,7 +574,7 @@
           </div>
           <div class="real_input basics_detail_address">
             <div>
-              <input type="text" class="first_box" required>
+              <input type="text" required style="background-color: #F5F5F5">
               <input type="button" value="우편번호검색" class="id_birthDate_postcode_button">
             </div>
             <input type="text" class="basics_address" placeholder="기본주소" required>
@@ -585,7 +586,7 @@
             <p class="category_text">연락처&nbsp;<span style="color: red">*</span></p>
           </div>
           <div class="real_input">
-            <select name="" class="first_box">
+            <select name="" class="short_box">
               <option value="">선택</option>
               <option value="">010</option>
               <option value="">011</option>
@@ -595,9 +596,9 @@
               <option value="">019</option>
             </select>
             <span>-</span>
-            <input type="tel" class="first_box" required>
+            <input type="tel" class="short_box" required>
             <span>-</span>
-            <input type="tel" class="first_box" required>
+            <input type="tel" class="short_box" required>
           </div>
         </div>
         <div class="member_email">
@@ -605,10 +606,10 @@
             <p class="category_text">이메일&nbsp;<span style="color: red">*</span></p>
           </div>
           <div class="real_input">
-            <input type="text" required>
+            <input type="email" required>
             <span> @ </span>
-            <input type="text" placeholder="직접입력" required>
-            <select name="" class="first_box">
+            <input type="email" placeholder="직접입력" required>
+            <select name="" class="short_box">
               <option value="">선택</option>
               <option value="">naver.com</option>
               <option value="">google.com</option>
