@@ -2,7 +2,7 @@ package com.hkit.lifetime;
 
 import static com.hkit.lifetime.AccountTests.createAccountInfo;
 import static com.hkit.lifetime.CompanyTests.createRandomCompany;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -17,6 +17,8 @@ import com.hkit.lifetime.company.Company;
 import com.hkit.lifetime.company.CompanyAccountListRepository;
 import com.hkit.lifetime.company.CompanyRepository;
 import com.hkit.lifetime.lecture.Lecture;
+import com.hkit.lifetime.lecture.LectureContent;
+import com.hkit.lifetime.lecture.LectureContentRepository;
 import com.hkit.lifetime.lecture.LectureRepository;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -37,6 +39,8 @@ public class LectureTests {
   @Autowired MockMvc mockMvc;
 
   @Autowired LectureRepository repository;
+  @Autowired
+  LectureContentRepository contentRepository;
   @Autowired AccountRepository accountRepository;
   @Autowired CompanyAccountListRepository companyAccountListRepository;
   @Autowired CompanyRepository companyRepository;
@@ -45,7 +49,7 @@ public class LectureTests {
 
   Lecture static_lecture = null;
 
-  MultiValueMap<String, String> randomLecture(
+  public static MultiValueMap<String, String> randomLecture(
       Company company, Account account, Category mainCategory, SubCategory subCategory) {
     Faker faker = new Faker(Locale.KOREAN);
     MultiValueMap<String, String> info = new LinkedMultiValueMap<>();
@@ -61,6 +65,17 @@ public class LectureTests {
     info.add("teacher", account.getName());
     info.add("main_category", mainCategory.getName());
     info.add("sub_category", subCategory.getName());
+
+    return info;
+  }
+
+  public static MultiValueMap<String, String> randomLectureContent(Lecture lecture){
+    Faker faker = new Faker(Locale.KOREAN);
+    MultiValueMap<String, String> info = new LinkedMultiValueMap<>();
+
+    info.add("name", faker.text().text());
+    info.add("url", "https://exampleurl.com");
+    info.add("lecture_id", String.valueOf(lecture.getId()));
 
     return info;
   }
@@ -108,6 +123,7 @@ public class LectureTests {
 
   @Test
   void deleteLecture() throws Exception {
+    // 삭제할 강좌 데이터 생성 (createLecture 테스트가 먼저 완료되어야 함)
     createLecture();
     Integer lectureId = static_lecture.getId();
 
@@ -117,14 +133,53 @@ public class LectureTests {
 
   @Test
   void createLectureContent() throws Exception {
+    // 수정할 회차 데이터 생성 (createLecture 테스트가 먼저 완료되어야 함)
+    createLecture();
 
+    // 강좌 내 회차 생성 확인
+    // 주소는 /api/lecture/{lecture_id}/create 으로 됨.
+    MultiValueMap<String, String> lecture_content_info = randomLectureContent(static_lecture);
+    mockMvc.perform(post("/api/lecture/" + static_lecture.getId() + "/create").params(lecture_content_info)).andExpect(status().isOk());
+
+    assertTrue(contentRepository.findByLecture_Id(static_lecture.getId()).isPresent());
   }
 
   @Test
-  void updateLectureContent() throws Exception {}
+  void updateLectureContent() throws Exception {
+    // 수정할 회차 데이터 생성 (createLecture 테스트가 먼저 완료되어야 함)
+    createLecture();
+
+    MultiValueMap<String, String> info = randomLectureContent(static_lecture);
+    mockMvc.perform(post("/api/lecture/" + static_lecture.getId() + "/create").params(info)).andExpect(status().isOk());
+
+    Optional<LectureContent> content = contentRepository.findByLecture_IdAndName(static_lecture.getId(), info.getFirst("name"));
+
+    assertTrue(content.isPresent());
+
+    String changedText = new Faker().text().text();
+    info.set("name", changedText);
+
+    mockMvc.perform(post("/api/lecture/" + static_lecture.getId() + "/" + content.get().getId() + "/update").params(info)).andExpect(status().isOk());
+
+    assertEquals(changedText, contentRepository.findByLecture_IdAndName(static_lecture.getId(), info.getFirst("name")).get().getName());
+  }
 
   @Test
-  void deleteLectureContent() throws Exception {}
+  void deleteLectureContent() throws Exception {
+    // 수정할 회차 데이터 생성 (createLecture 테스트가 먼저 완료되어야 함)
+    createLecture();
+
+    MultiValueMap<String, String> info = randomLectureContent(static_lecture);
+    mockMvc.perform(post("/api/lecture/" + static_lecture.getId() + "/create").params(info)).andExpect(status().isOk());
+
+    Optional<LectureContent> content = contentRepository.findByLecture_IdAndName(static_lecture.getId(), info.getFirst("name"));
+
+    assertTrue(content.isPresent());
+
+    mockMvc.perform(post("/api/lecture/" + static_lecture.getId() + "/" + content.get().getId() + "/delete").params(info)).andExpect(status().isOk());
+
+    assertFalse(contentRepository.findByLecture_IdAndName(static_lecture.getId(), info.getFirst("name")).isPresent());
+  }
 
   @Test
   void viewLecture() throws Exception {
