@@ -116,6 +116,38 @@ public class SurveyTests {
   }
 
   @Test
+  void updateSurvey() throws Exception {
+    // 평가 수정할 강좌 생성 (LectureTest 에서 createLecture 가 먼저 완료되어야 함)
+    Lecture lecture = createLecture();
+    MultiValueMap<String, String> info = new LinkedMultiValueMap<>();
+
+    // Json 으로 데이터 사용
+    // 위와 똑같이 json 형식으로 사용됨
+    JsonArray json = new JsonArray();
+
+    for (int i = 1; i < 10; i++) {
+      if (i == 3) {
+        json.add("질문 100");
+      } else {
+        json.add("질문 " + i);
+      }
+    }
+
+    info.add("json", json.toString());
+
+    mockMvc
+        .perform(post("/api/survey/" + lecture.getId() + "/update").params(info))
+        .andExpect(status().isOk());
+
+    Optional<Survey> survey = repository.findByLecture_Id(lecture.getId());
+
+    assertTrue(survey.isPresent());
+    assertEquals(
+        "질문100",
+        JsonParser.parseString(survey.get().getJson()).getAsJsonArray().get(3).getAsString());
+  }
+
+  @Test
   void createAnswer() throws Exception {
     // 평가할 강좌 생성
     // createSurvey 하고 createLecture 가 먼저 완료되어야 함
