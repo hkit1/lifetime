@@ -108,12 +108,17 @@ public class CompanyTests {
         .perform(post("/api/account/register").params(accountInfo).with(csrf()))
         .andExpect(status().isOk());
 
+    // 회사 등록 요청이 되는지 확인
+    mockMvc
+            .perform(post("/api/company/create").params(companyInfo).with(csrf()))
+            .andExpect(status().isOk());
+
     // 강사로 등록할 때 /api/account/register/company 으로 회사 이름과 사업자 등록번호를 전송
     mockMvc
         .perform(
-            post("/api/account/register/company")
+            post("/api/company/register/account")
                 .param("name", companyInfo.getFirst("name"))
-                .param("id", companyInfo.getFirst("id"))
+                .param("id", accountInfo.getFirst("id"))
                 .with(csrf()))
         .andExpect(status().isOk());
 
@@ -143,9 +148,9 @@ public class CompanyTests {
 
     mockMvc
         .perform(
-            post("/api/account/register/company")
-                .param("name", companyInfo.getFirst("name"))
-                .param("id", companyInfo.getFirst("id"))
+                post("/api/company/register/account")
+                        .param("name", companyInfo.getFirst("name"))
+                        .param("id", accountInfo.getFirst("id"))
                 .with(csrf()))
         .andExpect(status().isOk());
 

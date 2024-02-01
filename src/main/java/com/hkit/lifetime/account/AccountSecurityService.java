@@ -1,7 +1,13 @@
 package com.hkit.lifetime.account;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+
+import com.hkit.lifetime.security.SecurityRole;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -29,14 +35,21 @@ public class AccountSecurityService implements UserDetailsService {
             );
 
             // todo fix
-            /*SecurityRole role = account.getRole();
+            SecurityRole role = account.getRole();
             accountSecurity.setAuthorities(Collections.singleton(new SimpleGrantedAuthority(role.name())));
-*/
+
             return accountSecurity;
         } catch (Exception e) {
             return null;
         }
 
     }
+
+//    private List<SimpleGrantedAuthority> getRoles(List<SecurityRole> role){
+//        return role.stream()
+//                .map(SecurityRole::name)
+//                .map(SimpleGrantedAuthority::new)
+//                .collect(Collectors.toList());
+//    }
 
 }

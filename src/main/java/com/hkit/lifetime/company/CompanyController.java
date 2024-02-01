@@ -12,6 +12,9 @@ public class CompanyController {
 
     private final CompanyService companyService;
 
+    /*
+        company register
+     */
     @PostMapping("/api/company/create")
     public String companyRegister(CompanyDto companyDto) {
 
@@ -20,9 +23,34 @@ public class CompanyController {
         return "home";
     }
 
+    @PostMapping("/api/company/register/account")
+    public String companyLecturerRegister(@RequestParam(name = "name") String name,
+                                          @RequestParam(name = "id") String id){
+        companyService.lecturerRegister(name, id);
+        return "home";
+    }
+
+    /*
+        company delete
+     */
     @PostMapping("/api/company/delete")
-    public String companyDelete(@RequestParam(name = "name") String id) {
+    public String companyDelete(@RequestParam(name = "id") String id) {
         companyService.delete(id);
+        return "home";
+    }
+
+    /*
+        company authorization
+     */
+    @PostMapping("/api/company/accept")
+    public String companyAuthorization(@RequestParam(name = "id") String id){
+        companyService.authorization(id);
+        return "home";
+    }
+
+    @PostMapping("/api/company/denied")
+    public String companyDenied(@RequestParam(name = "id") String id){
+        companyService.denied(id);
         return "home";
     }
 

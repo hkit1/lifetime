@@ -1,8 +1,7 @@
 package com.hkit.lifetime.account;
 
-import com.hkit.lifetime.company.CompanyService;
-import java.util.Optional;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -11,12 +10,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.Optional;
+
+@Slf4j
 @Controller
 @RequiredArgsConstructor
 public class AccountController {
 
     private final AccountService accountService;
-    private final CompanyService companyService;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @GetMapping("register")
@@ -29,7 +30,7 @@ public class AccountController {
         Optional<Account> account = accountService.duplicateCheck(accountDto.id());
         if (account.isEmpty()) {
             AccountDto encodeAccount = encodePw(accountDto);
-            accountService.save(encodeAccount);
+            accountService.register(encodeAccount);
             return "home";
         }else {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Id in Use");
@@ -38,10 +39,10 @@ public class AccountController {
     }
 
     @PostMapping("/api/account/check")
-    public HttpStatus idCheck(@RequestParam(name = "id") String id){
+    public String idCheck(@RequestParam(name = "id") String id){
         Optional<Account> account = accountService.duplicateCheck(id);
         if (account.isEmpty()){
-            return HttpStatus.OK;
+            return "home";
         } else {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Id in Use");
         }
@@ -65,9 +66,9 @@ public class AccountController {
     private AccountDto encodePw(AccountDto accountDto) {
         return new AccountDto(
                 null,
+                accountDto.name(),
                 accountDto.id(),
                 bCryptPasswordEncoder.encode(accountDto.pw()),
-                accountDto.name(),
                 accountDto.birth(),
                 accountDto.email(),
                 accountDto.tel(),
