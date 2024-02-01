@@ -4,9 +4,6 @@ import com.hkit.lifetime.security.SecurityRole;
 import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
-
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -37,8 +34,8 @@ public class Account {
     @Column(name = "email", nullable = false)
     private String email;
 
-    @Column(name = "tel", nullable = false, length = 12)
-    private String tel;
+  @Column(name = "tel", nullable = false, length = 15)
+  private String tel;
 
     @Column(name = "gender", nullable = false)
     private Boolean gender = false;

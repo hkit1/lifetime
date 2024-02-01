@@ -1,14 +1,17 @@
 package com.hkit.lifetime.exam;
 
-import lombok.Value;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 
-/**
- * DTO for {@link Exam}
- */
-@Value
-public class ExamDto implements Serializable {
-    String uuid;
-    Integer lectureId;
-}
+/** DTO for {@link Exam} */
+public record ExamDto(
+    String examId,
+    Integer lectureId,
+    String lectureName,
+    LocalDate lectureCreatedAt,
+    LocalDate lectureClosedAt,
+    LocalDate createdAt,
+    LocalDate updatedAt,
+    String json)
+    implements Serializable {}
