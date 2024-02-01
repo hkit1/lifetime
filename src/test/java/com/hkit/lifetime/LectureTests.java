@@ -4,6 +4,7 @@ import static com.hkit.lifetime.AccountTests.createAccountInfo;
 import static com.hkit.lifetime.CompanyTests.createRandomCompany;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -39,8 +40,7 @@ public class LectureTests {
   @Autowired MockMvc mockMvc;
 
   @Autowired LectureRepository repository;
-  @Autowired
-  LectureContentRepository contentRepository;
+  @Autowired LectureContentRepository contentRepository;
   @Autowired AccountRepository accountRepository;
   @Autowired CompanyAccountListRepository companyAccountListRepository;
   @Autowired CompanyRepository companyRepository;
@@ -69,7 +69,7 @@ public class LectureTests {
     return info;
   }
 
-  public static MultiValueMap<String, String> randomLectureContent(Lecture lecture){
+  public static MultiValueMap<String, String> randomLectureContent(Lecture lecture) {
     Faker faker = new Faker(Locale.KOREAN);
     MultiValueMap<String, String> info = new LinkedMultiValueMap<>();
 
@@ -92,7 +92,6 @@ public class LectureTests {
     Account account = accountRepository.findAccountById(accountInfo.getFirst("uuid")).get();
 
     // 회사 생성 (CompanyTests 에서 createCompany 가 먼저 완료되어야 함)
-    Faker faker = new Faker(Locale.KOREAN);
     MultiValueMap<String, String> companyInfo = createRandomCompany();
 
     mockMvc
@@ -139,7 +138,10 @@ public class LectureTests {
     // 강좌 내 회차 생성 확인
     // 주소는 /api/lecture/{lecture_id}/create 으로 됨.
     MultiValueMap<String, String> lecture_content_info = randomLectureContent(static_lecture);
-    mockMvc.perform(post("/api/lecture/" + static_lecture.getId() + "/create").params(lecture_content_info)).andExpect(status().isOk());
+    mockMvc
+        .perform(
+            post("/api/lecture/" + static_lecture.getId() + "/create").params(lecture_content_info))
+        .andExpect(status().isOk());
 
     assertTrue(contentRepository.findByLecture_Id(static_lecture.getId()).isPresent());
   }
@@ -150,18 +152,30 @@ public class LectureTests {
     createLecture();
 
     MultiValueMap<String, String> info = randomLectureContent(static_lecture);
-    mockMvc.perform(post("/api/lecture/" + static_lecture.getId() + "/create").params(info)).andExpect(status().isOk());
+    mockMvc
+        .perform(post("/api/lecture/" + static_lecture.getId() + "/create").params(info))
+        .andExpect(status().isOk());
 
-    Optional<LectureContent> content = contentRepository.findByLecture_IdAndName(static_lecture.getId(), info.getFirst("name"));
-
+    Optional<LectureContent> content =
+        contentRepository.findByLecture_IdAndName(static_lecture.getId(), info.getFirst("name"));
     assertTrue(content.isPresent());
 
+    // 회차 이름을 변경 했을 경우 적용이 되는지 확인
     String changedText = new Faker().text().text();
     info.set("name", changedText);
 
-    mockMvc.perform(post("/api/lecture/" + static_lecture.getId() + "/" + content.get().getId() + "/update").params(info)).andExpect(status().isOk());
+    mockMvc
+        .perform(
+            post("/api/lecture/" + static_lecture.getId() + "/" + content.get().getId() + "/update")
+                .params(info))
+        .andExpect(status().isOk());
 
-    assertEquals(changedText, contentRepository.findByLecture_IdAndName(static_lecture.getId(), info.getFirst("name")).get().getName());
+    assertEquals(
+        changedText,
+        contentRepository
+            .findByLecture_IdAndName(static_lecture.getId(), info.getFirst("name"))
+            .get()
+            .getName());
   }
 
   @Test
@@ -170,20 +184,29 @@ public class LectureTests {
     createLecture();
 
     MultiValueMap<String, String> info = randomLectureContent(static_lecture);
-    mockMvc.perform(post("/api/lecture/" + static_lecture.getId() + "/create").params(info)).andExpect(status().isOk());
+    mockMvc
+        .perform(post("/api/lecture/" + static_lecture.getId() + "/create").params(info))
+        .andExpect(status().isOk());
 
-    Optional<LectureContent> content = contentRepository.findByLecture_IdAndName(static_lecture.getId(), info.getFirst("name"));
-
+    Optional<LectureContent> content =
+        contentRepository.findByLecture_IdAndName(static_lecture.getId(), info.getFirst("name"));
     assertTrue(content.isPresent());
 
-    mockMvc.perform(post("/api/lecture/" + static_lecture.getId() + "/" + content.get().getId() + "/delete").params(info)).andExpect(status().isOk());
+    // 회차가 삭제되는지 확인
+    mockMvc
+        .perform(
+            post("/api/lecture/" + static_lecture.getId() + "/" + content.get().getId() + "/delete")
+                .params(info))
+        .andExpect(status().isOk());
 
-    assertFalse(contentRepository.findByLecture_IdAndName(static_lecture.getId(), info.getFirst("name")).isPresent());
+    assertFalse(
+        contentRepository
+            .findByLecture_IdAndName(static_lecture.getId(), info.getFirst("name"))
+            .isPresent());
   }
 
   @Test
   void viewLecture() throws Exception {
-    /*
     createLecture();
 
     // 강좌에서 회차를 볼 수 있는지 확인
@@ -191,9 +214,18 @@ public class LectureTests {
 
     // todo 회차 보는 화면 디자인 필요
     // 데이터를 가져 올 수 있는지 확인
-    mockMvc.perform(get("/api/lecture/" + lectureId + "/info"))
+    // thymeleaf 으로 구현 (직접 화면으로 보고 구현해야 됨)
+    mockMvc.perform(get("/lecture/" + static_lecture.getName()))
             .andExpect(status().isOk());
+  }
 
-     */
+  @Test
+  void viewLectureContent() throws Exception {
+    createLecture();
+
+    // 이것도 thymeleaf 으로 구현
+    // 영상 스트리밍이 될 것
+    mockMvc.perform(get("/lecture/" + static_lecture.getName() + "/view"))
+            .andExpect(status().isOk());
   }
 }
