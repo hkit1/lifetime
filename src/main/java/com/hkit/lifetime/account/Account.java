@@ -20,18 +20,15 @@ public class Account {
     @Column(name = "name", nullable = false, length = 20)
     private String name;
 
-    @Lob
     @Column(name = "id", nullable = false)
     private String id;
 
-    @Lob
     @Column(name = "pw", nullable = false)
     private String pw;
 
     @Column(name = "birth", nullable = false)
     private LocalDate birth;
 
-    @Lob
     @Column(name = "email", nullable = false)
     private String email;
 
@@ -41,11 +38,9 @@ public class Account {
     @Column(name = "gender", nullable = false)
     private Boolean gender = false;
 
-    @Lob
     @Column(name = "address1", nullable = false)
     private String address1;
 
-    @Lob
     @Column(name = "address2")
     private String address2;
 

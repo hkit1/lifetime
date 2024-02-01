@@ -5,5 +5,5 @@ import java.io.Serializable;
 /**
  * DTO for {@link Survey}
  */
-public record SurveyDto(Long id, String content, String account_uuid) implements Serializable {
+public record SurveyDto(Long id, String json, String account_uuid) implements Serializable {
 }

@@ -17,7 +17,6 @@ public class Lecture {
     @Column(name = "lecture_id", nullable = false)
     private Integer id;
 
-    @Lob
     @Column(name = "name", nullable = false)
     private String name;
 
