@@ -1,7 +1,12 @@
 package com.hkit.lifetime.account;
 
+import com.hkit.lifetime.security.SecurityRole;
 import jakarta.persistence.*;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,25 +18,22 @@ import lombok.Setter;
 @NoArgsConstructor
 public class Account {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "uuid", nullable = false)
     private String uuid;
 
     @Column(name = "name", nullable = false, length = 20)
     private String name;
 
-    @Lob
     @Column(name = "id", nullable = false)
     private String id;
 
-    @Lob
     @Column(name = "pw", nullable = false)
     private String pw;
 
     @Column(name = "birth", nullable = false)
     private LocalDate birth;
 
-    @Lob
     @Column(name = "email", nullable = false)
     private String email;
 
@@ -41,11 +43,13 @@ public class Account {
     @Column(name = "gender", nullable = false)
     private Boolean gender = false;
 
-    @Lob
+    @Column(name = "role", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private SecurityRole role;
+
     @Column(name = "address1", nullable = false)
     private String address1;
 
-    @Lob
     @Column(name = "address2")
     private String address2;
 
@@ -60,10 +64,20 @@ public class Account {
         this.gender = gender;
         this.address1 = address1;
         this.address2 = address2;
+        this.role = SecurityRole.USER;
     }
 
     public static Account toAccount(AccountDto accountDto) {
-        return new Account(null, accountDto.id(), accountDto.pw(), accountDto.name(), accountDto.birth(), accountDto.email(), accountDto.tel(), accountDto.gender(), accountDto.address1(), accountDto.address2());
+        return new Account(null,
+                accountDto.name(),
+                accountDto.id(),
+                accountDto.pw(),
+                LocalDate.parse(accountDto.birth(), DateTimeFormatter.BASIC_ISO_DATE),
+                accountDto.email(),
+                accountDto.tel(),
+                accountDto.gender(),
+                accountDto.address1(),
+                accountDto.address2());
     }
 
     public void updateAccount(AccountDto accountDto) {
@@ -72,6 +86,10 @@ public class Account {
         this.tel = accountDto.tel();
         this.address1 = accountDto.address1();
         this.address2 = accountDto.address2();
+    }
+
+    public void updateAccountRole(SecurityRole role){
+        this.role = role;
     }
 
 }

@@ -35,9 +35,9 @@ public class AccountTests {
     Faker faker = new Faker(Locale.KOREAN);
     MultiValueMap<String, String> info = new LinkedMultiValueMap<>();
 
+    info.add("name", faker.name().fullName());
     info.add("id", faker.internet().username());
     info.add("pw", faker.internet().password());
-    info.add("name", faker.name().fullName());
     info.add(
         "birth",
         faker.date().birthday().toLocalDateTime().format(DateTimeFormatter.BASIC_ISO_DATE));
