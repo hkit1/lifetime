@@ -10,7 +10,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.hkit.lifetime.account.Account;
 import com.hkit.lifetime.account.AccountRepository;
-import com.hkit.lifetime.category.Category;
 import com.hkit.lifetime.category.CategoryRepository;
 import com.hkit.lifetime.category.SubCategory;
 import com.hkit.lifetime.category.SubCategoryRepository;
@@ -32,12 +31,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
 @SpringBootTest
 @AutoConfigureMockMvc
+@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 public class LectureTests {
   @Autowired MockMvc mockMvc;
 
@@ -51,9 +52,8 @@ public class LectureTests {
 
   Lecture static_lecture = null;
 
-  @Transactional
   public MultiValueMap<String, String> randomLecture(
-      Company company, Account account, Category mainCategory, SubCategory subCategory) {
+      Company company, Account account, SubCategory category) {
     Faker faker = new Faker(Locale.KOREAN);
     MultiValueMap<String, String> info = new LinkedMultiValueMap<>();
 
@@ -66,8 +66,8 @@ public class LectureTests {
             .format(DateTimeFormatter.BASIC_ISO_DATE));
     info.add("company_name", company.getName());
     info.add("teacher", account.getName());
-    info.add("main_category", mainCategory.getName());
-    info.add("sub_category", subCategory.getName());
+    info.add("main_category", category.getMainCategory().getName());
+    info.add("sub_category", category.getName());
 
     return info;
   }
@@ -116,8 +116,7 @@ public class LectureTests {
     SubCategory category = subCategoryRepository.findByName("amd").get();
 
     // 오류 없이 강좌 생성이 되는지 확인
-    MultiValueMap<String, String> info =
-        randomLecture(company, account, category.getMainCategory(), category);
+    MultiValueMap<String, String> info = randomLecture(company, account, category);
     mockMvc.perform(post("/api/lecture/create").with(csrf()).params(info)).andExpect(status().isOk());
 
     Optional<Lecture> lecture = repository.findByName(info.getFirst("name"));
