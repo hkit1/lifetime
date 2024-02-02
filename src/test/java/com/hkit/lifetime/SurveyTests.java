@@ -32,6 +32,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -52,7 +53,6 @@ public class SurveyTests {
   @Autowired CategoryRepository categoryRepository;
   @Autowired SubCategoryRepository subCategoryRepository;
 
-  @Transactional
   public MultiValueMap<String, String> randomLecture(
       Company company, Account account, Category mainCategory, SubCategory subCategory) {
     Faker faker = new Faker(Locale.KOREAN);
@@ -124,6 +124,10 @@ public class SurveyTests {
   }
 
   @Test
+  @WithMockUser(
+      username = "테스트_최고관리자",
+      roles = {"OWNER"})
+  @Transactional
   void createSurvey() throws Exception {
     // 평가할 강좌 생성 (LectureTest 에서 createLecture 가 먼저 완료되어야 함)
     Lecture lecture = createLecture();
@@ -142,6 +146,10 @@ public class SurveyTests {
   }
 
   @Test
+  @WithMockUser(
+      username = "테스트_최고관리자",
+      roles = {"OWNER"})
+  @Transactional
   void updateSurvey() throws Exception {
     // 평가 수정할 강좌 생성 (LectureTest 에서 createLecture 가 먼저 완료되어야 함)
     Lecture lecture = createLecture();
@@ -174,6 +182,10 @@ public class SurveyTests {
   }
 
   @Test
+  @WithMockUser(
+      username = "테스트_최고관리자",
+      roles = {"OWNER"})
+  @Transactional
   void createAnswer() throws Exception {
     // 평가할 강좌 생성
     // createSurvey 하고 createLecture 가 먼저 완료되어야 함
