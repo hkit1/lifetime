@@ -5,11 +5,13 @@ import com.hkit.lifetime.company.Company;
 import jakarta.persistence.*;
 import java.time.LocalDate;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
 @Entity
+@NoArgsConstructor
 @Table(name = "lecture")
 public class Lecture {
     @Id
@@ -33,4 +35,15 @@ public class Lecture {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "companyId", nullable = false)
     private Company company;
+
+    public Lecture(Integer id, String name, LocalDate createdAt, LocalDate closedAt, SubCategory category, Company company) {
+        this.id = id;
+        this.name = name;
+        this.createdAt = createdAt;
+        this.closedAt = closedAt;
+        this.category = category;
+        this.company = company;
+    }
+
+
 }

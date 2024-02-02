@@ -31,6 +31,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -77,12 +78,16 @@ public class LectureTests {
 
     info.add("name", faker.text().text());
     info.add("url", "https://exampleurl.com");
+    info.add("description", "normal_description");
     info.add("lecture_id", String.valueOf(lecture.getId()));
 
     return info;
   }
 
   @Test
+  @WithMockUser(
+          username = "테스트_최고관리자",
+          roles = {"OWNER"})
   @Transactional
   void createLecture() throws Exception {
     // 강사 계정 생성
@@ -92,7 +97,7 @@ public class LectureTests {
         .perform(post("/api/account/register").params(accountInfo).with(csrf()))
         .andExpect(status().isOk());
 
-    Account account = accountRepository.findAccountById(accountInfo.getFirst("uuid")).get();
+    Account account = accountRepository.findAccountById(accountInfo.getFirst("id")).get();
 
     // 회사 생성 (CompanyTests 에서 createCompany 가 먼저 완료되어야 함)
     MultiValueMap<String, String> companyInfo = createRandomCompany();
@@ -113,7 +118,7 @@ public class LectureTests {
     // 오류 없이 강좌 생성이 되는지 확인
     MultiValueMap<String, String> info =
         randomLecture(company, account, category.getMainCategory(), category);
-    mockMvc.perform(post("/api/lecture/create").params(info)).andExpect(status().isOk());
+    mockMvc.perform(post("/api/lecture/create").with(csrf()).params(info)).andExpect(status().isOk());
 
     Optional<Lecture> lecture = repository.findByName(info.getFirst("name"));
 
@@ -124,16 +129,24 @@ public class LectureTests {
   }
 
   @Test
+  @WithMockUser(
+          username = "테스트_최고관리자",
+          roles = {"OWNER"})
+  @Transactional
   void deleteLecture() throws Exception {
     // 삭제할 강좌 데이터 생성 (createLecture 테스트가 먼저 완료되어야 함)
     createLecture();
     Integer lectureId = static_lecture.getId();
 
     // 강좌가 삭제되는지 확인
-    mockMvc.perform(post("/api/lecture/delete/" + lectureId)).andExpect(status().isOk());
+    mockMvc.perform(post("/api/lecture/delete/" + lectureId).with(csrf())).andExpect(status().isOk());
   }
 
   @Test
+  @WithMockUser(
+          username = "테스트_최고관리자",
+          roles = {"OWNER"})
+  @Transactional
   void createLectureContent() throws Exception {
     // 수정할 회차 데이터 생성 (createLecture 테스트가 먼저 완료되어야 함)
     createLecture();
@@ -143,20 +156,26 @@ public class LectureTests {
     MultiValueMap<String, String> lecture_content_info = randomLectureContent(static_lecture);
     mockMvc
         .perform(
-            post("/api/lecture/" + static_lecture.getId() + "/create").params(lecture_content_info))
+            post("/api/lecture/" + static_lecture.getId() + "/create").params(lecture_content_info).with(csrf()))
         .andExpect(status().isOk());
 
+
+    System.out.println("------------"+static_lecture.getId());
     assertTrue(contentRepository.findByLecture_Id(static_lecture.getId()).isPresent());
   }
 
   @Test
+  @WithMockUser(
+          username = "테스트_최고관리자",
+          roles = {"OWNER"})
+  @Transactional
   void updateLectureContent() throws Exception {
     // 수정할 회차 데이터 생성 (createLecture 테스트가 먼저 완료되어야 함)
     createLecture();
 
     MultiValueMap<String, String> info = randomLectureContent(static_lecture);
     mockMvc
-        .perform(post("/api/lecture/" + static_lecture.getId() + "/create").params(info))
+        .perform(post("/api/lecture/" + static_lecture.getId() + "/create").params(info).with(csrf()))
         .andExpect(status().isOk());
 
     Optional<LectureContent> content =
@@ -170,7 +189,7 @@ public class LectureTests {
     mockMvc
         .perform(
             post("/api/lecture/" + static_lecture.getId() + "/" + content.get().getId() + "/update")
-                .params(info))
+                    .with(csrf()).params(info))
         .andExpect(status().isOk());
 
     assertEquals(
@@ -182,13 +201,17 @@ public class LectureTests {
   }
 
   @Test
+  @WithMockUser(
+          username = "테스트_최고관리자",
+          roles = {"OWNER"})
+  @Transactional
   void deleteLectureContent() throws Exception {
     // 수정할 회차 데이터 생성 (createLecture 테스트가 먼저 완료되어야 함)
     createLecture();
 
     MultiValueMap<String, String> info = randomLectureContent(static_lecture);
     mockMvc
-        .perform(post("/api/lecture/" + static_lecture.getId() + "/create").params(info))
+        .perform(post("/api/lecture/" + static_lecture.getId() + "/create").params(info).with(csrf()))
         .andExpect(status().isOk());
 
     Optional<LectureContent> content =
@@ -199,7 +222,7 @@ public class LectureTests {
     mockMvc
         .perform(
             post("/api/lecture/" + static_lecture.getId() + "/" + content.get().getId() + "/delete")
-                .params(info))
+                .params(info).with(csrf()))
         .andExpect(status().isOk());
 
     assertFalse(
@@ -209,6 +232,10 @@ public class LectureTests {
   }
 
   @Test
+  @WithMockUser(
+          username = "테스트_최고관리자",
+          roles = {"OWNER"})
+  @Transactional
   void viewLecture() throws Exception {
     createLecture();
 
@@ -218,17 +245,21 @@ public class LectureTests {
     // todo 회차 보는 화면 디자인 필요
     // 데이터를 가져 올 수 있는지 확인
     // thymeleaf 으로 구현 (직접 화면으로 보고 구현해야 됨)
-    mockMvc.perform(get("/lecture/" + static_lecture.getName()))
+    mockMvc.perform(get("/lecture/" + static_lecture.getName()).with(csrf()))
             .andExpect(status().isOk());
   }
 
   @Test
+  @WithMockUser(
+          username = "테스트_최고관리자",
+          roles = {"OWNER"})
+  @Transactional
   void viewLectureContent() throws Exception {
     createLecture();
 
     // 이것도 thymeleaf 으로 구현
     // 영상 스트리밍이 될 것
-    mockMvc.perform(get("/lecture/" + static_lecture.getName() + "/view"))
+    mockMvc.perform(get("/lecture/" + static_lecture.getName() + "/view").with(csrf()))
             .andExpect(status().isOk());
   }
 }
