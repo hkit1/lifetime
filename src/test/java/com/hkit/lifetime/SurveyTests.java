@@ -88,7 +88,7 @@ public class SurveyTests {
         .perform(post("/api/account/register").params(accountInfo).with(csrf()))
         .andExpect(status().isOk());
 
-    Account account = accountRepository.findAccountById(accountInfo.getFirst("uuid")).get();
+    Account account = accountRepository.findAccountById(accountInfo.getFirst("id")).get();
 
     MultiValueMap<String, String> companyInfo = createRandomCompany();
     mockMvc
@@ -105,7 +105,9 @@ public class SurveyTests {
 
     MultiValueMap<String, String> info =
         randomLecture(company, account, category.getMainCategory(), category);
-    mockMvc.perform(post("/api/lecture/create").params(info)).andExpect(status().isOk());
+    mockMvc
+            .perform(post("/api/lecture/create").params(info).with(csrf()))
+            .andExpect(status().isOk());
 
     return lectureRepository.findByName(info.getFirst("name")).get();
   }
@@ -137,12 +139,14 @@ public class SurveyTests {
     // 질문 1 -> json[0], 질문 2 -> json[1]
     // 이것도 thymeleaf 에서 th:each 를 사용하거나 fetch api 를 사용하게 될 예정
     // ["질문1", "질문2", "질문3", ...] 으로 저장됨
-    mockMvc.perform(post("/api/survey/" + lecture.getId() + "/create").params(info)).andExpect(status().isOk());
+    mockMvc
+            .perform(post("/api/survey/" + lecture.getId() + "/create").params(info).with(csrf()))
+            .andExpect(status().isOk());
 
     Optional<Survey> survey = repository.findByLecture_Id(lecture.getId());
 
     assertTrue(survey.isPresent());
-    assertEquals("질문3", JsonParser.parseString(survey.get().getJson()).getAsJsonArray().get(3).getAsString());
+    assertEquals("질문 3", JsonParser.parseString(survey.get().getJson()).getAsJsonArray().get(2).getAsString());
   }
 
   @Test
@@ -153,7 +157,17 @@ public class SurveyTests {
   void updateSurvey() throws Exception {
     // 평가 수정할 강좌 생성 (LectureTest 에서 createLecture 가 먼저 완료되어야 함)
     Lecture lecture = createLecture();
-    MultiValueMap<String, String> info = new LinkedMultiValueMap<>();
+    MultiValueMap<String, String> info = createJson("질문");
+
+    // Json 으로 데이터 사용 (DB 에 Json 데이터로 저장)
+    // 질문 1 -> json[0], 질문 2 -> json[1]
+    // 이것도 thymeleaf 에서 th:each 를 사용하거나 fetch api 를 사용하게 될 예정
+    // ["질문1", "질문2", "질문3", ...] 으로 저장됨
+    mockMvc
+            .perform(post("/api/survey/" + lecture.getId() + "/create").params(info).with(csrf()))
+            .andExpect(status().isOk());
+
+    MultiValueMap<String, String> info2 = new LinkedMultiValueMap<>();
 
     // Json 으로 데이터 사용
     // 위와 똑같이 json 형식으로 사용됨
@@ -167,18 +181,18 @@ public class SurveyTests {
       }
     }
 
-    info.add("json", json.toString());
+    info2.add("json", json.toString());
 
     mockMvc
-        .perform(post("/api/survey/" + lecture.getId() + "/update").params(info))
+        .perform(post("/api/survey/" + lecture.getId() + "/update").params(info2).with(csrf()))
         .andExpect(status().isOk());
 
     Optional<Survey> survey = repository.findByLecture_Id(lecture.getId());
 
     assertTrue(survey.isPresent());
     assertEquals(
-        "질문100",
-        JsonParser.parseString(survey.get().getJson()).getAsJsonArray().get(3).getAsString());
+        "질문 100",
+        JsonParser.parseString(survey.get().getJson()).getAsJsonArray().get(2).getAsString());
   }
 
   @Test
@@ -190,15 +204,33 @@ public class SurveyTests {
     // 평가할 강좌 생성
     // createSurvey 하고 createLecture 가 먼저 완료되어야 함
     Lecture lecture = createLecture();
-    MultiValueMap<String, String> info = createJson("답변");
+    MultiValueMap<String, String> accountInfo = createAccountInfo();
+    MultiValueMap<String, String> info2 = createJson("답변");
+    MultiValueMap<String, String> info = createJson("질문");
+
+    // Json 으로 데이터 사용 (DB 에 Json 데이터로 저장)
+    // 질문 1 -> json[0], 질문 2 -> json[1]
+    // 이것도 thymeleaf 에서 th:each 를 사용하거나 fetch api 를 사용하게 될 예정
+    // ["질문1", "질문2", "질문3", ...] 으로 저장됨
+    mockMvc
+            .perform(post("/api/survey/" + lecture.getId() + "/create").params(info).with(csrf()))
+            .andExpect(status().isOk());
+
+    mockMvc
+            .perform(post("/api/account/register").params(accountInfo).with(csrf()))
+            .andExpect(status().isOk());
 
     // Json 으로 데이터 사용
     // 위와 똑같이 json 형식으로 저장됨
-    mockMvc.perform(post("/api/survey/" + lecture.getId() + "/answer").params(info)).andExpect(status().isOk());
+    mockMvc.perform(post("/api/survey/" + lecture.getId() + "/answer")
+                    .param("accountId", accountInfo.getFirst("id"))
+                    .params(info2)
+                    .with(csrf()))
+            .andExpect(status().isOk());
 
     Optional<SurveyAnswer> answer = answerRepository.findById_Lecture_Id(lecture.getId());
 
     assertTrue(answer.isPresent());
-    assertEquals("답변3", JsonParser.parseString(answer.get().getJson()).getAsJsonArray().get(3).getAsString());
+    assertEquals("답변 3", JsonParser.parseString(answer.get().getJson()).getAsJsonArray().get(2).getAsString());
   }
 }

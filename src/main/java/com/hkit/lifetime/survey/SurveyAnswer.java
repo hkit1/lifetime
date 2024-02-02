@@ -3,12 +3,14 @@ package com.hkit.lifetime.survey;
 import com.hkit.lifetime.account.Account;
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
 @Entity
 @Table(name = "survey_answer")
+@NoArgsConstructor
 public class SurveyAnswer {
   @Id
   @GeneratedValue
@@ -25,4 +27,11 @@ public class SurveyAnswer {
 
   @Column(name = "json", nullable = false)
   private String json;
+
+  public SurveyAnswer(Survey id, Account uuid, String json) {
+    this.id = id;
+    this.uuid = uuid;
+    this.json = json;
+  }
+
 }

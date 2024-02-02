@@ -4,8 +4,5 @@ import java.io.Serializable;
 import lombok.Value;
 
 /** DTO for {@link SurveyAnswer} */
-@Value
-public class SurveyAnswerDto implements Serializable {
-  Integer id;
-  String json;
+public record SurveyAnswerDto(String json) implements Serializable {
 }
