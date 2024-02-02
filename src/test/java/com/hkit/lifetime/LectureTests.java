@@ -21,6 +21,7 @@ import com.hkit.lifetime.lecture.Lecture;
 import com.hkit.lifetime.lecture.LectureContent;
 import com.hkit.lifetime.lecture.LectureContentRepository;
 import com.hkit.lifetime.lecture.LectureRepository;
+import jakarta.transaction.Transactional;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
@@ -49,7 +50,8 @@ public class LectureTests {
 
   Lecture static_lecture = null;
 
-  public static MultiValueMap<String, String> randomLecture(
+  @Transactional
+  public MultiValueMap<String, String> randomLecture(
       Company company, Account account, Category mainCategory, SubCategory subCategory) {
     Faker faker = new Faker(Locale.KOREAN);
     MultiValueMap<String, String> info = new LinkedMultiValueMap<>();

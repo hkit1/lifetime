@@ -8,6 +8,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.hkit.lifetime.category.CategoryRepository;
 import com.hkit.lifetime.category.SubCategory;
 import com.hkit.lifetime.category.SubCategoryRepository;
+import jakarta.transaction.Transactional;
 import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -32,6 +33,7 @@ public class CategoryTests {
   }
 
   @Test
+  @Transactional
   @WithMockUser(
       username = "테스트_최고관리자",
       roles = {"OWNER"})
@@ -44,6 +46,9 @@ public class CategoryTests {
 
     assertTrue(repository.findByName("메인보드").isPresent());
     assertTrue(subRepository.findByName("amd").isPresent());
+    assertEquals("메인보드", repository.findByName("메인보드").get().getName());
+    assertEquals("amd", subRepository.findByName("amd").get().getName());
+    assertEquals("메인보드", subRepository.findByName("amd").get().getMainCategory().getName());
 
     // 하위 카테고리를 추가할 경우, 상위 카테고리는 1개 값이, 하위 카테고리에는 2개 값이 있는지 확인
     mockMvc

@@ -2,7 +2,6 @@ package com.hkit.lifetime;
 
 import static com.hkit.lifetime.AccountTests.createAccountInfo;
 import static com.hkit.lifetime.CompanyTests.createRandomCompany;
-import static com.hkit.lifetime.LectureTests.randomLecture;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -12,6 +11,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonParser;
 import com.hkit.lifetime.account.Account;
 import com.hkit.lifetime.account.AccountRepository;
+import com.hkit.lifetime.category.Category;
 import com.hkit.lifetime.category.CategoryRepository;
 import com.hkit.lifetime.category.SubCategory;
 import com.hkit.lifetime.category.SubCategoryRepository;
@@ -22,7 +22,12 @@ import com.hkit.lifetime.lecture.Lecture;
 import com.hkit.lifetime.lecture.LectureContentRepository;
 import com.hkit.lifetime.lecture.LectureRepository;
 import com.hkit.lifetime.survey.*;
+import jakarta.transaction.Transactional;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 import java.util.Optional;
+import net.datafaker.Faker;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -46,6 +51,27 @@ public class SurveyTests {
   @Autowired CompanyRepository companyRepository;
   @Autowired CategoryRepository categoryRepository;
   @Autowired SubCategoryRepository subCategoryRepository;
+
+  @Transactional
+  public MultiValueMap<String, String> randomLecture(
+      Company company, Account account, Category mainCategory, SubCategory subCategory) {
+    Faker faker = new Faker(Locale.KOREAN);
+    MultiValueMap<String, String> info = new LinkedMultiValueMap<>();
+
+    info.add("name", faker.starCraft().building());
+    info.add("created_at", LocalDate.now().format(DateTimeFormatter.BASIC_ISO_DATE));
+    info.add(
+        "closed_at",
+        LocalDate.now()
+            .plusDays(faker.random().nextInt(3, 30))
+            .format(DateTimeFormatter.BASIC_ISO_DATE));
+    info.add("company_name", company.getName());
+    info.add("teacher", account.getName());
+    info.add("main_category", mainCategory.getName());
+    info.add("sub_category", subCategory.getName());
+
+    return info;
+  }
 
   MultiValueMap<String, String> randomSurvey() {
     MultiValueMap<String, String> info = new LinkedMultiValueMap<>();
