@@ -83,6 +83,7 @@ public class LectureTests {
   }
 
   @Test
+  @Transactional
   void createLecture() throws Exception {
     // 강사 계정 생성
     // AccountTests 에서 createAndLogin, TeacherTests 에서 setTeacher 가 먼저 완료되어야 함
