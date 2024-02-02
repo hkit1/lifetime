@@ -4,12 +4,14 @@ import com.hkit.lifetime.lecture.Lecture;
 import jakarta.persistence.*;
 import java.time.LocalDate;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
 @Entity
 @Table(name = "survey")
+@NoArgsConstructor
 public class Survey {
     @Id
     @GeneratedValue
@@ -28,4 +30,16 @@ public class Survey {
 
     @Column(name = "json", nullable = false)
     private String json;
+
+    public Survey(Lecture lecture, String json) {
+        this.lecture = lecture;
+        this.createdAt = LocalDate.now();
+        this.updatedAt = LocalDate.now();
+        this.json = json;
+    }
+
+    public void updateSurvey(SurveyDto surveyDto){
+        this.updatedAt = LocalDate.now();
+        this.json = surveyDto.json();
+    }
 }
