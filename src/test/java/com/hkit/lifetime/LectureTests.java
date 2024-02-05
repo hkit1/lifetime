@@ -18,12 +18,14 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
+import java.io.InputStream;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
@@ -33,8 +35,7 @@ import static com.hkit.lifetime.AccountTests.createAccountInfo;
 import static com.hkit.lifetime.CompanyTests.createRandomCompany;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
@@ -66,7 +67,6 @@ public class LectureTests {
         MultiValueMap<String, String> info = new LinkedMultiValueMap<>();
 
         info.add("name", faker.text().text());
-        info.add("url", "https://exampleurl.com");
         info.add("description", "normal_description");
         info.add("lecture_id", String.valueOf(lecture.getId()));
 
@@ -144,9 +144,14 @@ public class LectureTests {
 
         // 강좌 내 회차 생성 확인
         // 주소는 /api/lecture/{lecture_id}/create 으로 됨.
+        InputStream file = getClass().getClassLoader().getResourceAsStream("SampleVideo_360x240_1mb.mp4");
         MultiValueMap<String, String> lecture_content_info = randomLectureContent(static_lecture);
-        mockMvc.perform(post("/api/lecture/" + static_lecture.getId() + "/create").params(lecture_content_info).with(csrf())).andExpect(status().isOk());
-
+        MockMultipartFile mockFile = new MockMultipartFile("file", "SampleVideo_360x240_1mb.mp4", "video/mp4", file);
+        mockMvc.perform(multipart("/api/lecture/" + static_lecture.getId() + "/create")
+                        .file(mockFile)
+                        .params(lecture_content_info)
+                        .with(csrf()))
+                .andExpect(status().isOk());
         assertTrue(contentRepository.findByLecture_Id(static_lecture.getId()).isPresent());
     }
 
