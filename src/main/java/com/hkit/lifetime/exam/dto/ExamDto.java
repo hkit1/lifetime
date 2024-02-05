@@ -1,12 +1,13 @@
-package com.hkit.lifetime.exam;
+package com.hkit.lifetime.exam.dto;
 
+
+import com.hkit.lifetime.exam.Exam;
 
 import java.io.Serializable;
 import java.time.LocalDate;
 
 /** DTO for {@link Exam} */
 public record ExamDto(
-    String examId,
     Integer lectureId,
     String lectureName,
     LocalDate lectureCreatedAt,

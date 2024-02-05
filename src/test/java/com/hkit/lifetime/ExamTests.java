@@ -64,7 +64,7 @@ public class ExamTests {
 
         // 시험이 등록되는지 확인
         MultiValueMap<String, String> info = randomExam(null);
-        mockMvc.perform(post("/api/lecture/" + lecture.getId() + "/exam/create").params(info)).andExpect(status().isOk());
+        mockMvc.perform(post("/api/lecture/" + lecture.getId() + "/exam/create").params(info).with(csrf())).andExpect(status().isOk());
 
         Optional<Exam> exam = repository.findByLecture_Id(lecture.getId());
         assertTrue(exam.isPresent());
@@ -79,7 +79,7 @@ public class ExamTests {
         Lecture lecture = createLecture();
 
         MultiValueMap<String, String> info = randomExam(0);
-        mockMvc.perform(post("/api/lecture/" + lecture.getId() + "/exam/create").params(info)).andExpect(status().isOk());
+        mockMvc.perform(post("/api/lecture/" + lecture.getId() + "/exam/create").params(info).with(csrf())).andExpect(status().isOk());
 
         Optional<Exam> exam = repository.findByLecture_Id(lecture.getId());
         assertTrue(exam.isPresent());
@@ -87,7 +87,7 @@ public class ExamTests {
 
         MultiValueMap<String, String> updatedInfo = randomExam(3);
 
-        mockMvc.perform(post("/api/lecture/" + lecture.getId() + "/exam/update").params(info)).andExpect(status().isOk());
+        mockMvc.perform(post("/api/lecture/" + lecture.getId() + "/exam/update").params(updatedInfo).with(csrf())).andExpect(status().isOk());
 
         Optional<Exam> updatedExam = repository.findByLecture_Id(lecture.getId());
         assertTrue(updatedExam.isPresent());
@@ -102,13 +102,13 @@ public class ExamTests {
         Lecture lecture = createLecture();
 
         MultiValueMap<String, String> info = randomExam(0);
-        mockMvc.perform(post("/api/lecture/" + lecture.getId() + "/exam/create").params(info)).andExpect(status().isOk());
+        mockMvc.perform(post("/api/lecture/" + lecture.getId() + "/exam/create").params(info).with(csrf())).andExpect(status().isOk());
 
         Optional<Exam> exam = repository.findByLecture_Id(lecture.getId());
         assertTrue(exam.isPresent());
 
         // api/lecture/{lecture_id}/exam/{exam_id}/delete
-        mockMvc.perform(post("/api/lecture/" + lecture.getId() + "/exam/" + exam.get().getExamId() + "/delete").params(info)).andExpect(status().isOk());
+        mockMvc.perform(post("/api/lecture/" + lecture.getId() + "/exam/" + exam.get().getExamId() + "/delete").params(info).with(csrf())).andExpect(status().isOk());
         assertFalse(repository.findByLecture_IdAndExamId(lecture.getId(), exam.get().getExamId()).isPresent());
     }
 
@@ -121,7 +121,7 @@ public class ExamTests {
 
         // 시험 등록
         MultiValueMap<String, String> examInfo = randomExam(null);
-        mockMvc.perform(post("/api/lecture/" + lecture.getId() + "/exam/create").params(examInfo)).andExpect(status().isOk());
+        mockMvc.perform(post("/api/lecture/" + lecture.getId() + "/exam/create").params(examInfo).with(csrf())).andExpect(status().isOk());
 
         Optional<Exam> exam = repository.findByLecture_Id(lecture.getId());
 
@@ -134,7 +134,8 @@ public class ExamTests {
         // 답안지 등록 확인
         mockMvc.perform(post("/api/lecture/" + lecture.getId() + "/exam/" + exam.get().getExamId())
                         .params(randomAnswer(null))
-                        .param("accountId", account.get().getId()))
+                        .param("accountId", account.get().getId())
+                        .with(csrf()))
                 .andExpect(status().isOk());
 
         assertTrue(answerRepository.findByExam_Lecture_IdAndExam_ExamIdAndAccount_Id(lecture.getId(), exam.get().getExamId(), account.get().getId()).isPresent());
@@ -149,7 +150,7 @@ public class ExamTests {
 
         // 시험 등록
         MultiValueMap<String, String> examInfo = randomExam(null);
-        mockMvc.perform(post("/api/lecture/" + lecture.getId() + "/exam/create").params(examInfo)).andExpect(status().isOk());
+        mockMvc.perform(post("/api/lecture/" + lecture.getId() + "/exam/create").params(examInfo).with(csrf())).andExpect(status().isOk());
 
         Optional<Exam> exam = repository.findByLecture_Id(lecture.getId());
 
@@ -162,7 +163,8 @@ public class ExamTests {
         // 답안지 등록
         mockMvc.perform(post("/api/lecture/" + lecture.getId() + "/exam/" + exam.get().getExamId())
                         .params(randomAnswer(null))
-                        .param("accountId", account.get().getId()))
+                        .param("accountId", account.get().getId())
+                        .with(csrf()))
                 .andExpect(status().isOk());
 
         Optional<ExamAnswer> answer = answerRepository.findByExam_Lecture_IdAndExam_ExamIdAndAccount_Id(lecture.getId(), exam.get().getExamId(), account.get().getId());
@@ -171,7 +173,8 @@ public class ExamTests {
         // api/lecture/{lecture_id}/exam/{exam_id}/{exam_answer_id}/delete
         mockMvc.perform(post("/api/lecture/" + lecture.getId() + "/exam/" + exam.get().getExamId() + "/" + answer.get().getId() + "/delete")
                         .params(randomAnswer(null))
-                        .param("accountId", account.get().getId()))
+                        .param("accountId", account.get().getId())
+                        .with(csrf()))
                 .andExpect(status().isOk());
 
         assertFalse(answerRepository.findByExam_Lecture_IdAndExam_ExamIdAndAccount_Id(lecture.getId(), exam.get().getExamId(), account.get().getId()).isPresent());
@@ -187,7 +190,7 @@ public class ExamTests {
 
         // 시험 등록
         MultiValueMap<String, String> examInfo = randomExam(null);
-        mockMvc.perform(post("/api/lecture/" + lecture.getId() + "/exam/create").params(examInfo)).andExpect(status().isOk());
+        mockMvc.perform(post("/api/lecture/" + lecture.getId() + "/exam/create").params(examInfo).with(csrf())).andExpect(status().isOk());
 
         Optional<Exam> exam = repository.findByLecture_Id(lecture.getId());
 
@@ -196,19 +199,20 @@ public class ExamTests {
         mockMvc.perform(post("/api/account/register").params(accountInfo).with(csrf())).andExpect(status().isOk());
 
         Optional<Account> account = accountRepository.findAccountById(accountInfo.getFirst("id"));
-        String examId = exam.get().getExamId();
+        Integer examId = exam.get().getExamId();
 
         // 답안지 등록
         mockMvc.perform(post("/api/lecture/" + lecture.getId() + "/exam/" + examId)
                         .params(randomAnswer(null))
-                        .param("accountId", account.get().getId()))
+                        .param("accountId", account.get().getId())
+                        .with(csrf()))
                 .andExpect(status().isOk());
 
         Optional<ExamAnswer> answer = answerRepository.findByExam_Lecture_IdAndExam_ExamIdAndAccount_Id(lecture.getId(), examId, account.get().getId());
         assertTrue(answer.isPresent());
 
         // 시험 삭제
-        mockMvc.perform(post("/api/lecture/" + lecture.getId() + "/exam/" + examId + "/delete").params(examInfo)).andExpect(status().isOk());
+        mockMvc.perform(post("/api/lecture/" + lecture.getId() + "/exam/" + examId + "/delete").params(examInfo).with(csrf())).andExpect(status().isOk());
         assertFalse(repository.findByLecture_IdAndExamId(lecture.getId(), examId).isPresent());
 
         // 시험 삭제 후 답안도 삭제되는지 확인
@@ -227,7 +231,7 @@ public class ExamTests {
         // [{"text": "1+1은?"}, {"text": "2+2는?"}] -> 글자만 있는 문제가 2개 있는 문제
         // [{"image": "image url", "text": 이 사진은 무엇인가?"}, {"text": "아 빨리 집가고 싶다"}] -> 문제 1번에는 사진과 글이 있고, 문제 2번에는 글만 있는 문제
 
-        String[] list = {"[{\"text\": \"1+1은?\"}]", "[{\"image\": \"image url\"}]", "[{\"text: \"이 사진에 있는 것은?\", \"image\": \"image url\"}]", "[{\"text\": \"1+1은?\"}, {\"text\": \"2+2는?\"}]", "[{\"image\": \"image url\", \"text\": 이 사진은 무엇인가?\"}, {\"text\": \"아 빨리 집가고 싶다\"}]"};
+        String[] list = {"[{\"text\": \"1+1은?\"}]", "[{\"image\": \"image url\"}]", "[{\"text\": \"이 사진에 있는 것은?\", \"image\": \"image url\"}]", "[{\"text\": \"1+1은?\"}, {\"text\": \"2+2는?\"}]", "[{\"image\": \"image url\", \"text\": \"이 사진은 무엇인가?\"}, {\"text\": \"아 빨리 집가고 싶다\"}]"};
         info.add("json", list[Objects.requireNonNullElseGet(random, () -> (int) (Math.random() * 5))]);
 
         return info;
@@ -246,7 +250,7 @@ public class ExamTests {
         MultiValueMap<String, String> accountInfo = createAccountInfo();
         mockMvc.perform(post("/api/account/register").params(accountInfo).with(csrf())).andExpect(status().isOk());
 
-        Account account = accountRepository.findAccountById(accountInfo.getFirst("uuid")).get();
+        Account account = accountRepository.findAccountById(accountInfo.getFirst("id")).get();
 
         MultiValueMap<String, String> companyInfo = createRandomCompany();
         mockMvc.perform(post("/api/company/create").params(companyInfo).with(csrf())).andExpect(status().isOk());
@@ -268,7 +272,7 @@ public class ExamTests {
         info.add("main_category", category.getMainCategory().getName());
         info.add("sub_category", category.getName());
 
-        mockMvc.perform(post("/api/lecture/create").params(info)).andExpect(status().isOk());
+        mockMvc.perform(post("/api/lecture/create").params(info).with(csrf())).andExpect(status().isOk());
 
         return lectureRepository.findByName(info.getFirst("name")).get();
     }
