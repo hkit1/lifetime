@@ -5,13 +5,13 @@
   <title>강의 재생</title>
   <style>
       /* 강의 재생 css 시작 */
-      .video {
+      #video {
           width: 1150px;
           height: 500px;
           margin: 20px auto 0;
       }
 
-      .navigation {
+      nav {
           width: 1150px;
           height: 100px;
           display: flex;
@@ -20,16 +20,15 @@
           background-color: rgb(217, 217, 217);
       }
 
-      .navigation_text {
+      #text {
           float: left;
           margin-left: 40px;
           font-weight: 700;
           font-size: 23px;
           line-height: 23px;
-          font-family: "Droid Sans";
       }
 
-      .navigation_next_button {
+      #next {
           width: 100px;
           height: 50px;
           margin-left: 720px;
@@ -43,7 +42,7 @@
           background-color: #006ACB;
       }
 
-      .navigation_end_button {
+      #end {
           width: 100px;
           height: 50px;
           border-radius: 5px;
@@ -58,20 +57,13 @@
   </style>
 </head>
 <body>
-
-  <!-- 강의 재생 html 시작-->
-  <div class="video">
-    <video controls width="1150" height="500" src="">
-
-    </video>
+<div id="video">
+  <video controls height="500" src="" width="1150"></video>
   </div>
-
-  <div class="navigation">
-    <span class="navigation_text">강의 이동하기</span>
-    <a class="navigation_next_button" href="">다음</a>
-    <a class="navigation_end_button" href="">종료</a>
-  </div>
-  <!-- 강의 재생 html 시작-->
-
+<nav>
+  <span id="text">강의 이동하기</span>
+  <a id="next" th:href="/api/lecture/${lecture_id}/${content_id}">다음</a>
+  <a id="end" onclick="window.close()">종료</a>
+</nav>
 </body>
 </html>
