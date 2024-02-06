@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>마이페이지</title>
+  <style>
+      /* 헤더 css 시작 */
+      @import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Merienda:wght@700&family=Noto+Sans+KR:wght@100;200&family=Single+Day&display=swap');
+
+      * {
+          margin: 0;
+          padding: 0;
+      }
+
+      .container {
+          width: 1200px;
+          height: 1000px;
+          margin: 0 auto;
+          padding: 0;
+          display: flex;
+          flex-direction: column;
+      }
+
+      header {
+          width: 100%;
+          height: 100px;
+      }
+
+      ul {
+          list-style: none;
+      }
+
+      .logo {
+          width: 200px;
+          height: 100px;
+          background: salmon;
+          float: left;
+          display: inline-grid;
+      }
+
+      .logo a {
+          text-decoration: none;
+          display: flex;
+          flex-direction: row-reverse;
+          justify-content: center;
+          align-items: center;
+      }
+
+      .logo a h5 {
+          margin-left: 5px;
+          font-size: 25px;
+          font-weight: 700;
+          font-family: 'Single Day', cursive;
+      }
+
+      .logo a img {
+          width: 50px;
+          height: 50px;
+      }
+
+      nav {
+          width: 800px;
+          height: 100px;
+          background: orange;
+          float: left;
+          position: relative;
+      }
+
+      nav:hover .subMenu_cate {
+          display: flex;
+      }
+
+      .topMenu {
+          height: 100px;
+          margin-left: 30px;
+      }
+
+      .topMenu li {
+          height: 100%;
+          padding: 30px 25px;
+          float: left;
+          display: block;
+          color: blueviolet;
+          font-weight: 600;
+          text-shadow: 0 1px #07c;
+      }
+
+      .topMenu li a {
+          text-decoration: none;
+      }
+
+      .topMenu li:hover {
+          color: #000;
+          text-shadow: 0 -1px #07c;
+      }
+
+      .subMenu_cate {
+          width: 100%;
+          height: 300px;
+          left: 0;
+          top: 100px;
+          background: greenyellow;
+          position: absolute;
+          display: none;
+          z-index: 999;
+      }
+
+      .subMenu {
+          width: calc(100% / 5);
+          text-align: center;
+      }
+
+      .subMenu li {
+          width: 100%;
+      }
+
+      .subMenu li a {
+          font-size: 20px;
+          text-decoration: none;
+      }
+
+      .member_btn {
+          width: 200px;
+          height: 100px;
+          float: right;
+          display: flex;
+          align-items: center;
+          background: aqua;
+      }
+
+      .reg {
+          width: 100px;
+          height: 50px;
+          font-size: 0.8em;
+          color: white;
+          border: 1px solid black;
+          border-radius: 30px;
+          background: #0077cc;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          text-decoration: none;
+      }
+
+      .login {
+          width: 100px;
+          height: 50px;
+          margin-left: 5px;
+          font-size: 0.8em;
+          color: white;
+          border: 1px solid black;
+          border-radius: 30px;
+          background: mediumslateblue;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          text-decoration: none;
+      }
+      /* 헤더 css 끝 */
+
+      /* 마이페이지 css 시작 */
+      .profile_container {
+          width: 230px;
+          height: 670px;
+          margin-top: 40px;
+          border-radius: 10px;
+          background-color: #9AB0C3;
+      }
+
+      .profile_greeting_container {
+          width: 185px;
+          height: 105px;
+          margin: 25px auto 0;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background-color: #FFFFFF;
+      }
+
+      .profile_container_wrap {
+          width: 130px;
+          height: 80px;
+          margin: 0 auto;
+      }
+
+      .menu_container {
+          width: 185px;
+          height: 500px;
+          margin: 10px auto 0;
+          background-color: #FFFFFF;
+      }
+
+      .menu {
+          display: flex;
+          align-items: center;
+          flex-direction: column;
+      }
+
+      .menu a {
+          width: 165px;
+          height: 35px;
+          line-height: 35px;
+          color: black;
+          text-decoration: none;
+          margin-left: 20px;
+      }
+
+      .menu a:hover {
+          border-width: 0 5px 0 0;
+          border-style: solid;
+          border-color: grey;
+          box-sizing: border-box;
+      }
+
+      .dashboard {
+          width: 950px;
+          height: 670px;
+          margin-top: 40px;
+          margin-left: 40px;
+          border-radius: 10px;
+          background-color: #9AAFC3;
+      }
+
+      .lecture_viewing_time_container {
+          width: 620px;
+          height: 400px;
+          float: left;
+          margin-top: 25px;
+          margin-left: 25px;
+          border-radius: 5px;
+          background-color: #FFFFFF;
+      }
+
+      .lecture_viewing_time_text {
+          width: 100%;
+          height: 36px;
+      }
+
+      .lecture_viewing_time {
+          width: 100%;
+          height: calc(100% - 36px);
+          display: flex;
+          position: relative;
+          flex-direction: row;
+      }
+
+      .item_bar {
+          width: 40px;
+          height: 100%;
+          margin: 0 30px;
+      }
+
+      .lecture_calendar_container {
+          width: 240px;
+          height: 200px;
+          float: right;
+          margin-top: 25px;
+          margin-right: 25px;
+          border-radius: 5px;
+          background-color: #FFFFFF;
+      }
+
+      .lecture_calendar_text {
+          width: 80px;
+          height: 35px;
+          margin-top: 5px;
+          margin-left: 5px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+      }
+
+      .year {
+          width: 100%;
+          height: 50px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+      }
+
+      .month {
+          width: 100%;
+          height: 35px;
+          margin-top: 15px;
+      }
+
+      .day {
+          width: 100%;
+          height: 45px;
+          margin-top: 5px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+      }
+
+      .next_lecture_schedule_container {
+          width: 240px;
+          height: 400px;
+          margin-top: 25px;
+          margin-right: 25px;
+          border-radius: 5px;
+          float: right;
+          background-color: #FFFFFF;
+      }
+
+      .next_lecture_schedule_text {
+          width: 100px;
+          height: 50px;
+          margin-top: 5px;
+          margin-left: 5px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+      }
+
+      .next_lecture_schedule_list {
+          width: 225px;
+          height: 300px;
+          margin: 10px auto 0;
+      }
+
+      .next_lecture_item {
+          width: 100%;
+          height: 60px;
+      }
+
+      .date {
+          width: 60px;
+          height: 60px;
+          display: flex;
+          float: left;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          background-color: #D9D9D9;
+      }
+
+      .title {
+          float: left;
+      }
+
+      .content {
+          float: left;
+      }
+
+      .not_submission_homework {
+          width: 620px;
+          height: 200px;
+          float: left;
+          margin-top: 25px;
+          margin-left: 25px;
+          border-radius: 5px;
+          background-color: #FFFFFF;
+      }
+
+      table {
+          width: 95%;
+          margin: 0 auto;
+          border-top: none;
+          border-collapse: collapse;
+      }
+
+      th, td {
+          border-bottom: 1px solid #DDDDDD;
+          padding: 10px;
+      }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <!-- 헤더 html 시작 -->
+    <header>
+      <div class="logo">
+        <a href="">
+          <h5>평생학습플랫폼</h5>
+          <img src="book.png">
+        </a>
+      </div>
+
+      <nav>
+        <ul class="topMenu">
+          <li>
+            <a href="">온라인 학습</a>
+          </li>
+          <li>
+            <a href="">오프라인 교육정보</a>
+          </li>
+          <li>
+            <a href="">행정교육자료</a>
+          </li>
+          <li>
+            <a href="">늘배움 알림</a>
+          </li>
+          <li>
+            <a href="">늘배움 소개</a>
+          </li>
+        </ul>
+
+        <div class="subMenu_cate">
+          <ul class="subMenu">
+            <li><a href="">가</a></li>
+            <li><a href="">나</a></li>
+            <li><a href="">다</a></li>
+          </ul>
+          <ul class="subMenu">
+            <li><a href="">라</a></li>
+            <li><a href="">마</a></li>
+            <li><a href="">바</a></li>
+          </ul>
+          <ul class="subMenu">
+            <li><a href="">사</a></li>
+            <li><a href="">아</a></li>
+            <li><a href="">자</a></li>
+          </ul>
+          <ul class="subMenu">
+            <li><a href="">차</a></li>
+            <li><a href="">카</a></li>
+            <li><a href="">타</a></li>
+          </ul>
+          <ul class="subMenu">
+            <li><a href="">파</a></li>
+            <li><a href="">하</a></li>
+            <li><a href="">굿</a></li>
+          </ul>
+        </div>
+      </nav>
+
+      <div class="member_btn">
+        <a href="" class="reg">👦회원가입</a>
+        <a href="" class="login">🔒로그인</a>
+      </div>
+    </header>
+    <!-- 헤더 html 끝 -->
+
+    <!-- 마이페이지 html 시작 -->
+    <div style="display: flex; flex-direction: row">
+      <div class="profile_container">
+        <div class="profile_greeting_container">
+          <div class="profile_container_wrap">
+            <p><span style="font-family: 'Droid Sans'; font-weight: 700; font-size: 12px; line-height: 27px">홍길동</span>
+              <span style="font-family: 'Droid Sans'; font-weight: 400; font-size: 12px; line-height: 27px; color: #3D3D3D">님 안녕하세요.</span></p>
+            <p><span style="font-family: 'Droid Sans'; font-weight: 400; font-size: 10px; line-height: 22px">수강중인 강좌 수 :</span>
+              <span style="font-family: 'Droid Sans'; font-weight: 400; font-size: 12px; line-height: 27px">&ensp;&ensp;&ensp;&ensp;1</span></p>
+            <p><span style="font-family: 'Droid Sans'; font-weight: 400; font-size: 10px; line-height: 22px">수강완료한 강좌 수 : </span>
+              <span style="font-family: 'Droid Sans'; font-weight: 400; font-size: 12px; line-height: 27px">&ensp;&ensp;&nbsp;5</span></p>
+          </div>
+        </div>
+        <div class="menu_container">
+          <div class="menu">
+            <a href="">메뉴1</a>
+            <a href="">메뉴2</a>
+            <a href="">메뉴3</a>
+            <a href="">메뉴4</a>
+            <a href="">메뉴5</a>
+            <a href="">메뉴6</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="dashboard">
+        <div class="lecture_viewing_time_container">
+          <div class="lecture_viewing_time_text">
+            <p style="margin-top: 5px; margin-left: 15px; font-weight: 700; font-size: 16px; line-height: 36px;">강좌시청 시간</p>
+          </div>
+          <div class="lecture_viewing_time">
+            <!-- 사용자의 강좌시청 시간에 따라 height 값 조절해야 함 -->
+            <div class="item_bar">
+              <div>
+                <div style="width: 30px; height: 60px; background-color: #D9D9D9; border-radius: 10px 10px 0 0; position: absolute; left: 35px; bottom: 60px"><span style="width: 100%; display: inline-block; text-align: center; font-size: 11px;">5h</span></div>
+              </div>
+              <div style="position: absolute; bottom: 20px; left: 40px">
+                <p>월</p>
+              </div>
+            </div>
+            <div class="item_bar">
+              <div>
+                <div style="width: 30px; height: 110px; background-color: #D9D9D9; border-radius: 10px 10px 0 0; position: absolute; left: 120px; bottom: 60px"><span style="width: 100%; display: inline-block; text-align: center; font-size: 11px">10h</span></div>
+              </div>
+              <div style="position: absolute; bottom: 20px; left: 125px">
+                <p>화</p>
+              </div>
+            </div>
+            <div class="item_bar">
+              <div>
+                <div style="width: 30px; height: 80px; background-color: #D9D9D9; border-radius: 10px 10px 0 0; position: absolute; left: 205px; bottom: 60px"><span style="width: 100%; display: inline-block; text-align: center; font-size: 11px">8h</span></div>
+              </div>
+              <div style="position: absolute; bottom: 20px; left: 210px">
+                <p>수</p>
+              </div>
+            </div>
+            <div class="item_bar">
+              <div>
+                <div style="width: 30px; height: 200px; background-color: #D9D9D9; border-radius: 10px 10px 0 0; position: absolute; left: 290px; bottom: 60px"><span style="width: 100%; display: inline-block; text-align: center; font-size: 11px">14h</span></div>
+              </div>
+              <div style="position: absolute; bottom: 20px; left: 295px">
+                <p>목</p>
+              </div>
+            </div>
+            <div class="item_bar">
+              <div>
+                <div style="width: 30px; height: 165px; background-color: #D9D9D9; border-radius: 10px 10px 0 0; position: absolute; left: 375px; bottom: 60px"><span style="width: 100%; display: inline-block; text-align: center; font-size: 11px">12h</span></div>
+              </div>
+              <div style="position: absolute; bottom: 20px; left: 380px">
+                <p>금</p>
+              </div>
+            </div>
+            <div class="item_bar">
+              <div>
+                <div style="width: 30px; height: 270px; background-color: #D9D9D9; border-radius: 10px 10px 0 0; position: absolute; left: 460px; bottom: 60px"><span style="width: 100%; display: inline-block; text-align: center; font-size: 11px">18h</span></div>
+              </div>
+              <div style="position: absolute; bottom: 20px; left: 465px">
+                <p>토</p>
+              </div>
+            </div>
+            <div class="item_bar">
+              <div>
+                <div style="width: 30px; height: 220px; background-color: #D9D9D9; border-radius: 10px 10px 0 0; position: absolute; left: 545px; bottom: 60px"><span style="width: 100%; display: inline-block; text-align: center; font-size: 11px">15.8h</span></div>
+              </div>
+              <div style="position: absolute; bottom: 20px; left: 550px">
+                <p>일</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="lecture_calendar_container">
+          <div class="lecture_calendar_text">
+            <p style="font-weight: 700; font-size: 16px; line-height: 35px">강좌 달력</p>
+          </div>
+          <div class="year">
+            <p style="font-weight: 400; font-size: 28px; line-height: 63px">2024</p>
+          </div>
+          <div class="month">
+            <span style="font-weight: 700; font-size: 15px; line-height: 33px; margin: 0 16px">12</span>
+            <span style="font-weight: 700; font-size: 15px; line-height: 33px; margin: 0 16px">1</span>
+            <span style="font-weight: 700; font-size: 15px; line-height: 33px; margin: 0 16px">2</span>
+            <span style="font-weight: 700; font-size: 15px; line-height: 33px; margin: 0 16px">3</span>
+            <span style="font-weight: 700; font-size: 15px; line-height: 33px; margin: 0 16px">4</span>
+          </div>
+          <div class="day">
+            <span style="font-weight: 400; font-size: 20px; line-height: 45px; ">4</span>
+            <span style="font-weight: 400; font-size: 20px; line-height: 45px; margin-left: 25px">5</span>
+            <div style="width: 40px; height: 40px; font-weight: 400; font-size: 20px; margin-left: 25px; border-radius: 50%; background-color: #D9D9D9; text-align: center; line-height: 40px">6</div>
+            <span style="font-weight: 400; font-size: 20px; line-height: 45px; margin-left: 25px">7</span>
+            <span style="font-weight: 400; font-size: 20px; line-height: 45px; margin-left: 25px">8</span>
+          </div>
+        </div>
+
+        <div class="next_lecture_schedule_container">
+          <div class="next_lecture_schedule_text">
+            <p style="font-weight: 700; font-size: 16px; line-height: 35px">다음강좌일정</p>
+          </div>
+          <div class="next_lecture_schedule_list">
+            <div class="next_lecture_item">
+              <div class="date">
+                <p style="font-weight: 400; font-size: 14px; line-height: 25px">1</p>
+                <p style="font-weight: 700; font-size: 16px">16</p>
+              </div>
+              <div class="title">
+                <span style="font-weight: 700; font-size: 13px; line-height: 30px; margin-left: 15px">스프링부트 - JPA응용</span>
+              </div>
+              <div class="content">
+                <span style="font-weight: 400; font-size: 10px; line-height: 22px; margin-left: 15px">분류 : IT / 과학&ensp;&ensp;강사 : 김영한</span>
+              </div>
+            </div>
+
+            <hr style="height: 1px; margin: 20px 0; border: 0; background-color: #DDDDDD">
+
+            <div class="next_lecture_item">
+              <div class="date">
+                <p style="font-weight: 400; font-size: 14px; line-height: 25px">1</p>
+                <p style="font-weight: 700; font-size: 16px">28</p>
+              </div>
+              <div class="title">
+                <span style="font-weight: 700; font-size: 13px; line-height: 30px; margin-left: 15px">데이터베이스</span>
+              </div>
+              <div class="content">
+                <span style="font-weight: 400; font-size: 10px; line-height: 22px; margin-left: 15px">분류 : IT / 과학&ensp;&ensp;강사 : 리베하얀</span>
+              </div>
+            </div>
+
+            <hr style="height: 1px; margin: 20px 0; border: 0; background-color: #DDDDDD">
+
+            <div class="next_lecture_item">
+              <div class="date">
+                <p style="font-weight: 400; font-size: 14px; line-height: 25px">2</p>
+                <p style="font-weight: 700; font-size: 16px">4</p>
+              </div>
+              <div class="title">
+                <span style="font-weight: 700; font-size: 13px; line-height: 30px; margin-left: 15px">Openstack 활용</span>
+              </div>
+              <div class="content">
+                <span style="font-weight: 400; font-size: 10px; line-height: 22px; margin-left: 15px">분류 : IT / 과학&ensp;&ensp;강사 : 백기선</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="not_submission_homework">
+          <table>
+            <caption style="width: 100px; height: 35px; font-weight: 700; font-size: 16px; line-height: 35px">미제출 과제</caption>
+            <thead>
+              <tr style="font-weight: 700; font-size: 12px; line-height: 22px; text-align: left">
+                <th style="border-bottom: 1px solid #000000">강좌</th>
+                <th style="border-bottom: 1px solid #000000">과제항목</th>
+                <th style="border-bottom: 1px solid #000000">마감기한</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="font-weight: 400; font-size: 11px; line-height: 20px">
+                <td>토비의 스프링부트 - 이해와 원리</td>
+                <td>스프링 시큐리티 적용하기</td>
+                <td>2024.03.05</td>
+              </tr>
+              <tr style="font-weight: 400; font-size: 11px; line-height: 20px">
+                <td style="border-bottom: none">스프링입문 - 코드로 배우는 스프링부트</td>
+                <td style="border-bottom: none">스프링부트 환경설정하기</td>
+                <td style="border-bottom: none">2024.05.05</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <!-- 마이페이지 html 시작 -->
+  </div>
+
+</body>
+</html>

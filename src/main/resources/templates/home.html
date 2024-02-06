@@ -1,11 +1,660 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+  <meta charset="UTF-8">
+  <title>홈</title>
+  <style>
+      /* 헤더 css 시작 */
+      @import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Merienda:wght@700&family=Noto+Sans+KR:wght@100;200&family=Single+Day&display=swap');
+
+      * {
+          margin: 0;
+          padding: 0;
+      }
+
+      .container {
+          width: 1200px;
+          margin: 0 auto;
+          padding: 0;
+          display: flex;
+          flex-direction: column;
+      }
+
+      header {
+          width: 100%;
+          height: 100px;
+      }
+
+      ul {
+          list-style: none;
+      }
+
+      .logo {
+          width: 200px;
+          height: 100px;
+          background: salmon;
+          float: left;
+          display: inline-grid;
+      }
+
+      .logo a {
+          text-decoration: none;
+          display: flex;
+          flex-direction: row-reverse;
+          justify-content: center;
+          align-items: center;
+      }
+
+      .logo a h5 {
+          margin-left: 5px;
+          font-size: 25px;
+          font-weight: 700;
+          font-family: 'Single Day', cursive;
+      }
+
+      .logo a img {
+          width: 50px;
+          height: 50px;
+      }
+
+      nav {
+          width: 800px;
+          height: 100px;
+          background: orange;
+          float: left;
+          position: relative;
+      }
+
+      nav:hover .subMenu_cate {
+          display: flex;
+      }
+
+      .topMenu {
+          height: 100px;
+          margin-left: 30px;
+      }
+
+      .topMenu li {
+          height: 100%;
+          padding: 30px 25px;
+          float: left;
+          display: block;
+          color: blueviolet;
+          font-weight: 600;
+          text-shadow: 0 1px #07c;
+      }
+
+      .topMenu li a {
+          text-decoration: none;
+      }
+
+      .topMenu li:hover {
+          color: #000;
+          text-shadow: 0 -1px #07c;
+      }
+
+      .subMenu_cate {
+          width: 100%;
+          height: 300px;
+          left: 0;
+          top: 100px;
+          background: greenyellow;
+          position: absolute;
+          display: none;
+          z-index: 999;
+      }
+
+      .subMenu {
+          width: calc(100% / 5);
+          text-align: center;
+      }
+
+      .subMenu li {
+          width: 100%;
+      }
+
+      .subMenu li a {
+          font-size: 20px;
+          text-decoration: none;
+      }
+
+      .member_btn {
+          width: 200px;
+          height: 100px;
+          float: right;
+          display: flex;
+          align-items: center;
+          background: aqua;
+      }
+
+      .reg {
+          width: 100px;
+          height: 50px;
+          font-size: 0.8em;
+          color: white;
+          border: 1px solid black;
+          border-radius: 30px;
+          background: #0077cc;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          text-decoration: none;
+      }
+
+      .login {
+          width: 100px;
+          height: 50px;
+          margin-left: 5px;
+          font-size: 0.8em;
+          color: white;
+          border: 1px solid black;
+          border-radius: 30px;
+          background: mediumslateblue;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          text-decoration: none;
+      }
+      /* 헤더 css 끝 */
+
+      /* 홈 css 시작 */
+      .lecture_search_shortcut_container {
+          width: 100%;
+          height: 450px;
+      }
+
+      .lecture_search_shortcut {
+          width: 100%;
+          height: 440px;
+          margin-top: 35px;
+      }
+
+      .image_space {
+          width: 48%;
+          float: left;
+          margin-right: 35px;
+      }
+
+      .image_space img {
+          width: 100%;
+      }
+
+      .lecture_search {
+          width: 48%;
+          height: 46%;
+          float: right;
+          margin-bottom: 35px;
+          border-radius: 5px;
+          background-color: #0092B2;
+      }
+
+      .lecture_search_title {
+          width: 100%;
+          height: 40px;
+          margin-top: 10px;
+          margin-left: 40px;
+          font-family: "Droid Sans";
+          font-weight: 700;
+          font-size: 24px;
+          line-height: 55px;
+      }
+
+      .select_lecture_institution {
+          width: 100%;
+          height: 40px;
+          margin-top: 5px;
+          margin-left: 40px;
+          font-family: "Droid Sans";
+          font-weight: 400;
+          font-size: 16px;
+          line-height: 35px;
+      }
+
+      .search_box {
+          width: 100%;
+          height: 40px;
+          margin-top: 5px;
+          margin-left: 40px;
+      }
+
+      .search {
+          width: 450px;
+          height: 30px;
+      }
+
+      .search_condition_button {
+          width: 100%;
+          height: 50px;
+          margin-top: 10px;
+          margin-left: 40px;
+      }
+
+      .search_button_wrap{
+          float: left;
+          position: relative;
+          margin-right: 10px;
+      }
+
+      .search_button_wrap::after{
+          width: 30px;
+          height: 30px;
+          top: 5px;
+          left: 45px;
+          content: "";
+          position: absolute;
+          background: url("magnifier_1.png") center center no-repeat;
+      }
+
+      .search_button {
+          width: 225px;
+          height: 40px;
+          color: white;
+          border-width: 0;
+          border-radius: 10px;
+          background-color: #33A03E;
+          cursor: pointer;
+          font-family: "Droid Sans";
+          font-weight: 700;
+          font-size: 16px;
+          line-height: 35px;
+          text-align: center;
+      }
+
+      .condition_button_wrap {
+          float: left;
+          position: relative;
+      }
+
+      .condition_button_wrap::after {
+          width: 30px;
+          height: 30px;
+          top: 5px;
+          left: 45px;
+          content: "";
+          position: absolute;
+          background: url("magnifier_2.png") center center no-repeat;
+      }
+
+      .condition_button {
+          width: 225px;
+          height: 40px;
+          color: white;
+          border-width: 0;
+          border-radius: 10px;
+          background-color: #424242;
+          cursor: pointer;
+          font-family: "Droid Sans";
+          font-weight: 700;
+          font-size: 16px;
+          line-height: 35px;
+          text-align: center;
+      }
+
+      .shortcut {
+          width: 48%;
+          height: 46%;
+          float: right;
+          border-radius: 5px;
+          background-color: #227BD6;
+      }
+
+      .shortcut_title {
+          width: 100%;
+          height: 40px;
+          margin-top: 15px;
+          margin-left: 40px;
+          color: #FFFFFF;
+          font-family: "Droid Sans";
+          font-weight: 700;
+          font-size: 20px;
+          line-height: 45px;
+      }
+
+      .shortcut_button_wrap {
+          width: 100%;
+          height: 100px;
+          margin-top: 10px;
+          margin-left: 40px;
+      }
+
+      .shortcut_button_item {
+          width: 100px;
+          height: 120px;
+          margin-right: 35px;
+          float: left;
+          cursor: pointer;
+      }
+
+      .shortcut_button {
+          width: 90px;
+          height: 90px;
+          border-width: 0;
+          background: url("shortcut_button.png") no-repeat;
+          cursor: pointer;
+      }
+
+      .shortcut_button_text {
+          color: #FFFFFF;
+          font-family: "Droid Sans";
+          font-weight: 400;
+          font-size: 13px;
+          line-height: 30px;
+          text-align: center;
+      }
+
+      .new_lecture_container {
+          width: 100%;
+          height: 1000px;
+          margin-top: 80px;
+          background-color: #F5F5F5;
+      }
+
+      .new_lecture_title {
+          width: 100%;
+          height: 40px;
+          padding-top: 40px;
+          font-family: "Droid Sans";
+          font-weight: 700;
+          font-size: 26px;
+          line-height: 60px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+      }
+
+      .lecture_list {
+          width: 1270px;
+          height: 100%;
+          margin: 30px auto 0;
+      }
+
+      .card {
+          width: 300px;
+          height: 260px;
+          margin-right: 15px;
+          margin-bottom: 40px;
+          float: left;
+          display: flex;
+          flex-direction: column;
+          border-radius: 5px;
+          border: 1px solid rgb(220, 220, 220);
+      }
+
+      .card a {
+          color: black;
+          text-decoration: none;
+      }
+
+      .card_img {
+          width: 100%;
+          height: 80%;
+          border-radius: 5px;
+          background-image: linear-gradient(to left, #424242, #aaaaaa);
+      }
+
+      .card_img_tag_schedule {
+          width: 55px;
+          height: 25px;
+          margin-top: 10px;
+          margin-left: 10px;
+          color: #FFFFFF;
+          font-family: "Droid Sans";
+          font-weight: 700;
+          font-size: 11px;
+          line-height: 25px;
+          text-align: center;
+          border-radius: 2px;
+          background-color: #017E24;
+      }
+
+      .card_img_tag_end {
+          width: 55px;
+          height: 25px;
+          margin-top: 10px;
+          margin-left: 10px;
+          color: #FFFFFF;
+          font-family: "Droid Sans";
+          font-weight: 700;
+          font-size: 11px;
+          line-height: 25px;
+          text-align: center;
+          border-radius: 2px;
+          background-color: #C89D03;
+      }
+
+      .card_body {
+          width: 100%;
+          height: 10%;
+          margin-top: 5px;
+          text-align: center;
+      }
+
+      .card_footer {
+          width: 100%;
+          height: 10%;
+          margin-top: 5px;
+          text-align: center;
+      }
+      /* 홈 css 끝 */
+  </style>
 </head>
 <body>
-    <a href="/login">로그인</a>
-    <a href="/register">회원가입</a>
+
+<div class="container">
+  <!-- 헤더 html 시작 -->
+  <header>
+    <div class="logo">
+      <a href="">
+        <h5>평생학습플랫폼</h5>
+        <img src="book.png">
+      </a>
+    </div>
+
+    <nav>
+      <ul class="topMenu">
+        <li>
+          <a href="">온라인 학습</a>
+        </li>
+        <li>
+          <a href="">오프라인 교육정보</a>
+        </li>
+        <li>
+          <a href="">행정교육자료</a>
+        </li>
+        <li>
+          <a href="">늘배움 알림</a>
+        </li>
+        <li>
+          <a href="">늘배움 소개</a>
+        </li>
+      </ul>
+
+      <div class="subMenu_cate">
+        <ul class="subMenu">
+          <li><a href="">가</a></li>
+          <li><a href="">나</a></li>
+          <li><a href="">다</a></li>
+        </ul>
+        <ul class="subMenu">
+          <li><a href="">라</a></li>
+          <li><a href="">마</a></li>
+          <li><a href="">바</a></li>
+        </ul>
+        <ul class="subMenu">
+          <li><a href="">사</a></li>
+          <li><a href="">아</a></li>
+          <li><a href="">자</a></li>
+        </ul>
+        <ul class="subMenu">
+          <li><a href="">차</a></li>
+          <li><a href="">카</a></li>
+          <li><a href="">타</a></li>
+        </ul>
+        <ul class="subMenu">
+          <li><a href="">파</a></li>
+          <li><a href="">하</a></li>
+          <li><a href="">굿</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="member_btn">
+      <a href="" class="reg">👦회원가입</a>
+      <a href="" class="login">🔒로그인</a>
+    </div>
+  </header>
+  <!-- 헤더 html 끝 -->
+
+  <!-- 홈 html 시작 -->
+  <div class="lecture_search_shortcut_container">
+    <div class="lecture_search_shortcut">
+      <div class="image_space">
+        <img src="home_education.png" alt="">
+      </div>
+      <form action="" method="post" class="lecture_search">
+        <div class="lecture_search_title">
+          <p>강좌 검색</p>
+        </div>
+        <div class="select_lecture_institution">
+          <input type="radio" name="lecture_institution_name" class="" checked>
+          <span>강좌명&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+          <input type="radio" name="lecture_institution_name" class="">
+          <span>기관명</span>
+        </div>
+        <div class="search_box">
+          <input type="text" class="search" placeholder="&nbsp;&nbsp;&nbsp;검색어를 입력해주세요.">
+        </div>
+        <div class="search_condition_button">
+          <div class="search_button_wrap">
+            <input type="button" class="search_button" value="검색하기">
+          </div>
+          <div class="condition_button_wrap">
+            <input type="button" class="condition_button" value="검색조건">
+          </div>
+        </div>
+      </form>
+      <div class="shortcut">
+        <div class="shortcut_title">
+          <p>바로가기</p>
+        </div>
+        <div class="shortcut_button_wrap">
+          <div class="shortcut_button_item">
+            <input type="button" class="shortcut_button">
+            <p class="shortcut_button_text">강사소개</p>
+          </div>
+          <div class="shortcut_button_item">
+            <input type="button" class="shortcut_button">
+            <p class="shortcut_button_text">강좌개설제안</p>
+          </div>
+          <div class="shortcut_button_item">
+            <input type="button" class="shortcut_button">
+            <p class="shortcut_button_text">교육상담</p>
+          </div>
+          <div class="shortcut_button_item">
+            <input type="button" class="shortcut_button">
+            <p class="shortcut_button_text">월별교육일정</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="new_lecture_container">
+  <div class="new_lecture_title">
+    <p>신규 강좌</p>
+  </div>
+  <div class="lecture_list">
+    <div class="card">
+      <a href="" class="card_img">
+        <div class="card_img_tag_schedule">개강예정</div>
+      </a>
+      <a href="" class="card_body">
+        <h4 class="card_title">플랫폼, 세상을 바꾸다</h4>
+      </a>
+      <div class="card_footer">
+        <span>2024-02-01</span>
+      </div>
+    </div>
+    <div class="card">
+      <a href="" class="card_img">
+        <div class="card_img_tag_schedule">개강예정</div>
+      </a>
+      <a href="" class="card_body">
+        <h4 class="card_title">플랫폼, 세상을 바꾸다</h4>
+      </a>
+      <div class="card_footer">
+        <span>2024-02-01</span>
+      </div>
+    </div>
+    <div class="card">
+      <a href="" class="card_img">
+        <div class="card_img_tag_end">종료</div>
+      </a>
+      <a href="" class="card_body">
+        <h4 class="card_title">플랫폼, 세상을 바꾸다</h4>
+      </a>
+      <div class="card_footer">
+        <span>2024-02-01</span>
+      </div>
+    </div>
+    <div class="card">
+      <a href="" class="card_img">
+        <div class="card_img_tag_schedule">개강예정</div>
+      </a>
+      <a href="" class="card_body">
+        <h4 class="card_title">플랫폼, 세상을 바꾸다</h4>
+      </a>
+      <div class="card_footer">
+        <span>2024-02-01</span>
+      </div>
+    </div>
+    <div class="card">
+      <a href="" class="card_img">
+        <div class="card_img_tag_schedule">개강예정</div>
+      </a>
+      <a href="" class="card_body">
+        <h4 class="card_title">플랫폼, 세상을 바꾸다</h4>
+      </a>
+      <div class="card_footer">
+        <span>2024-02-01</span>
+      </div>
+    </div>
+    <div class="card">
+      <a href="" class="card_img">
+        <div class="card_img_tag_schedule">개강예정</div>
+      </a>
+      <a href="" class="card_body">
+        <h4 class="card_title">플랫폼, 세상을 바꾸다</h4>
+      </a>
+      <div class="card_footer">
+        <span>2024-02-01</span>
+      </div>
+    </div>
+    <div class="card">
+      <a href="" class="card_img">
+        <div class="card_img_tag_end">종료</div>
+      </a>
+      <a href="" class="card_body">
+        <h4 class="card_title">플랫폼, 세상을 바꾸다</h4>
+      </a>
+      <div class="card_footer">
+        <span>2024-02-01</span>
+      </div>
+    </div>
+    <div class="card">
+      <a href="" class="card_img">
+        <div class="card_img_tag_schedule">개강예정</div>
+      </a>
+      <a href="" class="card_body">
+        <h4 class="card_title">플랫폼, 세상을 바꾸다</h4>
+      </a>
+      <div class="card_footer">
+        <span>2024-02-01</span>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- 홈 html 끝 -->
+
 </body>
 </html>
