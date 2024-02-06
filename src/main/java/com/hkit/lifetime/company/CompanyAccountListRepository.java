@@ -14,5 +14,5 @@ public interface CompanyAccountListRepository extends JpaRepository<CompanyAccou
   Optional<CompanyAccountList> findByAccount_Id(@Param("id") String id);
 
   @Query("select cal from CompanyAccountList cal where cal.company.id = :id")
-  List<CompanyAccountList> findByCompany_Id(@Param("id") String id);
+  Optional<List<CompanyAccountList>> findByCompany_Id(@Param("id") String id);
 }
