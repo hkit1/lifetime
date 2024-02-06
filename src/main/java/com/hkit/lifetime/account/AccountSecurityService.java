@@ -1,17 +1,16 @@
 package com.hkit.lifetime.account;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
-
 import com.hkit.lifetime.security.SecurityRole;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
+
+import java.util.Collections;
 
 @Service
 @RequiredArgsConstructor
@@ -23,19 +22,16 @@ public class AccountSecurityService implements UserDetailsService {
     public UserDetails loadUserByUsername(String id) throws UsernameNotFoundException {
         try {
 
-            Optional<Account> accountById = accountRepository.findAccountById(id);
-            if (accountById.isEmpty()) {
-                return null;
-            }
+            Account findAccount = accountRepository.findAccountById(id)
+                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Account Not Found"));
 
-            Account account = accountById.get();
             AccountSecurity accountSecurity = new AccountSecurity(
-                    account.getId(),
-                    account.getPw()
+                    findAccount.getId(),
+                    findAccount.getPw()
             );
 
             // todo fix
-            SecurityRole role = account.getRole();
+            SecurityRole role = findAccount.getRole();
             accountSecurity.setAuthorities(Collections.singleton(new SimpleGrantedAuthority(role.name())));
 
             return accountSecurity;
@@ -44,12 +40,4 @@ public class AccountSecurityService implements UserDetailsService {
         }
 
     }
-
-//    private List<SimpleGrantedAuthority> getRoles(List<SecurityRole> role){
-//        return role.stream()
-//                .map(SecurityRole::name)
-//                .map(SimpleGrantedAuthority::new)
-//                .collect(Collectors.toList());
-//    }
-
 }

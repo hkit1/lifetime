@@ -26,9 +26,9 @@ public class AccountController {
     }
 
     @PostMapping("/api/account/register")
-    public String accountRegister(AccountDto accountDto) {
-        Optional<Account> account = accountService.duplicateCheck(accountDto.id());
-        if (account.isEmpty()) {
+    public String registerAccount(AccountDto accountDto) {
+        String msg = accountService.duplicateCheck(accountDto.id());
+        if (msg.equals("Ok")) {
             AccountDto encodeAccount = encodePw(accountDto);
             accountService.register(encodeAccount);
             return "home";
@@ -40,8 +40,8 @@ public class AccountController {
 
     @PostMapping("/api/account/check")
     public String idCheck(@RequestParam(name = "id") String id){
-        Optional<Account> account = accountService.duplicateCheck(id);
-        if (account.isEmpty()){
+        String msg = accountService.duplicateCheck(id);
+        if (msg.equals("Ok")){
             return "home";
         } else {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Id in Use");
@@ -49,13 +49,13 @@ public class AccountController {
     }
 
     @PostMapping("/api/account/delete")
-    public String accountDelete(@RequestParam(name = "sessionId") String id) {
+    public String deleteAccount(@RequestParam(name = "sessionId") String id) {
         accountService.delete(id);
         return "home";
     }
 
     @PostMapping("/api/account/update")
-    public String accountUpdate(AccountDto accountDto) {
+    public String updateAccount(AccountDto accountDto) {
         accountService.update(accountDto);
         return "home";
     }
