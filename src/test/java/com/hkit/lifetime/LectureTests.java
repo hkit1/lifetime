@@ -94,6 +94,26 @@ public class LectureTests {
     @Test
     @WithMockUser(username = "테스트_최고관리자", roles = {"OWNER"})
     @Transactional
+    void createDummyData() throws Exception {
+        TestTransaction.flagForCommit();
+        MultiValueMap<String, String> accountInfo = createAccountInfo();
+        mockMvc.perform(post("/api/account/register").params(accountInfo).with(csrf())).andExpect(status().isOk());
+        Account account = accountRepository.findAccountById(accountInfo.getFirst("id")).get();
+        MultiValueMap<String, String> companyInfo = createRandomCompany();
+        mockMvc.perform(post("/api/company/create").params(companyInfo).with(csrf())).andExpect(status().isOk());
+        Company company = companyRepository.findByName(companyInfo.getFirst("name")).get();
+        mockMvc.perform(post("/api/category/add").param("main", "메인보드").param("sub", "amd").with(csrf())).andExpect(status().isOk());
+        SubCategory category = subCategoryRepository.findByName("amd").stream().findFirst().get();
+
+        for (int i = 0; i < 20; i++) {
+            MultiValueMap<String, String> info = randomLecture(company, account, category);
+            mockMvc.perform(post("/api/lecture/create").with(csrf()).params(info)).andExpect(status().isOk());
+        }
+    }
+
+    @Test
+    @WithMockUser(username = "테스트_최고관리자", roles = {"OWNER"})
+    @Transactional
     void createLecture() throws Exception {
         // 강사 계정 생성
         // AccountTests 에서 createAndLogin, TeacherTests 에서 setTeacher 가 먼저 완료되어야 함

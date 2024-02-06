@@ -564,92 +564,15 @@
     <p>신규 강좌</p>
   </div>
   <div class="lecture_list">
-    <div class="card">
-      <a href="" class="card_img">
+    <div class="card" th:each="lecture : ${lectureList}">
+      <a class="card_img" th:href="@{/lecture/{id}(id = ${lecture.id()})}">
         <div class="card_img_tag_schedule">개강예정</div>
       </a>
-      <a href="" class="card_body">
-        <h4 class="card_title">플랫폼, 세상을 바꾸다</h4>
+      <a class="card_body" th:href="@{/lecture/{id}(id = ${lecture.id()})}">
+        <h4 class="card_title" th:text="${lecture.name()}"></h4>
       </a>
       <div class="card_footer">
-        <span>2024-02-01</span>
-      </div>
-    </div>
-    <div class="card">
-      <a href="" class="card_img">
-        <div class="card_img_tag_schedule">개강예정</div>
-      </a>
-      <a href="" class="card_body">
-        <h4 class="card_title">플랫폼, 세상을 바꾸다</h4>
-      </a>
-      <div class="card_footer">
-        <span>2024-02-01</span>
-      </div>
-    </div>
-    <div class="card">
-      <a href="" class="card_img">
-        <div class="card_img_tag_end">종료</div>
-      </a>
-      <a href="" class="card_body">
-        <h4 class="card_title">플랫폼, 세상을 바꾸다</h4>
-      </a>
-      <div class="card_footer">
-        <span>2024-02-01</span>
-      </div>
-    </div>
-    <div class="card">
-      <a href="" class="card_img">
-        <div class="card_img_tag_schedule">개강예정</div>
-      </a>
-      <a href="" class="card_body">
-        <h4 class="card_title">플랫폼, 세상을 바꾸다</h4>
-      </a>
-      <div class="card_footer">
-        <span>2024-02-01</span>
-      </div>
-    </div>
-    <div class="card">
-      <a href="" class="card_img">
-        <div class="card_img_tag_schedule">개강예정</div>
-      </a>
-      <a href="" class="card_body">
-        <h4 class="card_title">플랫폼, 세상을 바꾸다</h4>
-      </a>
-      <div class="card_footer">
-        <span>2024-02-01</span>
-      </div>
-    </div>
-    <div class="card">
-      <a href="" class="card_img">
-        <div class="card_img_tag_schedule">개강예정</div>
-      </a>
-      <a href="" class="card_body">
-        <h4 class="card_title">플랫폼, 세상을 바꾸다</h4>
-      </a>
-      <div class="card_footer">
-        <span>2024-02-01</span>
-      </div>
-    </div>
-    <div class="card">
-      <a href="" class="card_img">
-        <div class="card_img_tag_end">종료</div>
-      </a>
-      <a href="" class="card_body">
-        <h4 class="card_title">플랫폼, 세상을 바꾸다</h4>
-      </a>
-      <div class="card_footer">
-        <span>2024-02-01</span>
-      </div>
-    </div>
-    <div class="card">
-      <a href="" class="card_img">
-        <div class="card_img_tag_schedule">개강예정</div>
-      </a>
-      <a href="" class="card_body">
-        <h4 class="card_title">플랫폼, 세상을 바꾸다</h4>
-      </a>
-      <div class="card_footer">
-        <span>2024-02-01</span>
+        <span th:text="${lecture.created_at()}"></span>
       </div>
     </div>
   </div>

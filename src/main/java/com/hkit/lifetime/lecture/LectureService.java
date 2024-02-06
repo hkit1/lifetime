@@ -1,21 +1,19 @@
 package com.hkit.lifetime.lecture;
 
-import com.hkit.lifetime.account.Account;
-import com.hkit.lifetime.account.AccountDto;
-import com.hkit.lifetime.category.Category;
-import com.hkit.lifetime.category.CategoryRepository;
 import com.hkit.lifetime.category.SubCategory;
 import com.hkit.lifetime.category.SubCategoryRepository;
 import com.hkit.lifetime.company.Company;
 import com.hkit.lifetime.company.CompanyRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -61,4 +59,15 @@ public class LectureService {
         return new LectureDto(lecture.getId(), lecture.getName(),lecture.getCreatedAt().toString(),lecture.getClosedAt().toString(),lecture.getCategory().getName(),lecture.getCompany().getName());
     }
 
+    public List<LectureDto> findLectureByTop20() {
+        List<Lecture> list = lectureRepository.findAll(Sort.by(Sort.Direction.ASC, "createdAt"));
+        if (list.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Can't Find Lecture");
+        }
+        List<LectureDto> dto = new ArrayList<>();
+        for (Lecture current : list) {
+            dto.add(new LectureDto(current.getId(), current.getName(), current.getCreatedAt().toString(), current.getClosedAt().toString(), current.getCategory().getName(), current.getCompany().getName()));
+        }
+        return dto;
+    }
 }
