@@ -37,7 +37,6 @@ public class CategoryTests {
     }
 
     @Test
-    @Transactional
     @WithMockUser(username = "테스트_최고관리자", roles = {"OWNER"})
     void createCategory() throws Exception {
         // "메인보드" 라는 상위 카테고리가 추가 되는지 확인
