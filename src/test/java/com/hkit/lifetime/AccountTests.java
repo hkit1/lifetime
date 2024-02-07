@@ -21,6 +21,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
@@ -89,6 +90,11 @@ public class AccountTests {
 
         // 비밀번호가 평문으로 저장되어 있지 않는지 확인
         assertNotEquals(info.getFirst("pw"), repository.findAccountById(info.getFirst("id")).get().getPw());
+
+        // 로그인이 되는지 확인 (sessionId)
+        mockMvc.perform(post("/api/account/login").param("id", info.getFirst("id")).param("pw", info.getFirst("pw")).with(csrf()))
+                .andExpect(status().isOk())
+                .andExpect(model().attributeExists("sessionId"));
     }
 
     @Test

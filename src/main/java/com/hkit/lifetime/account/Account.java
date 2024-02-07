@@ -2,11 +2,12 @@ package com.hkit.lifetime.account;
 
 import com.hkit.lifetime.security.SecurityRole;
 import jakarta.persistence.*;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 @Getter
 @Setter
@@ -34,8 +35,8 @@ public class Account {
     @Column(name = "email", nullable = false)
     private String email;
 
-  @Column(name = "tel", nullable = false, length = 15)
-  private String tel;
+    @Column(name = "tel", nullable = false, length = 15)
+    private String tel;
 
     @Column(name = "gender", nullable = false)
     private Boolean gender = false;
@@ -85,7 +86,7 @@ public class Account {
         this.address2 = accountDto.address2();
     }
 
-    public void updateAccountRole(SecurityRole role){
+    public void updateAccountRole(SecurityRole role) {
         this.role = role;
     }
 

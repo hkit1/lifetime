@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>수강신청</title>
+  <style>
+      /* 헤더 css 시작 */
+      @import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Merienda:wght@700&family=Noto+Sans+KR:wght@100;200&family=Single+Day&display=swap');
+
+      * {
+          margin: 0;
+          padding: 0;
+      }
+
+      .container {
+          width: 1200px;
+          margin: 0 auto;
+          padding: 0;
+          display: flex;
+          flex-direction: column;
+      }
+
+      header {
+          width: 100%;
+          height: 100px;
+      }
+
+      ul {
+          list-style: none;
+      }
+
+      .logo {
+          width: 200px;
+          height: 100px;
+          background: salmon;
+          float: left;
+          display: inline-grid;
+      }
+
+      .logo a {
+          text-decoration: none;
+          display: flex;
+          flex-direction: row-reverse;
+          justify-content: center;
+          align-items: center;
+      }
+
+      .logo a h5 {
+          margin-left: 5px;
+          font-size: 25px;
+          font-weight: 700;
+          font-family: 'Single Day', cursive;
+      }
+
+      .logo a img {
+          width: 50px;
+          height: 50px;
+      }
+
+      nav {
+          width: 800px;
+          height: 100px;
+          background: orange;
+          float: left;
+          position: relative;
+      }
+
+      nav:hover .subMenu_cate {
+          display: flex;
+      }
+
+      .topMenu {
+          height: 100px;
+          margin-left: 30px;
+      }
+
+      .topMenu li {
+          height: 100%;
+          padding: 30px 25px;
+          float: left;
+          display: block;
+          color: blueviolet;
+          font-weight: 600;
+          text-shadow: 0 1px #07c;
+      }
+
+      .topMenu li a {
+          text-decoration: none;
+      }
+
+      .topMenu li:hover {
+          color: #000;
+          text-shadow: 0 -1px #07c;
+      }
+
+      .subMenu_cate {
+          width: 100%;
+          height: 300px;
+          left: 0;
+          top: 100px;
+          background: greenyellow;
+          position: absolute;
+          display: none;
+          z-index: 999;
+      }
+
+      .subMenu {
+          width: calc(100% / 5);
+          text-align: center;
+      }
+
+      .subMenu li {
+          width: 100%;
+      }
+
+      .subMenu li a {
+          font-size: 20px;
+          text-decoration: none;
+      }
+
+      .member_btn {
+          width: 200px;
+          height: 100px;
+          float: right;
+          display: flex;
+          align-items: center;
+          background: aqua;
+      }
+
+      .reg {
+          width: 100px;
+          height: 50px;
+          font-size: 0.8em;
+          color: white;
+          border: 1px solid black;
+          border-radius: 30px;
+          background: #0077cc;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          text-decoration: none;
+      }
+
+      .login {
+          width: 100px;
+          height: 50px;
+          margin-left: 5px;
+          font-size: 0.8em;
+          color: white;
+          border: 1px solid black;
+          border-radius: 30px;
+          background: mediumslateblue;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          text-decoration: none;
+      }
+      /* 헤더 css 끝 */
+
+      /* 수강신청 css 시작 */
+      .register_course_title {
+          margin-top: 80px;
+          margin-bottom: 50px;
+          color: #363C5A;
+          font-family: "Droid Sans";
+          font-weight: 700;
+          font-size: 34px;
+          line-height: 75px;
+      }
+
+      .online_learning_platform_lecture_search_wrap {
+          width: 100%;
+          height: 250px;
+          background: url("online_learning_platform_lecture_search.png") no-repeat;
+          background-size: contain;
+      }
+
+      .online_learning_platform_lecture_search {
+          color: #FFFFFF;
+          font-family: "Droid Sans";
+          font-weight: 700;
+          font-size: 28px;
+          line-height: 60px;
+          text-align: center;
+          margin-top: 60px;
+      }
+
+      .lectureCategory_search {
+          width: 100%;
+          height: 50px;
+          display: flex;
+          margin-top: 20px;
+          justify-content: center;
+      }
+
+      .lectureCategory {
+          width: 130px;
+          height: 100%;
+          margin-right: 10px;
+          padding-left: 10px;
+          border: 1px #7D7D7D;
+          border-radius: 10px;
+      }
+
+      .search_wrap {
+          width: 500px;
+          height: 100%;
+          padding-left: 20px;
+          border: 1px #7D7D7D;
+          border-radius: 10px;
+          background-color: white;
+      }
+
+      .search {
+          width: 450px;
+          height: 100%;
+          border-width: 0;
+      }
+
+      .search_button {
+          width: 25px;
+          height: 25px;
+          border: none;
+          cursor: pointer;
+          vertical-align: middle;
+          background: url("magnifier_3.png") no-repeat;
+      }
+
+      .lecture_list {
+          width: 100%;
+          height: 1500px;
+          margin-top: 50px;
+      }
+
+      .totalLecture_sortingMethod {
+          width: 100%;
+          height: 50px;
+      }
+
+      .total_lecture {
+          width: 120px;
+          height: 100%;
+          font-family: "Droid Sans";
+          font-weight: 700;
+          font-size: 19px;
+          line-height: 50px;
+          float: left;
+      }
+
+      .sorting_method_wrap {
+          width: 110px;
+          height: 100%;
+          display: flex;
+          align-items: center;
+          float: right;
+      }
+
+      .sorting_method {
+          width: 110px;
+          height: 80%;
+          padding-left: 10px;
+          border-radius: 5px;
+          border: 2px solid #434343;
+      }
+
+      hr {
+          margin: 30px 0;
+          color: #444444;
+      }
+
+      .lecture_list_container {
+          width: 1270px;
+          height: 1170px;
+          margin: 0 auto;
+      }
+
+      .card {
+          width: 288px;
+          height: 260px;
+          margin-right: 15px;
+          margin-bottom: 40px;
+          float: left;
+          display: flex;
+          flex-direction: column;
+          border-radius: 5px;
+          border: 1px solid rgb(220, 220, 220);
+      }
+
+      .card a {
+          color: black;
+          text-decoration: none;
+      }
+
+      .card_img {
+          width: 100%;
+          height: 80%;
+          border-radius: 5px;
+          background-image: linear-gradient(to left, #424242, #aaaaaa);
+      }
+
+      .card_img_tag_schedule {
+          width: 55px;
+          height: 25px;
+          margin-top: 10px;
+          margin-left: 10px;
+          color: #FFFFFF;
+          font-family: "Droid Sans";
+          font-weight: 700;
+          font-size: 11px;
+          line-height: 25px;
+          text-align: center;
+          border-radius: 2px;
+          background-color: #017E24;
+      }
+
+      .card_img_tag_end {
+          width: 55px;
+          height: 25px;
+          margin-top: 10px;
+          margin-left: 10px;
+          color: #FFFFFF;
+          font-family: "Droid Sans";
+          font-weight: 700;
+          font-size: 11px;
+          line-height: 25px;
+          text-align: center;
+          border-radius: 2px;
+          background-color: #C89D03;
+      }
+
+      .card_img_tag_impendence {
+          width: 55px;
+          height: 25px;
+          margin-top: 10px;
+          margin-left: 10px;
+          color: #FFFFFF;
+          font-family: "Droid Sans";
+          font-weight: 700;
+          font-size: 11px;
+          line-height: 25px;
+          text-align: center;
+          border-radius: 2px;
+          background-color: #7E012E;
+      }
+
+      .card_img_tag_ongoing {
+          width: 55px;
+          height: 25px;
+          margin-top: 10px;
+          margin-left: 10px;
+          color: #FFFFFF;
+          font-family: "Droid Sans";
+          font-weight: 700;
+          font-size: 11px;
+          line-height: 25px;
+          text-align: center;
+          border-radius: 2px;
+          background-color: #145087;
+      }
+
+      .card_body {
+          width: 100%;
+          height: 10%;
+          margin-top: 5px;
+          text-align: center;
+      }
+
+      .card_footer {
+          width: 100%;
+          height: 10%;
+          margin-top: 5px;
+          text-align: center;
+      }
+
+      .navigation_button {
+          width: 310px;
+          height: 40px;
+          margin: 70px auto 0;
+          display: flex;
+          align-items: center;
+      }
+
+      .page_fast_selected {
+          width: 25px;
+          height: 25px;
+          color: black;
+          margin: 0 5px;
+          border: 1px solid black;
+          border-radius: 5px;
+          text-align: center;
+          text-decoration: none;
+      }
+
+      .page_selected {
+          width: 25px;
+          height: 25px;
+          color: white;
+          margin: 0 5px;
+          border: 1px solid black;
+          border-radius: 5px;
+          text-align: center;
+          text-decoration: none;
+          background-color: #003CD7;
+      }
+
+      .page_none_selected {
+          width: 25px;
+          height: 25px;
+          color: black;
+          margin: 0 5px;
+          border-width: 0;
+          text-align: center;
+          text-decoration: none;
+      }
+      /* 수강신청 css 끝 */
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <!-- 헤더 html 시작 -->
+    <header>
+      <div class="logo">
+        <a href="">
+          <h5>평생학습플랫폼</h5>
+          <img src="book.png">
+        </a>
+      </div>
+
+      <nav>
+        <ul class="topMenu">
+          <li>
+            <a href="">온라인 학습</a>
+          </li>
+          <li>
+            <a href="">오프라인 교육정보</a>
+          </li>
+          <li>
+            <a href="">행정교육자료</a>
+          </li>
+          <li>
+            <a href="">늘배움 알림</a>
+          </li>
+          <li>
+            <a href="">늘배움 소개</a>
+          </li>
+        </ul>
+
+        <div class="subMenu_cate">
+          <ul class="subMenu">
+            <li><a href="">가</a></li>
+            <li><a href="">나</a></li>
+            <li><a href="">다</a></li>
+          </ul>
+          <ul class="subMenu">
+            <li><a href="">라</a></li>
+            <li><a href="">마</a></li>
+            <li><a href="">바</a></li>
+          </ul>
+          <ul class="subMenu">
+            <li><a href="">사</a></li>
+            <li><a href="">아</a></li>
+            <li><a href="">자</a></li>
+          </ul>
+          <ul class="subMenu">
+            <li><a href="">차</a></li>
+            <li><a href="">카</a></li>
+            <li><a href="">타</a></li>
+          </ul>
+          <ul class="subMenu">
+            <li><a href="">파</a></li>
+            <li><a href="">하</a></li>
+            <li><a href="">굿</a></li>
+          </ul>
+        </div>
+      </nav>
+
+      <div class="member_btn">
+        <a href="" class="reg">👦회원가입</a>
+        <a href="" class="login">🔒로그인</a>
+      </div>
+    </header>
+    <!-- 헤더 html 끝 -->
+
+    <!-- 수강신청 html 시작 -->
+    <div class="register_course_title">
+      <p>평생학습강좌 수강신청</p>
+    </div>
+    <div class="online_learning_platform_lecture_search_wrap">
+      <div class="online_learning_platform_lecture_search">
+        <p>온라인 평생학습 플랫폼 강의 검색</p>
+      </div>
+      <form class="lectureCategory_search">
+        <select name="" class="lectureCategory">
+          <option value="">강좌분류</option>
+          <option value="">IT</option>
+          <option value="">미래기술</option>
+          <option value="">코딩</option>
+          <option value="">인문소양</option>
+          <option value="">문학 / 철학</option>
+          <option value="">기초인문</option>
+          <option value="">생활 / 취미</option>
+          <option value="">생활상식</option>
+          <option value="">부모배움</option>
+          <option value="">아동기</option>
+          <option value="">부모교양</option>
+          <option value="">문해교육</option>
+          <option value="">청소년배움</option>
+          <option value="">기초능력</option>
+        </select>
+        <div class="search_wrap">
+          <input type="text" class="search" placeholder="검색어를 입력해주세요.">
+          <input type="button" class="search_button">
+        </div>
+      </form>
+    </div>
+    <div class="lecture_list">
+      <div class="totalLecture_sortingMethod">
+        <div class="total_lecture">총 <span style="color: #0034BB">3,150</span>강좌</div>
+        <div class="sorting_method_wrap">
+          <select name="" class="sorting_method">
+            <option value="">정렬방식</option>
+            <option value="">조회수</option>
+          </select>
+        </div>
+      </div>
+
+      <hr>
+
+      <div class="lecture_list_container">
+        <div class="card">
+          <a href="" class="card_img">
+            <div class="card_img_tag_schedule">개강예정</div>
+          </a>
+          <a href="" class="card_body">
+            <h4 class="card_title">플랫폼, 세상을 바꾸다</h4>
+          </a>
+          <div class="card_footer">
+            <span>2024-02-01</span>
+          </div>
+        </div>
+        <div class="card">
+          <a href="" class="card_img">
+            <div class="card_img_tag_schedule">개강예정</div>
+          </a>
+          <a href="" class="card_body">
+            <h4 class="card_title">부모가 먼저 배우는 창의코딩</h4>
+          </a>
+          <div class="card_footer">
+            <span>2024-02-01</span>
+          </div>
+        </div>
+        <div class="card">
+          <a href="" class="card_img">
+            <div class="card_img_tag_impendence">개강임박</div>
+          </a>
+          <a href="" class="card_body">
+            <h4 class="card_title">인문과 종교의 만남 - 종교 전반의 이해</h4>
+          </a>
+          <div class="card_footer">
+            <span>2024-02-01</span>
+          </div>
+        </div>
+        <div class="card">
+          <a href="" class="card_img">
+            <div class="card_img_tag_schedule">개강예정</div>
+          </a>
+          <a href="" class="card_body">
+            <h4 class="card_title">인문학개론</h4>
+          </a>
+          <div class="card_footer">
+            <span>2024-02-01</span>
+          </div>
+        </div>
+        <div class="card">
+          <a href="" class="card_img">
+            <div class="card_img_tag_ongoing">진행중</div>
+          </a>
+          <a href="" class="card_body">
+            <h4 class="card_title">셀프 인테리어를 위한 초보 가이드</h4>
+          </a>
+          <div class="card_footer">
+            <span>2024-02-01</span>
+          </div>
+        </div>
+        <div class="card">
+          <a href="" class="card_img">
+            <div class="card_img_tag_schedule">개강예정</div>
+          </a>
+          <a href="" class="card_body">
+            <h4 class="card_title">플랫폼, 세상을 바꾸다</h4>
+          </a>
+          <div class="card_footer">
+            <span>2024-02-01</span>
+          </div>
+        </div>
+        <div class="card">
+          <a href="" class="card_img">
+            <div class="card_img_tag_end">종료</div>
+          </a>
+          <a href="" class="card_body">
+            <h4 class="card_title">한글 첫걸음 - 가나다라부터 시작하기</h4>
+          </a>
+          <div class="card_footer">
+            <span>2024-02-01</span>
+          </div>
+        </div>
+        <div class="card">
+          <a href="" class="card_img">
+            <div class="card_img_tag_impendence">개강임박</div>
+          </a>
+          <a href="" class="card_body">
+            <h4 class="card_title">플랫폼, 세상을 바꾸다</h4>
+          </a>
+          <div class="card_footer">
+            <span>2024-02-01</span>
+          </div>
+        </div>
+        <div class="card">
+          <a href="" class="card_img">
+            <div class="card_img_tag_impendence">개강임박</div>
+          </a>
+          <a href="" class="card_body">
+            <h4 class="card_title">플랫폼, 세상을 바꾸다</h4>
+          </a>
+          <div class="card_footer">
+            <span>2024-02-01</span>
+          </div>
+        </div>
+        <div class="card">
+          <a href="" class="card_img">
+            <div class="card_img_tag_end">종료</div>
+          </a>
+          <a href="" class="card_body">
+            <h4 class="card_title">부모가 먼저 배우는 창의코딩</h4>
+          </a>
+          <div class="card_footer">
+            <span>2024-02-01</span>
+          </div>
+        </div>
+        <div class="card">
+          <a href="" class="card_img">
+            <div class="card_img_tag_schedule">개강예정</div>
+          </a>
+          <a href="" class="card_body">
+            <h4 class="card_title">인문과 종교의 만남 - 종교 전반의 이해</h4>
+          </a>
+          <div class="card_footer">
+            <span>2024-02-01</span>
+          </div>
+        </div>
+        <div class="card">
+          <a href="" class="card_img">
+            <div class="card_img_tag_schedule">개강예정</div>
+          </a>
+          <a href="" class="card_body">
+            <h4 class="card_title">인문학개론</h4>
+          </a>
+          <div class="card_footer">
+            <span>2024-02-01</span>
+          </div>
+        </div>
+        <div class="card">
+          <a href="" class="card_img">
+            <div class="card_img_tag_end">종료</div>
+          </a>
+          <a href="" class="card_body">
+            <h4 class="card_title">셀프 인테리어를 위한 초보 가이드</h4>
+          </a>
+          <div class="card_footer">
+            <span>2024-02-01</span>
+          </div>
+        </div>
+        <div class="card">
+          <a href="" class="card_img">
+            <div class="card_img_tag_impendence">개강임박</div>
+          </a>
+          <a href="" class="card_body">
+            <h4 class="card_title">플랫폼, 세상을 바꾸다</h4>
+          </a>
+          <div class="card_footer">
+            <span>2024-02-01</span>
+          </div>
+        </div>
+        <div class="card">
+          <a href="" class="card_img">
+            <div class="card_img_tag_impendence">개강임박</div>
+          </a>
+          <a href="" class="card_body">
+            <h4 class="card_title">한글 첫걸음 - 가나다라부터 시작하기</h4>
+          </a>
+          <div class="card_footer">
+            <span>2024-02-01</span>
+          </div>
+        </div>
+        <div class="card">
+          <a href="" class="card_img">
+            <div class="card_img_tag_end">종료</div>
+          </a>
+          <a href="" class="card_body">
+            <h4 class="card_title">플랫폼, 세상을 바꾸다</h4>
+          </a>
+          <div class="card_footer">
+            <span>2024-02-01</span>
+          </div>
+        </div>
+      </div>
+      <div class="navigation_button">
+        <a href="" class="page_fast_selected"><<</a>
+        <a href="" class="page_fast_selected"><</a>
+        <a href="" class="page_selected">1</a>
+        <a href="" class="page_none_selected" style="border-width: 0">2</a>
+        <a href="" class="page_none_selected" style="border-width: 0">3</a>
+        <a href="" class="page_none_selected" style="border-width: 0">4</a>
+        <a href="" class="page_none_selected" style="border-width: 0">5</a>
+        <a href="" class="page_fast_selected">></a>
+        <a href="" class="page_fast_selected">>></a>
+      </div>
+    </div>
+
+    <!-- 수강신청 html 끝 -->
+  </div>
+
+</body>
+</html>

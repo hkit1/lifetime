@@ -18,7 +18,7 @@ public class CompanyController {
     @PostMapping("/api/company/create")
     public String companyRegister(CompanyDto companyDto) {
 
-        companyService.register(companyDto);
+        companyService.registerCompany(companyDto);
 
         return "home";
     }
@@ -26,7 +26,7 @@ public class CompanyController {
     @PostMapping("/api/company/register/account")
     public String companyLecturerRegister(@RequestParam(name = "name") String name,
                                           @RequestParam(name = "id") String id){
-        companyService.lecturerRegister(name, id);
+        companyService.registerLecturer(name, id);
         return "home";
     }
 
@@ -35,7 +35,7 @@ public class CompanyController {
      */
     @PostMapping("/api/company/delete")
     public String companyDelete(@RequestParam(name = "id") String id) {
-        companyService.delete(id);
+        companyService.deleteCompany(id);
         return "home";
     }
 

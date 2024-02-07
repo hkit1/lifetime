@@ -1,9 +1,9 @@
 package com.hkit.lifetime.account;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
+import org.springframework.web.server.ResponseStatusException;
 
 @Service
 @RequiredArgsConstructor
@@ -16,24 +16,22 @@ public class AccountService {
     }
 
     public void delete(String id) {
-        Optional<Account> accountById = accountRepository.findAccountById(id);
-        accountRepository.delete(accountById.get());
+        Account findAccount = accountRepository.findAccountById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Account Not Found"));
+        accountRepository.delete(findAccount);
     }
 
     public void update(AccountDto accountDto) {
-        Optional<Account> accountById = accountRepository.findAccountById(accountDto.id());
+        Account findAccount = accountRepository.findAccountById(accountDto.id())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Account Not Found"));
 
-        if (accountById.isPresent()) {
-            Account account = accountById.get();
-            account.updateAccount(accountDto);
-
-            accountRepository.save(account);
-        }
-
+        findAccount.updateAccount(accountDto);
+        accountRepository.save(findAccount);
     }
 
-    public Optional<Account> duplicateCheck(String id) {
-        return accountRepository.findAccountById(id);
+    public Boolean duplicateCheck(String id) {
+        Account findAccount = accountRepository.findAccountById(id).orElseGet(Account::new);
+        return findAccount.getId() == null;
     }
 
 }

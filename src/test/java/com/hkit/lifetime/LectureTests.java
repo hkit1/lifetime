@@ -21,11 +21,13 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.context.transaction.TestTransaction;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
 import java.io.InputStream;
+import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
@@ -36,6 +38,7 @@ import static com.hkit.lifetime.CompanyTests.createRandomCompany;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
@@ -91,6 +94,26 @@ public class LectureTests {
     @Test
     @WithMockUser(username = "테스트_최고관리자", roles = {"OWNER"})
     @Transactional
+    void createDummyData() throws Exception {
+        TestTransaction.flagForCommit();
+        MultiValueMap<String, String> accountInfo = createAccountInfo();
+        mockMvc.perform(post("/api/account/register").params(accountInfo).with(csrf())).andExpect(status().isOk());
+        Account account = accountRepository.findAccountById(accountInfo.getFirst("id")).get();
+        MultiValueMap<String, String> companyInfo = createRandomCompany();
+        mockMvc.perform(post("/api/company/create").params(companyInfo).with(csrf())).andExpect(status().isOk());
+        Company company = companyRepository.findByName(companyInfo.getFirst("name")).get();
+        mockMvc.perform(post("/api/category/add").param("main", "메인보드").param("sub", "amd").with(csrf())).andExpect(status().isOk());
+        SubCategory category = subCategoryRepository.findByName("amd").stream().findFirst().get();
+
+        for (int i = 0; i < 20; i++) {
+            MultiValueMap<String, String> info = randomLecture(company, account, category);
+            mockMvc.perform(post("/api/lecture/create").with(csrf()).params(info)).andExpect(status().isOk());
+        }
+    }
+
+    @Test
+    @WithMockUser(username = "테스트_최고관리자", roles = {"OWNER"})
+    @Transactional
     void createLecture() throws Exception {
         // 강사 계정 생성
         // AccountTests 에서 createAndLogin, TeacherTests 에서 setTeacher 가 먼저 완료되어야 함
@@ -109,16 +132,21 @@ public class LectureTests {
         // 카테고리 생성 (CategoryTests 에서 createCategory 가 먼저 완료되어야 함
         mockMvc.perform(post("/api/category/add").param("main", "메인보드").param("sub", "amd").with(csrf())).andExpect(status().isOk());
 
-        SubCategory category = subCategoryRepository.findByName("amd").get();
+        SubCategory category = subCategoryRepository.findByName("amd").stream().findFirst().get();
 
         // 오류 없이 강좌 생성이 되는지 확인
         MultiValueMap<String, String> info = randomLecture(company, account, category);
-        mockMvc.perform(post("/api/lecture/create").with(csrf()).params(info)).andExpect(status().isOk());
-
+        InputStream file = new URL("https://picsum.photos/200/300").openStream();
+        MockMultipartFile mockFile = new MockMultipartFile("file", "random.png", "image/png", file);
+        mockMvc.perform(multipart("/api/lecture/create").file(mockFile).with(csrf()).params(info)).andExpect(status().isOk());
         Optional<Lecture> lecture = repository.findByName(info.getFirst("name"));
 
+        // 업로드한 사진과 다운로드 되는 사진이 동일한지 확인
         assertTrue(lecture.isPresent());
-        // todo assert 추가
+        mockMvc.perform(get("/api/lecture/" + lecture.get().getId() + "/image")).andExpect(status().isOk()).andExpect(content().bytes(mockFile.getBytes()));
+
+        assertEquals("amd", lecture.get().getCategory().getName());
+        assertEquals(companyInfo.getFirst("name"), lecture.get().getCompany().getName());
 
         static_lecture = lecture.get();
     }
@@ -219,6 +247,7 @@ public class LectureTests {
 
         // 이것도 thymeleaf 으로 구현
         // 영상 스트리밍이 될 것
-        mockMvc.perform(get("/lecture/" + static_lecture.getName() + "/view").with(csrf())).andExpect(status().isOk());
+        mockMvc.perform(get("/lecture/" + static_lecture.getName() + "/video").with(csrf())).andExpect(status().isOk());
+
     }
 }

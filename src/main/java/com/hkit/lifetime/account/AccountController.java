@@ -10,8 +10,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.Optional;
-
 @Slf4j
 @Controller
 @RequiredArgsConstructor
@@ -26,22 +24,19 @@ public class AccountController {
     }
 
     @PostMapping("/api/account/register")
-    public String accountRegister(AccountDto accountDto) {
-        Optional<Account> account = accountService.duplicateCheck(accountDto.id());
-        if (account.isEmpty()) {
+    public String registerAccount(AccountDto accountDto) {
+        if (accountService.duplicateCheck(accountDto.id())) {
             AccountDto encodeAccount = encodePw(accountDto);
             accountService.register(encodeAccount);
             return "home";
         }else {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Id in Use");
         }
-
     }
 
     @PostMapping("/api/account/check")
     public String idCheck(@RequestParam(name = "id") String id){
-        Optional<Account> account = accountService.duplicateCheck(id);
-        if (account.isEmpty()){
+        if (accountService.duplicateCheck(id)) {
             return "home";
         } else {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Id in Use");
@@ -49,13 +44,13 @@ public class AccountController {
     }
 
     @PostMapping("/api/account/delete")
-    public String accountDelete(@RequestParam(name = "sessionId") String id) {
+    public String deleteAccount(@RequestParam(name = "sessionId") String id) {
         accountService.delete(id);
         return "home";
     }
 
     @PostMapping("/api/account/update")
-    public String accountUpdate(AccountDto accountDto) {
+    public String updateAccount(AccountDto accountDto) {
         accountService.update(accountDto);
         return "home";
     }
