@@ -4,6 +4,7 @@ import com.hkit.lifetime.lecture.LectureService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -15,5 +16,10 @@ public class MainController {
     public String index(Model model) {
         model.addAttribute("lectureList", lectureService.findLectureByTop20());
         return "home";
+    }
+
+    @GetMapping("/mypage")
+    public String mypage(){
+        return "mypage";
     }
 }
