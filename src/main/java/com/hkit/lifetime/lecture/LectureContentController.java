@@ -72,6 +72,7 @@ public class LectureContentController {
         System.out.println("파일오리지날네임"+file.getOriginalFilename());
         System.out.println("파일타입"+file.getContentType());
 
+
         service.save(id, file);
 
         return "home";

@@ -8,12 +8,20 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -22,6 +30,10 @@ public class LectureService {
     private final CompanyRepository companyRepository;
     private final SubCategoryRepository subcategoryRepository;
     private final LectureRepository lectureRepository;
+    private final String savePath = "C:\\Users\\";
+    //이미지, 동영상 저장하는 저장소의 주소가 될 것.
+
+
 
     public void save(LectureDto lectureDto){
         Optional<Company> isCompany = companyRepository.findByName(lectureDto.company_name());
@@ -39,24 +51,70 @@ public class LectureService {
         Company company = isCompany.get();
         SubCategory category = isCategory.get();
         System.out.println("------------"+company.getName()+category.getName());
+        System.out.println(lectureDto.file().getOriginalFilename());
+
+
 
         Lecture lecture = new Lecture(lectureDto.id(), lectureDto.name(), LocalDate.parse(lectureDto.created_at(), DateTimeFormatter.BASIC_ISO_DATE), LocalDate.parse(lectureDto.closed_at(),DateTimeFormatter.BASIC_ISO_DATE), category, company);
         lectureRepository.save(lecture);
+        Lecture dwnloadLec = lectureRepository.findByName(lectureDto.name()).get();
+        //ispresent 나중에
+
+        if(!lectureDto.file().isEmpty()) {
+            MultipartFile file = lectureDto.file();
+            String uploadDir = savePath+dwnloadLec.getId().toString();
+            File mkdir = new File(uploadDir);
+            if(!mkdir.exists()){
+                mkdir.mkdir();
+            }
+            Path copyImageLocation = Paths.get(uploadDir + File.separator + "thumbnails");
+            System.out.println(copyImageLocation);
+            try{
+                file.transferTo(copyImageLocation);
+            } catch (IOException e){
+                e.printStackTrace();
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Can't save images");
+            }
+        }
+
 
     }
 
     public void delete(Integer id){
         Optional<Lecture> byId = lectureRepository.findById(id);
-        byId.ifPresent(lectureRepository::delete);
+        if(byId.isPresent()){
+
+            lectureRepository.delete(byId.get());
+            File folder = new File(savePath+id.toString());
+            try{
+                while (folder.exists()){
+                    File[] folder_list = folder.listFiles();
+
+                    for(File files: Objects.requireNonNull(folder_list)){
+                        files.delete();
+                    }
+
+                    if (folder_list.length==0 && folder.isDirectory()){
+                        folder.delete();
+                    }
+                }
+            }catch (Exception e) {
+                e.getStackTrace();
+            }
+
+
+        }
+
     }
 
-    public LectureDto findlecture(String lectureName){
-        Optional<Lecture> checkLecture = lectureRepository.findByName(lectureName);
+    public LectureDto findlecture(Integer lectureId){
+        Optional<Lecture> checkLecture = lectureRepository.findById(lectureId);
         if(checkLecture.isEmpty()){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Can't Find Lecture");
         }
         Lecture lecture = checkLecture.get();
-        return new LectureDto(lecture.getId(), lecture.getName(),lecture.getCreatedAt().toString(),lecture.getClosedAt().toString(),lecture.getCategory().getName(),lecture.getCompany().getName());
+
+        return new LectureDto(lecture.getId(), lecture.getName(),lecture.getCreatedAt().toString(),lecture.getClosedAt().toString(),lecture.getCategory().getName(),lecture.getCompany().getName(), null);
     }
 
     public List<LectureDto> findLectureByTop20() {
@@ -66,7 +124,7 @@ public class LectureService {
         }
         List<LectureDto> dto = new ArrayList<>();
         for (Lecture current : list) {
-            dto.add(new LectureDto(current.getId(), current.getName(), current.getCreatedAt().toString(), current.getClosedAt().toString(), current.getCategory().getName(), current.getCompany().getName()));
+            dto.add(new LectureDto(current.getId(), current.getName(), current.getCreatedAt().toString(), current.getClosedAt().toString(), current.getCategory().getName(), current.getCompany().getName(), null));
         }
         return dto;
     }

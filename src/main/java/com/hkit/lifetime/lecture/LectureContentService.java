@@ -25,9 +25,9 @@ public class LectureContentService {
     private final LectureContentRepository lectureContentRepository;
     private final LectureRepository lectureRepository;
 
-    public void save(LectureContentDto lectureContentDto){
-        Optional<Lecture> lecture = lectureRepository.findById(lectureContentDto.lecture_id());
-        System.out.println("+_+_+_"+lectureContentDto.lecture_id());
+    public void save(Integer id, MultipartFile file){
+        Optional<Lecture> lecture = lectureRepository.findById(id);
+        System.out.println("+_+_+_"+id);
         if(lecture.isEmpty()){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Can't find Lecture");
         }

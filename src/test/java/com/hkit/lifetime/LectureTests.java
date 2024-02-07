@@ -203,7 +203,7 @@ public class LectureTests {
 
         mockMvc.perform(post("/api/lecture/" + static_lecture.getId() + "/" + content.stream().findFirst().get().getId() + "/update").with(csrf()).params(info)).andExpect(status().isOk());
 
-        assertEquals(changedText, contentRepository.findByLecture_IdAndName(static_lecture.getId(), info.getFirst("name")).get().getName());
+        assertEquals(changedText, contentRepository.findByLecture_IdAndName(static_lecture.getId(), info.getFirst("name")).get(0).getName());
     }
 
     @Test

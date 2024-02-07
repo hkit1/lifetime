@@ -1,5 +1,7 @@
 package com.hkit.lifetime.lecture;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import java.io.Serializable;
 
 /**
@@ -9,5 +11,6 @@ public record LectureContentDto(Integer id,
                                 Integer lecture_id,
                                 String name,
                                 String description,
-                                String url) implements Serializable {
+                                String url
+) implements Serializable {
 }
