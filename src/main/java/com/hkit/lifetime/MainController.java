@@ -18,8 +18,8 @@ public class MainController {
         return "home";
     }
 
-    @GetMapping("/mypage")
+    @GetMapping("/a")
     public String mypage(){
-        return "mypage";
+        return "register_input";
     }
 }
