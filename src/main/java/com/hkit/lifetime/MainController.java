@@ -21,9 +21,9 @@ public class MainController {
         return "home";
     }
 
-    @GetMapping("/a")
+    @GetMapping("/login")
     public String mypage(){
-        return "register_input";
+        return "login";
     }
 
     @GetMapping("/b")
@@ -34,11 +34,31 @@ public class MainController {
     @GetMapping("/c")
     public String zxc(Model model){
         MyLecture myLecture = new MyLecture("1", "15");
+        TakeLectutreTime takeLectutreTime = new TakeLectutreTime("15h", "15h", "15h", "15h", "15h", "15h", "15h");
+
+        ArrayList<NextLecture> nextLectures = new ArrayList<>();
+        NextLecture nextLecture1 = new NextLecture("2월", "10일", "ㅁㄴㅇ", "ㅁㄴㅇ");
+        NextLecture nextLecture2 = new NextLecture("2월", "10일", "ㅁㄴㅇ", "ㅁㄴㅇ");
+        NextLecture nextLecture3 = new NextLecture("2월", "10일", "ㅁㄴㅇ", "ㅁㄴㅇ");
+        nextLectures.add(nextLecture1);
+        nextLectures.add(nextLecture2);
+        nextLectures.add(nextLecture3);
+
+        ArrayList<LectureExam> lectureExams = new ArrayList<>();
+        LectureExam lectureExam1 = new LectureExam("asd", "asd", "1월 20일");
+        LectureExam lectureExam2 = new LectureExam("asd", "asd", "1월 20일");
+        lectureExams.add(lectureExam1);
+        lectureExams.add(lectureExam2);
+
         model.addAttribute("my_lecture", myLecture);
+        model.addAttribute("take_lecture_time", takeLectutreTime);
+        model.addAttribute("next_lecture", nextLectures);
+        model.addAttribute("lectureExams", lectureExams);
+
         return "mypage";
     }
 
-    class MyLecture{
+    static class MyLecture{
         public String take;
         public String end;
 
@@ -51,7 +71,7 @@ public class MainController {
         }
     }
 
-    class TakeLectutreTime{
+    static class TakeLectutreTime{
         public String mon;
         public String tue;
         public String wed;
@@ -71,6 +91,38 @@ public class MainController {
             this.fri = fri;
             this.sat = sat;
             this.sun = sun;
+        }
+    }
+
+    static class NextLecture{
+        public String month;
+        public String day;
+        public String lecture_name;
+        public String lecture_info;
+
+        public NextLecture() {
+        }
+
+        public NextLecture(String month, String day, String lecture_name, String lecture_info) {
+            this.month = month;
+            this.day = day;
+            this.lecture_name = lecture_name;
+            this.lecture_info = lecture_info;
+        }
+    }
+
+    static class LectureExam{
+        public String name;
+        public String exam;
+        public String deadline;
+
+        public LectureExam() {
+        }
+
+        public LectureExam(String name, String exam, String deadline) {
+            this.name = name;
+            this.exam = exam;
+            this.deadline = deadline;
         }
     }
 }

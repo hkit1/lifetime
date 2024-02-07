@@ -38,7 +38,7 @@ public class SecurityConfig {
 
                         //로그인 URL 매핑
                         .loginProcessingUrl("/api/account/login")
-
+                        .loginPage("/login")
                         //로그인 정보 파라미터
                         .usernameParameter("id")
                         .passwordParameter("pw")
