@@ -8,6 +8,7 @@ import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
@@ -26,9 +27,10 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests(requsts -> requsts
                         //권한 없이 들어갈 수 있는 페이지
-                        .requestMatchers("/", "/api/account/login", "/api/account/register").permitAll()
+//                        .requestMatchers("/", "/api/account/login", "/api/account/register").permitAll()
                         //이외의 페이지는 모두 권한 필요
-                        .anyRequest().authenticated()
+//                        .anyRequest().authenticated()
+                                .anyRequest().permitAll()
                 )
                 .formLogin(formLogin -> formLogin
                         //로그인 페이지 커스텀 시 아래에 등록
@@ -50,6 +52,7 @@ public class SecurityConfig {
                 //로그아웃 기능은 Security가 제공하는 default 기능 사용
                 .logout(Customizer.withDefaults())
                 .httpBasic(Customizer.withDefaults())
+                .sessionManagement((s) -> s.sessionCreationPolicy(SessionCreationPolicy.ALWAYS))
                 .csrf(Customizer.withDefaults());
 
         return http.build();

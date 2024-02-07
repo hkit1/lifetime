@@ -2,7 +2,6 @@ package com.hkit.lifetime;
 
 import com.hkit.lifetime.account.Account;
 import com.hkit.lifetime.account.AccountRepository;
-import com.hkit.lifetime.oauth.OauthRepository;
 import net.datafaker.Faker;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -33,10 +32,6 @@ public class AccountTests {
     @Autowired
     AccountRepository repository;
 
-    // https://velog.io/@mardi2020/Spring-Boot-Spring-Security-OAuth2-%EB%84%A4%EC%9D%B4%EB%B2%84-%EB%A1%9C%EA%B7%B8%EC%9D%B8-%ED%95%B4%EB%B3%B4%EA%B8%B0
-    @Autowired
-    OauthRepository oauthRepository;
-
     public static MultiValueMap<String, String> createAccountInfo() {
         Faker faker = new Faker(Locale.KOREAN);
         MultiValueMap<String, String> info = new LinkedMultiValueMap<>();
@@ -58,7 +53,6 @@ public class AccountTests {
     @BeforeEach
     void setUp() {
         repository.deleteAll();
-        oauthRepository.deleteAll();
     }
 
     @Test
@@ -68,7 +62,7 @@ public class AccountTests {
         // 계정 정보 무작위 생성
         MultiValueMap<String, String> info = createAccountInfo();
 
-        mockMvc.perform(post("/api/account/register").params(info).with(csrf())).andExpect(status().isOk());
+        mockMvc.perform(post("/account/register").params(info).with(csrf())).andExpect(status().isOk());
 
         // 계정 등록이 잘 되었는지 확인
         assertTrue(repository.findAccountById(info.getFirst("id")).isPresent());
@@ -83,18 +77,13 @@ public class AccountTests {
         // 중복 ID 검사에서 통과 되는지 확인
         mockMvc.perform(post("/api/account/check").param("id", info.getFirst("id")).with(csrf())).andExpect(status().isOk());
 
-        mockMvc.perform(post("/api/account/register").params(info).with(csrf())).andExpect(status().isOk());
+        mockMvc.perform(post("/account/register").params(info).with(csrf())).andExpect(status().isOk());
 
         // 상세 주소값이 없을 경우 계정 등록이 되는지 확인
         assertTrue(repository.findAccountById(info.getFirst("id")).isPresent());
 
         // 비밀번호가 평문으로 저장되어 있지 않는지 확인
         assertNotEquals(info.getFirst("pw"), repository.findAccountById(info.getFirst("id")).get().getPw());
-
-        // 로그인이 되는지 확인 (sessionId)
-        mockMvc.perform(post("/api/account/login").param("id", info.getFirst("id")).param("pw", info.getFirst("pw")).with(csrf()))
-                .andExpect(status().isOk())
-                .andExpect(model().attributeExists("sessionId"));
     }
 
     @Test
@@ -102,13 +91,13 @@ public class AccountTests {
     void loginAccount() throws Exception {
         // 로그인할 계정 생성 (create 테스트가 먼저 완료 되어야 함)
         MultiValueMap<String, String> info = createAccountInfo();
-        mockMvc.perform(post("/api/account/register").params(info).with(csrf())).andExpect(status().isOk());
+        mockMvc.perform(post("/account/register").params(info).with(csrf())).andExpect(status().isOk());
 
         // 잘못된 비밀번호 테스트 - 401
         mockMvc.perform(post("/api/account/login").param("id", info.getFirst("id")).param("pw", info.getFirst("pw") + "wrong").with(csrf())).andExpect(status().isUnauthorized());
 
         // 정상 로그인 테스트 - 200
-        mockMvc.perform(post("/api/account/login").param("id", info.getFirst("id")).param("pw", info.getFirst("pw")).with(csrf())).andExpect(status().isOk());
+        mockMvc.perform(post("/api/account/login").param("id", info.getFirst("id")).param("pw", info.getFirst("pw")).with(csrf())).andExpect(status().isOk()).andExpect(model().attributeExists("sessionId"));
     }
 
     @Test
@@ -117,7 +106,7 @@ public class AccountTests {
         // Spring security 권한 문제로 추가
         // 로그인할 계정 생성 (create 테스트가 먼저 완료 되어야 함)
         MultiValueMap<String, String> info = createAccountInfo();
-        mockMvc.perform(post("/api/account/register").params(info).with(csrf())).andExpect(status().isOk());
+        mockMvc.perform(post("/account/register").params(info).with(csrf())).andExpect(status().isOk());
 
         // 계정 삭제 테스트 - 200
         mockMvc.perform(post("/api/account/delete").param("sessionId", info.getFirst("id")).with(csrf())).andExpect(status().isOk());
@@ -132,7 +121,7 @@ public class AccountTests {
     void updateAccount() throws Exception {
         // 로그인할 계정 생성 (create 테스트가 먼저 완료 되어야 함)
         MultiValueMap<String, String> info = createAccountInfo();
-        mockMvc.perform(post("/api/account/register").params(info).with(csrf())).andExpect(status().isOk());
+        mockMvc.perform(post("/account/register").params(info).with(csrf())).andExpect(status().isOk());
 
         // 정상 회원가입이 되었는지 확인
         Optional<Account> account = repository.findAccountById(info.getFirst("id"));
