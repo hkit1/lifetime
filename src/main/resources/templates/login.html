@@ -13,13 +13,14 @@
         <!-- 헤더 html 끝 -->
 
         <!-- 로그인 html 시작 -->
-        <form action="/login" method="post">
+        <form th:action="@{/login}" method="post">
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
             <div class="login_text">
                 <p style="font-weight: 700; font-size: 32px; line-height: 72px">로그인</p>
             </div>
             <div class="login_form">
                 <input name="id" type="text" autofocus placeholder="아이디">
-                <input name="password" type="password" placeholder="비밀번호" style="margin-top: 5px">
+                <input name="pw" type="password" placeholder="비밀번호" style="margin-top: 5px">
             </div>
             <input type="submit" value="로 그 인" id="login_button">
             <div class="search_register_wrap">
