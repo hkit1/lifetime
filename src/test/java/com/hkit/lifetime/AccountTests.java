@@ -2,7 +2,6 @@ package com.hkit.lifetime;
 
 import com.hkit.lifetime.account.Account;
 import com.hkit.lifetime.account.AccountRepository;
-import com.hkit.lifetime.oauth.OauthRepository;
 import net.datafaker.Faker;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -33,10 +32,6 @@ public class AccountTests {
     @Autowired
     AccountRepository repository;
 
-    // https://velog.io/@mardi2020/Spring-Boot-Spring-Security-OAuth2-%EB%84%A4%EC%9D%B4%EB%B2%84-%EB%A1%9C%EA%B7%B8%EC%9D%B8-%ED%95%B4%EB%B3%B4%EA%B8%B0
-    @Autowired
-    OauthRepository oauthRepository;
-
     public static MultiValueMap<String, String> createAccountInfo() {
         Faker faker = new Faker(Locale.KOREAN);
         MultiValueMap<String, String> info = new LinkedMultiValueMap<>();
@@ -58,7 +53,6 @@ public class AccountTests {
     @BeforeEach
     void setUp() {
         repository.deleteAll();
-        oauthRepository.deleteAll();
     }
 
     @Test

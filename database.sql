@@ -12,12 +12,6 @@ CREATE TABLE `account`
     `address2` tinytext     NULL
 );
 
-CREATE TABLE `oAuth`
-(
-    `oauth_key` varchar(255) NOT NULL,
-    `uuid`      varchar(255) NOT NULL
-);
-
 CREATE TABLE `company`
 (
     `companyId` varchar(255) NOT NULL,
@@ -116,11 +110,6 @@ ALTER TABLE `account`
                                              `uuid`
         );
 
-ALTER TABLE `oAuth`
-    ADD CONSTRAINT `PK_OAUTH` PRIMARY KEY (
-                                           `oauth_key`
-        );
-
 ALTER TABLE `company`
     ADD CONSTRAINT `PK_COMPANY` PRIMARY KEY (
                                              `companyId`
@@ -181,13 +170,6 @@ ALTER TABLE `survey_content`
                                                     `content_id`
         );
 
-ALTER TABLE `oAuth`
-    ADD CONSTRAINT `FK_account_TO_oAuth_1` FOREIGN KEY (
-                                                        `uuid`
-        )
-        REFERENCES `account` (
-                              `uuid`
-            );
 
 ALTER TABLE `lecture`
     ADD CONSTRAINT `FK_sub_category_TO_lecture_1` FOREIGN KEY (
