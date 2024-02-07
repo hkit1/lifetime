@@ -247,6 +247,7 @@ public class LectureTests {
 
         // 이것도 thymeleaf 으로 구현
         // 영상 스트리밍이 될 것
-        mockMvc.perform(get("/lecture/" + static_lecture.getName() + "/view").with(csrf())).andExpect(status().isOk());
+        mockMvc.perform(get("/lecture/" + static_lecture.getName() + "/video").with(csrf())).andExpect(status().isOk());
+
     }
 }

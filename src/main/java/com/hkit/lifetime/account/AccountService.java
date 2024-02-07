@@ -5,8 +5,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.Optional;
-
 @Service
 @RequiredArgsConstructor
 public class AccountService {
@@ -31,15 +29,9 @@ public class AccountService {
         accountRepository.save(findAccount);
     }
 
-    public String duplicateCheck(String id) {
-        Account findAccount = accountRepository.findAccountById(id).orElseGet(() -> new Account());
-        String msg;
-        if (findAccount.getId() == null){
-            msg = "Ok";
-        } else{
-            msg = "Using";
-        }
-        return msg;
+    public Boolean duplicateCheck(String id) {
+        Account findAccount = accountRepository.findAccountById(id).orElseGet(Account::new);
+        return findAccount.getId() == null;
     }
 
 }

@@ -21,6 +21,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
@@ -102,7 +103,7 @@ public class AccountTests {
         mockMvc.perform(post("/api/account/login").param("id", info.getFirst("id")).param("pw", info.getFirst("pw") + "wrong").with(csrf())).andExpect(status().isUnauthorized());
 
         // 정상 로그인 테스트 - 200
-        mockMvc.perform(post("/api/account/login").param("id", info.getFirst("id")).param("pw", info.getFirst("pw")).with(csrf())).andExpect(status().isOk());
+        mockMvc.perform(post("/api/account/login").param("id", info.getFirst("id")).param("pw", info.getFirst("pw")).with(csrf())).andExpect(status().isOk()).andExpect(model().attributeExists("sessionId"));
     }
 
     @Test
