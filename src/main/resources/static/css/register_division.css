@@ -1,0 +1,152 @@
+/* 회원가입_회원구분 css 시작 */
+.reg_container {
+  width: 1200px;
+  margin: 0 auto;
+}
+
+.reg_procedure p {
+  margin-top: 50px;
+  font-weight: bold;
+  font-size: large;
+  text-align: center;
+}
+
+.reg_order_icon {
+  margin-top: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.reg_order_icon img {
+  width: 110px;
+  height: 12px;
+  margin: 0 40px;
+}
+
+.reg_order_round {
+  width: 100px;
+  height: 100px;
+  margin-left: 10px;
+  border-radius: 50%;
+  background-color: #0077cc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.reg_order_round_sub {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background-color: rgb(156, 185, 215);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.reg_order_text {
+  font-size: 14px;
+  font-weight: bold;
+  color: white;
+  text-align: center;
+}
+
+.member_type_select_container {
+  width: 100%;
+  height: 1000px;
+  margin-top: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(217, 217, 217);
+}
+
+.member_type_select {
+  width: 85%;
+  height: 700px;
+  border-radius: 5%;
+  background-color: white;
+}
+
+.member_type_select_text {
+  width: 100%;
+  height: 150px;
+  margin: 0 auto;
+  padding-top: 50px;
+}
+
+.member_type_select_text_title {
+  font-size: 26px;
+  font-weight: 700;
+  line-height: 59px;
+  text-align: center;
+}
+
+.member_type_select_text_content {
+  font-family: "Droid Sans", monospace;
+  color: #767676;
+  font-weight: 400;
+  font-size: 11px;
+  line-height: 25px;
+  text-align: center;
+}
+
+.member_type_division {
+  width: 100%;
+  height: 60%;
+  margin: 0 auto;
+}
+
+.member_type_division_text {
+  font-family: "Droid Sans", monospace;
+  margin-top: 20px;
+  color: #767676;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 17px;
+}
+
+.general_member {
+  width: 50%;
+  height: 100%;
+  float: left;
+  box-sizing: border-box; /* 너비가 테두리 영역까지 포함되도록 */
+  text-align: center;
+}
+
+.child_member {
+  width: 50%;
+  height: 100%;
+  float: right;
+  box-sizing: border-box; /* 너비가 테두리 영역까지 포함되도록 */
+  text-align: center;
+}
+
+.member_type_division a {
+  color: white;
+  text-decoration: none;
+}
+
+.member_type_division_general_button {
+  width: 200px;
+  height: 55px;
+  margin: 45px auto 0;
+  border-radius: 20px;
+  background-color: rgb(17, 54, 91);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.member_type_division_child_button {
+  width: 200px;
+  height: 55px;
+  margin: 45px auto 0;
+  border-radius: 20px;
+  background-color: rgb(26, 96, 15);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+/* 회원가입_회원구분 css 끝 */

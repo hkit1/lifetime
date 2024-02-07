@@ -1,355 +1,16 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
   <meta charset="UTF-8">
   <title>회원가입_회원가입완료</title>
-  <style>
-      /* 헤더 css 시작 */
-      @import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Merienda:wght@700&family=Noto+Sans+KR:wght@100;200&family=Single+Day&display=swap');
-
-      * {
-          margin: 0;
-          padding: 0;
-      }
-
-      .container {
-          width: 1200px;
-          margin: 0 auto;
-          padding: 0;
-          display: flex;
-          flex-direction: column;
-      }
-
-      header {
-          width: 100%;
-          height: 100px;
-      }
-
-      ul {
-          list-style: none;
-      }
-
-      .logo {
-          width: 200px;
-          height: 100px;
-          background: salmon;
-          float: left;
-          display: inline-grid;
-      }
-
-      .logo a {
-          text-decoration: none;
-          display: flex;
-          flex-direction: row-reverse;
-          justify-content: center;
-          align-items: center;
-      }
-
-      .logo a h5 {
-          margin-left: 5px;
-          font-size: 25px;
-          font-weight: 700;
-          font-family: 'Single Day', cursive;
-      }
-
-      .logo a img {
-          width: 50px;
-          height: 50px;
-      }
-
-      nav {
-          width: 800px;
-          height: 100px;
-          background: orange;
-          float: left;
-          position: relative;
-      }
-
-      nav:hover .subMenu_cate {
-          display: flex;
-      }
-
-      .topMenu {
-          height: 100px;
-          margin-left: 30px;
-      }
-
-      .topMenu li {
-          height: 100%;
-          padding: 30px 25px;
-          float: left;
-          display: block;
-          color: blueviolet;
-          font-weight: 600;
-          text-shadow: 0 1px #07c;
-      }
-
-      .topMenu li a {
-          text-decoration: none;
-      }
-
-      .topMenu li:hover {
-          color: #000;
-          text-shadow: 0 -1px #07c;
-      }
-
-      .subMenu_cate {
-          width: 100%;
-          height: 300px;
-          left: 0;
-          top: 100px;
-          background: greenyellow;
-          position: absolute;
-          display: none;
-          z-index: 999;
-      }
-
-      .subMenu {
-          width: calc(100% / 5);
-          text-align: center;
-      }
-
-      .subMenu li {
-          width: 100%;
-      }
-
-      .subMenu li a {
-          font-size: 20px;
-          text-decoration: none;
-      }
-
-      .member_btn {
-          width: 200px;
-          height: 100px;
-          float: right;
-          display: flex;
-          align-items: center;
-          background: aqua;
-      }
-
-      .reg {
-          width: 100px;
-          height: 50px;
-          font-size: 0.8em;
-          color: white;
-          border: 1px solid black;
-          border-radius: 30px;
-          background: #0077cc;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          text-decoration: none;
-      }
-
-      .login {
-          width: 100px;
-          height: 50px;
-          margin-left: 5px;
-          font-size: 0.8em;
-          color: white;
-          border: 1px solid black;
-          border-radius: 30px;
-          background: mediumslateblue;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          text-decoration: none;
-      }
-      /* 헤더 css 끝 */
-
-      /* 회원가입_회원가입완료 css 시작 */
-      .reg_container {
-          width: 1200px;
-          margin: 0 auto;
-      }
-
-      .reg_procedure p {
-          margin-top: 50px;
-          font-weight: bold;
-          font-size: large;
-          text-align: center;
-      }
-
-      .reg_order_icon {
-          margin-top: 40px;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-      }
-
-      .reg_order_icon img {
-          width: 110px;
-          height: 12px;
-          margin: 0 40px;
-      }
-
-      .reg_order_round {
-          width: 100px;
-          height: 100px;
-          margin-left: 10px;
-          border-radius: 50%;
-          background-color: #0077cc;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-      }
-
-      .reg_order_round_sub {
-          width: 100px;
-          height: 100px;
-          border-radius: 50%;
-          background-color: rgb(156, 185, 215);
-          display: flex;
-          align-items: center;
-          justify-content: center;
-      }
-
-      .reg_order_text {
-          font-size: 14px;
-          font-weight: bold;
-          color: white;
-          text-align: center;
-      }
-
-      hr {
-          margin-top: 100px;
-      }
-
-      .register_complete_container {
-          width: 100%;
-          height: 800px;
-      }
-
-      .register_complete_window {
-          width: 900px;
-          height: 600px;
-          margin: 100px auto 0;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: center;
-          background-color: #F7F7F7;
-      }
-
-      .register_complete_title {
-          font-size: 32px;
-          font-weight: 700;
-          line-height: 72px;
-          text-align: center;
-      }
-
-      .register_complete_content {
-          margin: 50px 0;
-          text-align: center;
-      }
-
-      .register_complete_content img {
-          margin-bottom: 30px;
-      }
-
-      .register_complete_content p {
-          font-family: "Droid Sans";
-          color: #767676;
-          font-size: 20px;
-          font-weight: 400;
-          line-height: 30px;
-          text-align: center;
-      }
-
-      .register_complete_decision a {
-          width: 150px;
-          height: 60px;
-          float: left;
-          font-family: "Droid Sans";
-          font-size: 15px;
-          font-weight: 700;
-          line-height: 34px;
-          border-width: 0;
-          border-radius: 10px;
-          text-decoration: none;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-      }
-
-      .register_complete_decision .login {
-          color: #FFFFFF;
-          background-color: #559CE3;
-          margin-right: 30px;
-      }
-
-      .register_complete_decision .main {
-          color: #A1A1A1;
-          background-color: #F2F2F2;
-      }
-      /* 회원가입_회원가입완료 css 끝 */
-  </style>
+  <link rel="stylesheet" href="../common/css/style.css" >
+  <link rel="stylesheet" href="../css/register_complete.css" >
 </head>
 <body>
 
   <div class="container">
     <!-- 헤더 html 시작 -->
-    <header>
-      <div class="logo">
-        <a href="">
-          <h5>평생학습플랫폼</h5>
-          <img src="../static/image/book.png">
-        </a>
-      </div>
-
-      <nav>
-        <ul class="topMenu">
-          <li>
-            <a href="">온라인 학습</a>
-          </li>
-          <li>
-            <a href="">오프라인 교육정보</a>
-          </li>
-          <li>
-            <a href="">행정교육자료</a>
-          </li>
-          <li>
-            <a href="">늘배움 알림</a>
-          </li>
-          <li>
-            <a href="">늘배움 소개</a>
-          </li>
-        </ul>
-
-        <div class="subMenu_cate">
-          <ul class="subMenu">
-            <li><a href="">가</a></li>
-            <li><a href="">나</a></li>
-            <li><a href="">다</a></li>
-          </ul>
-          <ul class="subMenu">
-            <li><a href="">라</a></li>
-            <li><a href="">마</a></li>
-            <li><a href="">바</a></li>
-          </ul>
-          <ul class="subMenu">
-            <li><a href="">사</a></li>
-            <li><a href="">아</a></li>
-            <li><a href="">자</a></li>
-          </ul>
-          <ul class="subMenu">
-            <li><a href="">차</a></li>
-            <li><a href="">카</a></li>
-            <li><a href="">타</a></li>
-          </ul>
-          <ul class="subMenu">
-            <li><a href="">파</a></li>
-            <li><a href="">하</a></li>
-            <li><a href="">굿</a></li>
-          </ul>
-        </div>
-      </nav>
-
-      <div class="member_btn">
-        <a href="" class="reg">👦회원가입</a>
-        <a href="" class="login">🔒로그인</a>
-      </div>
-    </header>
+    <header th:replace="~{/common/header::header}"></header>
     <!-- 헤더 html 끝 -->
 
     <!-- 회원가입_회원가입완료 html 시작 -->
@@ -362,15 +23,15 @@
           <div class="reg_order_round_sub">
             <span class="reg_order_text">회원유형 선택</span>
           </div>
-          <img src="sub_line.png" alt="">
+          <img src="../image/sub_line.png" alt="">
           <div class="reg_order_round_sub">
             <span class="reg_order_text">약관동의</span>
           </div>
-          <img src="sub_line.png" alt="">
+          <img src="../image/sub_line.png" alt="">
           <div class="reg_order_round_sub">
             <span class="reg_order_text">회원정보 입력</span>
           </div>
-          <img src="sub_line.png" alt="">
+          <img src="../image/sub_line.png" alt="">
           <div class="reg_order_round">
             <span class="reg_order_text">가입완료</span>
           </div>
@@ -386,7 +47,7 @@
           <p>회원가입 완료</p>
         </div>
         <div class="register_complete_content">
-          <img src="group.png" alt="">
+          <img src="../image/group.png" alt="">
           <p>회원가입이 완료되었습니다.</p>
           <p>이제 온라인 평생학습 플랫폼의 다양한 서비스를 만나보세요.</p>
         </div>

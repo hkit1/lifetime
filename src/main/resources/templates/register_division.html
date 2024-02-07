@@ -1,381 +1,16 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
   <meta charset="UTF-8">
   <title>회원가입_회원구분</title>
-  <style>
-      /* 헤더 css 시작 */
-      @import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Merienda:wght@700&family=Noto+Sans+KR:wght@100;200&family=Single+Day&display=swap');
-
-      * {
-          margin: 0;
-          padding: 0;
-      }
-
-      .container {
-          width: 1200px;
-          margin: 0 auto;
-          padding: 0;
-          display: flex;
-          flex-direction: column;
-      }
-
-      header {
-          width: 100%;
-          height: 100px;
-      }
-
-      ul {
-          list-style: none;
-      }
-
-      .logo {
-          width: 200px;
-          height: 100px;
-          background: salmon;
-          float: left;
-          display: inline-grid;
-      }
-
-      .logo a {
-          text-decoration: none;
-          display: flex;
-          flex-direction: row-reverse;
-          justify-content: center;
-          align-items: center;
-      }
-
-      .logo a h5 {
-          margin-left: 5px;
-          font-size: 25px;
-          font-weight: 700;
-          font-family: 'Single Day', cursive;
-      }
-
-      .logo a img {
-          width: 50px;
-          height: 50px;
-      }
-
-      nav {
-          width: 800px;
-          height: 100px;
-          background: orange;
-          float: left;
-          position: relative;
-      }
-
-      nav:hover .subMenu_cate {
-          display: flex;
-      }
-
-      .topMenu {
-          height: 100px;
-          margin-left: 30px;
-      }
-
-      .topMenu li {
-          height: 100%;
-          padding: 30px 25px;
-          float: left;
-          display: block;
-          color: blueviolet;
-          font-weight: 600;
-          text-shadow: 0 1px #07c;
-      }
-
-      .topMenu li a {
-          text-decoration: none;
-      }
-
-      .topMenu li:hover {
-          color: #000;
-          text-shadow: 0 -1px #07c;
-      }
-
-      .subMenu_cate {
-          width: 100%;
-          height: 300px;
-          left: 0;
-          top: 100px;
-          background: greenyellow;
-          position: absolute;
-          display: none;
-          z-index: 999;
-      }
-
-      .subMenu {
-          width: calc(100% / 5);
-          text-align: center;
-      }
-
-      .subMenu li {
-          width: 100%;
-      }
-
-      .subMenu li a {
-          font-size: 20px;
-          text-decoration: none;
-      }
-
-      .member_btn {
-          width: 200px;
-          height: 100px;
-          float: right;
-          display: flex;
-          align-items: center;
-          background: aqua;
-      }
-
-      .reg {
-          width: 100px;
-          height: 50px;
-          font-size: 0.8em;
-          color: white;
-          border: 1px solid black;
-          border-radius: 30px;
-          background: #0077cc;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          text-decoration: none;
-      }
-
-      .login {
-          width: 100px;
-          height: 50px;
-          margin-left: 5px;
-          font-size: 0.8em;
-          color: white;
-          border: 1px solid black;
-          border-radius: 30px;
-          background: mediumslateblue;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          text-decoration: none;
-      }
-      /* 헤더 css 끝 */
-
-      /* 회원가입_회원구분 css 시작 */
-      .reg_container {
-          width: 1200px;
-          margin: 0 auto;
-      }
-
-      .reg_procedure p {
-          margin-top: 50px;
-          font-weight: bold;
-          font-size: large;
-          text-align: center;
-      }
-
-      .reg_order_icon {
-          margin-top: 40px;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-      }
-
-      .reg_order_icon img {
-          width: 110px;
-          height: 12px;
-          margin: 0 40px;
-      }
-
-      .reg_order_round {
-          width: 100px;
-          height: 100px;
-          margin-left: 10px;
-          border-radius: 50%;
-          background-color: #0077cc;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-      }
-
-      .reg_order_round_sub {
-          width: 100px;
-          height: 100px;
-          border-radius: 50%;
-          background-color: rgb(156, 185, 215);
-          display: flex;
-          align-items: center;
-          justify-content: center;
-      }
-
-      .reg_order_text {
-          font-size: 14px;
-          font-weight: bold;
-          color: white;
-          text-align: center;
-      }
-
-      .member_type_select_container {
-          width: 100%;
-          height: 1000px;
-          margin-top: 100px;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          background-color: rgb(217, 217, 217);
-      }
-
-      .member_type_select {
-          width: 85%;
-          height: 700px;
-          border-radius: 5%;
-          background-color: white;
-      }
-
-      .member_type_select_text {
-          width: 100%;
-          height: 150px;
-          margin: 0 auto;
-          padding-top: 50px;
-      }
-
-      .member_type_select_text_title {
-          font-size: 26px;
-          font-weight: 700;
-          line-height: 59px;
-          text-align: center;
-      }
-
-      .member_type_select_text_content {
-          font-family: "Droid Sans", monospace;
-          color: #767676;
-          font-weight: 400;
-          font-size: 11px;
-          line-height: 25px;
-          text-align: center;
-      }
-
-      .member_type_division {
-          width: 100%;
-          height: 60%;
-          margin: 0 auto;
-      }
-
-      .member_type_division_text {
-          font-family: "Droid Sans", monospace;
-          margin-top: 20px;
-          color: #767676;
-          font-weight: 400;
-          font-size: 12px;
-          line-height: 17px;
-      }
-
-      .general_member {
-          width: 50%;
-          height: 100%;
-          float: left;
-          box-sizing: border-box; /* 너비가 테두리 영역까지 포함되도록 */
-          text-align: center;
-      }
-      
-      .child_member {
-          width: 50%;
-          height: 100%;
-          float: right;
-          box-sizing: border-box; /* 너비가 테두리 영역까지 포함되도록 */
-          text-align: center;
-      }
-
-      .member_type_division a {
-          color: white;
-          text-decoration: none;
-      }
-
-      .member_type_division_general_button {
-          width: 200px;
-          height: 55px;
-          margin: 45px auto 0;
-          border-radius: 20px;
-          background-color: rgb(17, 54, 91);
-          display: flex;
-          justify-content: center;
-          align-items: center;
-      }
-
-      .member_type_division_child_button {
-          width: 200px;
-          height: 55px;
-          margin: 45px auto 0;
-          border-radius: 20px;
-          background-color: rgb(26, 96, 15);
-          display: flex;
-          justify-content: center;
-          align-items: center;
-      }
-      /* 회원가입_회원구분 css 끝 */
-  </style>
+  <link rel="stylesheet" href="../common/css/style.css" >
+  <link rel="stylesheet" href="../css/register_division.css" >
 </head>
 <body>
 
 <div class="container">
   <!-- 헤더 html 시작 -->
-  <header>
-    <div class="logo">
-      <a href="">
-        <h5>평생학습플랫폼</h5>
-        <img src="../static/image/book.png">
-      </a>
-    </div>
-
-    <nav>
-      <ul class="topMenu">
-        <li>
-          <a href="">온라인 학습</a>
-        </li>
-        <li>
-          <a href="">오프라인 교육정보</a>
-        </li>
-        <li>
-          <a href="">행정교육자료</a>
-        </li>
-        <li>
-          <a href="">늘배움 알림</a>
-        </li>
-        <li>
-          <a href="">늘배움 소개</a>
-        </li>
-      </ul>
-
-      <div class="subMenu_cate">
-        <ul class="subMenu">
-          <li><a href="">가</a></li>
-          <li><a href="">나</a></li>
-          <li><a href="">다</a></li>
-        </ul>
-        <ul class="subMenu">
-          <li><a href="">라</a></li>
-          <li><a href="">마</a></li>
-          <li><a href="">바</a></li>
-        </ul>
-        <ul class="subMenu">
-          <li><a href="">사</a></li>
-          <li><a href="">아</a></li>
-          <li><a href="">자</a></li>
-        </ul>
-        <ul class="subMenu">
-          <li><a href="">차</a></li>
-          <li><a href="">카</a></li>
-          <li><a href="">타</a></li>
-        </ul>
-        <ul class="subMenu">
-          <li><a href="">파</a></li>
-          <li><a href="">하</a></li>
-          <li><a href="">굿</a></li>
-        </ul>
-      </div>
-    </nav>
-
-    <div class="member_btn">
-      <a href="" class="reg">👦회원가입</a>
-      <a href="" class="login">🔒로그인</a>
-    </div>
-  </header>
+  <header th:replace="~{/common/header::header}"></header>
   <!-- 헤더 html 끝 -->
 
   <!-- 회원가입_회원구분 html 시작 -->
@@ -388,15 +23,15 @@
         <div class="reg_order_round">
           <span class="reg_order_text">회원유형 선택</span>
         </div>
-        <img src="main_line.png" alt="">
+        <img src="../image/main_line.png" alt="">
         <div class="reg_order_round_sub">
           <span class="reg_order_text">약관동의</span>
         </div>
-        <img src="sub_line.png" alt="">
+        <img src="../image/sub_line.png" alt="">
         <div class="reg_order_round_sub">
           <span class="reg_order_text">회원정보 입력</span>
         </div>
-        <img src="sub_line.png" alt="">
+        <img src="../image/sub_line.png" alt="">
         <div class="reg_order_round_sub">
           <span class="reg_order_text">가입완료</span>
         </div>
@@ -411,7 +46,7 @@
       </div>
       <div class="member_type_division">
         <div class="general_member">
-          <img src="reg_general.png" alt="">
+          <img src="../image/reg_general.png" alt="">
           <div class="member_type_division_text">
             <p>평생교육 일반 회원으로 회원가입을 진행합니다.</p>
             <p>만 14세 이상의 성인일 경우 이 방식으로 가입을 진행 할 수 있습니다.</p>
@@ -421,7 +56,7 @@
             </a>
         </div>
         <div class="child_member">
-          <img src="reg_child.png" alt="">
+          <img src="../image/reg_child.png" alt="">
           <div class="member_type_division_text">
             <p>평생교육 어린이 회원으로 가입을 진행합니다.</p>
             <p>만 14세 미만의 어린이는 보호자의 동의가 필요합니다.</p>
