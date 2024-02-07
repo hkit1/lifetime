@@ -90,11 +90,6 @@ public class AccountTests {
 
         // 비밀번호가 평문으로 저장되어 있지 않는지 확인
         assertNotEquals(info.getFirst("pw"), repository.findAccountById(info.getFirst("id")).get().getPw());
-
-        // 로그인이 되는지 확인 (sessionId)
-        mockMvc.perform(post("/api/account/login").param("id", info.getFirst("id")).param("pw", info.getFirst("pw")).with(csrf()))
-                .andExpect(status().isOk())
-                .andExpect(model().attributeExists("sessionId"));
     }
 
     @Test
@@ -108,7 +103,7 @@ public class AccountTests {
         mockMvc.perform(post("/api/account/login").param("id", info.getFirst("id")).param("pw", info.getFirst("pw") + "wrong").with(csrf())).andExpect(status().isUnauthorized());
 
         // 정상 로그인 테스트 - 200
-        mockMvc.perform(post("/api/account/login").param("id", info.getFirst("id")).param("pw", info.getFirst("pw")).with(csrf())).andExpect(status().isOk());
+        mockMvc.perform(post("/api/account/login").param("id", info.getFirst("id")).param("pw", info.getFirst("pw")).with(csrf())).andExpect(status().isOk()).andExpect(model().attributeExists("sessionId"));
     }
 
     @Test

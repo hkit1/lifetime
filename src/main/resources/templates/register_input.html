@@ -507,22 +507,24 @@
         <p class="member_information_input_title">회원정보 입력</p>
         <p class="member_information_input_content">회원가입을 위한 회원정보를 입력하는 과정입니다.</p>
       </div>
-      <form action="" method="post" class="member_form">
+      <form class="member_form" method="post" th:action="@{/api/account/register}">
+        <input th:name="${_csrf.parameterName}" th:value="${_csrf.token}" type="hidden"/>
         <div class="member_division">
           <div class="category_container">
             <p class="category_text">회원구분&nbsp;<span style="color: red">*</span></p>
           </div>
           <div class="real_input">
+            <!-- TODO thymeleaf 으로 기관 또는 일반 회원별 input 항목 추가 및 삭제 -->
             <input type="radio" name="member_division" class="radio_item_1" checked>&nbsp;일반회원
             <input type="radio" name="member_division" class="radio_item_2">&nbsp;기관담당자
           </div>
         </div>
         <div class="member_name">
           <div class="category_container">
-            <p class="category_text">이름&nbsp;<span style="color: red">*</span></p>
+            <p class="category_text">이름 <span style="color: red">*</span></p>
           </div>
           <div class="real_input">
-            <input type="text" required>
+            <input name="name" required type="text">
           </div>
         </div>
         <div class="member_id">
@@ -530,8 +532,7 @@
             <p class="category_text">아이디&nbsp;<span style="color: red">*</span></p>
           </div>
           <div class="real_input">
-            <input type="text" required>
-            <input type="button" value="아이디 확인" class="id_birthDate_postcode_button">
+            <input name="id" required type="text">
           </div>
         </div>
         <div class="member_password">
@@ -539,7 +540,7 @@
             <p class="category_text">비밀번호&nbsp;<span style="color: red">*</span></p>
           </div>
           <div class="real_input">
-            <input type="password" required>
+            <input id="pw" name="pw" required type="password">
           </div>
         </div>
         <div class="member_password_check">
@@ -547,7 +548,7 @@
             <p class="category_text">비밀번호 확인&nbsp;<span style="color: red">*</span></p>
           </div>
           <div class="real_input">
-            <input type="password" required>
+            <input id="pw_repeat" required type="password">
           </div>
         </div>
         <div class="member_birthDate">
@@ -555,7 +556,8 @@
             <p class="category_text">생년월일&nbsp;<span style="color: red">*</span></p>
           </div>
           <div class="real_input">
-            <input type="date" name="">
+            <input id="input_birth" name="birth" type="hidden">
+            <input id="birth" type="date">
             <input type="button" value="생년월일 확인" class="id_birthDate_postcode_button">
           </div>
         </div>
@@ -564,8 +566,8 @@
             <p class="category_text">성별&nbsp;<span style="color: red">*</span></p>
           </div>
           <div class="real_input">
-            <input type="radio" name="member_gender" class="radio_item_1" checked>&nbsp;남자
-            <input type="radio" name="member_gender" class="radio_item_2">&nbsp;여자
+            <input checked class="radio_item_1" name="gender" type="radio" value="0">&nbsp;남자
+            <input class="radio_item_2" name="gender" type="radio" value="1">&nbsp;여자
           </div>
         </div>
         <div class="member_address">
@@ -573,32 +575,47 @@
             <p class="category_text">주소&nbsp;<span style="color: red">*</span></p>
           </div>
           <div class="real_input basics_detail_address">
+            <script>
+              function open_address() {
+                new daum.Postcode({
+                  oncomplete: function (data) {
+                    document.getElementById('zipcode').value = data.zonecode;
+                    document.getElementById("address1").value = data.roadAddress;
+                    document.getElementById("address2").focus();
+                  }
+                }).open();
+              }
+            </script>
+
             <div>
-              <input type="text" required style="background-color: #F5F5F5">
-              <input type="button" value="우편번호검색" class="id_birthDate_postcode_button">
+              <input id="zipcode" placeholder="우편번호" readonly="readonly" required style="background-color: #F5F5F5"
+                     type="text">
+              <input class="id_birthDate_postcode_button" onclick="open_address()" type="button" value="우편번호검색">
             </div>
-            <input type="text" class="basics_address" placeholder="기본주소" required>
-            <input type="text" class="detail_address" placeholder="상세주소" required>
+            <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+            <input class="basics_address" id="address1" name="address1" placeholder="기본주소" readonly="readonly"
+                   required type="text">
+            <input class="detail_address" id="address2" name="address2" placeholder="상세주소" type="text">
           </div>
         </div>
         <div class="member_phoneNumber">
+          <input id="tel" name="tel" type="hidden">
           <div class="category_container">
             <p class="category_text">연락처&nbsp;<span style="color: red">*</span></p>
           </div>
           <div class="real_input">
-            <select name="" class="short_box">
-              <option value="">선택</option>
-              <option value="">010</option>
-              <option value="">011</option>
-              <option value="">016</option>
-              <option value="">017</option>
-              <option value="">018</option>
-              <option value="">019</option>
+            <select class="short_box" id="tel1">
+              <option value="010">010</option>
+              <option value="011">011</option>
+              <option value="016">016</option>
+              <option value="017">017</option>
+              <option value="018">018</option>
+              <option value="019">019</option>
             </select>
             <span>-</span>
-            <input type="tel" class="short_box" required>
+            <input class="short_box" id="tel2" required type="text">
             <span>-</span>
-            <input type="tel" class="short_box" required>
+            <input class="short_box" id="tel3" required type="text">
           </div>
         </div>
         <div class="member_email">
@@ -606,23 +623,34 @@
             <p class="category_text">이메일&nbsp;<span style="color: red">*</span></p>
           </div>
           <div class="real_input">
-            <input type="email" required>
+            <input id="email" name="email" type="hidden">
+            <script>
+              function form_submit() {
+                document.getElementById("email").value = document.getElementById("email1").value + "@" + document.getElementById("email2").value;
+                document.getElementById("tel").value = document.getElementById("tel1").value + document.getElementById("tel2").value + document.getElementById("tel3").value;
+                document.getElementById("input_birth").value = document.getElementById("birth").value;
+              }
+
+              function change() {
+                document.getElementById("email2").value = document.getElementById("email3").value;
+              }
+            </script>
+            <input id="email1" required type="text">
             <span> @ </span>
-            <input type="email" placeholder="직접입력" required>
-            <select name="" class="short_box">
-              <option value="">선택</option>
-              <option value="">naver.com</option>
-              <option value="">google.com</option>
-              <option value="">hanmail.net</option>
-              <option value="">nate.com</option>
-              <option value="">kakao.com</option>
-              <option value="">msn.com</option>
+            <input id="email2" placeholder="직접입력" required type="text">
+            <select class="short_box" id="email3" name="" onchange="change()">
+              <option value="naver.com">naver.com</option>
+              <option value="google.com">google.com</option>
+              <option value="hanmail.net">hanmail.net</option>
+              <option value="nate.com">nate.com</option>
+              <option value="kakao.com">kakao.com</option>
+              <option value="msn.com">msn.com</option>
             </select>
           </div>
         </div>
         <div class="member_information_decision">
-          <input type="submit" value="확&nbsp;인" class="check">
-          <input type="submit" value="취&nbsp;소" class="cancel">
+          <input class="check" id="submit" onclick="form_submit()" type="submit" value="확 인">
+          <input class="cancel" type="submit" value="취 소">
         </div>
       </form>
     </div>

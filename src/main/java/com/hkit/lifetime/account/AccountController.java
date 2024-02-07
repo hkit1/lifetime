@@ -20,7 +20,7 @@ public class AccountController {
 
     @GetMapping("register")
     public String inRegister() {
-        return "register";
+        return "register_input";
     }
 
     @PostMapping("/api/account/register")
