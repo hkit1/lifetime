@@ -8,6 +8,7 @@ import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
@@ -51,6 +52,7 @@ public class SecurityConfig {
                 //로그아웃 기능은 Security가 제공하는 default 기능 사용
                 .logout(Customizer.withDefaults())
                 .httpBasic(Customizer.withDefaults())
+                .sessionManagement((s) -> s.sessionCreationPolicy(SessionCreationPolicy.ALWAYS))
                 .csrf(Customizer.withDefaults());
 
         return http.build();
