@@ -10,8 +10,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.Optional;
-
 @Slf4j
 @Controller
 @RequiredArgsConstructor
@@ -27,21 +25,18 @@ public class AccountController {
 
     @PostMapping("/api/account/register")
     public String registerAccount(AccountDto accountDto) {
-        String msg = accountService.duplicateCheck(accountDto.id());
-        if (msg.equals("Ok")) {
+        if (accountService.duplicateCheck(accountDto.id())) {
             AccountDto encodeAccount = encodePw(accountDto);
             accountService.register(encodeAccount);
             return "home";
         }else {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Id in Use");
         }
-
     }
 
     @PostMapping("/api/account/check")
     public String idCheck(@RequestParam(name = "id") String id){
-        String msg = accountService.duplicateCheck(id);
-        if (msg.equals("Ok")){
+        if (accountService.duplicateCheck(id)) {
             return "home";
         } else {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Id in Use");
