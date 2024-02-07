@@ -77,20 +77,14 @@ public class LectureContentController {
 
     @PostMapping("api/lecture/{lectureId}/{contentId}/update")
     public String Lecturecontentupdate(@PathVariable("lectureId") Integer lectureId, @PathVariable("contentId")Integer contentId, @RequestParam Map<String, String> param){
-        LectureContentDto lectureContentDto = new LectureContentDto(contentId,lectureId.toString(), param.get("name"), param.get("description"), param.get("url"));
+        LectureContentDto lectureContentDto = new LectureContentDto(contentId, lectureId, param.get("name"), param.get("description"), param.get("url"));
         service.update(lectureContentDto);
         return "home";
     }
 
     @PostMapping("api/lecture/{lectureId}/{contentId}/delete")
     public String LectureContentDelete(@PathVariable("lectureId") Integer lectureId, @PathVariable("contentId")Integer contentId){
-        service.delete(contentId);
+        service.delete(lectureId, contentId);
         return "home";
     }
-
-
-
-
-
-
 }

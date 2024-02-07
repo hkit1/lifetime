@@ -30,6 +30,7 @@ import java.io.InputStream;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
 
@@ -97,7 +98,7 @@ public class LectureTests {
     void createDummyData() throws Exception {
         TestTransaction.flagForCommit();
         MultiValueMap<String, String> accountInfo = createAccountInfo();
-        mockMvc.perform(post("/api/account/register").params(accountInfo).with(csrf())).andExpect(status().isOk());
+        mockMvc.perform(post("/account/register").params(accountInfo).with(csrf())).andExpect(status().isOk());
         Account account = accountRepository.findAccountById(accountInfo.getFirst("id")).get();
         MultiValueMap<String, String> companyInfo = createRandomCompany();
         mockMvc.perform(post("/api/company/create").params(companyInfo).with(csrf())).andExpect(status().isOk());
@@ -118,7 +119,7 @@ public class LectureTests {
         // 강사 계정 생성
         // AccountTests 에서 createAndLogin, TeacherTests 에서 setTeacher 가 먼저 완료되어야 함
         MultiValueMap<String, String> accountInfo = createAccountInfo();
-        mockMvc.perform(post("/api/account/register").params(accountInfo).with(csrf())).andExpect(status().isOk());
+        mockMvc.perform(post("/account/register").params(accountInfo).with(csrf())).andExpect(status().isOk());
 
         Account account = accountRepository.findAccountById(accountInfo.getFirst("id")).get();
 
@@ -180,7 +181,7 @@ public class LectureTests {
                         .params(lecture_content_info)
                         .with(csrf()))
                 .andExpect(status().isOk());
-        assertTrue(contentRepository.findByLecture_Id(static_lecture.getId()).isPresent());
+        assertTrue(contentRepository.findByLecture_Id(static_lecture.getId()).stream().findFirst().isPresent());
     }
 
     @Test
@@ -193,14 +194,14 @@ public class LectureTests {
         MultiValueMap<String, String> info = randomLectureContent(static_lecture);
         mockMvc.perform(post("/api/lecture/" + static_lecture.getId() + "/create").params(info).with(csrf())).andExpect(status().isOk());
 
-        Optional<LectureContent> content = contentRepository.findByLecture_IdAndName(static_lecture.getId(), info.getFirst("name"));
-        assertTrue(content.isPresent());
+        List<LectureContent> content = contentRepository.findByLecture_IdAndName(static_lecture.getId(), info.getFirst("name"));
+        assertFalse(content.isEmpty());
 
         // 회차 이름을 변경 했을 경우 적용이 되는지 확인
         String changedText = new Faker().text().text();
         info.set("name", changedText);
 
-        mockMvc.perform(post("/api/lecture/" + static_lecture.getId() + "/" + content.get().getId() + "/update").with(csrf()).params(info)).andExpect(status().isOk());
+        mockMvc.perform(post("/api/lecture/" + static_lecture.getId() + "/" + content.stream().findFirst().get().getId() + "/update").with(csrf()).params(info)).andExpect(status().isOk());
 
         assertEquals(changedText, contentRepository.findByLecture_IdAndName(static_lecture.getId(), info.getFirst("name")).get().getName());
     }
@@ -215,13 +216,13 @@ public class LectureTests {
         MultiValueMap<String, String> info = randomLectureContent(static_lecture);
         mockMvc.perform(post("/api/lecture/" + static_lecture.getId() + "/create").params(info).with(csrf())).andExpect(status().isOk());
 
-        Optional<LectureContent> content = contentRepository.findByLecture_IdAndName(static_lecture.getId(), info.getFirst("name"));
-        assertTrue(content.isPresent());
+        List<LectureContent> content = contentRepository.findByLecture_IdAndName(static_lecture.getId(), info.getFirst("name"));
+        assertFalse(content.isEmpty());
 
         // 회차가 삭제되는지 확인
-        mockMvc.perform(post("/api/lecture/" + static_lecture.getId() + "/" + content.get().getId() + "/delete").params(info).with(csrf())).andExpect(status().isOk());
+        mockMvc.perform(post("/api/lecture/" + static_lecture.getId() + "/" + content.stream().findFirst().get().getId() + "/delete").params(info).with(csrf())).andExpect(status().isOk());
 
-        assertFalse(contentRepository.findByLecture_IdAndName(static_lecture.getId(), info.getFirst("name")).isPresent());
+        assertTrue(contentRepository.findByLecture_IdAndName(static_lecture.getId(), info.getFirst("name")).isEmpty());
     }
 
     @Test

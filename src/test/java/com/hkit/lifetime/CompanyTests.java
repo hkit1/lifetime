@@ -99,12 +99,12 @@ public class CompanyTests {
         MultiValueMap<String, String> companyInfo = createRandomCompany();
 
         // 강사로 등록할 계정 생성 (AccountTest 에서 createAndLogin 테스트가 완료되어야 함)
-        mockMvc.perform(post("/api/account/register").params(accountInfo).with(csrf())).andExpect(status().isOk());
+        mockMvc.perform(post("/account/register").params(accountInfo).with(csrf())).andExpect(status().isOk());
 
         // 회사 등록 요청이 되는지 확인
         mockMvc.perform(post("/api/company/create").params(companyInfo).with(csrf())).andExpect(status().isOk());
 
-        // 강사로 등록할 때 /api/account/register/company 으로 회사 이름과 사업자 등록번호를 전송
+        // 강사로 등록할 때 /account/register/company 으로 회사 이름과 사업자 등록번호를 전송
         mockMvc.perform(post("/api/company/register/account").param("name", companyInfo.getFirst("name")).param("id", accountInfo.getFirst("id")).with(csrf())).andExpect(status().isOk());
 
         Optional<CompanyAccountList> list = listRepository.findByAccount_Id(accountInfo.getFirst("id"));
@@ -123,7 +123,7 @@ public class CompanyTests {
 
         // 등록된 회사에 강사 계정이 등록되어 있을 경우 삭제되지 않는지 확인
         // 바로 위에 있는 connectCompany 테스트가 완료되어야 함
-        mockMvc.perform(post("/api/account/register").params(accountInfo).with(csrf())).andExpect(status().isOk());
+        mockMvc.perform(post("/account/register").params(accountInfo).with(csrf())).andExpect(status().isOk());
 
         mockMvc.perform(post("/api/company/register/account")
                         .param("name", companyInfo.getFirst("name"))
