@@ -127,7 +127,7 @@ public class ExamTests {
 
         // 시험을 칠 계정 생성
         MultiValueMap<String, String> accountInfo = createAccountInfo();
-        mockMvc.perform(post("/api/account/register").params(accountInfo).with(csrf())).andExpect(status().isOk());
+        mockMvc.perform(post("/account/register").params(accountInfo).with(csrf())).andExpect(status().isOk());
 
         Optional<Account> account = accountRepository.findAccountById(accountInfo.getFirst("id"));
 
@@ -156,7 +156,7 @@ public class ExamTests {
 
         // 시험을 칠 계정 생성
         MultiValueMap<String, String> accountInfo = createAccountInfo();
-        mockMvc.perform(post("/api/account/register").params(accountInfo).with(csrf())).andExpect(status().isOk());
+        mockMvc.perform(post("/account/register").params(accountInfo).with(csrf())).andExpect(status().isOk());
 
         Optional<Account> account = accountRepository.findAccountById(accountInfo.getFirst("id"));
 
@@ -196,7 +196,7 @@ public class ExamTests {
 
         // 시험을 칠 계정 생성
         MultiValueMap<String, String> accountInfo = createAccountInfo();
-        mockMvc.perform(post("/api/account/register").params(accountInfo).with(csrf())).andExpect(status().isOk());
+        mockMvc.perform(post("/account/register").params(accountInfo).with(csrf())).andExpect(status().isOk());
 
         Optional<Account> account = accountRepository.findAccountById(accountInfo.getFirst("id"));
         Integer examId = exam.get().getExamId();
@@ -248,7 +248,7 @@ public class ExamTests {
 
     Lecture createLecture() throws Exception {
         MultiValueMap<String, String> accountInfo = createAccountInfo();
-        mockMvc.perform(post("/api/account/register").params(accountInfo).with(csrf())).andExpect(status().isOk());
+        mockMvc.perform(post("/account/register").params(accountInfo).with(csrf())).andExpect(status().isOk());
 
         Account account = accountRepository.findAccountById(accountInfo.getFirst("id")).get();
 

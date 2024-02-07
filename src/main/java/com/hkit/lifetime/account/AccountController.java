@@ -18,18 +18,18 @@ public class AccountController {
     private final AccountService accountService;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    @GetMapping("register")
+    @GetMapping("/account/register")
     public String inRegister() {
         return "register_input";
     }
 
-    @PostMapping("/api/account/register")
+    @PostMapping("/account/register")
     public String registerAccount(AccountDto accountDto) {
         if (accountService.duplicateCheck(accountDto.id())) {
             AccountDto encodeAccount = encodePw(accountDto);
             accountService.register(encodeAccount);
-            return "home";
-        }else {
+            return "redirect://register_complete";
+        } else {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Id in Use");
         }
     }

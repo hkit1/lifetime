@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,7 +12,7 @@
     <script src="../js/script.js"></script>
 </head>
 <body>
-<header th:replace="~{/common/header::header}"></header>
+<!--<header th:replace="~{/common/header::header}"></header>-->
     <section>
         <div class="lec_view_container">
             
@@ -109,75 +109,10 @@
                                     </span>
                                     <div class="lec_lst_wrap">
                                         <ul>
-                                            <li class="lec_lst_subject">
-                                                <span><i class="fa-solid fa-chevron-up"></i> 01. 한국 사찰 여행</span>
-                                            </li>
-                                            <li>
+                                            <li th:each="content: ${contentList}">
                                                 <div class="lec_lst">
                                                     <i class="fa-solid fa-circle-play"></i>
-                                                    <p class="lec_lst_tit">한국 사찰 여행</p>
-                                                    <button>바로보기</button>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="lec_lst">
-                                                    <i class="fa-solid fa-circle-play"></i>
-                                                    <p class="lec_lst_tit">사찰 구성의 의미</p>
-                                                    <button>바로보기</button>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="lec_lst">
-                                                    <i class="fa-solid fa-circle-play"></i>
-                                                    <p class="lec_lst_tit">부처의 세계로 들어가는 문</p>
-                                                    <button>바로보기</button>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="lec_lst">
-                                                    <i class="fa-solid fa-circle-play"></i>
-                                                    <p class="lec_lst_tit">불교 수호신을 모시는 곳</p>
-                                                    <button>바로보기</button>
-                                                </div>
-                                            </li>
-                                            <li class="lec_lst_subject">
-                                                <span><i class="fa-solid fa-chevron-up"></i> 02. 불상의 기원과 전파</span>
-                                            </li>
-                                            <li>
-                                                <div class="lec_lst">
-                                                    <i class="fa-solid fa-circle-play"></i>
-                                                    <p class="lec_lst_tit">불상 제작의 규칙 및 형식</p>
-                                                    <button>바로보기</button>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="lec_lst">
-                                                    <i class="fa-solid fa-circle-play"></i>
-                                                    <p class="lec_lst_tit">불상의 종류와 역할</p>
-                                                    <button>바로보기</button>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="lec_lst">
-                                                    <i class="fa-solid fa-circle-play"></i>
-                                                    <p class="lec_lst_tit">보살에 대한 이해</p>
-                                                    <button>바로보기</button>
-                                                </div>
-                                            </li>
-                                            <li class="lec_lst_subject">
-                                                <span><i class="fa-solid fa-chevron-up"></i> 03. 황금색과 금동 불상의 의미</span>
-                                            </li>
-                                            <li>
-                                                <div class="lec_lst">
-                                                    <i class="fa-solid fa-circle-play"></i>
-                                                    <p class="lec_lst_tit">황금색과 금동 불상의 의미</p>
-                                                    <button>바로보기</button>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="lec_lst">
-                                                    <i class="fa-solid fa-circle-play"></i>
-                                                    <p class="lec_lst_tit">법당 안의 금동불</p>
+                                                    <p class="lec_lst_tit" th:value="${content.name()}"></p>
                                                     <button>바로보기</button>
                                                 </div>
                                             </li>
@@ -300,6 +235,6 @@
             
         </div>
     </section>
-<footer th:replace="~{/common/footer::footer}"></footer>
+<!--<footer th:replace="~{/common/footer::footer}"></footer>-->
 </body>
 </html>

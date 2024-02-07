@@ -507,7 +507,7 @@
         <p class="member_information_input_title">회원정보 입력</p>
         <p class="member_information_input_content">회원가입을 위한 회원정보를 입력하는 과정입니다.</p>
       </div>
-      <form class="member_form" method="post" th:action="@{/api/account/register}">
+      <form class="member_form" method="post" th:action="@{/account/register}">
         <input th:name="${_csrf.parameterName}" th:value="${_csrf.token}" type="hidden"/>
         <div class="member_division">
           <div class="category_container">
@@ -557,7 +557,7 @@
           </div>
           <div class="real_input">
             <input id="input_birth" name="birth" type="hidden">
-            <input id="birth" type="date">
+            <input id="birth" required type="date">
             <input type="button" value="생년월일 확인" class="id_birthDate_postcode_button">
           </div>
         </div>
@@ -588,13 +588,11 @@
             </script>
 
             <div>
-              <input id="zipcode" placeholder="우편번호" readonly="readonly" required style="background-color: #F5F5F5"
-                     type="text">
+              <input id="zipcode" placeholder="우편번호" required style="background-color: #F5F5F5" type="text">
               <input class="id_birthDate_postcode_button" onclick="open_address()" type="button" value="우편번호검색">
             </div>
             <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-            <input class="basics_address" id="address1" name="address1" placeholder="기본주소" readonly="readonly"
-                   required type="text">
+            <input class="basics_address" id="address1" name="address1" placeholder="기본주소" required type="text">
             <input class="detail_address" id="address2" name="address2" placeholder="상세주소" type="text">
           </div>
         </div>

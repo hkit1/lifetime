@@ -1,12 +1,5 @@
 package com.hkit.lifetime;
 
-import static com.hkit.lifetime.AccountTests.createAccountInfo;
-import static com.hkit.lifetime.CompanyTests.createRandomCompany;
-import static org.junit.jupiter.api.Assertions.*;
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
 import com.google.gson.JsonArray;
 import com.google.gson.JsonParser;
 import com.hkit.lifetime.account.Account;
@@ -21,12 +14,11 @@ import com.hkit.lifetime.company.CompanyRepository;
 import com.hkit.lifetime.lecture.Lecture;
 import com.hkit.lifetime.lecture.LectureContentRepository;
 import com.hkit.lifetime.lecture.LectureRepository;
-import com.hkit.lifetime.survey.*;
+import com.hkit.lifetime.survey.Survey;
+import com.hkit.lifetime.survey.SurveyAnswer;
+import com.hkit.lifetime.survey.SurveyAnswerRepository;
+import com.hkit.lifetime.survey.SurveyRepository;
 import jakarta.transaction.Transactional;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.Locale;
-import java.util.Optional;
 import net.datafaker.Faker;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +28,19 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
+import java.util.Optional;
+
+import static com.hkit.lifetime.AccountTests.createAccountInfo;
+import static com.hkit.lifetime.CompanyTests.createRandomCompany;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -85,7 +90,7 @@ public class SurveyTests {
   Lecture createLecture() throws Exception {
     MultiValueMap<String, String> accountInfo = createAccountInfo();
     mockMvc
-        .perform(post("/api/account/register").params(accountInfo).with(csrf()))
+            .perform(post("/account/register").params(accountInfo).with(csrf()))
         .andExpect(status().isOk());
 
     Account account = accountRepository.findAccountById(accountInfo.getFirst("id")).get();
@@ -217,7 +222,7 @@ public class SurveyTests {
             .andExpect(status().isOk());
 
     mockMvc
-            .perform(post("/api/account/register").params(accountInfo).with(csrf()))
+            .perform(post("/account/register").params(accountInfo).with(csrf()))
             .andExpect(status().isOk());
 
     // Json 으로 데이터 사용
