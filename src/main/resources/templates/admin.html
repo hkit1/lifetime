@@ -2,101 +2,636 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>관리 페이지</title>
-    <style>
-        * {
-            /* 브라우저마다 이 값이 다르므로, 똑같은 값으로 설정 */
-            margin: 0;
-            padding: 0;
-        }
-        nav {
-            width: 300px;
-            height: 100%;
-            position: fixed;
-            top: 0;
-            bottom: 0;
-            left: 0;
-            background-color: blue;
-        }
-        #body {
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            background-color: green;
-            margin-left: 300px;
-        }
-        .menu, ul.submenu li {
-            width: 100%;
-            height: 30px;
-            line-height: 30px;
-            padding: 0 20px;
-            background-color: orange;
-        }
-        a {
-            color: inherit;
-            text-decoration: none;
-        }
-        ul.submenu, #check01, #check02 {
-            display: none;
-        }
-        label {
-            position: relative;
-            display: block;
-            cursor: pointer;
-        }
-        input:checked~ul.submenu {
-            display: block;
-        }
-        @media (700px > width) {
-            nav {
-                width: 150px;
-            }
-            #body {
-                margin-left: 150px;
-            }
-        }
-    </style>
-    <script>
-        const form = document.getElementById("add_company_form");
-        form.addEventListener("submit", (e) => {
-            e.preventDefault();
-            const formData = new FormData(form);
-            fetch("/api/company/create", {
-                method: "POST",
-                body: formData,
-            })
-                .then((response) => {
-                    window.alert(response.ok)
-                })
-                .then((data) => console.log(data))
-                .catch((error) => console.error(error));
-        });
-    </script>
+    <title>관리자 페이지</title>
+    <link rel="stylesheet" href="../css/admin.css">
 </head>
 <body>
-<nav>
-    <div>
-        <input type="checkbox" id="check01" name="menu"/>
-        <label for="check01" class="menu">메뉴</label>
-        <ul class="submenu">
-            <li><a href="#">회사 등록</a></li>
-        </ul>
+    <div class="sidebar">
+        <div class="logo">
+            <h5>평생학습플랫폼</h5>
+            <img src="../image/book.png">
+        </div>
+        <div class="welcome_container">
+            <div class="welcome_text">
+                <span>관리자님 환영합니다.</span>
+            </div>
+            <div class="mainpage_logout_button">
+                <a href="" id="mainpage">메인페이지</a>
+                <a href="" id="logout">로그아웃</a>
+            </div>
+        </div>
+        <div class="total_stats_wrap">
+            <div class="total_stats">
+                <img src="../image/stats.png" alt="">
+                <span>&ensp;전체통계</span>
+            </div>
+        </div>
+        <div class="member_wrap">
+            <div class="member">
+                <img src="../image/member.png" alt="">
+                <span>&ensp;회원관리</span>
+            </div>
+        </div>
+        <div class="institution_wrap">
+            <div class="institution">
+                <img src="../image/institution.png" alt="">
+                <span>&ensp;기관관리</span>
+            </div>
+        </div>
+        <div class="lecture_wrap">
+            <div class="lecture">
+                <img src="../image/lecture.png" alt="">
+                <span>&ensp;강좌관리</span>
+            </div>
+        </div>
     </div>
-    <div>
-        <input type="checkbox" id="check02" name="menu"/>
-        <label for="check02" class="menu">로그인</label>
-        <ul class="submenu">
-            <li><a href="#">아무튼 로그인</a></li>
-        </ul>
+    <div class="dashboard_container">
+        <div class="dashboard_title">
+            <div style="width: 100px; height: 50px">
+                <span style="font-weight: 700; font-size: 20px; line-height: 43px; color: #FFFFFF">대시보드</span>
+            </div>
+        </div>
+        <div class="platform_total_stats_container">
+            <div class="platform_total_stats_title">
+                <span style="margin-left: 20px; font-weight: 400; font-size: 14px; line-height: 31px; color: #05294B">플랫폼 전체 통계</span>
+            </div>
+            <div class="stats_container">
+                <div class="week_stats">
+                    <div class="week_stats_title">
+                        <span style="color: #004973; font-weight: 400; font-size: 18px; line-height: 40px;">주간통계</span>
+                    </div>
+                    <div class="week_stats_content">
+                        <div class="registerd_member_number">
+                            <span style="font-weight: 400; font-size: 17px; line-height: 38px">가입 회원수&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;</span>
+                            <span style="font-weight: 400; font-size: 16px; line-height: 36px"><span style="font-weight: 700; font-size: 35px; line-height: 79px; color: #3B6FD4">10</span> 명</span>
+                        </div>
+                        <div class="new_lecture_number">
+                            <span style="font-weight: 400; font-size: 17px; line-height: 38px">신규강좌 수&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;</span>
+                            <span style="font-weight: 400; font-size: 16px; line-height: 36px"><span style="font-weight: 700; font-size: 35px; line-height: 79px; color: #3B6FD4">25</span> 개 강좌</span>
+                        </div>
+                        <div class="new_institution_number">
+                            <span style="font-weight: 400; font-size: 17px; line-height: 38px">신규 기관 수&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;</span>
+                            <span style="font-weight: 400; font-size: 16px; line-height: 36px"><span style="font-weight: 700; font-size: 35px; line-height: 79px; color: #3B6FD4">3</span> 개 기관</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="month_stats">
+                    <div class="month_stats_title">
+                        <span style="color: #004973; font-weight: 400; font-size: 18px; line-height: 40px;">월간통계</span>
+                    </div>
+                    <div class="month_stats_content">
+                        <div class="registerd_member_number" style="margin: 0 auto">
+                            <span style="font-weight: 400; font-size: 17px; line-height: 38px">가입 회원수&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;</span>
+                            <span style="font-weight: 400; font-size: 16px; line-height: 36px"><span style="font-weight: 700; font-size: 35px; line-height: 79px; color: #3B6FD4">152</span> 명</span>
+                        </div>
+                        <div class="new_lecture_number" style="margin: 0 auto">
+                            <span style="font-weight: 400; font-size: 17px; line-height: 38px">신규강좌 수&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;</span>
+                            <span style="font-weight: 400; font-size: 16px; line-height: 36px"><span style="font-weight: 700; font-size: 35px; line-height: 79px; color: #3B6FD4">419</span> 개 강좌</span>
+                        </div>
+                        <div class="new_institution_number" style="margin: 0 auto">
+                            <span style="font-weight: 400; font-size: 17px; line-height: 38px">신규 기관 수&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;</span>
+                            <span style="font-weight: 400; font-size: 16px; line-height: 36px"><span style="font-weight: 700; font-size: 35px; line-height: 79px; color: #3B6FD4">13</span> 개 기관</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="accrue_stats">
+                    <div class="accrue_stats_title">
+                        <span style="color: #004973; font-weight: 400; font-size: 18px; line-height: 40px;">누적통계</span>
+                    </div>
+                    <div class="accrue_stats_content">
+                        <div class="registerd_member_number" style="margin: 0 auto">
+                            <span style="font-weight: 400; font-size: 17px; line-height: 38px">총 가입 회원수&ensp;&ensp;&ensp;&ensp;</span>
+                            <span style="font-weight: 400; font-size: 16px; line-height: 36px"><span style="font-weight: 700; font-size: 35px; line-height: 79px; color: #3B6FD4">1357</span> 명</span>
+                        </div>
+                        <div class="new_lecture_number" style="margin: 0 auto">
+                            <span style="font-weight: 400; font-size: 17px; line-height: 38px">총 강좌 수&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;</span>
+                            <span style="font-weight: 400; font-size: 16px; line-height: 36px"><span style="font-weight: 700; font-size: 35px; line-height: 79px; color: #3B6FD4">2620</span> 개 강좌</span>
+                        </div>
+                        <div class="new_institution_number" style="margin: 0 auto">
+                            <span style="font-weight: 400; font-size: 17px; line-height: 38px">총 기관 수&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;</span>
+                            <span style="font-weight: 400; font-size: 16px; line-height: 36px"><span style="font-weight: 700; font-size: 35px; line-height: 79px; color: #3B6FD4">312</span> 개 기관</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="member_container">
+            <div class="member_management_title">
+                <div style="width: 100px; height: 50px; display: flex; align-items: center; margin-left: 15px">
+                    <div style="width: 5px; height: 20px; background-color: #15CCE5"></div><span style="font-weight: 700; font-size: 18px; line-height: 40px; color: #05294B">&nbsp;회원관리</span>
+                </div>
+            </div>
+            <div class="total_member_search_container">
+                <div class="total_member_number">
+                    <span style="font-weight: 400; font-size: 14px; line-height: 32px">&ensp;&ensp;전체 회원&ensp;&ensp;<span style="font-weight: 700; font-size: 14px; line-height: 32px; color: #024BD9">1357</span>&ensp;명</span>
+                </div>
+                <form method="post" class="search_container">
+                    <select name="search_select">
+                        <option value="">회원 아이디</option>
+                        <option value="">이름</option>
+                        <option value="">연락처</option>
+                        <option value="">이메일</option>
+                    </select>
+                    <input type="text" class="search">
+                    <input type="button" value="회원검색" class="search_button">
+                </form>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th><input type="checkbox"></th>
+                        <th>번호</th>
+                        <th>회원 아이디</th>
+                        <th>회원 이름</th>
+                        <th>생년월일</th>
+                        <th>연락처</th>
+                        <th>이메일</th>
+                        <th>성별</th>
+                        <th class="member_address">주소</th>
+                        <th>가입일자</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><input type="checkbox"></td>
+                        <td>1350</td>
+                        <td>jaesunghwang</td>
+                        <td>황재성</td>
+                        <td>1991.01.05</td>
+                        <td>010-1234-1234</td>
+                        <td>sjiwg@gmail.com</td>
+                        <td>남성</td>
+                        <td>대구광역시 달서구 달구벌대로251길 12</td>
+                        <td>2024.01.21</td>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox"></td>
+                        <td>1351</td>
+                        <td>yoondohyun</td>
+                        <td>윤도현</td>
+                        <td>1976.05.28</td>
+                        <td>010-1521-1621</td>
+                        <td>doyun@gmail.com</td>
+                        <td>여성</td>
+                        <td>8G4Q+JJQ, Kangaatsiaq, 그린란드</td>
+                        <td>2023.12.11</td>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox"></td>
+                        <td>1352</td>
+                        <td>leeshin</td>
+                        <td>리신</td>
+                        <td>1964.02.02</td>
+                        <td>016-1415-2929</td>
+                        <td>ikuu@gmail.com</td>
+                        <td>남성</td>
+                        <td>вул. Польова, 6, Sharyn, Cherkasy Oblast, 우크라이나 20346</td>
+                        <td>2023.12.01</td>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox"></td>
+                        <td>1353</td>
+                        <td>pengsu</td>
+                        <td>펭수</td>
+                        <td>2000.05.05</td>
+                        <td>016-7758-9545</td>
+                        <td>pengsu23@daum.net</td>
+                        <td>중성</td>
+                        <td>Steinbacher Str. 7, 36088 Hünfeld, 독일</td>
+                        <td>2023.05.01</td>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox"></td>
+                        <td>1354</td>
+                        <td>bewhy</td>
+                        <td>비와이</td>
+                        <td>1988.02.06</td>
+                        <td>010-6251-1652</td>
+                        <td>bewhygang@naver.com</td>
+                        <td>남성</td>
+                        <td>Olympic Street 1, 19, Ulaanbaatar 14241 몽골</td>
+                        <td>2023.04.28</td>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox"></td>
+                        <td>1355</td>
+                        <td>imgentleman</td>
+                        <td>신사임당</td>
+                        <td>1684.02.12</td>
+                        <td>02-0532-1526</td>
+                        <td>gentlestation@hanmail.net</td>
+                        <td>여성</td>
+                        <td>Sverdlovskaya Ulitsa, 245, Krasnoyarsk, Krasnoyarsk Krai, 러시아 660054</td>
+                        <td>2022.12.22</td>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox"></td>
+                        <td>1356</td>
+                        <td>leelee</td>
+                        <td>율곡 이이</td>
+                        <td>1652.01.09</td>
+                        <td>02-0532-1528</td>
+                        <td>leeleeyulgok@yahoo.co.kr</td>
+                        <td>남성</td>
+                        <td>Butwal 32907 네팔</td>
+                        <td>2022.12.18</td>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox"></td>
+                        <td>1357</td>
+                        <td>cultureland</td>
+                        <td>문상훈</td>
+                        <td>1985.12.12</td>
+                        <td>052-251-1525</td>
+                        <td>culturemoon@gmail.com</td>
+                        <td>남성</td>
+                        <td>충청북도 단양군 단양읍 삼봉로 187-17</td>
+                        <td>2021.10.31</td>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox"></td>
+                        <td>1358</td>
+                        <td>malnunkwang</td>
+                        <td>맑눈광</td>
+                        <td>1996.10.20</td>
+                        <td>031-1525-1262</td>
+                        <td>crazzzy@gmail.com</td>
+                        <td>여성</td>
+                        <td>충청북도 음성군 소이면 소이로61번길 164</td>
+                        <td>2021.10.08</td>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox"></td>
+                        <td>1359</td>
+                        <td>sukgamoni</td>
+                        <td>석가모니</td>
+                        <td>1000.05.05</td>
+                        <td>070-1551-8554</td>
+                        <td>moktakkk@naver.com</td>
+                        <td>남성</td>
+                        <td>충청북도 충주시 대소원면 대학로 50</td>
+                        <td>2021.09.21</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="edit_drop_button_container">
+                <input type="button" value="회원탈퇴" class="member_drop_button">
+                <input type="button" value="정보수정" class="info_edit_button">
+            </div>
+            <div class="page">
+                <input type="button" value="<<" class="before_next_button">
+                <input type="button" value="<" class="before_next_button">
+                <input type="button" value="1" class="selected_button">
+                <input type="button" value="2" class="not_selected_button">
+                <input type="button" value="3" class="not_selected_button">
+                <input type="button" value="4" class="not_selected_button">
+                <input type="button" value="5" class="not_selected_button">
+                <input type="button" value=">" class="before_next_button">
+                <input type="button" value=">>" class="before_next_button">
+            </div>
+        </div>
+
+        <div class="institution_container">
+            <div class="institution_management_title">
+                <div style="width: 100px; height: 50px; display: flex; align-items: center; margin-left: 15px">
+                    <div style="width: 5px; height: 20px; background-color: #15CCE5"></div><span style="font-weight: 700; font-size: 18px; line-height: 40px; color: #05294B">&nbsp;기관관리</span>
+                </div>
+            </div>
+            <div class="total_institution_search_container">
+                <div class="total_institution_number">
+                    <span style="font-weight: 400; font-size: 14px; line-height: 32px">&ensp;&ensp;전체 기관&ensp;&ensp;<span style="font-weight: 700; font-size: 14px; line-height: 32px; color: #024BD9">312</span>&ensp;개</span>
+                </div>
+                <form method="post" class="search_container">
+                    <select name="search_select">
+                        <option value="">기관 ID</option>
+                        <option value="">기관명</option>
+                        <option value="">사업자등록번호</option>
+                        <option value="">연락처</option>
+                    </select>
+                    <input type="text" class="search">
+                    <input type="button" value="검색" class="search_button">
+                </form>
+            </div>
+            <table>
+                <thead>
+                <tr>
+                    <th><input type="checkbox"></th>
+                    <th class="institution_name">기관명</th>
+                    <th>대표자</th>
+                    <th>사업자등록번호</th>
+                    <th>이메일</th>
+                    <th>연락처</th>
+                    <th>주소</th>
+                    <th>승인여부</th>
+                    <th>승인날짜</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td><input type="checkbox"></td>
+                    <td>테스트기관</td>
+                    <td>홍길동</td>
+                    <td>123-45-45621</td>
+                    <td>sjiwg@gmail.com</td>
+                    <td>010-1234-1234</td>
+                    <td>대구광역시 달서구 달구벌대로251길 12</td>
+                    <td>승인</td>
+                    <td>2024.01.04</td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox"></td>
+                    <td>한국IT교육원</td>
+                    <td>임꺽정</td>
+                    <td>156-52-15124</td>
+                    <td>doyun@gmail.com</td>
+                    <td>010-1521-1621</td>
+                    <td>8G4Q+JJQ, Kangaatsiaq, 그린란드</td>
+                    <td>반려</td>
+                    <td>2024.05.21</td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox"></td>
+                    <td>삼성전자</td>
+                    <td>이재용</td>
+                    <td>452-41-12345</td>
+                    <td>ikuu@gmail.com</td>
+                    <td>016-1415-2929</td>
+                    <td>вул. Польова, 6, Sharyn, Cherkasy Oblast, 우크라이나 20346</td>
+                    <td>승인</td>
+                    <td>2023.11.22</td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox"></td>
+                    <td>애플</td>
+                    <td>Team cook</td>
+                    <td>156-52-15241</td>
+                    <td>pengsu23@daum.net</td>
+                    <td>010-7758-9545</td>
+                    <td>Steinbacher Str. 7, 36088 Hünfeld, 독일</td>
+                    <td>승인</td>
+                    <td>2023.10.13</td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox"></td>
+                    <td>무신사</td>
+                    <td>김민수</td>
+                    <td>156-51-15211</td>
+                    <td>bewhygang@naver.com</td>
+                    <td>010-6251-1652</td>
+                    <td>Olympic Street 1, 19, Ulaanbaatar 14241 몽골</td>
+                    <td>승인</td>
+                    <td>2022.01.05</td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox"></td>
+                    <td>sk텔레콤</td>
+                    <td>최태원</td>
+                    <td>154-52-15281</td>
+                    <td>gentlestation@hanmail.net</td>
+                    <td>02-0532-1526</td>
+                    <td>Sverdlovskaya Ulitsa, 245, Krasnoyarsk, Krasnoyarsk Krai, 러시아 660054</td>
+                    <td>반려</td>
+                    <td>2016.08.14</td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox"></td>
+                    <td>엘지유플러스</td>
+                    <td>구문석</td>
+                    <td>154-52-15244</td>
+                    <td>leeleeyulgok@yahoo.co.kr</td>
+                    <td>02-0532-1528</td>
+                    <td>Butwal 32907 네팔</td>
+                    <td>반려</td>
+                    <td>2010.03.05</td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox"></td>
+                    <td>케이티</td>
+                    <td>한동희</td>
+                    <td>154-52-18775</td>
+                    <td>culturemoon@gmail.com</td>
+                    <td>052-251-1525</td>
+                    <td>충청북도 단양군 단양읍 삼봉로 187-17</td>
+                    <td>승인</td>
+                    <td>2022.10.27</td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox"></td>
+                    <td>한국타이어</td>
+                    <td>박준범</td>
+                    <td>117-15-75256</td>
+                    <td>crazzzy@gmail.com</td>
+                    <td>031-1525-1262</td>
+                    <td>충청북도 음성군 소이면 소이로61번길 164</td>
+                    <td>반려</td>
+                    <td>2021.01.28</td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox"></td>
+                    <td>맥도날드</td>
+                    <td>Elan Macgri</td>
+                    <td>261-52-15265</td>
+                    <td>moktakkk@naver.com</td>
+                    <td>070-1551-8554</td>
+                    <td>충청북도 충주시 대소원면 대학로 50</td>
+                    <td>승인</td>
+                    <td>2024.02.07</td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="approval_return_delete_button_container">
+                <input type="button" value="기관삭제" class="institution_delete_button">
+                <input type="button" value="반려" class="return_button">
+                <input type="button" value="승인" class="approval_button">
+            </div>
+            <div class="page">
+                <input type="button" value="<<" class="before_next_button">
+                <input type="button" value="<" class="before_next_button">
+                <input type="button" value="1" class="selected_button">
+                <input type="button" value="2" class="not_selected_button">
+                <input type="button" value="3" class="not_selected_button">
+                <input type="button" value="4" class="not_selected_button">
+                <input type="button" value="5" class="not_selected_button">
+                <input type="button" value=">" class="before_next_button">
+                <input type="button" value=">>" class="before_next_button">
+            </div>
+        </div>
+
+        <div class="lecture_container">
+            <div class="lecture_management_title">
+                <div style="width: 100px; height: 50px; display: flex; align-items: center; margin-left: 15px">
+                    <div style="width: 5px; height: 20px; background-color: #15CCE5"></div><span style="font-weight: 700; font-size: 18px; line-height: 40px; color: #05294B">&nbsp;강좌관리</span>
+                </div>
+            </div>
+            <div class="total_lecture_search_container">
+                <div class="total_lecture_number">
+                    <span style="font-weight: 400; font-size: 14px; line-height: 32px">&ensp;&ensp;전체 강좌&ensp;&ensp;<span style="font-weight: 700; font-size: 14px; line-height: 32px; color: #024BD9">2620</span>&ensp;개</span>
+                </div>
+                <form method="post" class="search_container">
+                    <select name="search_select">
+                        <option value="">강좌번호</option>
+                        <option value="">강좌명</option>
+                        <option value="">강사</option>
+                    </select>
+                    <input type="text" class="search">
+                    <input type="button" value="검색" class="search_button">
+                </form>
+            </div>
+            <table>
+                <thead>
+                <tr>
+                    <th><input type="checkbox"></th>
+                    <th>강좌번호</th>
+                    <th class="lecture_name">강좌명</th>
+                    <th>강사</th>
+                    <th>개설일</th>
+                    <th>종료일</th>
+                    <th>분류</th>
+                    <th>조회수</th>
+                    <th>만족도</th>
+                    <th>개강여부</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td><input type="checkbox"></td>
+                    <td>2620</td>
+                    <td>[코드캠프] 부트캠프에서 만든 고농축 프론트엔드 코스</td>
+                    <td>도도(코딩루팡)</td>
+                    <td>2023.10.01</td>
+                    <td>2024.10.01</td>
+                    <td>IT / 컴퓨터</td>
+                    <td>1000</td>
+                    <td>4.42</td>
+                    <td>진행중</td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox"></td>
+                    <td>2621</td>
+                    <td>[C#과 유니티로 만드는 MMORPG 게임 개발 시리즈] Part1: C# 기초 프로그래밍 입문</td>
+                    <td>코딩의세계 한태재</td>
+                    <td>2024.01.01</td>
+                    <td>2024.05.09</td>
+                    <td>인문 / 교양</td>
+                    <td>150</td>
+                    <td>4.10</td>
+                    <td>종료</td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox"></td>
+                    <td>2622</td>
+                    <td>비전공자를 위한 진짜 입문 올인원 개발 부트캠프</td>
+                    <td>이재왕</td>
+                    <td>2022.10.15</td>
+                    <td>2022.11.10</td>
+                    <td>생활 / 취미</td>
+                    <td>3215</td>
+                    <td>4.56</td>
+                    <td>개강임박</td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox"></td>
+                    <td>2623</td>
+                    <td>Three.js로 1인칭 3D 웹사이트 만들기</td>
+                    <td>더코딩클럽</td>
+                    <td>2021.05.06</td>
+                    <td>2021.10.06</td>
+                    <td>육아 / 보육</td>
+                    <td>90</td>
+                    <td>4.82</td>
+                    <td>진행중</td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox"></td>
+                    <td>2624</td>
+                    <td>블록체인 개발에 빠질 수 없는 Scope 만들기</td>
+                    <td>1분코딩</td>
+                    <td>2022.11.02</td>
+                    <td>2022.12.05</td>
+                    <td>사회과학</td>
+                    <td>10520</td>
+                    <td>3.56</td>
+                    <td>진행중</td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox"></td>
+                    <td>2625</td>
+                    <td>[유튜브 초고속 수익화]맨땅에서 가장 빠르게 유튜브 수익화하기</td>
+                    <td>데이터리안</td>
+                    <td>2022.12.27</td>
+                    <td>2023.01.01</td>
+                    <td>경제 / 부업</td>
+                    <td>1320</td>
+                    <td>4.49</td>
+                    <td>진행중</td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox"></td>
+                    <td>2626</td>
+                    <td>파이썬/장고 웹서비스 개발 완벽 가이드 with 리액트 (장고 4.2 기준)</td>
+                    <td>청강문화산업대학교</td>
+                    <td>2024.02.25</td>
+                    <td>2024.03.25</td>
+                    <td>아동, 청소년 미술치료</td>
+                    <td>2154</td>
+                    <td>4.16</td>
+                    <td>진행중</td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox"></td>
+                    <td>2627</td>
+                    <td>백엔드 개발자 성능 개선 초석 다지기</td>
+                    <td>코드브릿지</td>
+                    <td>2024.03.05</td>
+                    <td>2024.05.05</td>
+                    <td>수학,물리,천문,지리</td>
+                    <td>9812</td>
+                    <td>3.75</td>
+                    <td>개강임박</td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox"></td>
+                    <td>2628</td>
+                    <td>React Three fiber(R3F)로 배우는 인터렉티브 3D 웹 개발</td>
+                    <td>마소캠퍼스</td>
+                    <td>2023.01.24</td>
+                    <td>2023.11.24</td>
+                    <td>재테크 / 재무설계</td>
+                    <td>8864</td>
+                    <td>3.69</td>
+                    <td>종료</td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox"></td>
+                    <td>2629</td>
+                    <td>개발자 취업 전략 시크릿 - 7CODE</td>
+                    <td>제주코딩베이스캠프</td>
+                    <td>2023.02.02</td>
+                    <td>2023.12.02</td>
+                    <td>문화 / 예술</td>
+                    <td>3652</td>
+                    <td>4.01</td>
+                    <td>종료</td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="edit_cancel_button_container">
+                <input type="button" value="휴강처리" class="cancel_button">
+                <input type="button" value="정보수정" class="edit_button">
+            </div>
+            <div class="page">
+                <input type="button" value="<<" class="before_next_button">
+                <input type="button" value="<" class="before_next_button">
+                <input type="button" value="1" class="selected_button">
+                <input type="button" value="2" class="not_selected_button">
+                <input type="button" value="3" class="not_selected_button">
+                <input type="button" value="4" class="not_selected_button">
+                <input type="button" value="5" class="not_selected_button">
+                <input type="button" value=">" class="before_next_button">
+                <input type="button" value=">>" class="before_next_button">
+            </div>
+        </div>
     </div>
-</nav>
-<div id="body">
-    <form action="/api/company/create" method="post" id="add_company_form">
-        <label>
-            등록할 회사 이름 : <input type="text" name="name"/>
-        </label>
-        <button type="submit">전송</button>
-    </form>
-</div>
 </body>
 </html>
