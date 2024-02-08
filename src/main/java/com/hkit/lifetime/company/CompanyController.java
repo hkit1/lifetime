@@ -1,7 +1,8 @@
 package com.hkit.lifetime.company;
 
-import com.hkit.lifetime.account.AccountDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,6 +22,15 @@ public class CompanyController {
         companyService.registerCompany(companyDto);
 
         return "home";
+    }
+
+    @PostMapping("/api/company/check")
+    public ResponseEntity<?> checkCompanyExists(@RequestParam(value = "company") String company) {
+        if (companyService.findByName(company).isPresent()) {
+            return new ResponseEntity<>(HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 
     @PostMapping("/api/company/register/account")

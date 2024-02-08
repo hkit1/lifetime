@@ -3,10 +3,11 @@ package com.hkit.lifetime.lecture;
 import com.hkit.lifetime.category.SubCategory;
 import com.hkit.lifetime.company.Company;
 import jakarta.persistence.*;
-import java.time.LocalDate;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.time.LocalDate;
 
 @Getter
 @Setter
@@ -21,6 +22,9 @@ public class Lecture {
 
     @Column(name = "name", nullable = false)
     private String name;
+
+    @Column(name = "description", nullable = false)
+    private String description;
 
     @Column(name = "created_at", nullable = false)
     private LocalDate createdAt;

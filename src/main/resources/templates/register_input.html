@@ -5,6 +5,8 @@
   <title>회원가입_회원정보입력</title>
   <link rel="stylesheet" href="../common/css/style.css" >
   <link rel="stylesheet" href="../css/register_input.css" >
+  <meta th:content="${_csrf.token}" th:name="_csrf"/>
+  <meta th:content="${_csrf.headerName}" th:name="_csrf_header"/>
 </head>
 <body>
 
@@ -54,8 +56,50 @@
           </div>
           <div class="real_input">
             <!-- TODO thymeleaf 으로 기관 또는 일반 회원별 input 항목 추가 및 삭제 -->
-            <input type="radio" name="member_division" class="radio_item_1" checked>&nbsp;일반회원
-            <input type="radio" name="member_division" class="radio_item_2">&nbsp;기관담당자
+            <script>
+              function changeType(bool) {
+                if (bool) {
+                  document.getElementById("company_input").style.display = "flex";
+                  document.getElementById("company").required = true;
+                } else {
+                  document.getElementById("company_input").style.display = "none";
+                  document.getElementById("company").required = false;
+                }
+              }
+            </script>
+
+            <input checked class="radio_item_1" name="member_division" onclick="changeType(false)" type="radio">&nbsp;일반회원
+            <input class="radio_item_2" name="member_division" onclick="changeType(true)" type="radio">&nbsp;기관담당자
+          </div>
+        </div>
+        <div class="member_id" id="company_input" style="display: none">
+          <div class="category_container">
+            <p class="category_text">기관명 <span style="color: red">*</span></p>
+          </div>
+          <div class="real_input">
+            <input id="company" name="company" required type="text">
+            <script>
+              async function check() {
+                const token = document.querySelector('meta[name="_csrf"]').content;
+                const header = document.querySelector('meta[name="_csrf_header"]').content;
+
+                const f = document.getElementById("company");
+                await fetch("/api/company/check", {
+                  method: "POST",
+                  headers: {[header]: token},
+                  body: "{\"company\", \"" + f.value + "\"}"
+                }).then(data => {
+                  if (data.status === 400) {
+                    window.alert("없는 기관입니다!");
+                  } else if (data.status === 200) {
+                    window.alert("기관 확인 완료!");
+                    document.getElementById("company").readOnly = true;
+                  }
+                });
+              }
+            </script>
+            <input class="id_birthDate_postcode_button" id="check_company" onclick="check()" type="button"
+                   value="기관명 확인">
           </div>
         </div>
         <div class="member_name">
@@ -97,7 +141,6 @@
           <div class="real_input">
             <input id="input_birth" name="birth" type="hidden">
             <input id="birth" required type="date">
-            <input type="button" value="생년월일 확인" class="id_birthDate_postcode_button">
           </div>
         </div>
         <div class="member_gender">

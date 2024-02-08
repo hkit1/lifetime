@@ -7,7 +7,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.SessionAttribute;
 
 import java.util.ArrayList;
 
@@ -32,6 +31,11 @@ public class MainController {
     @GetMapping("/register/complete")
     public String reg_complete() {
         return "register_complete";
+    }
+
+    @GetMapping("/admin/lecture/create")
+    public String lecture_create() {
+        return "lecture_create";
     }
 
     @GetMapping("/b")

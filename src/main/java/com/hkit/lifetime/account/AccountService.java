@@ -36,4 +36,7 @@ public class AccountService {
         return findAccount.getId() == null;
     }
 
+    public Optional<Account> findAccount(String id, String pw) {
+        return accountRepository.findByIdAndPw(id, pw);
+    }
 }

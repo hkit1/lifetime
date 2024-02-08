@@ -1,9 +1,5 @@
 package com.hkit.lifetime.company;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-
 import com.hkit.lifetime.account.Account;
 import com.hkit.lifetime.account.AccountRepository;
 import lombok.RequiredArgsConstructor;
@@ -11,6 +7,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @Service
@@ -82,5 +82,9 @@ public class CompanyService {
         } else {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Company Not Found");
         }
+    }
+
+    public Optional<Company> findByName(String company) {
+        return companyRepository.findByName(company);
     }
 }

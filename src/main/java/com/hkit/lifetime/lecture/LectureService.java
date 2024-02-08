@@ -110,14 +110,14 @@ public class LectureService {
         }
         Lecture lecture = checkLecture.get();
 
-        return new LectureDto(lecture.getId(), lecture.getName(),lecture.getCreatedAt().toString(),lecture.getClosedAt().toString(),lecture.getCategory().getName(),lecture.getCompany().getName(), null);
+        return new LectureDto(lecture.getId(), lecture.getName(), lecture.getDescription(), lecture.getCreatedAt().toString(), lecture.getClosedAt().toString(), lecture.getCategory().getName(), lecture.getCompany().getName(), null);
     }
 
     public List<LectureDto> findLectureByTop20() {
         List<Lecture> list = lectureRepository.findAll(Sort.by(Sort.Direction.ASC, "createdAt"));
         List<LectureDto> dto = new ArrayList<>();
         for (Lecture current : list) {
-            dto.add(new LectureDto(current.getId(), current.getName(), current.getCreatedAt().toString(), current.getClosedAt().toString(), current.getCategory().getName(), current.getCompany().getName(), null));
+            dto.add(new LectureDto(current.getId(), current.getName(), current.getDescription(), current.getCreatedAt().toString(), current.getClosedAt().toString(), current.getCategory().getName(), current.getCompany().getName(), null));
         }
         return dto;
     }
