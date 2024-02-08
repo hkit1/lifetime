@@ -13,7 +13,8 @@
         <!-- 헤더 html 끝 -->
 
         <!-- 로그인 html 시작 -->
-        <form th:action="@{/api/account/login}" method="post">
+        <iframe name="lo" style="display: none"></iframe>
+        <form method="post" target="lo" th:action="@{/login}">
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
             <div class="login_text">
                 <p style="font-weight: 700; font-size: 32px; line-height: 72px">로그인</p>
@@ -24,7 +25,7 @@
             </div>
             <input type="submit" value="로 그 인" id="login_button">
             <div class="search_register_wrap">
-                <a href="" id="search">아이디/패스워드 찾기</a>
+                <a id="search" th:href="@{/register}">아이디/패스워드 찾기</a>
                 <a href="" id="register">회원가입</a>
             </div>
         </form>
