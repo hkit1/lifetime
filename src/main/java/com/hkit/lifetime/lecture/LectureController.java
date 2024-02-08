@@ -2,8 +2,6 @@ package com.hkit.lifetime.lecture;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.tomcat.util.http.fileupload.IOUtils;
-import org.springframework.boot.autoconfigure.web.ServerProperties;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpStatus;
@@ -11,8 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.io.IOException;
 import java.util.List;
@@ -23,7 +19,7 @@ import java.util.List;
 public class LectureController {
     private final LectureService service;
     private final LectureContentService content;
-    private final String savePath = "C:\\Users\\";
+    private final String savePath = "C:\\Users\\HKIT\\temp\\";
 
     @PostMapping("/api/lecture/create")
     public String lectureRegister(LectureDto lectureDto) {

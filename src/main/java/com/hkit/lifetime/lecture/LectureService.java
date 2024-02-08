@@ -8,13 +8,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
@@ -30,10 +28,8 @@ public class LectureService {
     private final CompanyRepository companyRepository;
     private final SubCategoryRepository subcategoryRepository;
     private final LectureRepository lectureRepository;
-    private final String savePath = "C:\\Users\\";
+    private final String savePath = "C:\\Users\\HKIT\\temp\\";
     //이미지, 동영상 저장하는 저장소의 주소가 될 것.
-
-
 
     public void save(LectureDto lectureDto){
         Optional<Company> isCompany = companyRepository.findByName(lectureDto.company_name());
@@ -57,7 +53,7 @@ public class LectureService {
 
         Lecture lecture = new Lecture(lectureDto.id(), lectureDto.name(), LocalDate.parse(lectureDto.created_at(), DateTimeFormatter.BASIC_ISO_DATE), LocalDate.parse(lectureDto.closed_at(),DateTimeFormatter.BASIC_ISO_DATE), category, company);
         lectureRepository.save(lecture);
-        Lecture dwnloadLec = lectureRepository.findByName(lectureDto.name()).get();
+        Lecture dwnloadLec = lectureRepository.findByName(lectureDto.name()).stream().findFirst().get();
         //ispresent 나중에
 
         if(!lectureDto.file().isEmpty()) {
@@ -67,7 +63,7 @@ public class LectureService {
             if(!mkdir.exists()){
                 mkdir.mkdir();
             }
-            Path copyImageLocation = Paths.get(uploadDir + File.separator + "thumbnails");
+            Path copyImageLocation = Paths.get(uploadDir + File.separator + "thumbnails.png");
             System.out.println(copyImageLocation);
             try{
                 file.transferTo(copyImageLocation);
@@ -85,7 +81,7 @@ public class LectureService {
         if(byId.isPresent()){
 
             lectureRepository.delete(byId.get());
-            File folder = new File(savePath+id.toString());
+            File folder = new File(savePath+ id);
             try{
                 while (folder.exists()){
                     File[] folder_list = folder.listFiles();
@@ -119,9 +115,6 @@ public class LectureService {
 
     public List<LectureDto> findLectureByTop20() {
         List<Lecture> list = lectureRepository.findAll(Sort.by(Sort.Direction.ASC, "createdAt"));
-        if (list.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Can't Find Lecture");
-        }
         List<LectureDto> dto = new ArrayList<>();
         for (Lecture current : list) {
             dto.add(new LectureDto(current.getId(), current.getName(), current.getCreatedAt().toString(), current.getClosedAt().toString(), current.getCategory().getName(), current.getCompany().getName(), null));

@@ -98,17 +98,19 @@ public class LectureTests {
     void createDummyData() throws Exception {
         TestTransaction.flagForCommit();
         MultiValueMap<String, String> accountInfo = createAccountInfo();
-        mockMvc.perform(post("/account/register").params(accountInfo).with(csrf())).andExpect(status().isOk());
+        mockMvc.perform(post("/account/register").params(accountInfo).with(csrf())).andExpect(status().is3xxRedirection());
         Account account = accountRepository.findAccountById(accountInfo.getFirst("id")).get();
         MultiValueMap<String, String> companyInfo = createRandomCompany();
         mockMvc.perform(post("/api/company/create").params(companyInfo).with(csrf())).andExpect(status().isOk());
         Company company = companyRepository.findByName(companyInfo.getFirst("name")).get();
         mockMvc.perform(post("/api/category/add").param("main", "메인보드").param("sub", "amd").with(csrf())).andExpect(status().isOk());
-        SubCategory category = subCategoryRepository.findByName("amd").stream().findFirst().get();
+        SubCategory category = subCategoryRepository.findByName("amd").get();
 
         for (int i = 0; i < 20; i++) {
             MultiValueMap<String, String> info = randomLecture(company, account, category);
-            mockMvc.perform(post("/api/lecture/create").with(csrf()).params(info)).andExpect(status().isOk());
+            InputStream file = new URL("https://picsum.photos/200/300").openStream();
+            MockMultipartFile mockFile = new MockMultipartFile("file", "random.png", "image/png", file);
+            mockMvc.perform(multipart("/api/lecture/create").file(mockFile).with(csrf()).params(info)).andExpect(status().isOk());
         }
     }
 
