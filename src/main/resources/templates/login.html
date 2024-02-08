@@ -14,7 +14,7 @@
 
         <!-- 로그인 html 시작 -->
         <iframe name="lo" style="display: none"></iframe>
-        <form method="post" target="lo" th:action="@{/login}">
+        <form method="post" target="lo" th:action="@{/api/account/login}">
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
             <div class="login_text">
                 <p style="font-weight: 700; font-size: 32px; line-height: 72px">로그인</p>
