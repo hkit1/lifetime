@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
   <title>회원가입_회원정보입력</title>
@@ -46,7 +46,7 @@
         <p class="member_information_input_title">회원정보 입력</p>
         <p class="member_information_input_content">회원가입을 위한 회원정보를 입력하는 과정입니다.</p>
       </div>
-      <form class="member_form" method="post" th:action="@{/account/register}">
+      <form class="member_form" id="reg_form" method="post">
         <input th:name="${_csrf.parameterName}" th:value="${_csrf.token}" type="hidden"/>
         <div class="member_division">
           <div class="category_container">
@@ -193,6 +193,21 @@
     </div>
     <!-- 회원가입_회원정보입력 html 끝 -->
   </div>
-
+  <script th:inline="javascript">
+    const f = document.getElementById("reg_form");
+    f.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      await fetch("register", {
+        method: "POST",
+        body: new FormData(f)
+      }).then(data => {
+        if (data.status === 400) {
+          window.alert("이미 사용중인 아이디 입니다!");
+        } else if (data.status === 200) {
+          window.location.href = "/register/complete";
+        }
+      });
+    })
+  </script>
 </body>
 </html>

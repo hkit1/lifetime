@@ -97,7 +97,7 @@ public class AccountTests {
         mockMvc.perform(post("/api/account/login").param("id", info.getFirst("id")).param("pw", info.getFirst("pw") + "wrong").with(csrf())).andExpect(status().isUnauthorized());
 
         // 정상 로그인 테스트 - 200
-        mockMvc.perform(post("/api/account/login").param("id", info.getFirst("id")).param("pw", info.getFirst("pw")).with(csrf())).andExpect(status().isOk()).andExpect(model().attributeExists("sessionId"));
+        mockMvc.perform(post("/api/account/login").param("id", info.getFirst("id")).param("pw", info.getFirst("pw")).with(csrf())).andExpect(status().isOk()).andExpect(model().attributeExists("userId"));
     }
 
     @Test
@@ -109,7 +109,7 @@ public class AccountTests {
         mockMvc.perform(post("/account/register").params(info).with(csrf())).andExpect(status().isOk());
 
         // 계정 삭제 테스트 - 200
-        mockMvc.perform(post("/api/account/delete").param("sessionId", info.getFirst("id")).with(csrf())).andExpect(status().isOk());
+        mockMvc.perform(post("/api/account/delete").param("userId", info.getFirst("id")).with(csrf())).andExpect(status().isOk());
 
         // 검색된 계정이 없어야 함
         assertFalse(repository.findAccountById(info.getFirst("id")).isPresent());

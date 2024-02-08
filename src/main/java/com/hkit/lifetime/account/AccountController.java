@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,7 +20,8 @@ public class AccountController {
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @GetMapping("/account/register")
-    public String inRegister() {
+    public String inRegister(Model model) {
+        model.addAttribute("address", "/register/comple");
         return "register_input";
     }
 
@@ -28,7 +30,7 @@ public class AccountController {
         if (accountService.duplicateCheck(accountDto.id())) {
             AccountDto encodeAccount = encodePw(accountDto);
             accountService.register(encodeAccount);
-            return "redirect://register_complete";
+            return "redirect:/register_complete";
         } else {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Id in Use");
         }
@@ -54,6 +56,7 @@ public class AccountController {
         accountService.update(accountDto);
         return "home";
     }
+
 
     /*
         input pw encode

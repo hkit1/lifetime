@@ -1,10 +1,13 @@
 package com.hkit.lifetime;
 
+import com.hkit.lifetime.account.AccountService;
 import com.hkit.lifetime.lecture.LectureService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
 import java.util.ArrayList;
 
@@ -12,16 +15,26 @@ import java.util.ArrayList;
 @RequiredArgsConstructor
 public class MainController {
     public final LectureService lectureService;
+    public final AccountService accountService;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @GetMapping("/")
-    public String index(Model model) {
+    public String index(Model model, @SessionAttribute(value = "userId", required = false) String userId, @SessionAttribute(value = "userName", required = false) String userName) {
         model.addAttribute("lectureList", lectureService.findLectureByTop20());
+        if (userName != null) {
+            model.addAttribute("userName", userName);
+        }
         return "home";
     }
 
     @GetMapping("/login")
     public String mypage(){
         return "login";
+    }
+
+    @GetMapping("/register/complete")
+    public String reg_complete() {
+        return "register_complete";
     }
 
     @GetMapping("/b")
