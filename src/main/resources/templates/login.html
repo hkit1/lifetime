@@ -13,7 +13,7 @@
         <!-- 헤더 html 끝 -->
 
         <!-- 로그인 html 시작 -->
-        <form th:action="@{/login}" method="post">
+        <form th:action="@{/api/account/login}" method="post">
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
             <div class="login_text">
                 <p style="font-weight: 700; font-size: 32px; line-height: 72px">로그인</p>

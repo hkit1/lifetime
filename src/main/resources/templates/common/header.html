@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" xmlns:sec="http://www.w3.org/1999/xhtml">
     <!-- 헤더 html 시작 -->
     <header>
       <div class="logo">
@@ -57,9 +57,13 @@
         </div>
       </nav>
 
-      <div class="member_btn">
-        <a href="register_input" class="reg">👦회원가입</a>
-        <a href="login" class="login">🔒로그인</a>
+      <div class="member_btn" sec:authorize="isAnonymous()">
+        <a href="/account/register" class="reg">👦회원가입</a>
+        <a href="/login" class="login">🔒로그인</a>
+      </div>
+      <div class="member_btn" sec:authorize="isAuthenticated()">
+        <a class="reg" sec:authentication="name"> 님 환영합니다.👦</a>
+        <a href="/account/logout" class="login">🔒로그아웃</a>
       </div>
     </header>
     <!-- 헤더 html 끝 -->

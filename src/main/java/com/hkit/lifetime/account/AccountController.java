@@ -1,5 +1,7 @@
 package com.hkit.lifetime.account;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -17,6 +19,17 @@ public class AccountController {
 
     private final AccountService accountService;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    @GetMapping("/account/logout")
+    public String logout(HttpServletRequest httpServletRequest){
+        HttpSession session = httpServletRequest.getSession(false);
+        if (session != null){
+            session.invalidate();
+            return "redirect:/";
+        }
+
+        return "redirect:/";
+    }
 
     @GetMapping("/account/register")
     public String inRegister() {

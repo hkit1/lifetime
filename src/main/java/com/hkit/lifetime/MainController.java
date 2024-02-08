@@ -14,8 +14,7 @@ public class MainController {
     public final LectureService lectureService;
 
     @GetMapping("/")
-    public String index(Model model) {
-        model.addAttribute("lectureList", lectureService.findLectureByTop20());
+    public String index() {
         return "home";
     }
 
