@@ -36,7 +36,7 @@ public class MainController {
 
     @GetMapping("/b")
     public String asd(){
-        return "register_clause";
+        return "course_registration_enrollment_institution";
     }
 
     @GetMapping("/c")

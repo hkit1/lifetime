@@ -47,13 +47,14 @@
     <hr>
 
     <div class="institution_input_container">
-      <form action="" method="post" class="institution_form">
+      <form th:action="@{/api/company/create}" method="post" class="institution_form">
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
         <div class="institution_name">
           <div class="category_container">
             <p class="category_text">기관명&nbsp;<span style="color: red">*</span></p>
           </div>
           <div class="real_input">
-            <input type="text" required style="background-color: #F5F5F5">
+            <input type="text" required style="background-color: #F5F5F5" name="name">
             <input type="button" value="기관명검색" class="institutionName_postcode_dong_file_button">
             &ensp;&ensp;&ensp;&ensp;<span style="color: red; font-size: 12px">* 해당되는 기관이 없으시면 플랫폼 담당자에게 문의 주시길 바랍니다.</span>
           </div>
@@ -63,7 +64,7 @@
             <p class="category_text">대표자명&nbsp;<span style="color: red">*</span></p>
           </div>
           <div class="real_input">
-            <input type="text" required>
+            <input type="text" required name="admin">
           </div>
         </div>
         <div class="corporate_registration_number">
@@ -71,7 +72,7 @@
             <p class="category_text">사업자등록번호&nbsp;<span style="color: red">*</span></p>
           </div>
           <div class="real_input">
-            <input type="text" required>
+            <input type="text" required name="id">
             &ensp;&ensp;&ensp;&ensp;<span style="color: red; font-size: 12px">* 사업자등록번호는 '-' 포함하여 입력해주시길 바랍니다.</span>
           </div>
         </div>
@@ -81,17 +82,17 @@
             <p class="category_text">이메일&nbsp;<span style="color: red">*</span></p>
           </div>
           <div class="real_input">
-            <input type="email" required>
+            <input id="email" name="email" type="hidden">
+            <input id="email1" required type="text">
             <span> @ </span>
-            <input type="email" placeholder="직접입력" required>
-            <select name="" class="short_box">
-              <option value="">선택</option>
-              <option value="">naver.com</option>
-              <option value="">google.com</option>
-              <option value="">hanmail.net</option>
-              <option value="">nate.com</option>
-              <option value="">kakao.com</option>
-              <option value="">msn.com</option>
+            <input id="email2" placeholder="직접입력" required type="text">
+            <select class="short_box" id="email3" name="" onchange="change()">
+              <option value="naver.com">naver.com</option>
+              <option value="google.com">google.com</option>
+              <option value="hanmail.net">hanmail.net</option>
+              <option value="nate.com">nate.com</option>
+              <option value="kakao.com">kakao.com</option>
+              <option value="msn.com">msn.com</option>
             </select>
           </div>
         </div>
@@ -101,28 +102,52 @@
             <p class="category_text">주소&nbsp;<span style="color: red">*</span></p>
           </div>
           <div class="real_input basics_detail_address">
+            <script>
+              function open_address() {
+                new daum.Postcode({
+                  oncomplete: function (data) {
+                    document.getElementById('zipcode').value = data.zonecode;
+                    document.getElementById("address1").value = data.roadAddress;
+                    document.getElementById("address2").focus();
+                  }
+                }).open();
+              }
+            </script>
+
             <div>
-              <input type="text"  required style="background-color: #F5F5F5">
-              <input type="button" value="우편번호검색" class="institutionName_postcode_dong_file_button">
+              <input id="zipcode" placeholder="우편번호" required style="background-color: #F5F5F5" type="text">
+              <input class="id_birthDate_postcode_button" onclick="open_address()" type="button" value="우편번호검색">
             </div>
-            <input type="text" class="basics_address" placeholder="기본주소" required>
-            <input type="text" class="detail_address" placeholder="상세주소" required>
+            <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+            <input class="basics_address" id="address1" name="address1" placeholder="기본주소" required type="text">
+            <input class="detail_address" id="address2" name="address2" placeholder="상세주소" type="text">
           </div>
         </div>
         <div class="representative_number">
+          <input id="tel" name="tel" type="hidden">
           <div class="category_container">
             <p class="category_text">대표번호&nbsp;<span style="color: red">*</span></p>
           </div>
           <div class="real_input">
-            <input type="tel" class="short_box" required>
+            <input class="short_box" id="tel1" required type="text">
             <span>-</span>
-            <input type="tel" class="short_box" required>
+            <input class="short_box" id="tel2" required type="text">
             <span>-</span>
-            <input type="tel" class="short_box" required>
+            <input class="short_box" id="tel3" required type="text">
           </div>
         </div>
+        <script>
+          function form_submit() {
+            document.getElementById("email").value = document.getElementById("email1").value + "@" + document.getElementById("email2").value;
+            document.getElementById("tel").value = document.getElementById("tel1").value + document.getElementById("tel2").value + document.getElementById("tel3").value;
+          }
+
+          function change() {
+            document.getElementById("email2").value = document.getElementById("email3").value;
+          }
+        </script>
         <div class="application_enrollment_decision">
-          <input type="submit" value="등&nbsp;록" class="enrollment">
+          <input type="submit" value="등&nbsp;록" class="enrollment" onclick="form_submit()">
           <input type="submit" value="목&nbsp;록" class="list">
         </div>
       </form>
