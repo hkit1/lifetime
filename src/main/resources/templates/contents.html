@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>콘텐츠 관리</title>
+  <link rel="stylesheet" href="../css/contents.css">
+</head>
+<body>
+<div class="sidebar">
+  <div class="logo">
+    <h5>평생학습플랫폼</h5>
+    <img src="../image/book.png">
+  </div>
+  <div class="welcome_container">
+    <div class="welcome_text">
+      <span>한국IT교육원</span><span style="font-weight: 400; font-size: 11px; line-height: 25px; text-align: center"> 님 환영합니다.</span>
+    </div>
+    <div class="mainpage_logout_button">
+      <a href="" id="mainpage">메인페이지</a>
+      <a href="" id="logout">로그아웃</a>
+    </div>
+  </div>
+  <div class="total_stats_wrap">
+    <div class="total_stats">
+      <img src="../image/stats.png" alt="">
+      <span>&ensp;전체통계</span>
+    </div>
+  </div>
+  <div class="member_attendance_wrap">
+    <div class="member_attendance">
+      <img src="../image/member.png" alt="">
+      <span>&ensp;수강생 출결관리</span>
+    </div>
+  </div>
+  <div class="test_wrap">
+    <div class="test">
+      <img src="../image/institution.png" alt="">
+      <span>&ensp;시험관리</span>
+    </div>
+  </div>
+  <div class="evaluation_wrap">
+    <div class="evaluation">
+      <img src="../image/lecture.png" alt="">
+      <span>&ensp;종합평가관리</span>
+    </div>
+  </div>
+</div>
+<div class="dashboard_container">
+  <div class="dashboard_title">
+    <div style="width: 110px; height: 50px">
+      <span style="font-weight: 700; font-size: 20px; line-height: 43px; color: #FFFFFF">콘텐츠 관리</span>
+    </div>
+  </div>
+  <div class="institution_container"> <!-- TODO : 참고로 원래 admin.html의 institution_container와 이름 겹침 -->
+    <div class="institution_stats_title">
+      <span style="margin-left: 20px; font-weight: 400; font-size: 14px; line-height: 31px; color: #05294B">기관 통계</span>
+    </div>
+    <div class="stats_container">
+      <div class="week_stats">
+        <div class="week_stats_title">
+          <span style="color: #004973; font-weight: 400; font-size: 18px; line-height: 40px;">주간통계</span>
+        </div>
+        <div class="week_stats_content">
+          <div class="new_member">
+            <span style="font-weight: 400; font-size: 17px; line-height: 38px">신규 수강회원&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;</span>
+            <span style="font-weight: 400; font-size: 16px; line-height: 36px"><span style="font-weight: 700; font-size: 35px; line-height: 79px; color: #3B6FD4">10</span> 명</span>
+          </div>
+          <div class="new_lecture">
+            <span style="font-weight: 400; font-size: 17px; line-height: 38px">신규 개설강좌&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;</span>
+            <span style="font-weight: 400; font-size: 16px; line-height: 36px"><span style="font-weight: 700; font-size: 35px; line-height: 79px; color: #3B6FD4">25</span> 개 강좌</span>
+          </div>
+          <div class="average_satisfaction">
+            <span style="font-weight: 400; font-size: 17px; line-height: 38px">평균 만족도&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;</span>
+            <span style="font-weight: 400; font-size: 16px; line-height: 36px"><span style="font-weight: 700; font-size: 35px; line-height: 79px; color: #3B6FD4">4.3</span> /5.0 기준</span>
+          </div>
+        </div>
+      </div>
+      <div class="month_stats">
+        <div class="month_stats_title">
+          <span style="color: #004973; font-weight: 400; font-size: 18px; line-height: 40px;">월간통계</span>
+        </div>
+        <div class="month_stats_content">
+          <div class="new_member" style="margin: 0 auto">
+            <span style="font-weight: 400; font-size: 17px; line-height: 38px">신규 수강회원&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;</span>
+            <span style="font-weight: 400; font-size: 16px; line-height: 36px"><span style="font-weight: 700; font-size: 35px; line-height: 79px; color: #3B6FD4">42</span> 명</span>
+          </div>
+          <div class="new_lecture" style="margin: 0 auto">
+            <span style="font-weight: 400; font-size: 17px; line-height: 38px">신규 개설강좌&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;</span>
+            <span style="font-weight: 400; font-size: 16px; line-height: 36px"><span style="font-weight: 700; font-size: 35px; line-height: 79px; color: #3B6FD4">47</span> 개 강좌</span>
+          </div>
+          <div class="average_satisfaction" style="margin: 0 auto">
+            <span style="font-weight: 400; font-size: 17px; line-height: 38px">평균 만족도&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;</span>
+            <span style="font-weight: 400; font-size: 16px; line-height: 36px"><span style="font-weight: 700; font-size: 35px; line-height: 79px; color: #3B6FD4">4.2</span> /5.0기준</span>
+          </div>
+        </div>
+      </div>
+      <div class="accrue_stats">
+        <div class="accrue_stats_title">
+          <span style="color: #004973; font-weight: 400; font-size: 18px; line-height: 40px;">누적통계</span>
+        </div>
+        <div class="accrue_stats_content">
+          <div class="new_member" style="margin: 0 auto">
+            <span style="font-weight: 400; font-size: 17px; line-height: 38px">총 수강생&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;</span>
+            <span style="font-weight: 400; font-size: 16px; line-height: 36px"><span style="font-weight: 700; font-size: 35px; line-height: 79px; color: #3B6FD4">137</span> 명</span>
+          </div>
+          <div class="new_lecture" style="margin: 0 auto">
+            <span style="font-weight: 400; font-size: 17px; line-height: 38px">운영중인 강좌&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;</span>
+            <span style="font-weight: 400; font-size: 16px; line-height: 36px"><span style="font-weight: 700; font-size: 35px; line-height: 79px; color: #3B6FD4">1022</span> 개 강좌</span>
+          </div>
+          <div class="average_satisfaction" style="margin: 0 auto">
+            <span style="font-weight: 400; font-size: 17px; line-height: 38px">누적 만족도&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;</span>
+            <span style="font-weight: 400; font-size: 16px; line-height: 36px"><span style="font-weight: 700; font-size: 35px; line-height: 79px; color: #3B6FD4">4.5</span> /5.0기준</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="member_attendance_container">
+    <div class="member_attendance_title">
+      <div style="width: 150px; height: 50px; display: flex; align-items: center; margin-left: 15px">
+        <div style="width: 5px; height: 20px; background-color: #15CCE5"></div><span style="font-weight: 700; font-size: 18px; line-height: 40px; color: #05294B">&nbsp;수강생 출결관리</span>
+      </div>
+    </div>
+    <div class="total_member_search_container">
+      <div class="total_member_number">
+        <span style="font-weight: 400; font-size: 14px; line-height: 32px">&ensp;&ensp;전체 수강생&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;<span style="font-weight: 700; font-size: 14px; line-height: 32px; color: #024BD9">15</span>&ensp;명</span>
+      </div>
+      <form method="post" class="search_container">
+        <select name="search_select">
+          <option value="">회원 아이디</option>
+          <option value="">수강중인 과목</option>
+          <option value="">연락처</option>
+        </select>
+        <input type="text" class="search">
+        <input type="button" value="회원검색" class="search_button">
+      </form>
+    </div>
+    <table>
+      <thead>
+      <tr>
+        <th><input type="checkbox" id="attendance_all_checkbox"></th>
+        <th>번호</th>
+        <th>회원 아이디</th>
+        <th class="studying_lecture">수강중인 과목</th>
+        <th>전체시간</th>
+        <th>총 학습시간</th>
+        <th>완료한 수업</th>
+        <th>출석률</th>
+        <th>연락처</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td><input type="checkbox" class="attendance_checkbox"></td>
+        <td>10</td>
+        <td>jaesunghwang</td>
+        <td>[코드캠프] 부트캠프에서 만든 고농축 프론트엔드 코스</td>
+        <td>13시간 45분</td>
+        <td>1시간 43분</td>
+        <td>13 / 68</td>
+        <td>80%</td>
+        <td>010-1234-1234</td>
+      </tr>
+      <tr>
+        <td><input type="checkbox" class="attendance_checkbox"></td>
+        <td>9</td>
+        <td>yoondohyun</td>
+        <td>[C#과 유니티로 만드는 MMORPG 게임 개발 시리즈] Part1: C# 기초 프로그래밍 입문</td>
+        <td>22시간 5분</td>
+        <td>12시간 10분</td>
+        <td>16 / 22</td>
+        <td>66%</td>
+        <td>010-1521-1621</td>
+      </tr>
+      <tr>
+        <td><input type="checkbox" class="attendance_checkbox"></td>
+        <td>8</td>
+        <td>leeshin</td>
+        <td>비전공자를 위한 진짜 입문 올인원 개발 부트캠프</td>
+        <td>15시간 12분</td>
+        <td>5시간 1분</td>
+        <td>17 / 18</td>
+        <td>35%</td>
+        <td>016-1415-2929</td>
+      </tr>
+      <tr>
+        <td><input type="checkbox" class="attendance_checkbox"></td>
+        <td>7</td>
+        <td>pengsu</td>
+        <td>Three.js로 1인칭 3D 웹사이트 만들기</td>
+        <td>1시간 11분</td>
+        <td>30분</td>
+        <td>3 / 14</td>
+        <td>48%</td>
+        <td>010-7758-9545</td>
+      </tr>
+      <tr>
+        <td><input type="checkbox" class="attendance_checkbox"></td>
+        <td>6</td>
+        <td>bewhy</td>
+        <td>블록체인 개발에 빠질 수 없는 Scope 만들기</td>
+        <td>26시간 10분</td>
+        <td>2시간 48분</td>
+        <td>22 / 66</td>
+        <td>77%</td>
+        <td>010-6251-1652</td>
+      </tr>
+      <tr>
+        <td><input type="checkbox" class="attendance_checkbox"></td>
+        <td>5</td>
+        <td>imgentleman</td>
+        <td>[유튜브 초고속 수익화]맨땅에서 가장 빠르게 유튜브 수익화하기</td>
+        <td>55시간 54분</td>
+        <td>3시간 17분</td>
+        <td>34 / 74</td>
+        <td>85%</td>
+        <td>02-0532-1526</td>
+      </tr>
+      <tr>
+        <td><input type="checkbox" class="attendance_checkbox"></td>
+        <td>4</td>
+        <td>leelee</td>
+        <td>파이썬/장고 웹서비스 개발 완벽 가이드 with 리액트 (장고 4.2 기준)</td>
+        <td>32시간 6분</td>
+        <td>13분</td>
+        <td>24 / 61</td>
+        <td>67%</td>
+        <td>02-0532-1528</td>
+      </tr>
+      <tr>
+        <td><input type="checkbox" class="attendance_checkbox"></td>
+        <td>3</td>
+        <td>cultureland</td>
+        <td>백엔드 개발자 성능 개선 초석 다지기</td>
+        <td>20시간 15분</td>
+        <td>5시간 54분</td>
+        <td>31 / 41</td>
+        <td>45%</td>
+        <td>052-251-1525</td>
+      </tr>
+      <tr>
+        <td><input type="checkbox" class="attendance_checkbox"></td>
+        <td>2</td>
+        <td>malnunkwang</td>
+        <td>React Three fiber(R3F)로 배우는 인터렉티브 3D 웹 개발</td>
+        <td>74시간 2분</td>
+        <td>49시간 30분</td>
+        <td>85 / 95</td>
+        <td>31%</td>
+        <td>031-1525-1262</td>
+      </tr>
+      <tr>
+        <td><input type="checkbox" class="attendance_checkbox"></td>
+        <td>1</td>
+        <td>sukgamoni</td>
+        <td>개발자 취업 전략 시크릿 - 7CODE</td>
+        <td>80시간 31분</td>
+        <td>32시간 7분</td>
+        <td>35 / 105</td>
+        <td>16%</td>
+        <td>070-1551-8554</td>
+      </tr>
+      </tbody>
+    </table>
+    <div class="sendText_fail_button_container">
+      <input type="button" value="강좌탈락" class="fail_button">
+      <input type="button" value="문자보내기" class="sendText_button">
+    </div>
+    <div class="page">
+      <input type="button" value="<<" class="before_next_button">
+      <input type="button" value="<" class="before_next_button">
+      <input type="button" value="1" class="selected_button">
+      <input type="button" value="2" class="not_selected_button">
+      <input type="button" value="3" class="not_selected_button">
+      <input type="button" value="4" class="not_selected_button">
+      <input type="button" value="5" class="not_selected_button">
+      <input type="button" value=">" class="before_next_button">
+      <input type="button" value=">>" class="before_next_button">
+    </div>
+  </div>
+
+  <div class="test_container">
+    <div class="test_management_title">
+      <div style="width: 150px; height: 50px; display: flex; align-items: center; margin-left: 15px">
+        <div style="width: 5px; height: 20px; background-color: #15CCE5"></div><span style="font-weight: 700; font-size: 18px; line-height: 40px; color: #05294B">&nbsp;시험관리</span>
+      </div>
+    </div>
+    <div class="total_test_search_container">
+      <div class="total_test_number">
+        <span style="font-weight: 400; font-size: 14px; line-height: 32px">&ensp;&ensp;전체 시험&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;<span style="font-weight: 700; font-size: 14px; line-height: 32px; color: #024BD9">32</span>&ensp;개</span>
+      </div>
+      <form method="post" class="search_container">
+        <select name="search_select">
+          <option value="">시험번호</option>
+          <option value="">강좌명</option>
+          <option value="">시험개설날짜</option>
+          <option value="">시험과목</option>
+        </select>
+        <input type="text" class="search">
+        <input type="button" value="검색" class="search_button">
+      </form>
+    </div>
+    <table>
+      <thead>
+      <tr>
+        <th><input type="checkbox" id="test_all_checkbox"></th>
+        <th>번호</th>
+        <th class="lecture_name">강좌명</th>
+        <th>시험개설날짜</th>
+        <th>수정날짜</th>
+        <th>응시인원</th>
+        <th>미응시인원</th>
+        <th>응시율</th>
+        <th>시험과목</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td><input type="checkbox" class="test_checkbox"></td>
+        <td>10</td>
+        <td>[코드캠프] 부트캠프에서 만든 고농축 프론트엔드 코스</td>
+        <td>2024.01.04</td>
+        <td>2024.01.08</td>
+        <td>15명</td>
+        <td>3명</td>
+        <td>15%</td>
+        <td>Vue.js 라이브러리 사용방법</td>
+      </tr>
+      <tr>
+        <td><input type="checkbox" class="test_checkbox"></td>
+        <td>9</td>
+        <td>[C#과 유니티로 만드는 MMORPG 게임 개발 시리즈] Part1: C# 기초 프로그래밍 입문</td>
+        <td>2024.05.21</td>
+        <td>2024.05.30</td>
+        <td>18명</td>
+        <td>5명</td>
+        <td>33%</td>
+        <td>C# GUI 프로그래밍</td>
+      </tr>
+      <tr>
+        <td><input type="checkbox" class="test_checkbox"></td>
+        <td>8</td>
+        <td>비전공자를 위한 진짜 입문 올인원 개발 부트캠프</td>
+        <td>2023.11.22</td>
+        <td>2023.11.25</td>
+        <td>25명</td>
+        <td>10명</td>
+        <td>50%</td>
+        <td>자바 기초 문법을 활용한 계산기 프로그램</td>
+      </tr>
+      <tr>
+        <td><input type="checkbox" class="test_checkbox"></td>
+        <td>7</td>
+        <td>Three.js로 1인칭 3D 웹사이트 만들기</td>
+        <td>2023.10.13</td>
+        <td>2023.11.10</td>
+        <td>3명</td>
+        <td>3명</td>
+        <td>77%</td>
+        <td>3D 모델링 사이트 제작해보기</td>
+      </tr>
+      <tr>
+        <td><input type="checkbox" class="test_checkbox"></td>
+        <td>6</td>
+        <td>블록체인 개발에 빠질 수 없는 Scope 만들기</td>
+        <td>2022.01.05</td>
+        <td>2022.05.10</td>
+        <td>5명</td>
+        <td>2명</td>
+        <td>35%</td>
+        <td>블록체인 개념을 활용한 웹 사이트 개발</td>
+      </tr>
+      <tr>
+        <td><input type="checkbox" class="test_checkbox"></td>
+        <td>5</td>
+        <td>[유튜브 초고속 수익화]맨땅에서 가장 빠르게 유튜브 수익화하기</td>
+        <td>2016.08.14</td>
+        <td>2016.09.16</td>
+        <td>22명</td>
+        <td>20명</td>
+        <td>60%</td>
+        <td>유튜브 쇼츠 제작 및 홍보</td>
+      </tr>
+      <tr>
+        <td><input type="checkbox" class="test_checkbox"></td>
+        <td>4</td>
+        <td>파이썬/장고 웹서비스 개발 완벽 가이드 with 리액트 (장고 4.2 기준)</td>
+        <td>2010.03.05</td>
+        <td>2010.04.05</td>
+        <td>28명</td>
+        <td>1명</td>
+        <td>85%</td>
+        <td>Python 라이브러리 활용한 웹사이트 크롤링</td>
+      </tr>
+      <tr>
+        <td><input type="checkbox" class="test_checkbox"></td>
+        <td>3</td>
+        <td>백엔드 개발자 성능 개선 초석 다지기</td>
+        <td>2022.10.27</td>
+        <td>2022.11.20</td>
+        <td>31명</td>
+        <td>3명</td>
+        <td>44%</td>
+        <td>JPA를 활용한 웹 사이트 성능 저하 확인하기</td>
+      </tr>
+      <tr>
+        <td><input type="checkbox" class="test_checkbox"></td>
+        <td>2</td>
+        <td>React Three fiber(R3F)로 배우는 인터렉티브 3D 웹 개발</td>
+        <td>2021.01.28</td>
+        <td>2021.01.29</td>
+        <td>44명</td>
+        <td>8명</td>
+        <td>35%</td>
+        <td>Three.js 응용</td>
+      </tr>
+      <tr>
+        <td><input type="checkbox" class="test_checkbox"></td>
+        <td>1</td>
+        <td>개발자 취업 전략 시크릿 - 7CODE</td>
+        <td>2024.02.07</td>
+        <td>2024.02.08</td>
+        <td>65명</td>
+        <td>9명</td>
+        <td>20%</td>
+        <td>자기소개서, 포트폴리오 작성하기</td>
+      </tr>
+      </tbody>
+    </table>
+    <div class="delete_button_container">
+      <input type="button" value="시험삭제" class="test_delete_button">
+    </div>
+    <div class="page">
+      <input type="button" value="<<" class="before_next_button">
+      <input type="button" value="<" class="before_next_button">
+      <input type="button" value="1" class="selected_button">
+      <input type="button" value="2" class="not_selected_button">
+      <input type="button" value="3" class="not_selected_button">
+      <input type="button" value="4" class="not_selected_button">
+      <input type="button" value="5" class="not_selected_button">
+      <input type="button" value=">" class="before_next_button">
+      <input type="button" value=">>" class="before_next_button">
+    </div>
+  </div>
+
+  <div class="evaluation_container">
+    <div class="evaluation_management_title">
+      <div style="width: 150px; height: 50px; display: flex; align-items: center; margin-left: 15px">
+        <div style="width: 5px; height: 20px; background-color: #15CCE5"></div><span style="font-weight: 700; font-size: 18px; line-height: 40px; color: #05294B">&nbsp;종합평가관리</span>
+      </div>
+    </div>
+    <div class="total_evaluation_search_container">
+      <div class="total_evaluation_number">
+        <span style="font-weight: 400; font-size: 14px; line-height: 32px">&ensp;&ensp;전체 평가&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;<span style="font-weight: 700; font-size: 14px; line-height: 32px; color: #024BD9">62</span>&ensp;개</span>
+      </div>
+      <form method="post" class="search_container">
+        <select name="search_select">
+          <option value="">평가번호</option>
+          <option value="">강좌명</option>
+          <option value="">강사</option>
+          <option value="">분류</option>
+        </select>
+        <input type="text" class="search">
+        <input type="button" value="검색" class="search_button">
+      </form>
+    </div>
+    <table>
+      <thead>
+      <tr>
+        <th><input type="checkbox" id="evaluation_all_checkbox"></th>
+        <th>번호</th>
+        <th class="lecture_name">강좌명</th>
+        <th>강사</th>
+        <th>평가기간</th>
+        <th>분류</th>
+        <th>평가대상인원</th>
+        <th>제출인원</th>
+        <th>미달율</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td><input type="checkbox" class="evaluation_checkbox"></td>
+        <td>10</td>
+        <td>[코드캠프] 부트캠프에서 만든 고농축 프론트엔드 코스</td>
+        <td>도도(코딩루팡)</td>
+        <td>2023.10.01 ~ 2024.10.01</td>
+        <td>IT / 컴퓨터</td>
+        <td>15명</td>
+        <td>10명</td>
+        <td>15%</td>
+      </tr>
+      <tr>
+        <td><input type="checkbox" class="evaluation_checkbox"></td>
+        <td>9</td>
+        <td>[C#과 유니티로 만드는 MMORPG 게임 개발 시리즈] Part1: C# 기초 프로그래밍 입문</td>
+        <td>코딩의세계 한태재</td>
+        <td>2024.01.01 ~ 2024.06.05</td>
+        <td>인문 / 교양</td>
+        <td>32명</td>
+        <td>5명</td>
+        <td>30%</td>
+      </tr>
+      <tr>
+        <td><input type="checkbox" class="evaluation_checkbox"></td>
+        <td>8</td>
+        <td>비전공자를 위한 진짜 입문 올인원 개발 부트캠프</td>
+        <td>이재왕</td>
+        <td>2022.10.15 ~ 2023.01.15</td>
+        <td>생활 / 취미</td>
+        <td>11명</td>
+        <td>10명</td>
+        <td>11%</td>
+      </tr>
+      <tr>
+        <td><input type="checkbox" class="evaluation_checkbox"></td>
+        <td>7</td>
+        <td>Three.js로 1인칭 3D 웹사이트 만들기</td>
+        <td>더코딩클럽</td>
+        <td>2021.05.06 ~ 2021.06.06</td>
+        <td>육아 / 보육</td>
+        <td>7명</td>
+        <td>5명</td>
+        <td>31%</td>
+      </tr>
+      <tr>
+        <td><input type="checkbox" class="evaluation_checkbox"></td>
+        <td>6</td>
+        <td>블록체인 개발에 빠질 수 없는 Scope 만들기</td>
+        <td>1분코딩</td>
+        <td>2022.11.02 ~ 2022.12.02</td>
+        <td>사회과학</td>
+        <td>12명</td>
+        <td>6명</td>
+        <td>20%</td>
+      </tr>
+      <tr>
+        <td><input type="checkbox" class="evaluation_checkbox"></td>
+        <td>5</td>
+        <td>[유튜브 초고속 수익화]맨땅에서 가장 빠르게 유튜브 수익화하기</td>
+        <td>데이터리안</td>
+        <td>2022.12.27 ~ 2023.01.27</td>
+        <td>경제 / 부업</td>
+        <td>16명</td>
+        <td>10명</td>
+        <td>44%</td>
+      </tr>
+      <tr>
+        <td><input type="checkbox" class="evaluation_checkbox"></td>
+        <td>4</td>
+        <td>파이썬/장고 웹서비스 개발 완벽 가이드 with 리액트 (장고 4.2 기준)</td>
+        <td>청강문화산업대학교</td>
+        <td>2024.02.25 ~ 2024.03.25</td>
+        <td>아동, 청소년 미술치료</td>
+        <td>22명</td>
+        <td>11명</td>
+        <td>30%</td>
+      </tr>
+      <tr>
+        <td><input type="checkbox" class="evaluation_checkbox"></td>
+        <td>3</td>
+        <td>백엔드 개발자 성능 개선 초석 다지기</td>
+        <td>코드브릿지</td>
+        <td>2024.03.05 ~ 2024.04.05</td>
+        <td>수학,물리,천문,지리</td>
+        <td>23명</td>
+        <td>22명</td>
+        <td>20%</td>
+      </tr>
+      <tr>
+        <td><input type="checkbox" class="evaluation_checkbox"></td>
+        <td>2</td>
+        <td>React Three fiber(R3F)로 배우는 인터렉티브 3D 웹 개발</td>
+        <td>마소캠퍼스</td>
+        <td>2023.01.24 ~ 2023.02.30</td>
+        <td>재테크 / 재무설계</td>
+        <td>44명</td>
+        <td>34명</td>
+        <td>23%</td>
+      </tr>
+      <tr>
+        <td><input type="checkbox" class="evaluation_checkbox"></td>
+        <td>1</td>
+        <td>개발자 취업 전략 시크릿 - 7CODE</td>
+        <td>제주코딩베이스캠프</td>
+        <td>2023.02.02 ~ 2023.12.02</td>
+        <td>문화 / 예술</td>
+        <td>32명</td>
+        <td>30명</td>
+        <td>8%</td>
+      </tr>
+      </tbody>
+    </table>
+    <div class="edit_delete_button_container">
+      <input type="button" value="평가삭제" class="delete_button">
+      <input type="button" value="평가정보수정" class="edit_button">
+    </div>
+    <div class="page">
+      <input type="button" value="<<" class="before_next_button">
+      <input type="button" value="<" class="before_next_button">
+      <input type="button" value="1" class="selected_button">
+      <input type="button" value="2" class="not_selected_button">
+      <input type="button" value="3" class="not_selected_button">
+      <input type="button" value="4" class="not_selected_button">
+      <input type="button" value="5" class="not_selected_button">
+      <input type="button" value=">" class="before_next_button">
+      <input type="button" value=">>" class="before_next_button">
+    </div>
+  </div>
+</div>
+
+<script src="../js/contents.js"></script>
+</body>
+</html>

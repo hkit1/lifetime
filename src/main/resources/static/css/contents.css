@@ -45,7 +45,7 @@
 }
 
 .welcome_text {
-    width: 180px;
+    width: 185px;
     height: 40px;
     margin: 35px auto 0;
     font-weight: 700;
@@ -104,7 +104,7 @@
     align-items: center;
 }
 
-.member_wrap {
+.member_attendance_wrap {
     width: 240px;
     height: 40px;
     display: flex;
@@ -113,18 +113,18 @@
     border-bottom: 1px solid #DDDDDD;
 }
 
-.member_wrap:hover {
+.member_attendance_wrap:hover {
     border-right: 5px solid grey;
     box-sizing: border-box;
 }
 
-.member {
+.member_attendance {
     display: flex;
     margin-left: 25px;
     align-items: center;
 }
 
-.institution_wrap {
+.test_wrap {
     width: 240px;
     height: 40px;
     display: flex;
@@ -133,18 +133,18 @@
     border-bottom: 1px solid #DDDDDD;
 }
 
-.institution_wrap:hover {
+.test_wrap:hover {
     border-right: 5px solid grey;
     box-sizing: border-box;
 }
 
-.institution {
+.test {
     display: flex;
     margin-left: 25px;
     align-items: center;
 }
 
-.lecture_wrap {
+.evaluation_wrap {
     width: 240px;
     height: 40px;
     display: flex;
@@ -153,12 +153,12 @@
     border-bottom: 1px solid #DDDDDD;
 }
 
-.lecture_wrap:hover {
+.evaluation_wrap:hover {
     border-right: 5px solid grey;
     box-sizing: border-box;
 }
 
-.lecture {
+.evaluation {
     display: flex;
     margin-left: 25px;
     align-items: center;
@@ -176,7 +176,7 @@
     margin-left: 45px;
 }
 
-.platform_total_stats_container {
+.institution_container {
     width: 1200px;
     height: 650px;
     margin: 45px auto 0;
@@ -184,7 +184,7 @@
     background-color: #FFFFFF;
 }
 
-.platform_total_stats_title {
+.institution_stats_title {
     width: 100%;
     height: 60px;
     display: flex;
@@ -214,20 +214,20 @@
     height: 400px;
 }
 
-.registerd_member_number {
-    width: 300px;
+.new_member {
+    width: 325px;
     height: 50px;
     padding-top: 40px;
 }
 
-.new_lecture_number {
-    width: 300px;
+.new_lecture {
+    width: 325px;
     height: 50px;
     padding-top: 90px;
 }
 
-.new_institution_number {
-    width: 300px;
+.average_satisfaction {
+    width: 325px;
     height: 50px;
     padding-top: 90px;
 }
@@ -235,6 +235,7 @@
 .month_stats {
     width: 350px;
     height: 450px;
+    padding: 0 30px;
     border-left: 1px solid #DDDDDD;
     border-right: 1px solid #DDDDDD;
 }
@@ -253,7 +254,7 @@
 .accrue_stats {
     width: 325px;
     height: 450px;
-    margin-left: 50px;
+    margin-left: 30px;
 }
 
 .accrue_stats_title {
@@ -267,13 +268,13 @@
     height: 400px;
 }
 
-.member_container {
+.member_attendance_container {
     width: 1200px;
     height: 700px;
     margin: 150px auto 0;
 }
 
-.member_management_title {
+.member_attendance_title {
     width: 100%;
     height: 50px;
     border-radius: 5px;
@@ -287,7 +288,7 @@
 }
 
 .total_member_number {
-    width: 150px;
+    width: 200px;
     height: 40px;
     float: left;
 }
@@ -340,7 +341,7 @@ table {
     border-collapse: collapse;
 }
 
-.member_container thead tr {
+.member_attendance_container thead tr {
     font-weight: 700;
     font-size: 12px;
     line-height: 45px;
@@ -349,8 +350,8 @@ table {
     background-color: #104679;
 }
 
-.member_address {
-    width: 300px;
+.studying_lecture {
+    width: 600px;
 }
 
 tbody tr {
@@ -361,13 +362,13 @@ tbody tr {
     background-color: #FFFCFC;
 }
 
-.edit_drop_button_container {
+.sendText_fail_button_container {
     width: 100%;
     height: 30px;
     margin-top: 10px;
 }
 
-.info_edit_button {
+.sendText_button {
     width: 50px;
     height: 30px;
     float: right;
@@ -383,7 +384,7 @@ tbody tr {
     background-color: #31668C;
 }
 
-.member_drop_button {
+.fail_button {
     width: 50px;
     height: 30px;
     float: right;
@@ -455,32 +456,32 @@ tbody tr {
     background-color: transparent;
 }
 
-.institution_container {
+.test_container {
     width: 1200px;
     height: 700px;
     margin: 150px auto 0;
 }
 
-.institution_management_title {
+.test_management_title {
     width: 100%;
     height: 50px;
     border-radius: 5px;
     background-color: #EDF0F1;
 }
 
-.total_institution_search_container {
+.total_test_search_container {
     width: 100%;
     height: 40px;
     margin-top: 30px;
 }
 
-.total_institution_number {
-    width: 150px;
+.total_test_number {
+    width: 200px;
     height: 40px;
     float: left;
 }
 
-.institution_container thead tr {
+.test_container thead tr {
     font-weight: 700;
     font-size: 12px;
     line-height: 45px;
@@ -489,49 +490,17 @@ tbody tr {
     background-color: #05294B;
 }
 
-.institution_name {
-    width: 250px;
+.lecture_name {
+    width: 500px;
 }
 
-.approval_return_delete_button_container {
+.delete_button_container {
     width: 100%;
     height: 30px;
     margin-top: 10px;
 }
 
-.approval_button {
-    width: 50px;
-    height: 30px;
-    float: right;
-    cursor: pointer;
-    margin-right: 5px;
-    border-width: 0;
-    border-radius: 5px;
-    font-weight: 700;
-    font-size: 9px;
-    line-height: 20px;
-    text-align: center;
-    color: #FFFFFF;
-    background-color: #31668C;
-}
-
-.return_button {
-    width: 50px;
-    height: 30px;
-    float: right;
-    cursor: pointer;
-    margin-right: 5px;
-    border-width: 0;
-    border-radius: 5px;
-    font-weight: 700;
-    font-size: 9px;
-    line-height: 20px;
-    text-align: center;
-    color: #FFFFFF;
-    background-color: #5D9563;
-}
-
-.institution_delete_button {
+.test_delete_button {
     width: 50px;
     height: 30px;
     float: right;
@@ -546,32 +515,32 @@ tbody tr {
     background-color: #8C3131;
 }
 
-.lecture_container {
+.evaluation_container {
     width: 1200px;
     height: 700px;
     margin: 150px auto 0;
 }
 
-.lecture_management_title {
+.evaluation_management_title {
     width: 100%;
     height: 50px;
     border-radius: 5px;
     background-color: #EDF0F1;
 }
 
-.total_lecture_search_container {
+.total_evaluation_search_container {
     width: 100%;
     height: 40px;
     margin-top: 30px;
 }
 
-.total_lecture_number {
-    width: 150px;
+.total_evaluation_number {
+    width: 200px;
     height: 40px;
     float: left;
 }
 
-.lecture_container thead tr {
+.evaluation_container thead tr {
     font-weight: 700;
     font-size: 12px;
     line-height: 45px;
@@ -580,18 +549,14 @@ tbody tr {
     background-color: #071D69;
 }
 
-.lecture_name {
-    width: 500px;
-}
-
-.edit_cancel_button_container {
+.edit_delete_button_container {
     width: 100%;
     height: 30px;
     margin-top: 10px;
 }
 
 .edit_button {
-    width: 50px;
+    width: 60px;
     height: 30px;
     float: right;
     cursor: pointer;
@@ -606,8 +571,8 @@ tbody tr {
     background-color: #31668C;
 }
 
-.cancel_button {
-    width: 50px;
+.delete_button {
+    width: 60px;
     height: 30px;
     float: right;
     cursor: pointer;
