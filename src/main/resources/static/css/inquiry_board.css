@@ -1,0 +1,195 @@
+body {
+    overflow-x: hidden;
+}
+
+.board_title_container {
+    width: 100vw;
+    height: 100px;
+    display: flex;
+    margin-left: calc(-50vw + 50%);
+    align-items: center;
+    background-color: #05294B;
+}
+
+.board_title {
+    width: 500px;
+    height: 70px;
+    margin-left: 168px;
+}
+
+.search_container {
+    width: 100%;
+    height: 40px;
+    margin-top: 60px;
+}
+
+.search_wrap {
+    width: 500px;
+    height: 40px;
+    float: right;
+    display: flex;
+    align-items: center;
+}
+
+.search_wrap select {
+    width: 100px;
+    height: 32px;
+    font-weight: 400;
+    font-size: 13px;
+    text-align: center;
+    border: 1px solid #7D7D7D;
+    border-radius: 5px;
+}
+
+.search {
+    width: 285px;
+    height: 31px;
+    border: 1px solid #7D7D7D;
+    margin-left: 20px;
+    border-radius: 5px;
+}
+
+.search_button {
+    width: 80px;
+    height: 32px;
+    float: right;
+    margin-left: 20px;
+    font-weight: 700;
+    font-size: 13px;
+    line-height: 20px;
+    text-align: center;
+    color: #FFFFFF;
+    cursor: pointer;
+    border-radius: 5px;
+    border-width: 0;
+    background-color: #0D9DA6;
+}
+
+table {
+    width: 100%;
+    height: 450px;
+    margin-top: 15px;
+    border: 1px solid #DDDDDD;
+    border-radius: 5px;
+    text-align: center;
+    border-collapse: collapse;
+}
+
+thead tr {
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 45px;
+    color: #FFFFFF;
+    border-bottom: 1px solid #DDDDDD;
+    background-color: #104679;
+}
+
+.title {
+    width: 600px;
+}
+
+tbody tr {
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 25px;
+    border-bottom: 1px solid #DDDDDD;
+    background-color: #FFFCFC;
+}
+
+tbody tr td a {
+    text-decoration: none;
+    color: #000000;
+}
+
+.write_delete_button_container {
+    width: 100%;
+    height: 30px;
+    margin-top: 20px;
+}
+
+.write_button {
+    width: 60px;
+    height: 30px;
+    float: right;
+    cursor: pointer;
+    margin-right: 5px;
+    border-width: 0;
+    border-radius: 5px;
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 20px;
+    text-align: center;
+    color: #FFFFFF;
+    background-color: #31668C;
+}
+
+.delete_button {
+    width: 60px;
+    height: 30px;
+    float: right;
+    cursor: pointer;
+    border-width: 0;
+    border-radius: 5px;
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 20px;
+    text-align: center;
+    color: #FFFFFF;
+    background-color: #8C3131;
+}
+
+.page {
+    width: 300px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    margin: 20px auto 0;
+}
+
+.before_next_button {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    cursor: pointer;
+    margin-right: 5px;
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 18px;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #646464;
+    border-radius: 5px;
+    background-color: #FFFFFF;
+}
+
+.selected_button {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    color: #FFFFFF;
+    cursor: pointer;
+    margin-right: 5px;
+    font-weight: 700;
+    font-size: 15px;
+    line-height: 20px;
+    justify-content: center;
+    align-items: center;
+    border-width: 0;
+    border-radius: 5px;
+    background-color: #003CD7;
+}
+
+.not_selected_button {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    cursor: pointer;
+    margin-right: 5px;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 20px;
+    justify-content: center;
+    align-items: center;
+    border-width: 0;
+    background-color: transparent;
+}
