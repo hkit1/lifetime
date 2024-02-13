@@ -43,6 +43,27 @@ public class MainController {
         return "course_registration_enrollment_institution";
     }
 
+    // Test site mapping
+    @GetMapping("/admin")
+    public String admin() {
+        return "admin";
+    }
+
+    @GetMapping("/content")
+    public String content() {
+        return "contents";
+    }
+
+    @GetMapping("/schedule")
+    public String schedule() {
+        return "schedule";
+    }
+
+    @GetMapping("/satisfaction")
+    public String satisfaction() {
+        return "satisfaction.html";
+    }
+
     @GetMapping("/c")
     public String zxc(Model model){
         MyLecture myLecture = new MyLecture("1", "15");
