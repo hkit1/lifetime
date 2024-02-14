@@ -14,5 +14,6 @@ public record AccountDto(String uuid,
                          String tel,
                          Boolean gender,
                          String address1,
-                         String address2) {
+                         String address2,
+                         LocalDate created_at) {
 }

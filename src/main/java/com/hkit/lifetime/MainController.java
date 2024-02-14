@@ -1,20 +1,32 @@
 package com.hkit.lifetime;
 
+import com.hkit.lifetime.account.Account;
+import com.hkit.lifetime.account.AccountDto;
 import com.hkit.lifetime.account.AccountService;
+import com.hkit.lifetime.company.Company;
+import com.hkit.lifetime.company.CompanyDto;
+import com.hkit.lifetime.company.CompanyService;
+import com.hkit.lifetime.lecture.Lecture;
+import com.hkit.lifetime.lecture.LectureDto;
 import com.hkit.lifetime.lecture.LectureService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
 public class MainController {
     public final LectureService lectureService;
     public final AccountService accountService;
+    public final CompanyService companyService;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @GetMapping("/")
@@ -45,7 +57,72 @@ public class MainController {
 
     // Test site mapping
     @GetMapping("/admin")
-    public String admin() {
+    public String admin(Model model) {
+        LocalDate time = LocalDate.now();
+        model.addAttribute("week_created", accountService.countByDate(time.minusWeeks(1)));
+        model.addAttribute("week_lecture", lectureService.countByDate(time.minusWeeks(1)));
+        model.addAttribute("week_company", companyService.countByDate(time.minusWeeks(1)));
+        model.addAttribute("month_created", accountService.countByDate(time.minusMonths(1)));
+        model.addAttribute("month_lecture", lectureService.countByDate(time.minusMonths(1)));
+        model.addAttribute("month_company", companyService.countByDate(time.minusMonths(1)));
+        model.addAttribute("total_created", accountService.countAll());
+        model.addAttribute("total_lecture", lectureService.countAll());
+        model.addAttribute("total_company", companyService.countAll());
+
+        List<Account> accounts = accountService.getAllByPage(PageRequest.of(0, 10));
+        List<AccountDto> accountDto = new ArrayList<>();
+        for (Account a : accounts) {
+            accountDto.add(new AccountDto(
+                    a.getUuid(),
+                    a.getName(),
+                    a.getId(),
+                    a.getPw(),
+                    a.getBirth().format(DateTimeFormatter.BASIC_ISO_DATE),
+                    a.getEmail(),
+                    a.getTel(),
+                    a.getGender(),
+                    a.getAddress1(),
+                    a.getAddress2(),
+                    a.getCreated_at()
+            ));
+        }
+        model.addAttribute("accountList", accountDto);
+
+        List<Company> companys = companyService.getAllByPage(PageRequest.of(0, 10));
+        List<CompanyDto> companyDto = new ArrayList<>();
+        for (Company c : companys) {
+            companyDto.add(new CompanyDto(
+                    c.getCompanyId(),
+                    c.getId(),
+                    c.getName(),
+                    c.getAdmin(),
+                    c.getEmail(),
+                    c.getAddress1(),
+                    c.getAddress2(),
+                    c.getTel(),
+                    c.getAuthorized(),
+                    c.getAuthorizedDate()
+            ));
+        }
+        model.addAttribute("companyList", companyDto);
+
+        List<Lecture> lectures = lectureService.getAllByPage(PageRequest.of(0, 10));
+        List<LectureDto> lectureDto = new ArrayList<>();
+        for (Lecture l : lectures) {
+            lectureDto.add(new LectureDto(
+                    l.getId(),
+                    l.getName(),
+                    l.getDescription(),
+                    l.getCreatedAt().format(DateTimeFormatter.BASIC_ISO_DATE),
+                    l.getClosedAt().format(DateTimeFormatter.BASIC_ISO_DATE),
+                    l.getCategory().getMainCategory().getName() + " / " + l.getCategory().getName(),
+                    l.getCompany().getName(),
+                    null
+            ));
+        }
+
+        model.addAttribute("lectureList", lectureDto);
+
         return "admin";
     }
 

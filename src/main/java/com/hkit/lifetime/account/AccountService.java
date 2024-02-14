@@ -1,10 +1,13 @@
 package com.hkit.lifetime.account;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -38,5 +41,17 @@ public class AccountService {
 
     public Optional<Account> findAccount(String id, String pw) {
         return accountRepository.findByIdAndPw(id, pw);
+    }
+
+    public Long countByDate(LocalDate date) {
+        return accountRepository.countByCreated_atAfter(date);
+    }
+
+    public Long countAll() {
+        return accountRepository.count();
+    }
+
+    public List<Account> getAllByPage(Pageable page) {
+        return accountRepository.findAll(page).getContent();
     }
 }

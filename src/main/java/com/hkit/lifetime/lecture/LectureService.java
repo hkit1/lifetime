@@ -5,6 +5,7 @@ import com.hkit.lifetime.category.SubCategoryRepository;
 import com.hkit.lifetime.company.Company;
 import com.hkit.lifetime.company.CompanyRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -50,10 +51,8 @@ public class LectureService {
         System.out.println(lectureDto.file().getOriginalFilename());
 
 
-
-        Lecture lecture = new Lecture(lectureDto.id(), lectureDto.name(), LocalDate.parse(lectureDto.created_at(), DateTimeFormatter.BASIC_ISO_DATE), LocalDate.parse(lectureDto.closed_at(),DateTimeFormatter.BASIC_ISO_DATE), category, company);
-        lectureRepository.save(lecture);
-        Lecture dwnloadLec = lectureRepository.findByName(lectureDto.name()).stream().findFirst().get();
+        Lecture lecture = new Lecture(lectureDto.id(), lectureDto.name(), lectureDto.description(), LocalDate.parse(lectureDto.created_at(), DateTimeFormatter.BASIC_ISO_DATE), LocalDate.parse(lectureDto.closed_at(), DateTimeFormatter.BASIC_ISO_DATE), category, company);
+        Lecture dwnloadLec = lectureRepository.save(lecture);
         //ispresent 나중에
 
         if(!lectureDto.file().isEmpty()) {
@@ -120,5 +119,17 @@ public class LectureService {
             dto.add(new LectureDto(current.getId(), current.getName(), current.getDescription(), current.getCreatedAt().toString(), current.getClosedAt().toString(), current.getCategory().getName(), current.getCompany().getName(), null));
         }
         return dto;
+    }
+
+    public Long countByDate(LocalDate date) {
+        return lectureRepository.countByCreatedAtAfter(date);
+    }
+
+    public Long countAll() {
+        return lectureRepository.count();
+    }
+
+    public List<Lecture> getAllByPage(Pageable page) {
+        return lectureRepository.findAll(page).getContent();
     }
 }

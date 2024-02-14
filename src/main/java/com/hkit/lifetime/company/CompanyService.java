@@ -4,10 +4,12 @@ import com.hkit.lifetime.account.Account;
 import com.hkit.lifetime.account.AccountRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -86,5 +88,17 @@ public class CompanyService {
 
     public Optional<Company> findByName(String company) {
         return companyRepository.findByName(company);
+    }
+
+    public Long countByDate(LocalDate date) {
+        return companyRepository.countByAuthorizedDate(date);
+    }
+
+    public Long countAll() {
+        return companyRepository.count();
+    }
+
+    public List<Company> getAllByPage(Pageable page) {
+        return companyRepository.findAll(page).getContent();
     }
 }
