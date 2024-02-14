@@ -63,7 +63,7 @@
                   document.getElementById("company").required = true;
                 } else {
                   document.getElementById("company_input").style.display = "none";
-                  document.getElementById("company").required = false;
+                  document.getElementById("company").removeAttribute("required");
                 }
               }
             </script>
@@ -77,7 +77,7 @@
             <p class="category_text">기관명 <span style="color: red">*</span></p>
           </div>
           <div class="real_input">
-            <input id="company" name="company" required type="text">
+            <input id="company" name="company" type="text">
             <script>
               async function check() {
                 const token = document.querySelector('meta[name="_csrf"]').content;

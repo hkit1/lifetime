@@ -21,7 +21,6 @@ public class AccountSecurityService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String id) throws UsernameNotFoundException {
         try {
-
             Account findAccount = accountRepository.findAccountById(id)
                     .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Account Not Found"));
 

@@ -43,7 +43,7 @@ public class AccountController {
         if (accountService.duplicateCheck(accountDto.id())) {
             AccountDto encodeAccount = encodePw(accountDto);
             accountService.register(encodeAccount);
-            return "redirect:/register_complete";
+            return "redirect:/register/complete";
         } else {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Id in Use");
         }
