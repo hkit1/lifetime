@@ -40,9 +40,10 @@ public class Lecture {
     @JoinColumn(name = "companyId", nullable = false)
     private Company company;
 
-    public Lecture(Integer id, String name, LocalDate createdAt, LocalDate closedAt, SubCategory category, Company company) {
+    public Lecture(Integer id, String name, String description, LocalDate createdAt, LocalDate closedAt, SubCategory category, Company company) {
         this.id = id;
         this.name = name;
+        this.description = description;
         this.createdAt = createdAt;
         this.closedAt = closedAt;
         this.category = category;
