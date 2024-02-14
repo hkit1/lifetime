@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<html lang="ko" xmlns:th="http://www.w3.rg/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>로그인</title>
-    <link rel="stylesheet" href="../common/css/style.css">
+    <link rel="stylesheet" href="../css/common/style.css">
     <link rel="stylesheet" href="../css/login.css">
-    <meta th:content="${_csrf.token}" th:name="_csrf"/>
-    <meta th:content="${_csrf.headerName}" th:name="_csrf_header"/>
+<!--    <meta th:content="${_csrf.token}" th:name="_csrf"/>-->
+<!--    <meta th:content="${_csrf.headerName}" th:name="_csrf_header"/>-->
 </head>
 <body>
     <div class="container">
@@ -16,26 +16,30 @@
 
         <!-- 로그인 html 시작 -->
         <iframe name="lo" style="display: none"></iframe>
-        <script>
-            async function check() {
-                const token = document.querySelector('meta[name="_csrf"]').content;
-                const header = document.querySelector('meta[name="_csrf_header"]').content;
-                const formData = document.getElementById("login_form").formData;
+<!--        <script>-->
+<!--            async function check() {-->
+<!--                const token = document.querySelector('meta[name="_csrf"]').content;-->
+<!--                const header = document.querySelector('meta[name="_csrf_header"]').content;-->
+<!--                const jsonHeaders = {-->
+<!--                    "Content-Type": "application/json",-->
+<!--                };-->
+<!--                jsonHeaders[header] = header;-->
+<!--                const formData = document.getElementById("login_form").formData;-->
 
-                await fetch("/api/account/login", {
-                    method: "POST",
-                    headers: {[header]: token},
-                    body: JSON.stringify(formData)
-                }).then(data => {
-                    if (data.status === 401) {
-                        window.alert("아이디 또는 비밀번호가 틀렸습니다.");
-                    } else if (data.status === 200) {
-                        window.location.href = "/";
-                    }
-                });
-            }
-        </script>
-        <form id="login_form" method="post" onsubmit="check()" target="lo">
+<!--                await fetch("/api/account/login", {-->
+<!--                    method: "POST",-->
+<!--                    headers: jsonHeaders,-->
+<!--                    body: JSON.stringify(formData)-->
+<!--                }).then(data => {-->
+<!--                    if (data.status === 401) {-->
+<!--                        window.alert("아이디 또는 비밀번호가 틀렸습니다.");-->
+<!--                    }-->
+<!--                });-->
+<!--            }-->
+<!--        </script>-->
+<!--        onsubmit="check()"-->
+<!--        target="lo"-->
+        <form th:action="@{/api/account/login}" method="post" id="login_form">
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
             <div class="login_text">
                 <p style="font-weight: 700; font-size: 32px; line-height: 72px">로그인</p>

@@ -23,7 +23,7 @@ public class MainController {
         return "home";
     }
 
-    @GetMapping("/login")
+    @GetMapping("/member/login")
     public String mypage(){
         return "login";
     }
@@ -40,7 +40,7 @@ public class MainController {
 
     @GetMapping("/b")
     public String asd(){
-        return "course_registration_enrollment_institution";
+        return "admin";
     }
 
     // Test site mapping
