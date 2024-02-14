@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>로그인</title>
@@ -25,8 +25,8 @@
             </div>
             <input type="submit" value="로 그 인" id="login_button">
             <div class="search_register_wrap">
-                <a id="search" th:href="@{/register}">아이디/패스워드 찾기</a>
-                <a href="" id="register">회원가입</a>
+                <a href="#" id="search">아이디/패스워드 찾기</a>
+                <a id="register" th:href="@{/register}">회원가입</a>
             </div>
         </form>
         <!-- 로그인 html 끝 -->
