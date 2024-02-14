@@ -16,30 +16,31 @@
 
         <!-- 로그인 html 시작 -->
         <iframe name="lo" style="display: none"></iframe>
-<!--        <script>-->
-<!--            async function check() {-->
-<!--                const token = document.querySelector('meta[name="_csrf"]').content;-->
-<!--                const header = document.querySelector('meta[name="_csrf_header"]').content;-->
-<!--                const jsonHeaders = {-->
-<!--                    "Content-Type": "application/json",-->
-<!--                };-->
-<!--                jsonHeaders[header] = header;-->
-<!--                const formData = document.getElementById("login_form").formData;-->
+        <script>
+            async function check() {
+                const token = document.querySelector('meta[name="_csrf"]').content;
+                const header = document.querySelector('meta[name="_csrf_header"]').content;
+                const jsonHeaders = {
+                    "Content-Type": "x-www-form-urlencoded",
+                };
+                jsonHeaders[header] = header;
+                const formData = document.getElementById("login_form").formData;
 
-<!--                await fetch("/api/account/login", {-->
-<!--                    method: "POST",-->
-<!--                    headers: jsonHeaders,-->
-<!--                    body: JSON.stringify(formData)-->
-<!--                }).then(data => {-->
-<!--                    if (data.status === 401) {-->
-<!--                        window.alert("아이디 또는 비밀번호가 틀렸습니다.");-->
-<!--                    }-->
-<!--                });-->
-<!--            }-->
-<!--        </script>-->
-<!--        onsubmit="check()"-->
-<!--        target="lo"-->
-        <form th:action="@{/api/account/login}" method="post" id="login_form">
+                await fetch("/api/account/login", {
+                    method: "POST",
+                    headers: jsonHeaders,
+                    body: new URLSearchParams({
+                        id: formData.get("id"),
+                        pw: formData.get("pw")
+                    })
+                }).then(data => {
+                    if (data.status === 401) {
+                        window.alert("아이디 또는 비밀번호가 틀렸습니다.");
+                    }
+                });
+            }
+        </script>
+        <form id="login_form" method="post" onsubmit="check()" th:action="@{/api/account/login}">
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
             <div class="login_text">
                 <p style="font-weight: 700; font-size: 32px; line-height: 72px">로그인</p>

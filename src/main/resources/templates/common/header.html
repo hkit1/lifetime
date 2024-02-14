@@ -59,7 +59,7 @@
 
       <div class="member_btn" sec:authorize="isAnonymous()">
         <a href="/account/register" class="reg">👦회원가입</a>
-        <a href="/login" class="login">🔒로그인</a>
+        <a class="login" href="/member/login">🔒로그인</a>
       </div>
       <div class="member_btn" sec:authorize="isAuthenticated()">
         <a class="reg" sec:authentication="name"> 님 환영합니다.👦</a>
