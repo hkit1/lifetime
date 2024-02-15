@@ -42,6 +42,7 @@ ul {
     margin-left: 5px;
     font-size: 25px;
     font-weight: 700;
+    color: rgb(85, 26, 139);
     font-family: 'Single Day', cursive;
 }
 
@@ -69,6 +70,7 @@ nav:hover .subMenu_cate {
 
 .topMenu li {
     height: 40%;
+    line-height: 40px;
     padding: 30px 25px;
     float: left;
     display: block;
@@ -78,6 +80,7 @@ nav:hover .subMenu_cate {
 }
 
 .topMenu li a {
+    color: rgb(85, 26, 139);
     text-decoration: none;
 }
 
