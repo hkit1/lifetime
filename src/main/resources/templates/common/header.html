@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:sec="http://www.w3.org/1999/xhtml">
+<html lang="ko" xmlns:sec="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml">
     <!-- 헤더 html 시작 -->
-    <header>
+    <header th:fragment="header">
       <div class="logo">
         <a href="/">
           <h5>평생학습플랫폼</h5>
-          <img src="../image/book.png">
+          <img src="../images/book.png">
         </a>
       </div>
 
@@ -59,7 +59,7 @@
 
       <div class="member_btn" sec:authorize="isAnonymous()">
         <a href="/account/register" class="reg">👦회원가입</a>
-        <a href="/login" class="login">🔒로그인</a>
+        <a class="login" href="/member/login">🔒로그인</a>
       </div>
       <div class="member_btn" sec:authorize="isAuthenticated()">
         <a class="reg" sec:authentication="name"> 님 환영합니다.👦</a>
