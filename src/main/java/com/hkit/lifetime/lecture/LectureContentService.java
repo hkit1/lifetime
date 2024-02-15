@@ -25,13 +25,13 @@ public class LectureContentService {
     private final LectureContentRepository lectureContentRepository;
     private final LectureRepository lectureRepository;
 
-    public void save(Integer id, MultipartFile file){
+    public void save(Integer id, MultipartFile file, LectureContentDto lectureContentDto){
         Optional<Lecture> lecture = lectureRepository.findById(id);
         System.out.println("+_+_+_"+id);
         if(lecture.isEmpty()){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Can't find Lecture");
         }
-        String uploadDir = "C:\\Users\\";
+        String uploadDir = "C:\\Users\\dydxo\\temp\\"+id.toString();
         Path copyOfLocation = Paths.get(uploadDir + File.separator + StringUtils.cleanPath(Objects.requireNonNull(file.getOriginalFilename())));
         System.out.println("_+_+_+_+_+_+"+copyOfLocation.toString());
         try{
@@ -41,7 +41,7 @@ public class LectureContentService {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Can't save files");
         }
 
-        LectureContent lectureContent = new LectureContent(null,lecture.get(),file.getOriginalFilename(), file.getContentType(), copyOfLocation.toString());
+        LectureContent lectureContent = new LectureContent(null,lecture.get(), lectureContentDto.name(), lectureContentDto.description(), copyOfLocation.toString());
         lectureContentRepository.save(lectureContent);
     }
 

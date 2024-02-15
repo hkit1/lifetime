@@ -29,7 +29,7 @@ public class LectureService {
     private final CompanyRepository companyRepository;
     private final SubCategoryRepository subcategoryRepository;
     private final LectureRepository lectureRepository;
-    private final String savePath = "C:\\Users\\HKIT\\temp\\";
+    private final String savePath = "C:\\Users\\dydxo\\temp\\";
     //이미지, 동영상 저장하는 저장소의 주소가 될 것.
 
     public void save(LectureDto lectureDto){
@@ -58,9 +58,11 @@ public class LectureService {
         if(!lectureDto.file().isEmpty()) {
             MultipartFile file = lectureDto.file();
             String uploadDir = savePath+dwnloadLec.getId().toString();
+            System.out.println(uploadDir);
             File mkdir = new File(uploadDir);
             if(!mkdir.exists()){
-                mkdir.mkdir();
+                boolean result = mkdir.mkdirs();
+                System.out.println(result?"made":"not made");
             }
             Path copyImageLocation = Paths.get(uploadDir + File.separator + "thumbnails.png");
             System.out.println(copyImageLocation);

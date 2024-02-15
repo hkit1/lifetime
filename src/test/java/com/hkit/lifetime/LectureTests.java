@@ -122,7 +122,7 @@ public class LectureTests {
         // 강사 계정 생성
         // AccountTests 에서 createAndLogin, TeacherTests 에서 setTeacher 가 먼저 완료되어야 함
         MultiValueMap<String, String> accountInfo = createAccountInfo();
-        mockMvc.perform(post("/account/register").params(accountInfo).with(csrf())).andExpect(status().isOk());
+        mockMvc.perform(post("/account/register").params(accountInfo).with(csrf())).andExpect(status().isFound());
 
         Account account = accountRepository.findAccountById(accountInfo.getFirst("id")).get();
 
@@ -192,11 +192,19 @@ public class LectureTests {
     @Transactional
     void updateLectureContent() throws Exception {
         // 수정할 회차 데이터 생성 (createLecture 테스트가 먼저 완료되어야 함)
+
         createLecture();
 
-        MultiValueMap<String, String> info = randomLectureContent(static_lecture);
-        mockMvc.perform(post("/api/lecture/" + static_lecture.getId() + "/create").params(info).with(csrf())).andExpect(status().isOk());
 
+        InputStream file = getClass().getClassLoader().getResourceAsStream("SampleVideo_360x240_1mb.mp4");
+        MultiValueMap<String, String> info = randomLectureContent(static_lecture);
+        MockMultipartFile mockFile = new MockMultipartFile("file", "SampleVideo_360x240_1mb.mp4", "video/mp4", file);
+
+        mockMvc.perform(multipart("/api/lecture/" + static_lecture.getId() + "/create")
+                        .file(mockFile)
+                        .params(info)
+                        .with(csrf()))
+                .andExpect(status().isOk());
         List<LectureContent> content = contentRepository.findByLecture_IdAndName(static_lecture.getId(), info.getFirst("name"));
         assertFalse(content.isEmpty());
 
@@ -216,8 +224,16 @@ public class LectureTests {
         // 수정할 회차 데이터 생성 (createLecture 테스트가 먼저 완료되어야 함)
         createLecture();
 
+        InputStream file = getClass().getClassLoader().getResourceAsStream("SampleVideo_360x240_1mb.mp4");
         MultiValueMap<String, String> info = randomLectureContent(static_lecture);
-        mockMvc.perform(post("/api/lecture/" + static_lecture.getId() + "/create").params(info).with(csrf())).andExpect(status().isOk());
+        MockMultipartFile mockFile = new MockMultipartFile("file", "SampleVideo_360x240_1mb.mp4", "video/mp4", file);
+
+
+        mockMvc.perform(multipart("/api/lecture/" + static_lecture.getId() + "/create")
+                        .file(mockFile)
+                        .params(info)
+                        .with(csrf()))
+                .andExpect(status().isOk());
 
         List<LectureContent> content = contentRepository.findByLecture_IdAndName(static_lecture.getId(), info.getFirst("name"));
         assertFalse(content.isEmpty());
