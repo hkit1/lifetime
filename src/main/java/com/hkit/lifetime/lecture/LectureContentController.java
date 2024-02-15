@@ -28,7 +28,8 @@ public class LectureContentController {
         model.addAttribute("lecture_id", id);
         // TODO 다음 회차 ID 입력
         model.addAttribute("content_id", "");
-        return "";
+
+        return "video";
     }
 
     @GetMapping("/api/lecture/{id}/video")
