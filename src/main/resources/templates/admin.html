@@ -173,29 +173,17 @@
                     </tr>
                 </thead>
                 <tbody>
-<!--                <tr th:each="account : ${accountList}">-->
-<!--                    <td><input type="checkbox" class="member_checkbox"></td>-->
-<!--                    <td></td>-->
-<!--                    <td th:text="${account.id()}"></td>-->
-<!--                    <td th:text="${account.birth()}"></td>-->
-<!--                    <td th:text="${account.tel()}"></td>-->
-<!--                    <td th:text="${account.email()}"></td>-->
-<!--                    <td th:text="${account.gender()}"></td>-->
-<!--                    <td th:text="${account.address1()}"></td>-->
-<!--                    <td th:text="${account.address1() + account.address2()}"></td>-->
-<!--                    <td th:text="${account.created_at()}"></td>-->
-<!--                </tr>-->
-                    <tr>
-                        <td><input type="checkbox" class="attendance_checkbox"></td>
-                        <td>1350</td>
-                        <td>jaesunghwang</td>
-                        <td>황재성</td>
-                        <td>1991.01.05</td>
-                        <td>010-1234-1234</td>
-                        <td>sjiwg@gmail.com</td>
-                        <td>남성</td>
-                        <td>대구광역시 달서구 달구벌대로251길 12</td>
-                        <td>2024.01.21</td>
+                <tr th:each="account : ${accountList}">
+                    <td><input class="member_checkbox" type="checkbox"></td>
+                    <td></td>
+                    <td th:text="${account.id()}"></td>
+                    <td th:text="${account.birth()}"></td>
+                    <td th:text="${account.tel()}"></td>
+                    <td th:text="${account.email()}"></td>
+                    <td th:text="${account.gender()}"></td>
+                    <td th:text="${account.address1()}"></td>
+                    <td th:text="${account.address1() + account.address2()}"></td>
+                    <td th:text="${account.created_at()}"></td>
                     </tr>
                 </tbody>
             </table>

@@ -1,11 +1,10 @@
 package com.hkit.lifetime.lecture;
 
+import com.hkit.lifetime.rating.RatingDto;
+import com.hkit.lifetime.rating.RatingService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.tomcat.util.http.fileupload.IOUtils;
-import org.springframework.core.io.FileSystemResource;
-import org.springframework.core.io.Resource;
-import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,15 +14,15 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
-import java.util.Objects;
 
 @Controller
 @RequiredArgsConstructor
 @Slf4j
 public class LectureController {
+    private final RatingService rating;
     private final LectureService service;
     private final LectureContentService content;
-    private final String savePath = "C:\\Users\\dydxo\\temp\\";
+    private final String savePath = "C:\\Users\\HKIT\\temp\\";
 
     @PostMapping("/api/lecture/create")
     public String lectureRegister(LectureDto lectureDto) {
@@ -44,6 +43,9 @@ public class LectureController {
         model.addAttribute("lecture",lecturedto);
         model.addAttribute("contentList", contentdto);
 
+        List<RatingDto> ratingDto = rating.getRating(lectureId);
+        model.addAttribute("rating", ratingDto);
+
         return "view";
     }
 
@@ -61,8 +63,7 @@ public class LectureController {
         InputStream imageStream = new FileInputStream(Path);
         byte[] toByteArray = imageStream.readAllBytes();
 
-
-        return new ResponseEntity<>(toByteArray,HttpStatus.OK);
+        return ResponseEntity.ok().contentType(MediaType.IMAGE_PNG).body(toByteArray);
 
     }
 }

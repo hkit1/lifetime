@@ -21,5 +21,11 @@ public class Rating {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "uuid", nullable = false)
-    private Account uuid;
+    private Account account;
+
+    @Column(name = "star", nullable = false)
+    private Integer star;
+
+    @Column(name = "text", nullable = false)
+    private String text;
 }

@@ -109,9 +109,13 @@ public class LectureTests {
 
         for (int i = 0; i < 20; i++) {
             MultiValueMap<String, String> info = randomLecture(company, account, category);
-            InputStream file = new URL("https://picsum.photos/200/300").openStream();
+            InputStream file = new URL("https://picsum.photos/600/400").openStream();
             MockMultipartFile mockFile = new MockMultipartFile("file", "random.png", "image/png", file);
             mockMvc.perform(multipart("/api/lecture/create").file(mockFile).with(csrf()).params(info)).andExpect(status().isOk());
+        }
+
+        for (int i = 0; i < 20; i++) {
+
         }
     }
 
@@ -140,7 +144,7 @@ public class LectureTests {
 
         // 오류 없이 강좌 생성이 되는지 확인
         MultiValueMap<String, String> info = randomLecture(company, account, category);
-        InputStream file = new URL("https://picsum.photos/200/300").openStream();
+        InputStream file = new URL("https://picsum.photos/300/200").openStream();
         MockMultipartFile mockFile = new MockMultipartFile("file", "random.png", "image/png", file);
         mockMvc.perform(multipart("/api/lecture/create").file(mockFile).with(csrf()).params(info)).andExpect(status().isOk());
         Optional<Lecture> lecture = repository.findByName(info.getFirst("name"));

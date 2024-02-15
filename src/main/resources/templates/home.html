@@ -73,10 +73,11 @@
   </div>
   <div class="lecture_list">
     <div class="card" th:each="lecture : ${lectureList}">
-      <a class="card_img" th:href="@{/lecture/{id}(id = ${lecture.name()})}">
+      <a class="card_img" th:href="@{/lecture/{id}(id = ${lecture.id()})}"
+         th:style="'background-image: url(' + @{/api/lecture/{lectureId}/image(lectureId = ${lecture.id()})} + '); background-size: cover'">
         <div class="card_img_tag_schedule">개강예정</div>
       </a>
-      <a class="card_body" th:href="@{/lecture/{id}(id = ${lecture.name()})}">
+      <a class="card_body" th:href="@{/lecture/{id}(id = ${lecture.id()})}">
         <h4 class="card_title" th:text="${lecture.name()}"></h4>
       </a>
       <div class="card_footer">

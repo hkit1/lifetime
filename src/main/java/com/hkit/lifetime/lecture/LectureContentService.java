@@ -1,21 +1,18 @@
 package com.hkit.lifetime.lecture;
 
 import lombok.RequiredArgsConstructor;
-import lombok.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -31,9 +28,9 @@ public class LectureContentService {
         if(lecture.isEmpty()){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Can't find Lecture");
         }
-        String uploadDir = "C:\\Users\\dydxo\\temp\\"+id.toString();
+        String uploadDir = "C:\\Users\\HKIT\\temp\\" + id;
         Path copyOfLocation = Paths.get(uploadDir + File.separator + StringUtils.cleanPath(Objects.requireNonNull(file.getOriginalFilename())));
-        System.out.println("_+_+_+_+_+_+"+copyOfLocation.toString());
+        System.out.println("_+_+_+_+_+_+"+ copyOfLocation);
         try{
             file.transferTo(copyOfLocation);
         } catch (IOException e){
