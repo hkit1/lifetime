@@ -31,7 +31,7 @@ public class MainController {
 
     @GetMapping("/")
     public String index(Model model) {
-        model.addAttribute("lectureList", lectureService.findLectureByTop20());
+        model.addAttribute("lectureList", lectureService.findLectureByTop12());
         return "home";
     }
 

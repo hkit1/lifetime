@@ -256,7 +256,7 @@ public class LectureTests {
         // todo 회차 보는 화면 디자인 필요
         // 데이터를 가져 올 수 있는지 확인
         // thymeleaf 으로 구현 (직접 화면으로 보고 구현해야 됨)
-        mockMvc.perform(get("/lecture/" + static_lecture.getId()).with(csrf())).andExpect(status().isOk());
+        mockMvc.perform(get("/lecture/" + static_lecture.getName()).with(csrf())).andExpect(status().isOk());
     }
 
     @Test
@@ -267,7 +267,6 @@ public class LectureTests {
 
         // 이것도 thymeleaf 으로 구현
         // 영상 스트리밍이 될 것
-        mockMvc.perform(get("/lecture/" + static_lecture.getId() + "/video").with(csrf())).andExpect(status().isOk());
-
+        mockMvc.perform(get("/lecture/" + static_lecture.getName() + "/video").with(csrf())).andExpect(status().isOk());
     }
 }

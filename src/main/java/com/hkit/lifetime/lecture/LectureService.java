@@ -5,6 +5,7 @@ import com.hkit.lifetime.category.SubCategoryRepository;
 import com.hkit.lifetime.company.Company;
 import com.hkit.lifetime.company.CompanyRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
@@ -114,8 +115,8 @@ public class LectureService {
         return new LectureDto(lecture.getId(), lecture.getName(), lecture.getDescription(), lecture.getCreatedAt().toString(), lecture.getClosedAt().toString(), lecture.getCategory().getName(), lecture.getCompany().getName(), null);
     }
 
-    public List<LectureDto> findLectureByTop20() {
-        List<Lecture> list = lectureRepository.findAll(Sort.by(Sort.Direction.ASC, "createdAt"));
+    public List<LectureDto> findLectureByTop12() {
+        List<Lecture> list = lectureRepository.findAll(PageRequest.of(0, 12)).getContent();
         List<LectureDto> dto = new ArrayList<>();
         for (Lecture current : list) {
             dto.add(new LectureDto(current.getId(), current.getName(), current.getDescription(), current.getCreatedAt().toString(), current.getClosedAt().toString(), current.getCategory().getName(), current.getCompany().getName(), null));
