@@ -7,7 +7,6 @@ import com.hkit.lifetime.company.CompanyRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -30,7 +29,7 @@ public class LectureService {
     private final CompanyRepository companyRepository;
     private final SubCategoryRepository subcategoryRepository;
     private final LectureRepository lectureRepository;
-    private final String savePath = "C:\\Users\\dydxo\\temp\\";
+    private final String savePath = "C:\\Users\\HKIT\\temp\\";
     //이미지, 동영상 저장하는 저장소의 주소가 될 것.
 
     public void save(LectureDto lectureDto){
@@ -121,6 +120,7 @@ public class LectureService {
         for (Lecture current : list) {
             dto.add(new LectureDto(current.getId(), current.getName(), current.getDescription(), current.getCreatedAt().toString(), current.getClosedAt().toString(), current.getCategory().getName(), current.getCompany().getName(), null));
         }
+//        dto.sort((a, b) -> Integer.parseInt(a.created_at()));
         return dto;
     }
 

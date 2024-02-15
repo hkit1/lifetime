@@ -33,6 +33,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
+import java.util.Random;
 
 import static com.hkit.lifetime.AccountTests.createAccountInfo;
 import static com.hkit.lifetime.CompanyTests.createRandomCompany;
@@ -107,15 +108,26 @@ public class LectureTests {
         mockMvc.perform(post("/api/category/add").param("main", "메인보드").param("sub", "amd").with(csrf())).andExpect(status().isOk());
         SubCategory category = subCategoryRepository.findByName("amd").get();
 
+        Random r = new Random();
+
         for (int i = 0; i < 20; i++) {
             MultiValueMap<String, String> info = randomLecture(company, account, category);
             InputStream file = new URL("https://picsum.photos/600/400").openStream();
             MockMultipartFile mockFile = new MockMultipartFile("file", "random.png", "image/png", file);
             mockMvc.perform(multipart("/api/lecture/create").file(mockFile).with(csrf()).params(info)).andExpect(status().isOk());
-        }
 
-        for (int i = 0; i < 20; i++) {
+            Lecture lecture = repository.findById(i + 1).get();
 
+            for (int j = 0; j < r.nextInt(21); j++) {
+                InputStream video = getClass().getClassLoader().getResourceAsStream("SampleVideo_360x240_1mb.mp4");
+                MultiValueMap<String, String> lecture_content_info = randomLectureContent(lecture);
+                MockMultipartFile videoFile = new MockMultipartFile("file", "SampleVideo_360x240_1mb.mp4", "video/mp4", video);
+                mockMvc.perform(multipart("/api/lecture/" + lecture.getId() + "/create")
+                                .file(videoFile)
+                                .params(lecture_content_info)
+                                .with(csrf()))
+                        .andExpect(status().isOk());
+            }
         }
     }
 

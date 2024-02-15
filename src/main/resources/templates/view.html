@@ -110,7 +110,7 @@
                                                 <li th:each="content: ${contentList}">
                                                     <div class="lec_lst">
                                                         <i class="fa-solid fa-circle-play"></i>
-                                                        <p class="lec_lst_tit" th:value="${content.name()}"></p>
+                                                        <p class="lec_lst_tit" th:text="${content.name()}"></p>
                                                         <button>바로보기</button>
                                                     </div>
                                                 </li>
