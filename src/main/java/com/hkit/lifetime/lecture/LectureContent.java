@@ -48,9 +48,11 @@ public class LectureContent {
         if (!lectureContentDto.description().isEmpty()){
             this.description = lectureContentDto.description();
         }
-        if (!lectureContentDto.url().isEmpty()){
+        if (lectureContentDto.url() != null &&!lectureContentDto.url().isEmpty()){
             this.url = lectureContentDto.url();
         }
+
+
 
     }
 }
