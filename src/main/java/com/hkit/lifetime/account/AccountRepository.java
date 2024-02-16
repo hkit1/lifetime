@@ -12,6 +12,8 @@ import java.util.UUID;
 public interface AccountRepository extends JpaRepository<Account, UUID> {
     Optional<Account> findAccountById(String id);
 
+    Optional<Account> findAccountByName(String name);
+
     Optional<Account> findByIdAndPw(String id, String pw);
 
     @Query("select count(a) from Account a where a.created_at > ?1")

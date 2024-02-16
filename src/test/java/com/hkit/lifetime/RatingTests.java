@@ -2,6 +2,7 @@ package com.hkit.lifetime;
 
 import com.hkit.lifetime.account.Account;
 import com.hkit.lifetime.account.AccountRepository;
+import com.hkit.lifetime.category.Category;
 import com.hkit.lifetime.category.CategoryRepository;
 import com.hkit.lifetime.category.SubCategory;
 import com.hkit.lifetime.category.SubCategoryRepository;
@@ -13,12 +14,14 @@ import com.hkit.lifetime.lecture.LectureContentRepository;
 import com.hkit.lifetime.lecture.LectureRepository;
 import com.hkit.lifetime.rating.Rating;
 import com.hkit.lifetime.rating.RatingRepository;
+import jakarta.transaction.Transactional;
 import net.datafaker.Faker;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -62,6 +65,8 @@ public class RatingTests {
     SubCategoryRepository subCategoryRepository;
 
     @Test
+    @Transactional
+    @WithMockUser(username = "테스트_최고관리자", roles = {"OWNER"})
     void createRating() throws Exception {
         MultiValueMap<String, String> accountInfo = createAccountInfo();
         mockMvc.perform(post("/account/register").params(accountInfo).with(csrf())).andExpect(status().is3xxRedirection());

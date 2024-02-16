@@ -30,7 +30,7 @@ public class LectureService {
     private final CompanyRepository companyRepository;
     private final SubCategoryRepository subcategoryRepository;
     private final LectureRepository lectureRepository;
-    private final String savePath = "C:\\Users\\dydxo\\temp\\";
+    private final String savePath = "C:\\Users\\HKIT\\temp\\";
     //이미지, 동영상 저장하는 저장소의 주소가 될 것.
 
     public void save(LectureDto lectureDto){
