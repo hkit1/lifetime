@@ -111,7 +111,9 @@
                                                     <div class="lec_lst">
                                                         <i class="fa-solid fa-circle-play"></i>
                                                         <p class="lec_lst_tit" th:text="${content.name()}"></p>
-                                                        <button>바로보기</button>
+                                                        <button th:onclick="|location.href='@{/lecture/{lecture_id}/{content_id}(lecture_id = ${content.lecture_id()}, content_id = ${content.id()})}'|">
+                                                            바로보기
+                                                        </button>
                                                     </div>
                                                 </li>
                                             </ul>
@@ -135,7 +137,7 @@
                                                            th:each="star: ${#numbers.sequence(0, 5 - rate.star(), 1)}"></i>
                                                     </div>
                                                     <div class="review_content">
-                                                        <p th:text="${rate.text()}">이거 하나면 든든</p>
+                                                        <p th:text="${rate.text()}"></p>
                                                     </div>
                                                     <div class="review_writer" th:text="${rate.name()}"></div>
                                                 </li>

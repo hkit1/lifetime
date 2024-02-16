@@ -15,6 +15,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
+import static com.hkit.lifetime.lecture.LectureService.savePath;
+
 @Controller
 @RequiredArgsConstructor
 @Slf4j
@@ -22,7 +24,6 @@ public class LectureController {
     private final RatingService rating;
     private final LectureService service;
     private final LectureContentService content;
-    private final String savePath = "C:\\Users\\HKIT\\temp\\";
 
     @PostMapping("/api/lecture/create")
     public String lectureRegister(LectureDto lectureDto) {

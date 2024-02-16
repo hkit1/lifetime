@@ -5,8 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBody;
 
 import java.io.*;
 import java.util.Map;
@@ -23,23 +23,20 @@ public class LectureContentController {
     /**
      * 스트리밍 url 가져오기
      */
-    @GetMapping("/lecture/{id}/video")
-    public String streamingVideo(@PathVariable("id") Long id, Model model) {
+    @GetMapping("/lecture/{id}/{content_id}")
+    public String streamingVideo(@PathVariable("id") Integer id, Model model) {
         model.addAttribute("lecture_id", id);
-        // TODO 다음 회차 ID 입력
-        model.addAttribute("content_id", "");
+        if (!service.findByLectureId(id + 1).isEmpty()) {
+            model.addAttribute("content_id", id + 1);
+        }
 
         return "video";
     }
 
-    @GetMapping("/api/lecture/{id}/video")
-    public StreamingResponseBody stream(HttpServletRequest request, Model model, @PathVariable("id") Long id) throws Exception {
-        model.addAttribute("lecture_id", id);
-        // TODO 여기에 다음 회차 ID 입력
-        model.addAttribute("content_id", "");
-
-        // TODO 여기에 영상 경로 입력
-        File file = new File("");
+    @GetMapping("/api/lecture/{id}/{content_id}/video")
+    public StreamingResponseBody stream(HttpServletRequest request, Model model, @PathVariable("id") Integer id, @PathVariable("content_id") Integer content_id) throws Exception {
+        LectureContent content = service.findByLectureIdAndId(id, content_id).get();
+        File file = new File(content.getUrl());
         try (InputStream is = new FileInputStream(file)) {
             return os -> {
                 readAndWrite(is, os);
@@ -64,7 +61,7 @@ public class LectureContentController {
         return "";
     }
 
-    @PostMapping("api/lecture/{id}/create")
+    @PostMapping("/api/lecture/{id}/create")
     public String LectureContentRegister(@PathVariable("id")Integer id, @RequestPart("file")MultipartFile file, LectureContentDto lectureContentDto){
 
         System.out.println("파일오리지날네임"+file.getOriginalFilename());
@@ -77,14 +74,14 @@ public class LectureContentController {
         return "home";
     }
 
-    @PostMapping("api/lecture/{lectureId}/{contentId}/update")
+    @PostMapping("/api/lecture/{lectureId}/{contentId}/update")
     public String Lecturecontentupdate(@PathVariable("lectureId") Integer lectureId, @PathVariable("contentId")Integer contentId, @RequestParam Map<String, String> param){
         LectureContentDto lectureContentDto = new LectureContentDto(contentId, lectureId, param.get("name"), param.get("description"), param.get("url"));
         service.update(lectureContentDto);
         return "home";
     }
 
-    @PostMapping("api/lecture/{lectureId}/{contentId}/delete")
+    @PostMapping("/api/lecture/{lectureId}/{contentId}/delete")
     public String LectureContentDelete(@PathVariable("lectureId") Integer lectureId, @PathVariable("contentId")Integer contentId){
         service.delete(lectureId, contentId);
         return "home";

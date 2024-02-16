@@ -91,13 +91,13 @@ public class AccountTests {
     void loginAccount() throws Exception {
         // 로그인할 계정 생성 (create 테스트가 먼저 완료 되어야 함)
         MultiValueMap<String, String> info = createAccountInfo();
-        mockMvc.perform(post("/account/register").params(info).with(csrf())).andExpect(status().isOk());
+        mockMvc.perform(post("/account/register").params(info).with(csrf())).andExpect(status().isFound());
 
         // 잘못된 비밀번호 테스트 - 401
         mockMvc.perform(post("/api/account/login").param("id", info.getFirst("id")).param("pw", info.getFirst("pw") + "wrong").with(csrf())).andExpect(status().isUnauthorized());
 
         // 정상 로그인 테스트 - 200
-        mockMvc.perform(post("/api/account/login").param("id", info.getFirst("id")).param("pw", info.getFirst("pw")).with(csrf())).andExpect(status().isOk()).andExpect(model().attributeExists("userId"));
+        mockMvc.perform(post("/api/account/login").param("id", info.getFirst("id")).param("pw", info.getFirst("pw")).with(csrf())).andExpect(status().isFound()).andExpect(model().attributeExists("userId"));
     }
 
     @Test
@@ -106,7 +106,7 @@ public class AccountTests {
         // Spring security 권한 문제로 추가
         // 로그인할 계정 생성 (create 테스트가 먼저 완료 되어야 함)
         MultiValueMap<String, String> info = createAccountInfo();
-        mockMvc.perform(post("/account/register").params(info).with(csrf())).andExpect(status().isOk());
+        mockMvc.perform(post("/account/register").params(info).with(csrf())).andExpect(status().isFound());
 
         // 계정 삭제 테스트 - 200
         mockMvc.perform(post("/api/account/delete").param("userId", info.getFirst("id")).with(csrf())).andExpect(status().isOk());
@@ -121,7 +121,7 @@ public class AccountTests {
     void updateAccount() throws Exception {
         // 로그인할 계정 생성 (create 테스트가 먼저 완료 되어야 함)
         MultiValueMap<String, String> info = createAccountInfo();
-        mockMvc.perform(post("/account/register").params(info).with(csrf())).andExpect(status().isOk());
+        mockMvc.perform(post("/account/register").params(info).with(csrf())).andExpect(status().isFound());
 
         // 정상 회원가입이 되었는지 확인
         Optional<Account> account = repository.findAccountById(info.getFirst("id"));

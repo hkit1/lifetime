@@ -1,6 +1,9 @@
 package com.hkit.lifetime.lecture;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -11,4 +14,9 @@ public interface LectureContentRepository extends JpaRepository<LectureContent, 
     List<LectureContent> findByLecture_IdAndName(Integer id, String name);
 
     Optional<LectureContent> findByLecture_IdAndId(Integer id, Integer id1);
+
+    @Transactional
+    @Modifying
+    @Query("update LectureContent l set l.url = ?1 where l.id = ?2 and l.lecture = ?3")
+    void updateUrlByIdAndLecture(String url, Integer id, Lecture lecture);
 }

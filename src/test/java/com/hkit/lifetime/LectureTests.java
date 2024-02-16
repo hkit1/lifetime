@@ -94,7 +94,6 @@ public class LectureTests {
         return info;
     }
 
-    @Test
     @WithMockUser(username = "테스트_최고관리자", roles = {"OWNER"})
     @Transactional
     void createDummyData() throws Exception {
@@ -201,6 +200,9 @@ public class LectureTests {
                         .with(csrf()))
                 .andExpect(status().isOk());
         assertTrue(contentRepository.findByLecture_Id(static_lecture.getId()).stream().findFirst().isPresent());
+
+        // 강좌 내 회차가 생성 되었는지 확인
+        assertTrue(contentRepository.findByLecture_IdAndId(static_lecture.getId(), 1).isPresent());
     }
 
     @Test
@@ -272,17 +274,15 @@ public class LectureTests {
         // todo 회차 보는 화면 디자인 필요
         // 데이터를 가져 올 수 있는지 확인
         // thymeleaf 으로 구현 (직접 화면으로 보고 구현해야 됨)
-        mockMvc.perform(get("/lecture/" + static_lecture.getName()).with(csrf())).andExpect(status().isOk());
+        mockMvc.perform(get("/lecture/" + static_lecture.getId()).with(csrf())).andExpect(status().isOk());
     }
 
     @Test
     @WithMockUser(username = "테스트_최고관리자", roles = {"OWNER"})
     @Transactional
     void viewLectureContent() throws Exception {
-        createLecture();
+        createLectureContent();
 
-        // 이것도 thymeleaf 으로 구현
-        // 영상 스트리밍이 될 것
-        mockMvc.perform(get("/lecture/" + static_lecture.getName() + "/video").with(csrf())).andExpect(status().isOk());
+        mockMvc.perform(get("/lecture/" + static_lecture.getId() + "/" + 1).with(csrf())).andExpect(status().isOk());
     }
 }

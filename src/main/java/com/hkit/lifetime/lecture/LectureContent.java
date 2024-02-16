@@ -11,7 +11,6 @@ import lombok.Setter;
 @NoArgsConstructor
 @Table(name = "lecture_content")
 public class LectureContent {
-
     @Id
     @GeneratedValue
     @Column(name = "id", nullable = false)
@@ -21,15 +20,12 @@ public class LectureContent {
     @JoinColumn(name = "lecture_id", nullable = false)
     private Lecture lecture;
 
-    @Lob
     @Column(name = "name", nullable = false)
     private String name;
 
-    @Lob
     @Column(name = "description", nullable = false)
     private String description;
 
-    @Lob
     @Column(name = "url", nullable = false)
     private String url;
 
