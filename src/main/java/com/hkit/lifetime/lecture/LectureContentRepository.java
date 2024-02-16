@@ -13,7 +13,10 @@ public interface LectureContentRepository extends JpaRepository<LectureContent, 
 
     List<LectureContent> findByLecture_IdAndName(Integer id, String name);
 
-    Optional<LectureContent> findByLecture_IdAndId(Integer id, Integer id1);
+    Optional<LectureContent> findByLecture_IdAndContent(Integer lecture_id, Integer contentid);
+
+    Optional<LectureContent> findTopByLecture_IdOrderByContentDesc(Integer id);
+
 
     @Transactional
     @Modifying

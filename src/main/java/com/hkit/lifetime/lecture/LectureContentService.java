@@ -41,18 +41,24 @@ public class LectureContentService {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Can't save files");
         }
 
-        LectureContent lectureContent = new LectureContent(null,lecture.get(), lectureContentDto.name(), lectureContentDto.description(), copyOfLocation.toString());
+        Optional<LectureContent> lec = lectureContentRepository.findTopByLecture_IdOrderByContentDesc(lecture.get().getId());
+
+        Integer contentId= (lec.map(content -> content.getContent() + 1).orElse(1));
+
+
+
+        LectureContent lectureContent = new LectureContent(null,lecture.get(), lectureContentDto.name(), lectureContentDto.description(), copyOfLocation.toString(),contentId);
         LectureContent result = lectureContentRepository.save(lectureContent);
         try {
-            Files.move(copyOfLocation, Paths.get(uploadDir + File.separator + StringUtils.cleanPath(result.getId() + ".mp4")),StandardCopyOption.REPLACE_EXISTING);
+            Files.move(copyOfLocation, Paths.get(uploadDir + File.separator + StringUtils.cleanPath(result.getContent() + ".mp4")),StandardCopyOption.REPLACE_EXISTING);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        lectureContentRepository.updateUrlByIdAndLecture(uploadDir + File.separator + StringUtils.cleanPath(result.getId() + ".mp4"), lectureContent.getId(), lecture.get());
+        lectureContentRepository.updateUrlByIdAndLecture(uploadDir + File.separator + StringUtils.cleanPath(result.getContent() + ".mp4"), lectureContent.getId(), lecture.get());
     }
 
     public void update(LectureContentDto lectureContentDto){
-        Optional<LectureContent> lectureContentOptional = lectureContentRepository.findByLecture_IdAndId(lectureContentDto.lecture_id(), lectureContentDto.id());
+        Optional<LectureContent> lectureContentOptional = lectureContentRepository.findByLecture_IdAndContent(lectureContentDto.lecture_id(), lectureContentDto.id());
         if(lectureContentOptional.isEmpty()){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Can't find LectureContent");
         }
@@ -64,7 +70,7 @@ public class LectureContentService {
 
     public void delete(Integer lecture_id, Integer content_id) {
         try {
-            lectureContentRepository.findByLecture_IdAndId(lecture_id, content_id).ifPresent(lectureContentRepository::delete);
+            lectureContentRepository.findByLecture_IdAndContent(lecture_id, content_id).ifPresent(lectureContentRepository::delete);
         }catch (NullPointerException e){
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "can't find Content");
         }
@@ -77,13 +83,13 @@ public class LectureContentService {
     public List<LectureContentDto> convertDto(List<LectureContent> content) {
         List<LectureContentDto> list = new ArrayList<>();
         for (LectureContent a : content) {
-            list.add(new LectureContentDto(a.getId(), a.getLecture().getId(), a.getName(), a.getDescription(), a.getUrl()));
+            list.add(new LectureContentDto(a.getContent(), a.getLecture().getId(), a.getName(), a.getDescription(), a.getUrl()));
         }
 
         return list;
     }
 
     public Optional<LectureContent> findByLectureIdAndId(Integer lecture_id, Integer content_id) {
-        return lectureContentRepository.findByLecture_IdAndId(lecture_id, content_id);
+        return lectureContentRepository.findByLecture_IdAndContent(lecture_id, content_id);
     }
 }

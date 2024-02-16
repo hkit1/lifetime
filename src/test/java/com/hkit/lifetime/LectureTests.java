@@ -204,7 +204,7 @@ public class LectureTests {
         assertTrue(contentRepository.findByLecture_Id(static_lecture.getId()).stream().findFirst().isPresent());
 
         // 강좌 내 회차가 생성 되었는지 확인
-        assertTrue(contentRepository.findByLecture_IdAndId(static_lecture.getId(), 1).isPresent());
+        assertTrue(contentRepository.findByLecture_IdAndContent(static_lecture.getId(), 1).isPresent());
     }
 
     @Test

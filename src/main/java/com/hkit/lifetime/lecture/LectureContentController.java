@@ -28,11 +28,10 @@ public class LectureContentController {
      * 스트리밍 url 가져오기
      */
     @GetMapping("/lecture/{id}/{content_id}")
-    public String streamingVideo(@PathVariable("id") Integer id, Model model) {
+    public String streamingVideo(@PathVariable("id") Integer id,@PathVariable("content_id")Integer content_id ,Model model) {
         model.addAttribute("lecture_id", id);
-        if (!service.findByLectureId(id + 1).isEmpty()) {
-            model.addAttribute("content_id", id + 1);
-        }
+        model.addAttribute("content_id", content_id);
+
 
         return "video";
     }
