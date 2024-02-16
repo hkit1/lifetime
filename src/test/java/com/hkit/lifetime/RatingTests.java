@@ -2,7 +2,6 @@ package com.hkit.lifetime;
 
 import com.hkit.lifetime.account.Account;
 import com.hkit.lifetime.account.AccountRepository;
-import com.hkit.lifetime.category.Category;
 import com.hkit.lifetime.category.CategoryRepository;
 import com.hkit.lifetime.category.SubCategory;
 import com.hkit.lifetime.category.SubCategoryRepository;
@@ -27,7 +26,6 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
 import java.io.InputStream;
-import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -78,7 +76,7 @@ public class RatingTests {
         SubCategory category = subCategoryRepository.findByName("amd").get();
 
         MultiValueMap<String, String> info = randomLecture(company, account, category);
-        InputStream file = new URL("https://picsum.photos/600/400").openStream();
+        InputStream file = getClass().getClassLoader().getResourceAsStream("thumbnails.png");
         MockMultipartFile mockFile = new MockMultipartFile("file", "random.png", "image/png", file);
         mockMvc.perform(multipart("/api/lecture/create").file(mockFile).with(csrf()).params(info)).andExpect(status().isOk());
         Lecture lecture = lectureRepository.findByName(info.getFirst("name")).get();

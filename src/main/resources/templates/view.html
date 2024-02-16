@@ -132,9 +132,9 @@
                                                 <li class="review_lst" th:each="rate: ${rating}">
                                                     <div class="review_star">
                                                         <i class="fa-solid fa-star"
-                                                           th:each="star: ${#numbers.sequence(0, rate.star(), 1)}"></i>
+                                                           th:each="star: ${#numbers.sequence(1, rate.star())}"></i>
                                                         <i class="fa-regular fa-star"
-                                                           th:each="star: ${#numbers.sequence(0, 5 - rate.star(), 1)}"></i>
+                                                           th:each="star: ${#numbers.sequence(rate.star(), 4)}"></i>
                                                     </div>
                                                     <div class="review_content">
                                                         <p th:text="${rate.text()}"></p>

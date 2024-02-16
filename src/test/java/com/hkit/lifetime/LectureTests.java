@@ -98,6 +98,8 @@ public class LectureTests {
     @WithMockUser(username = "테스트_최고관리자", roles = {"OWNER"})
     @Transactional
     void createDummyData() throws Exception {
+        Faker faker = new Faker(Locale.KOREAN);
+
         TestTransaction.flagForCommit();
         MultiValueMap<String, String> accountInfo = createAccountInfo();
         mockMvc.perform(post("/account/register").params(accountInfo).with(csrf())).andExpect(status().is3xxRedirection());
@@ -128,6 +130,17 @@ public class LectureTests {
                                 .params(lecture_content_info)
                                 .with(csrf()))
                         .andExpect(status().isOk());
+            }
+
+            for (int j = 0; j < r.nextInt(5); j++) {
+                MultiValueMap<String, String> ratingInfo = new LinkedMultiValueMap<>();
+
+                ratingInfo.add("id", lecture.getId().toString());
+                ratingInfo.add("name", account.getName());
+                ratingInfo.add("star", String.valueOf(r.nextInt(5)));
+                ratingInfo.add("text", faker.lorem().characters(10, 30));
+
+                mockMvc.perform(post("/api/lecture/" + lecture.getId() + "/rate/create").params(ratingInfo).with(csrf())).andExpect(status().isOk());
             }
         }
     }
