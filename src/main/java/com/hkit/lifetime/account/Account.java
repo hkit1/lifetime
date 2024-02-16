@@ -54,7 +54,7 @@ public class Account {
     @Column(name = "created_at")
     private LocalDate created_at;
 
-    public Account(String uuid, String name, String id, String pw, LocalDate birth, String email, String tel, Boolean gender, String address1, String address2, LocalDate created_at) {
+    public Account(String uuid, String name, String id, String pw, LocalDate birth, String email, String tel, Boolean gender, String address1, String address2) {
         this.uuid = uuid;
         this.name = name;
         this.id = id;
@@ -66,7 +66,7 @@ public class Account {
         this.address1 = address1;
         this.address2 = address2;
         this.role = SecurityRole.USER;
-        this.created_at = created_at;
+        this.created_at = LocalDate.now();
     }
 
     public static Account toAccount(AccountDto accountDto) {
@@ -79,8 +79,7 @@ public class Account {
                 accountDto.tel(),
                 accountDto.gender(),
                 accountDto.address1(),
-                accountDto.address2(),
-                accountDto.created_at());
+                accountDto.address2());
     }
 
     public void updateAccount(AccountDto accountDto) {
