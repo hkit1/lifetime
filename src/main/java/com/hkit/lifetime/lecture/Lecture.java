@@ -1,5 +1,6 @@
 package com.hkit.lifetime.lecture;
 
+import com.hkit.lifetime.account.Account;
 import com.hkit.lifetime.category.SubCategory;
 import com.hkit.lifetime.company.Company;
 import jakarta.persistence.*;
@@ -33,6 +34,10 @@ public class Lecture {
     private LocalDate closedAt;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "teacher", nullable = false)
+    private Account teacher;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "category", nullable = false)
     private SubCategory category;
 
@@ -40,12 +45,13 @@ public class Lecture {
     @JoinColumn(name = "companyId", nullable = false)
     private Company company;
 
-    public Lecture(Integer id, String name, String description, LocalDate createdAt, LocalDate closedAt, SubCategory category, Company company) {
+    public Lecture(Integer id, String name, String description, LocalDate createdAt, LocalDate closedAt, Account teacher, SubCategory category, Company company) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.createdAt = createdAt;
         this.closedAt = closedAt;
+        this.teacher = teacher;
         this.category = category;
         this.company = company;
     }

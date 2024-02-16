@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -28,7 +29,7 @@ public class LectureContentService {
         if(lecture.isEmpty()){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Can't find Lecture");
         }
-        String uploadDir = "C:\\Users\\HKIT\\temp\\" + id;
+        String uploadDir = "C:\\Users\\dydxo\\temp\\" + id;
         Path copyOfLocation = Paths.get(uploadDir + File.separator + StringUtils.cleanPath("temp.mp4"));
         System.out.println("_+_+_+_+_+_+"+ copyOfLocation);
         try{
@@ -41,7 +42,7 @@ public class LectureContentService {
         LectureContent lectureContent = new LectureContent(null,lecture.get(), lectureContentDto.name(), lectureContentDto.description(), copyOfLocation.toString());
         LectureContent result = lectureContentRepository.save(lectureContent);
         try {
-            Files.move(copyOfLocation, Paths.get(uploadDir + File.separator + StringUtils.cleanPath(result.getId() + ".mp4")));
+            Files.move(copyOfLocation, Paths.get(uploadDir + File.separator + StringUtils.cleanPath(result.getId() + ".mp4")),StandardCopyOption.REPLACE_EXISTING);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

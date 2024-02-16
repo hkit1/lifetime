@@ -26,8 +26,8 @@ public class LectureController {
     private final LectureContentService content;
 
     @PostMapping("/api/lecture/create")
-    public String lectureRegister(LectureDto lectureDto) {
-        service.save(lectureDto);
+    public String lectureRegister(LectureInputDto lectureInputDto) {
+        service.save(lectureInputDto);
         return "home";
     }
 
@@ -39,7 +39,7 @@ public class LectureController {
 
     @GetMapping("/lecture/{lectureId}")
     public String viewLecture(@PathVariable("lectureId") Integer lectureId, Model model){
-        LectureDto lecturedto = service.findlecture(lectureId);
+        LectureOutputDto lecturedto = service.findlecture(lectureId);
         List<LectureContentDto> contentdto = content.convertDto(content.findByLectureId(lecturedto.id()));
         model.addAttribute("lecture",lecturedto);
         model.addAttribute("contentList", contentdto);
@@ -52,7 +52,7 @@ public class LectureController {
 
     @GetMapping("/lecture/{lectureId}/view")
     public String viewLecturecontent(@PathVariable("lectureId") Integer lectureId, Model model) {
-        LectureDto lecturedto = service.findlecture(lectureId);
+        LectureOutputDto lecturedto = service.findlecture(lectureId);
         model.addAttribute(lecturedto);
         return "home";
     }

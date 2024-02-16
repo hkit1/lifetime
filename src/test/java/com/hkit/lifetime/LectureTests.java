@@ -87,7 +87,7 @@ public class LectureTests {
         info.add("created_at", LocalDate.now().format(DateTimeFormatter.BASIC_ISO_DATE));
         info.add("closed_at", LocalDate.now().plusDays(faker.random().nextInt(3, 30)).format(DateTimeFormatter.BASIC_ISO_DATE));
         info.add("company_name", company.getName());
-        info.add("teacher", account.getName());
+        info.add("teacher_id", account.getId());
         info.add("main_category", category.getMainCategory().getName());
         info.add("sub_category", category.getName());
 

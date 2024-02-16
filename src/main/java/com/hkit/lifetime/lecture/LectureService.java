@@ -1,5 +1,7 @@
 package com.hkit.lifetime.lecture;
 
+import com.hkit.lifetime.account.Account;
+import com.hkit.lifetime.account.AccountRepository;
 import com.hkit.lifetime.category.SubCategory;
 import com.hkit.lifetime.category.SubCategoryRepository;
 import com.hkit.lifetime.company.Company;
@@ -29,13 +31,16 @@ public class LectureService {
     private final CompanyRepository companyRepository;
     private final SubCategoryRepository subcategoryRepository;
     private final LectureRepository lectureRepository;
-    public static final String savePath = "C:\\Users\\HKIT\\temp\\";
+    public static final String savePath = "C:\\Users\\dydxo\\temp\\";
+    private final AccountRepository accountRepository;
     //이미지, 동영상 저장하는 저장소의 주소가 될 것.
 
-    public void save(LectureDto lectureDto){
-        Optional<Company> isCompany = companyRepository.findByName(lectureDto.company_name());
+    public void save(LectureInputDto lectureInputDto){
+        Optional<Company> isCompany = companyRepository.findByName(lectureInputDto.company_name());
 
-        Optional<SubCategory> isCategory = subcategoryRepository.findByName(lectureDto.sub_category());
+        Optional<SubCategory> isCategory = subcategoryRepository.findByName(lectureInputDto.sub_category());
+
+        Optional<Account> isTeacher = accountRepository.findAccountById(lectureInputDto.teacher_id());
 
         if(isCompany.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Can't find Company");
@@ -45,18 +50,23 @@ public class LectureService {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Can't find SubCategory");
         }
 
+        if(isTeacher.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Can,t find Account");
+        }
+
         Company company = isCompany.get();
         SubCategory category = isCategory.get();
+        Account teacher = isTeacher.get();
         System.out.println("------------"+company.getName()+category.getName());
-        System.out.println(lectureDto.file().getOriginalFilename());
+        System.out.println(lectureInputDto.file().getOriginalFilename());
 
 
-        Lecture lecture = new Lecture(lectureDto.id(), lectureDto.name(), lectureDto.description(), LocalDate.parse(lectureDto.created_at(), DateTimeFormatter.BASIC_ISO_DATE), LocalDate.parse(lectureDto.closed_at(), DateTimeFormatter.BASIC_ISO_DATE), category, company);
+        Lecture lecture = new Lecture(lectureInputDto.id(), lectureInputDto.name(), lectureInputDto.description(), LocalDate.parse(lectureInputDto.created_at(), DateTimeFormatter.BASIC_ISO_DATE), LocalDate.parse(lectureInputDto.closed_at(), DateTimeFormatter.BASIC_ISO_DATE), teacher, category, company);
         Lecture dwnloadLec = lectureRepository.save(lecture);
         //ispresent 나중에
 
-        if(!lectureDto.file().isEmpty()) {
-            MultipartFile file = lectureDto.file();
+        if(!lectureInputDto.file().isEmpty()) {
+            MultipartFile file = lectureInputDto.file();
             String uploadDir = savePath+dwnloadLec.getId().toString();
             System.out.println(uploadDir);
             File mkdir = new File(uploadDir);
@@ -104,21 +114,21 @@ public class LectureService {
 
     }
 
-    public LectureDto findlecture(Integer lectureId){
+    public LectureOutputDto findlecture(Integer lectureId){
         Optional<Lecture> checkLecture = lectureRepository.findById(lectureId);
         if(checkLecture.isEmpty()){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Can't Find Lecture");
         }
         Lecture lecture = checkLecture.get();
 
-        return new LectureDto(lecture.getId(), lecture.getName(), lecture.getDescription(), lecture.getCreatedAt().toString(), lecture.getClosedAt().toString(), lecture.getCategory().getName(), lecture.getCompany().getName(), null);
+        return new LectureOutputDto(lecture.getId(), lecture.getName(), lecture.getDescription(), lecture.getCreatedAt().toString(), lecture.getClosedAt().toString(), lecture.getTeacher().getName() ,lecture.getCategory().getName(), lecture.getCompany().getName());
     }
 
-    public List<LectureDto> findLectureByTop12() {
+    public List<LectureOutputDto> findLectureByTop12() {
         List<Lecture> list = lectureRepository.findAll(PageRequest.of(0, 12)).getContent();
-        List<LectureDto> dto = new ArrayList<>();
+        List<LectureOutputDto> dto = new ArrayList<>();
         for (Lecture current : list) {
-            dto.add(new LectureDto(current.getId(), current.getName(), current.getDescription(), current.getCreatedAt().toString(), current.getClosedAt().toString(), current.getCategory().getName(), current.getCompany().getName(), null));
+            dto.add(new LectureOutputDto(current.getId(), current.getName(), current.getDescription(), current.getCreatedAt().toString(), current.getClosedAt().toString(), current.getTeacher().getName() ,current.getCategory().getName(), current.getCompany().getName()));
         }
 //        dto.sort((a, b) -> Integer.parseInt(a.created_at()));
         return dto;
