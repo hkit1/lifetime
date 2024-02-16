@@ -1,7 +1,10 @@
 package com.hkit.lifetime.lecture;
 
 import jakarta.servlet.http.HttpServletRequest;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -11,6 +14,7 @@ import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBo
 import java.io.*;
 import java.util.Map;
 
+@Slf4j
 @Controller
 public class LectureContentController {
     LectureContentService service;
@@ -34,24 +38,56 @@ public class LectureContentController {
     }
 
     @GetMapping("/api/lecture/{id}/{content_id}/video")
-    public StreamingResponseBody stream(HttpServletRequest request, Model model, @PathVariable("id") Integer id, @PathVariable("content_id") Integer content_id) throws Exception {
+    public ResponseEntity<StreamingResponseBody> stream(HttpServletRequest request, Model model, @PathVariable("id") Integer id, @PathVariable("content_id") Integer content_id) throws Exception {
         LectureContent content = service.findByLectureIdAndId(id, content_id).get();
         File file = new File(content.getUrl());
-        try (InputStream is = new FileInputStream(file)) {
-            return os -> {
-                readAndWrite(is, os);
-            };
+
+        if (!file.isFile()){
+            return ResponseEntity.notFound().build();
         }
+
+        StreamingResponseBody streamingResponseBody = new StreamingResponseBody() {
+            @Override
+            public void writeTo(OutputStream outputStream) throws IOException {
+                try{
+                    final InputStream inputStream = new FileInputStream(file);
+
+                    byte[] bytes = new byte[2048];
+                    int length;
+
+                    while ((length = inputStream.read(bytes)) >= 0){
+                        outputStream.write(bytes, 0, length);
+                    }
+                    inputStream.close();
+                    outputStream.flush();
+                }
+                catch (Exception e){
+                    log.error("Exception while reading and streamin data {} ", e);
+                }
+            }
+        };
+
+        final HttpHeaders responseHeaders = new HttpHeaders();
+        responseHeaders.add("Content-Type", "video/mp4");
+        responseHeaders.add("Content-Length", Long.toString(file.length()));
+
+        return ResponseEntity.ok().headers(responseHeaders).body(streamingResponseBody);
+
+//        try (InputStream is = new FileInputStream(file)) {
+//            return os -> {
+//                readAndWrite(is, os);
+//            };
+//        }
     }
 
-    private void readAndWrite(final InputStream is, OutputStream os) throws IOException {
-        byte[] data = new byte[2048];
-        int read;
-        while ((read = is.read(data)) > 0) {
-            os.write(data, 0, read);
-        }
-        os.flush();
-    }
+//    private void readAndWrite(final InputStream is, OutputStream os) throws IOException {
+//        byte[] data = new byte[2048];
+//        int read;
+//        while ((read = is.read(data)) > 0) {
+//            os.write(data, 0, read);
+//        }
+//        os.flush();
+//    }
 
     /**
      * 강의 회차 정보 가져오기
