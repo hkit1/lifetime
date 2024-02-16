@@ -17,6 +17,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import static com.hkit.lifetime.lecture.LectureService.savePath;
+
 @Service
 @RequiredArgsConstructor
 public class LectureContentService {
@@ -29,7 +31,7 @@ public class LectureContentService {
         if(lecture.isEmpty()){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Can't find Lecture");
         }
-        String uploadDir = "C:\\Users\\dydxo\\temp\\" + id;
+        String uploadDir = savePath + id;
         Path copyOfLocation = Paths.get(uploadDir + File.separator + StringUtils.cleanPath("temp.mp4"));
         System.out.println("_+_+_+_+_+_+"+ copyOfLocation);
         try{

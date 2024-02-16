@@ -94,6 +94,7 @@ public class LectureTests {
         return info;
     }
 
+    @Test
     @WithMockUser(username = "테스트_최고관리자", roles = {"OWNER"})
     @Transactional
     void createDummyData() throws Exception {
@@ -111,7 +112,8 @@ public class LectureTests {
 
         for (int i = 0; i < 20; i++) {
             MultiValueMap<String, String> info = randomLecture(company, account, category);
-            InputStream file = new URL("https://picsum.photos/600/400").openStream();
+//            InputStream file = new URL("https://picsum.photos/600/400").openStream();
+            InputStream file = getClass().getClassLoader().getResourceAsStream("thumbnails.png");
             MockMultipartFile mockFile = new MockMultipartFile("file", "random.png", "image/png", file);
             mockMvc.perform(multipart("/api/lecture/create").file(mockFile).with(csrf()).params(info)).andExpect(status().isOk());
 
