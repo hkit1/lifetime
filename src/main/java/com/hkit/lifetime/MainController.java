@@ -7,7 +7,7 @@ import com.hkit.lifetime.company.Company;
 import com.hkit.lifetime.company.CompanyDto;
 import com.hkit.lifetime.company.CompanyService;
 import com.hkit.lifetime.lecture.Lecture;
-import com.hkit.lifetime.lecture.LectureDto;
+import com.hkit.lifetime.lecture.LectureOutputDto;
 import com.hkit.lifetime.lecture.LectureService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
@@ -107,21 +107,21 @@ public class MainController {
         model.addAttribute("companyList", companyDto);
 
         List<Lecture> lectures = lectureService.getAllByPage(PageRequest.of(0, 10));
-        List<LectureDto> lectureDto = new ArrayList<>();
+        List<LectureOutputDto> lectureOutputDto = new ArrayList<>();
         for (Lecture l : lectures) {
-            lectureDto.add(new LectureDto(
+            lectureOutputDto.add(new LectureOutputDto(
                     l.getId(),
                     l.getName(),
                     l.getDescription(),
                     l.getCreatedAt().format(DateTimeFormatter.BASIC_ISO_DATE),
                     l.getClosedAt().format(DateTimeFormatter.BASIC_ISO_DATE),
+                    l.getTeacher().getName(),
                     l.getCategory().getMainCategory().getName() + " / " + l.getCategory().getName(),
-                    l.getCompany().getName(),
-                    null
+                    l.getCompany().getName()
             ));
         }
 
-        model.addAttribute("lectureList", lectureDto);
+        model.addAttribute("lectureList", lectureOutputDto);
 
         return "admin";
     }
