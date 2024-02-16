@@ -29,12 +29,16 @@ public class LectureContent {
     @Column(name = "url", nullable = false)
     private String url;
 
-    public LectureContent(Integer id, Lecture lecture, String name, String description, String url) {
+    @Column(name = "content_id")
+    private Integer content;
+
+    public LectureContent(Integer id, Lecture lecture, String name, String description, String url, Integer contentId) {
         this.id = id;
         this.lecture = lecture;
         this.name = name;
         this.description = description;
         this.url = url;
+        this.content = contentId;
     }
 
     public void UpdateLectureContent(LectureContentDto lectureContentDto) {

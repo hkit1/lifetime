@@ -31,7 +31,7 @@ public class LectureService {
     private final CompanyRepository companyRepository;
     private final SubCategoryRepository subcategoryRepository;
     private final LectureRepository lectureRepository;
-    public static final String savePath = "C:\\Users\\HKIT\\temp\\";
+    public static final String savePath = "C:\\Users\\dydxo\\temp\\";
     private final AccountRepository accountRepository;
     //이미지, 동영상 저장하는 저장소의 주소가 될 것.
 
