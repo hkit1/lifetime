@@ -349,8 +349,36 @@ table {
     background-color: #104679;
 }
 
+.member_id {
+    width: 118px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    display: inline-block;
+}
+
+.member_name {
+    width: 107px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    display: inline-block;
+}
+
+.member_email {
+    width: 170px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    display: inline-block;
+}
+
 .member_address {
     width: 300px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    display: inline-block;
 }
 
 tbody tr {
@@ -491,6 +519,34 @@ tbody tr {
 
 .institution_name {
     width: 250px;
+    display: inline-block;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.representative {
+    width: 60px;
+    display: inline-block;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.institution_email {
+    width: 165px;
+    display: inline-block;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.institution_address {
+    width: 165px;
+    display: inline-block;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 
 .approval_return_delete_button_container {
@@ -581,7 +637,19 @@ tbody tr {
 }
 
 .lecture_name {
-    width: 500px;
+    width: 400px;
+    display: inline-block;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.teacher_name {
+    width: 100px;
+    display: inline-block;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 
 .edit_cancel_button_container {

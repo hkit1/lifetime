@@ -350,8 +350,18 @@ table {
     background-color: #104679;
 }
 
+.member_id {
+    max-width: 105px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
 .studying_lecture {
-    width: 600px;
+    max-width: 500px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 
 tbody tr {
@@ -491,7 +501,17 @@ tbody tr {
 }
 
 .lecture_name {
-    width: 500px;
+    max-width: 500px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.test_name {
+    max-width: 290px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 
 .delete_button_container {
@@ -547,6 +567,13 @@ tbody tr {
     color: #FFFFFF;
     border-bottom: 1px solid #DDDDDD;
     background-color: #071D69;
+}
+
+.teacher_name {
+    max-width: 125px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 
 .edit_delete_button_container {

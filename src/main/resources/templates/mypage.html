@@ -19,8 +19,8 @@
       <div class="profile_container">
         <div class="profile_greeting_container">
           <div class="profile_container_wrap">
-            <p><span style="font-family: 'Droid Sans'; font-weight: 700; font-size: 12px; line-height: 27px" sec:authentication="name"></span>
-              <span style="font-family: 'Droid Sans'; font-weight: 400; font-size: 12px; line-height: 27px; color: #3D3D3D">님 안녕하세요.</span></p>
+            <p><span style="font-weight: 700; font-size: 12px; line-height: 27px;" sec:authentication="name"></span>
+              <span style="font-weight: 400; font-size: 12px; line-height: 27px; color: #3D3D3D">님</span></p>
             <p><span style="font-family: 'Droid Sans'; font-weight: 400; font-size: 10px; line-height: 22px">수강중인 강좌 수 :</span>
               <span style="font-family: 'Droid Sans'; font-weight: 400; font-size: 12px; line-height: 27px" th:text="${my_lecture.take}"></span></p>
             <p><span style="font-family: 'Droid Sans'; font-weight: 400; font-size: 10px; line-height: 22px">수강완료한 강좌 수 : </span>
@@ -139,10 +139,10 @@
                 <p style="font-weight: 700; font-size: 16px" th:text="${next_lecture[0].day}"></p>
               </div>
               <div class="title">
-                <span style="font-weight: 700; font-size: 13px; line-height: 30px; margin-left: 15px" th:text="${next_lecture[0].lecture_name}"></span>
+                <span style="width: 150px; font-weight: 700; font-size: 13px; line-height: 30px; margin-left: 15px; white-space: nowrap; text-overflow: ellipsis; overflow: hidden; display: inline-block" th:title="${next_lecture[0].lecture_name}" th:text="${next_lecture[0].lecture_name}"></span>
               </div>
               <div class="content">
-                <span style="font-weight: 400; font-size: 10px; line-height: 22px; margin-left: 15px" th:text="${next_lecture[0].lecture_info}"></span>
+                <span style="width: 150px; font-weight: 400; font-size: 10px; line-height: 22px; margin-left: 15px; white-space: nowrap; text-overflow: ellipsis; overflow: hidden; display: inline-block" th:title="${next_lecture[0].lecture_info}" th:text="${next_lecture[0].lecture_info}"></span>
               </div>
             </div>
 
@@ -154,10 +154,10 @@
                 <p style="font-weight: 700; font-size: 16px" th:text="${next_lecture[1].day}"></p>
               </div>
               <div class="title">
-                <span style="font-weight: 700; font-size: 13px; line-height: 30px; margin-left: 15px" th:text="${next_lecture[1].lecture_name}"></span>
+                <span style="width: 150px; font-weight: 700; font-size: 13px; line-height: 30px; margin-left: 15px; white-space: nowrap; text-overflow: ellipsis; overflow: hidden; display: inline-block" th:title="${next_lecture[1].lecture_name}" th:text="${next_lecture[1].lecture_name}"></span>
               </div>
               <div class="content">
-                <span style="font-weight: 400; font-size: 10px; line-height: 22px; margin-left: 15px" th:text="${next_lecture[1].lecture_info}"></span>
+                <span style="width: 150px; font-weight: 400; font-size: 10px; line-height: 22px; margin-left: 15px; white-space: nowrap; text-overflow: ellipsis; overflow: hidden; display: inline-block" th:title="${next_lecture[1].lecture_info}" th:text="${next_lecture[1].lecture_info}"></span>
               </div>
             </div>
 
@@ -169,10 +169,10 @@
                 <p style="font-weight: 700; font-size: 16px" th:text="${next_lecture[2].month}"></p>
               </div>
               <div class="title">
-                <span style="font-weight: 700; font-size: 13px; line-height: 30px; margin-left: 15px" th:text="${next_lecture[2].lecture_name}"></span>
+                <span style="width: 150px; font-weight: 700; font-size: 13px; line-height: 30px; margin-left: 15px; white-space: nowrap; text-overflow: ellipsis; overflow: hidden; display: inline-block" th:title="${next_lecture[2].lecture_name}" th:text="${next_lecture[2].lecture_name}"></span>
               </div>
               <div class="content">
-                <span style="font-weight: 400; font-size: 10px; line-height: 22px; margin-left: 15px" th:text="${next_lecture[2].lecture_info}"></span>
+                <span style="width: 150px; font-weight: 400; font-size: 10px; line-height: 22px; margin-left: 15px; white-space: nowrap; text-overflow: ellipsis; overflow: hidden; display: inline-block" th:title="${next_lecture[2].lecture_info}" th:text="${next_lecture[2].lecture_info}"></span>
               </div>
             </div>
           </div>
@@ -183,16 +183,14 @@
             <caption style="width: 100px; height: 35px; font-weight: 700; font-size: 16px; line-height: 35px">미제출 과제</caption>
             <thead>
               <tr style="font-weight: 700; font-size: 12px; line-height: 22px; text-align: left">
-                <th style="border-bottom: 1px solid #000000">강좌</th>
-                <th style="border-bottom: 1px solid #000000">과제항목</th>
-                <th style="border-bottom: 1px solid #000000">마감기한</th>
+                <th style="border-bottom: 1px solid #000000" class="lecture_name">강좌</th>
+                <th style="border-bottom: 1px solid #000000" class="lecture_deadline">마감기한</th>
               </tr>
             </thead>
             <tbody>
               <tr style="font-weight: 400; font-size: 11px; line-height: 20px" th:each="lectureExam : ${lectureExams}">
-                <td th:text="${lectureExam.name}"></td>
-                <td th:text="${lectureExam.exam}"></td>
-                <td th:text="${lectureExam.deadline}"></td>
+                <td th:text="${lectureExam.name}" th:title="${lectureExam.name}" class="lecture_name"></td>
+                <td th:text="${lectureExam.deadline}" th:title="${lectureExam.deadline}" class="lecture_deadline"></td>
               </tr>
             </tbody>
           </table>

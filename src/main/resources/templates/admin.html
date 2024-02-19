@@ -162,11 +162,11 @@
                     <tr>
                         <th><input type="checkbox" id="member_all_checkbox"></th>
                         <th>번호</th>
-                        <th>회원 아이디</th>
-                        <th>회원 이름</th>
+                        <th class="member_id">회원 아이디</th>
+                        <th class="member_name">회원 이름</th>
                         <th>생년월일</th>
                         <th>연락처</th>
-                        <th>이메일</th>
+                        <th class="member_email">이메일</th>
                         <th>성별</th>
                         <th class="member_address">주소</th>
                         <th>가입일자</th>
@@ -174,15 +174,15 @@
                 </thead>
                 <tbody>
                 <tr th:each="account : ${accountList}">
-                    <td><input class="member_checkbox" type="checkbox"></td>
+                    <td><input type="checkbox"></td>
                     <td></td>
-                    <td th:text="${account.id()}"></td>
-                    <td th:text="${account.name()}"></td>
+                    <td class="member_id" th:title="${account.id()}" th:text="${account.id()}"></td>
+                    <td class="member_name" th:title="${account.name()}" th:text="${account.name()}"></td>
                     <td th:text="${account.birth()}"></td>
                     <td th:text="${account.tel()}"></td>
-                    <td th:text="${account.email()}"></td>
+                    <td class="member_email" th:title="${account.email()}" th:text="${account.email()}"></td>
                     <td th:text="${account.gender()}"></td>
-                    <td th:text="${account.address1() + account.address2()}"></td>
+                    <td class="member_address" th:title="${account.address1() + account.address2()}" th:text="${account.address1() + account.address2()}"></td>
                     <td th:text="${account.created_at()}"></td>
                     </tr>
                 </tbody>
@@ -232,24 +232,24 @@
                 <tr>
                     <th><input type="checkbox" id="institution_all_checkbox"></th>
                     <th class="institution_name">기관명</th>
-                    <th>대표자</th>
+                    <th class="representative">대표자</th>
                     <th>사업자등록번호</th>
-                    <th>이메일</th>
+                    <th class="institution_email">이메일</th>
                     <th>연락처</th>
-                    <th>주소</th>
+                    <th class="institution_address">주소</th>
                     <th>승인여부</th>
                     <th>승인날짜</th>
                 </tr>
                 </thead>
                 <tbody>
-                    <tr th:each="company : ${companyList}">
+                <tr th:each="company : ${companyList}">
                     <td><input type="checkbox" class="institution_checkbox"></td>
-                    <td th:text="${company.name()}"></td>
-                    <td th:text="${company.admin()}"></td>
+                    <td class="institution_name" th:title="${company.name()}" th:text="${company.name()}"></td>
+                    <td class="representative" th:title="${company.admin()}" th:text="${company.admin()}"></td>
                     <td th:text="${company.id()}"></td>
-                    <td th:text="${company.email()}"></td>
+                    <td class="institution_email" th:title="${company.email()}" th:text="${company.email()}"></td>
                     <td th:text="${company.tel()}"></td>
-                    <td th:text="${company.address1() + company.address2()}"></td>
+                    <td class="institution_address" th:title="${company.address1() + company.address2()}" th:text="${company.address1() + company.address2()}"></td>
                     <td th:text="${company.authorized()}"></td>
                     <td th:text="${company.authorizedDate()}"></td>
                 </tr>
@@ -301,7 +301,7 @@
                     <th><input type="checkbox" id="lecture_all_checkbox"></th>
                     <th>강좌번호</th>
                     <th class="lecture_name">강좌명</th>
-                    <th>강사</th>
+                    <th class="teacher_name">강사</th>
                     <th>개설일</th>
                     <th>종료일</th>
                     <th>분류</th>
@@ -314,8 +314,8 @@
                 <tr th:each="l : ${lectureList}">
                     <td><input type="checkbox" class="lecture_checkbox"></td>
                     <td th:text="${l.id()}"></td>
-                    <td th:text="${l.name()}"></td>
-                    <td></td>
+                    <td class="lecture_name" th:title="${l.name()}" th:text="${l.name()}"></td>
+                    <td class="teacher_name"></td>
                     <td th:text="${l.created_at()}"></td>
                     <td th:text="${l.closed_at()}"></td>
                     <td th:text="${l.sub_category()}"></td>
