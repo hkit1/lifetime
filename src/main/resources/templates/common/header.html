@@ -61,7 +61,7 @@
         <a class="login" href="/member/login">🔒로그인</a>
       </div>
       <div class="member_btn" sec:authorize="isAuthenticated()">
-        <a class="reg" href="/c" sec:authentication="name"></a>
+        <a class="reg" href="/mypage" sec:authentication="name"></a>
         <a href="/account/logout" class="login">🔒로그아웃</a>
       </div>
     </header>

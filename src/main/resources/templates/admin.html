@@ -177,11 +177,11 @@
                     <td><input class="member_checkbox" type="checkbox"></td>
                     <td></td>
                     <td th:text="${account.id()}"></td>
+                    <td th:text="${account.name()}"></td>
                     <td th:text="${account.birth()}"></td>
                     <td th:text="${account.tel()}"></td>
                     <td th:text="${account.email()}"></td>
                     <td th:text="${account.gender()}"></td>
-                    <td th:text="${account.address1()}"></td>
                     <td th:text="${account.address1() + account.address2()}"></td>
                     <td th:text="${account.created_at()}"></td>
                     </tr>
