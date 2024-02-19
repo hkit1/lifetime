@@ -276,4 +276,23 @@
   margin-top: 5px;
   text-align: center;
 }
+
+.chatbot {
+  width: 100px;
+  height: 100px;
+  right: 20px;
+  bottom: 20px;
+  position: fixed;
+  text-align: center;
+}
+
+.chatbot a {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.material-symbols-outlined {
+  font-size: 100px;
+}
 /* 홈 css 끝 */
