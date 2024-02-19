@@ -138,7 +138,7 @@ public class MainController {
 
     @GetMapping("/satisfaction")
     public String satisfaction() {
-        return "satisfaction.html";
+        return "satisfaction";
     }
 
     @GetMapping("/c")
@@ -164,6 +164,11 @@ public class MainController {
         model.addAttribute("take_lecture_time", takeLectutreTime);
         model.addAttribute("next_lecture", nextLectures);
         model.addAttribute("lectureExams", lectureExams);
+
+        // todo 기업 계정 등록 유무에 따라 exists 값 바꾸기
+        boolean exists = true;
+
+        model.addAttribute("company", exists);
 
         return "mypage";
     }

@@ -28,7 +28,7 @@ public class CompanyService {
      */
     public void registerCompany(CompanyDto companyDto) {
         Company findCompany = companyRepository.findByName(companyDto.id())
-                .orElseGet(() -> new Company());
+                .orElseGet(Company::new);
         if (findCompany.getName() == null) {
             Company company = Company.toCompany(companyDto);
             companyRepository.save(company);
@@ -54,7 +54,7 @@ public class CompanyService {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Company Not Found"));
 
         List<CompanyAccountList> findCompanyAccounts = companyAccountListRepository.findByCompany_Id(id)
-                .orElseGet(() -> new ArrayList<>());
+                .orElseGet(ArrayList::new);
         if (!findCompanyAccounts.isEmpty()){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Company Account Existence");
         }
@@ -67,7 +67,7 @@ public class CompanyService {
         company authorization method
      */
     public void authorization(String id) {
-        Company findCompany = companyRepository.findById(id).orElseGet(() -> new Company());
+        Company findCompany = companyRepository.findById(id).orElseGet(Company::new);
         if (findCompany.getCompanyId() != null){
             findCompany.authorizationCompany();
             companyRepository.save(findCompany);
@@ -77,7 +77,7 @@ public class CompanyService {
     }
 
     public void denied(String id){
-        Company findCompany = companyRepository.findById(id).orElseGet(() -> new Company());
+        Company findCompany = companyRepository.findById(id).orElseGet(Company::new);
         if (findCompany.getCompanyId() != null){
             findCompany.deniedCompany();
             companyRepository.save(findCompany);
@@ -100,5 +100,9 @@ public class CompanyService {
 
     public List<Company> getAllByPage(Pageable page) {
         return companyRepository.findAll(page).getContent();
+    }
+
+    public boolean checkRegistered(String id) {
+        return companyAccountListRepository.findByAccount_Id(id).isPresent();
     }
 }

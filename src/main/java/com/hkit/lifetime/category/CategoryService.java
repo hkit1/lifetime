@@ -20,19 +20,19 @@ public class CategoryService {
      */
     public void register(CategoryDto main, SubCategoryDto sub){
         try {
-            Optional<Category> byName = categoryRepository.findByName(main.getName());
+            Optional<Category> byName = categoryRepository.findByName(main.name());
             if (byName.isPresent()){
                 //상위 카테고리가 등록 되어 있을 때
                 Category category = byName.get();
 
-                SubCategory subCategory = new SubCategory(category, sub.getName());
+                SubCategory subCategory = new SubCategory(category, sub.name());
                 subCategoryRepository.save(subCategory);
             } else {
                 //상위 카테고리가 등록 되어 있지 않을 때
-                Category category = new Category(main.getName());
+                Category category = new Category(main.name());
                 Category saved = categoryRepository.save(category);
 
-                SubCategory subCategory = new SubCategory(saved, sub.getName());
+                SubCategory subCategory = new SubCategory(saved, sub.name());
                 subCategoryRepository.save(subCategory);
             }
         } catch (Exception e){
@@ -44,30 +44,30 @@ public class CategoryService {
      */
     //Main Category Update
     public void update(CategoryDto oldCategoryDto, CategoryDto newCategoryDto) {
-        Optional<Category> byName = categoryRepository.findByName(oldCategoryDto.getName());
+        Optional<Category> byName = categoryRepository.findByName(oldCategoryDto.name());
         if (byName.isEmpty()){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Main Category is Null");
         }
 
         Category category = byName.get();
-        category.setName(newCategoryDto.getName());
+        category.setName(newCategoryDto.name());
         categoryRepository.save(category);
     }
 
     //Sub Category Update
     public void update(CategoryDto categoryDto, SubCategoryDto oldSubCategoryDto, SubCategoryDto newSubCategoryDto) {
-        Optional<Category> byName = categoryRepository.findByName(categoryDto.getName());
+        Optional<Category> byName = categoryRepository.findByName(categoryDto.name());
         if (byName.isEmpty()){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Main Category is Null");
         }
 
-        Optional<SubCategory> findSubCategory = subCategoryRepository.findByCategoryNameAndName(categoryDto.getName(), oldSubCategoryDto.getName());
+        Optional<SubCategory> findSubCategory = subCategoryRepository.findByCategoryNameAndName(categoryDto.name(), oldSubCategoryDto.name());
         if (findSubCategory.isEmpty()){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Sub Category is Null");
         }
 
         SubCategory subCategory = findSubCategory.get();
-        subCategory.setName(newSubCategoryDto.getName());
+        subCategory.setName(newSubCategoryDto.name());
         subCategoryRepository.save(subCategory);
     }
 
@@ -77,7 +77,7 @@ public class CategoryService {
     //Category SubCategory delete
     public void delete(CategoryDto categoryDto) {
         //메인 카테고리 검사
-        Optional<Category> findCategory = categoryRepository.findByName(categoryDto.getName());
+        Optional<Category> findCategory = categoryRepository.findByName(categoryDto.name());
 
         //메인 카테고리가 없으면 에러
         if (findCategory.isEmpty()){
@@ -93,9 +93,7 @@ public class CategoryService {
         } else {
             //서브 카테고리가 있을 시 전체 삭제 후 메인 삭제
             List<SubCategory> subCategories = findSubCategoryList.get();
-            for (SubCategory subCategory : subCategories) {
-                subCategoryRepository.delete(subCategory);
-            }
+            subCategoryRepository.deleteAll(subCategories);
             categoryRepository.delete(findCategory.get());
         }
     }
@@ -103,7 +101,7 @@ public class CategoryService {
     //Only SubCategory Delete
     public void delete(CategoryDto categoryDto, SubCategoryDto subCategoryDto) {
         //메인 카테고리와 서브 카테고리에 일치 하는 데이터가 있는지 검사
-        Optional<SubCategory> findSubCategory = subCategoryRepository.findByCategoryNameAndName(categoryDto.getName(), subCategoryDto.getName());
+        Optional<SubCategory> findSubCategory = subCategoryRepository.findByCategoryNameAndName(categoryDto.name(), subCategoryDto.name());
 
         //없으면 에러
         if (findSubCategory.isEmpty()){

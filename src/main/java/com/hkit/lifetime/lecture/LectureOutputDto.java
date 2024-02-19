@@ -1,7 +1,5 @@
 package com.hkit.lifetime.lecture;
 
-import org.springframework.web.multipart.MultipartFile;
-
 import java.io.Serializable;
 
 

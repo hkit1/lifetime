@@ -1,12 +1,11 @@
 package com.hkit.lifetime.company;
 
 import jakarta.persistence.*;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.time.LocalDate;
 
 @Getter
 @Setter

@@ -1,7 +1,5 @@
 package com.hkit.lifetime.security;
 
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 

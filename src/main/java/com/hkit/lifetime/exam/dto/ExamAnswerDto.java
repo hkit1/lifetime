@@ -1,9 +1,8 @@
 package com.hkit.lifetime.exam.dto;
 
-import java.io.Serializable;
-
 import com.hkit.lifetime.exam.ExamAnswer;
-import lombok.Value;
+
+import java.io.Serializable;
 
 /** DTO for {@link ExamAnswer} */
 public record ExamAnswerDto(

@@ -61,8 +61,10 @@ public class LectureController {
     @ResponseBody
     public ResponseEntity<byte[]> lectureImage(@PathVariable Integer lectureId) throws IOException{
         String Path = savePath+"\\"+lectureId.toString()+"\\"+"thumbnails.png";
-        InputStream imageStream = new FileInputStream(Path);
-        byte[] toByteArray = imageStream.readAllBytes();
+        byte[] toByteArray;
+        try (InputStream imageStream = new FileInputStream(Path)) {
+            toByteArray = imageStream.readAllBytes();
+        }
 
         return ResponseEntity.ok().contentType(MediaType.IMAGE_PNG).body(toByteArray);
 

@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
@@ -22,7 +23,7 @@ public class RatingService {
     public final AccountRepository accountRepository;
 
     @GetMapping("/api/lecture/{id}/rating")
-    public List<RatingDto> getRating(Integer id) {
+    public List<RatingDto> getRating(@PathVariable Integer id) {
         List<RatingDto> list = new ArrayList<>();
         for (Rating r : ratingRepository.findByLecture_Id(id)) {
             list.add(new RatingDto(

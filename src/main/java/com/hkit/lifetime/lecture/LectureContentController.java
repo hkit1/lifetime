@@ -11,13 +11,15 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBody;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.util.Map;
 
 @Slf4j
 @Controller
 public class LectureContentController {
-    LectureContentService service;
+    final LectureContentService service;
 
     @Autowired
     public LectureContentController(LectureContentService lectureContentService) {
@@ -45,24 +47,20 @@ public class LectureContentController {
             return ResponseEntity.notFound().build();
         }
 
-        StreamingResponseBody streamingResponseBody = new StreamingResponseBody() {
-            @Override
-            public void writeTo(OutputStream outputStream) throws IOException {
-                try{
-                    final InputStream inputStream = new FileInputStream(file);
+        StreamingResponseBody streamingResponseBody = outputStream -> {
+            try {
+                final InputStream inputStream = new FileInputStream(file);
 
-                    byte[] bytes = new byte[2048];
-                    int length;
+                byte[] bytes = new byte[2048];
+                int length;
 
-                    while ((length = inputStream.read(bytes)) >= 0){
-                        outputStream.write(bytes, 0, length);
-                    }
-                    inputStream.close();
-                    outputStream.flush();
+                while ((length = inputStream.read(bytes)) >= 0) {
+                    outputStream.write(bytes, 0, length);
                 }
-                catch (Exception e){
-                    log.error("Exception while reading and streamin data {} ", e);
-                }
+                inputStream.close();
+                outputStream.flush();
+            } catch (Exception e) {
+                log.error("Exception while reading and streamin data {} ", e.getMessage());
             }
         };
 
