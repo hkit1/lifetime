@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <title>마이페이지_강좌관리</title>
-  <link rel="stylesheet" href="/css/common/header.css">
-  <link rel="stylesheet" href="/css/common/footer.css">
-  <link rel="stylesheet" href="/css/mypage_lecture_create.css">
+  <link href="/css/common/header.css" rel="stylesheet">
+  <link href="/css/common/footer.css" rel="stylesheet">
+  <link href="/css/mypage_lecture_create.css" rel="stylesheet">
 </head>
 <body>
 
@@ -42,24 +42,48 @@
       <table>
         <thead>
         <tr>
-          <th></th>
           <th>회차번호</th>
           <th>회차이름</th>
         </tr>
         </thead>
         <tbody>
-        <tr>
-          <td><input type="checkbox"></td>
-          <td>1</td>
+        <tr th:text="">
+          <td th:text="">1</td>
           <td>show me the money</td>
         </tr>
         </tbody>
       </table>
 
       <div class="register_edit_delete_button_container">
-        <input type="button" value="회차삭제" class="delete">
-        <input type="button" value="회차수정" class="edit">
-        <input type="button" value="회차등록" class="register">
+        <input class="delete" onclick="return a(null)" type="button" value="회차삭제">
+        <input class="edit" onclick="return a(true)" type="button" value="회차수정">
+        <input class="register" onclick="return a(false)" type="button" value="회차등록">
+        <input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token}">
+        <script>
+          async function a(value) {
+            let url;
+            if (value === null) {
+              url = "/api/lecture/delete";
+            } else if (value === true) {
+              url = "/api/lecture/update";
+            } else if (value === false) {
+              url = "/api/lecture/create";
+            }
+
+            await fetch(url, {
+              method: "POST",
+              body: "{\"company\", \"" + f.value + "\"}"
+            }).then(data => {
+              location.href = ""
+              if (data.status === 400) {
+                window.alert("없는 기관입니다!");
+              } else if (data.status === 200) {
+                window.alert("기관 확인 완료!");
+                document.getElementById("company").readOnly = true;
+              }
+            });
+          }
+        </script>
       </div>
     </div>
   </div>

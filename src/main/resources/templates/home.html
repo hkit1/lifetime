@@ -80,7 +80,7 @@
         <div class="card_img_tag_schedule">개강예정</div>
       </a>
       <a class="card_body" th:href="@{/lecture/{id}(id = ${lecture.id()})}">
-        <h4 class="card_title" th:text="${lecture.name()}"></h4>
+          <h4 class="card_title" th:text="${lecture.name()}" th:title="${lecture.name()}"></h4>
       </a>
       <div class="card_footer">
         <span th:text="${lecture.created_at()}"></span>
