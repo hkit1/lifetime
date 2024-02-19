@@ -265,8 +265,8 @@ public class ExamTests {
         MultiValueMap<String, String> info = new LinkedMultiValueMap<>();
 
         info.add("name", faker.starCraft().building());
-        info.add("created_at", LocalDate.now().format(DateTimeFormatter.BASIC_ISO_DATE));
-        info.add("closed_at", LocalDate.now().plusDays(faker.random().nextInt(3, 30)).format(DateTimeFormatter.BASIC_ISO_DATE));
+        info.add("created_at", LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+        info.add("closed_at", LocalDate.now().plusDays(faker.random().nextInt(3, 30)).format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
         info.add("company_name", company.getName());
         info.add("teacher", account.getName());
         info.add("main_category", category.getMainCategory().getName());

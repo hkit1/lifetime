@@ -74,7 +74,7 @@ public class Account {
                 accountDto.name(),
                 accountDto.id(),
                 accountDto.pw(),
-                LocalDate.parse(accountDto.birth(), DateTimeFormatter.BASIC_ISO_DATE),
+                LocalDate.parse(accountDto.birth(), DateTimeFormatter.ofPattern("yyyy-MM-dd")),
                 accountDto.email(),
                 accountDto.tel(),
                 accountDto.gender(),

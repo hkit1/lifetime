@@ -39,7 +39,7 @@ public class AccountTests {
         info.add("name", faker.name().fullName());
         info.add("id", faker.internet().username());
         info.add("pw", faker.internet().password());
-        info.add("birth", faker.date().birthday().toLocalDateTime().format(DateTimeFormatter.BASIC_ISO_DATE));
+        info.add("birth", faker.date().birthday().toLocalDateTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
         info.add("email", faker.internet().emailAddress());
         info.add("tel", faker.phoneNumber().phoneNumber());
         info.add("gender", String.valueOf(faker.random().nextBoolean()));

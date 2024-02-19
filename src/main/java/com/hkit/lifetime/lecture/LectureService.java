@@ -61,7 +61,7 @@ public class LectureService {
         System.out.println(lectureInputDto.file().getOriginalFilename());
 
 
-        Lecture lecture = new Lecture(lectureInputDto.id(), lectureInputDto.name(), lectureInputDto.description(), LocalDate.parse(lectureInputDto.created_at(), DateTimeFormatter.BASIC_ISO_DATE), LocalDate.parse(lectureInputDto.closed_at(), DateTimeFormatter.BASIC_ISO_DATE), teacher, category, company);
+        Lecture lecture = new Lecture(lectureInputDto.id(), lectureInputDto.name(), lectureInputDto.description(), LocalDate.parse(lectureInputDto.created_at(), DateTimeFormatter.ofPattern("yyyy-MM-dd")), LocalDate.parse(lectureInputDto.closed_at(), DateTimeFormatter.ofPattern("yyyy-MM-dd")), teacher, category, company);
         Lecture dwnloadLec = lectureRepository.save(lecture);
         //ispresent 나중에
 

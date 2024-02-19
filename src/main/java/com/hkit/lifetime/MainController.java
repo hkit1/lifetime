@@ -77,7 +77,7 @@ public class MainController {
                     a.getName(),
                     a.getId(),
                     a.getPw(),
-                    a.getBirth().format(DateTimeFormatter.BASIC_ISO_DATE),
+                    a.getBirth().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")),
                     a.getEmail(),
                     a.getTel(),
                     a.getGender(),
@@ -113,8 +113,8 @@ public class MainController {
                     l.getId(),
                     l.getName(),
                     l.getDescription(),
-                    l.getCreatedAt().format(DateTimeFormatter.BASIC_ISO_DATE),
-                    l.getClosedAt().format(DateTimeFormatter.BASIC_ISO_DATE),
+                    l.getCreatedAt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")),
+                    l.getClosedAt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")),
                     l.getTeacher().getName(),
                     l.getCategory().getMainCategory().getName() + " / " + l.getCategory().getName(),
                     l.getCompany().getName()
@@ -166,6 +166,33 @@ public class MainController {
         model.addAttribute("lectureExams", lectureExams);
 
         return "mypage";
+    }
+
+    @GetMapping("/c/admin")
+    public String zz(Model model) {
+        List<Lecture> lectures = lectureService.getAllByPage(PageRequest.of(0, 10));
+        List<LectureOutputDto> lectureOutputDto = new ArrayList<>();
+        for (Lecture l : lectures) {
+            lectureOutputDto.add(new LectureOutputDto(
+                    l.getId(),
+                    l.getName(),
+                    l.getDescription(),
+                    l.getCreatedAt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")),
+                    l.getClosedAt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")),
+                    l.getTeacher().getName(),
+                    l.getCategory().getMainCategory().getName() + " / " + l.getCategory().getName(),
+                    l.getCompany().getName()
+            ));
+        }
+
+        model.addAttribute("lectureList", lectureOutputDto);
+
+        return "mypage_lecture";
+    }
+
+    @GetMapping("/c/admin/register")
+    public String zzz(Model mode) {
+        return "mypage_lecture_create";
     }
 
     static class MyLecture{
