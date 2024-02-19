@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <title>회원가입_회원정보입력</title>
-  <link rel="stylesheet" href="../css/common/header.css" >
-  <link rel="stylesheet" href="../css/common/footer.css" >
-  <link rel="stylesheet" href="../css/register_input.css" >
+  <link rel="stylesheet" href="/css/common/header.css" >
+  <link rel="stylesheet" href="/css/common/footer.css" >
+  <link rel="stylesheet" href="/css/register_input.css" >
   <meta th:content="${_csrf.token}" th:name="_csrf"/>
   <meta th:content="${_csrf.headerName}" th:name="_csrf_header"/>
 </head>
@@ -56,7 +56,6 @@
             <p class="category_text">회원구분&nbsp;<span style="color: red">*</span></p>
           </div>
           <div class="real_input">
-            <!-- TODO thymeleaf 으로 기관 또는 일반 회원별 input 항목 추가 및 삭제 -->
             <script>
               function changeType(bool) {
                 if (bool) {
