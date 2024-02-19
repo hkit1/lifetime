@@ -1,8 +1,13 @@
 package com.hkit.lifetime.account;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
+import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -10,36 +15,43 @@ import java.util.Optional;
 public class AccountService {
     public final AccountRepository accountRepository;
 
-    public String save(AccountDto accountDto) {
-        //아이디 중복 검사
-        Optional<Account> accountById = accountRepository.findAccountById(accountDto.id());
-        if (accountById.isEmpty()) {
-            Account account = Account.toAccount(accountDto);
-            return accountRepository.save(account).getId();
-        }
-
-        return null;
+    public String register(AccountDto accountDto) {
+        Account account = Account.toAccount(accountDto);
+        return accountRepository.save(account).getId();
     }
 
     public void delete(String id) {
-        Optional<Account> accountById = accountRepository.findAccountById(id);
-        accountRepository.delete(accountById.get());
+        Account findAccount = accountRepository.findAccountById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Account Not Found"));
+        accountRepository.delete(findAccount);
     }
 
     public void update(AccountDto accountDto) {
-        Optional<Account> accountById = accountRepository.findAccountById(accountDto.id());
+        Account findAccount = accountRepository.findAccountById(accountDto.id())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Account Not Found"));
 
-        if (accountById.isPresent()) {
-            Account account = accountById.get();
-            account.updateAccount(accountDto);
-
-            accountRepository.save(account);
-        }
-
+        findAccount.updateAccount(accountDto);
+        accountRepository.save(findAccount);
     }
 
-    public Optional<Account> duplicateCheck(String id){
-        return accountRepository.findAccountById(id);
+    public Boolean duplicateCheck(String id) {
+        Account findAccount = accountRepository.findAccountById(id).orElseGet(Account::new);
+        return findAccount.getId() == null;
     }
 
+    public Optional<Account> findAccount(String id, String pw) {
+        return accountRepository.findByIdAndPw(id, pw);
+    }
+
+    public Long countByDate(LocalDate date) {
+        return accountRepository.countByCreated_atAfter(date);
+    }
+
+    public Long countAll() {
+        return accountRepository.count();
+    }
+
+    public List<Account> getAllByPage(Pageable page) {
+        return accountRepository.findAll(page).getContent();
+    }
 }

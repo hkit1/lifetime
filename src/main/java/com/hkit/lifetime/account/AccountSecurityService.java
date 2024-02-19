@@ -2,14 +2,15 @@ package com.hkit.lifetime.account;
 
 import com.hkit.lifetime.security.SecurityRole;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Collections;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -20,19 +21,16 @@ public class AccountSecurityService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String id) throws UsernameNotFoundException {
         try {
+            Account findAccount = accountRepository.findAccountById(id)
+                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Account Not Found"));
 
-            Optional<Account> accountById = accountRepository.findAccountById(id);
-            if (accountById.isEmpty()) {
-                return null;
-            }
-
-            Account account = accountById.get();
             AccountSecurity accountSecurity = new AccountSecurity(
-                    account.getId(),
-                    account.getPw()
+                    findAccount.getId(),
+                    findAccount.getPw()
             );
 
-            SecurityRole role = account.getRole();
+            // todo fix
+            SecurityRole role = findAccount.getRole();
             accountSecurity.setAuthorities(Collections.singleton(new SimpleGrantedAuthority(role.name())));
 
             return accountSecurity;
@@ -41,5 +39,4 @@ public class AccountSecurityService implements UserDetailsService {
         }
 
     }
-
 }

@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>회원가입_회원정보입력</title>
+  <link rel="stylesheet" href="../css/common/header.css" >
+  <link rel="stylesheet" href="../css/common/footer.css" >
+  <link rel="stylesheet" href="../css/register_input.css" >
+  <meta th:content="${_csrf.token}" th:name="_csrf"/>
+  <meta th:content="${_csrf.headerName}" th:name="_csrf_header"/>
+</head>
+<body>
+
+  <div class="container">
+    <!-- 헤더 html 시작 -->
+    <header th:replace="~{/common/header::header}"></header>
+    <!-- 헤더 html 끝 -->
+
+    <!-- 회원가입_회원정보입력 html 시작-->
+    <div class="reg_container">
+      <div class="reg_procedure">
+        <div>
+          <p>회원가입</p>
+        </div>
+        <div class="reg_order_icon">
+          <div class="reg_order_round_sub">
+            <span class="reg_order_text">회원유형 선택</span>
+          </div>
+          <img src="../images/sub_line.png" alt="">
+          <div class="reg_order_round_sub">
+            <span class="reg_order_text">약관동의</span>
+          </div>
+          <img src="../images/sub_line.png" alt="">
+          <div class="reg_order_round">
+            <span class="reg_order_text">회원정보 입력</span>
+          </div>
+          <img src="../images/main_line.png" alt="">
+          <div class="reg_order_round_sub">
+            <span class="reg_order_text">가입완료</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <hr>
+
+    <div class="member_information_input_container">
+      <div class="member_information_input_text">
+        <p class="member_information_input_title">회원정보 입력</p>
+        <p class="member_information_input_content">회원가입을 위한 회원정보를 입력하는 과정입니다.</p>
+      </div>
+      <form class="member_form" id="reg_form" method="post">
+        <input th:name="${_csrf.parameterName}" th:value="${_csrf.token}" type="hidden"/>
+        <div class="member_division">
+          <div class="category_container">
+            <p class="category_text">회원구분&nbsp;<span style="color: red">*</span></p>
+          </div>
+          <div class="real_input">
+            <!-- TODO thymeleaf 으로 기관 또는 일반 회원별 input 항목 추가 및 삭제 -->
+            <script>
+              function changeType(bool) {
+                if (bool) {
+                  document.getElementById("company_input").style.display = "flex";
+                  document.getElementById("company").required = true;
+                } else {
+                  document.getElementById("company_input").style.display = "none";
+                  document.getElementById("company").removeAttribute("required");
+                }
+              }
+            </script>
+
+            <input checked class="radio_item_1" name="member_division" onclick="changeType(false)" type="radio">&nbsp;일반회원
+            <input class="radio_item_2" name="member_division" onclick="changeType(true)" type="radio">&nbsp;기관담당자
+          </div>
+        </div>
+        <div class="member_id" id="company_input" style="display: none">
+          <div class="category_container">
+            <p class="category_text">기관명 <span style="color: red">*</span></p>
+          </div>
+          <div class="real_input">
+            <input id="company" name="company" type="text">
+            <script>
+              async function check() {
+                const token = document.querySelector('meta[name="_csrf"]').content;
+                const header = document.querySelector('meta[name="_csrf_header"]').content;
+
+                const f = document.getElementById("company");
+                await fetch("/api/company/check", {
+                  method: "POST",
+                  headers: {[header]: token},
+                  body: "{\"company\", \"" + f.value + "\"}"
+                }).then(data => {
+                  if (data.status === 400) {
+                    window.alert("없는 기관입니다!");
+                  } else if (data.status === 200) {
+                    window.alert("기관 확인 완료!");
+                    document.getElementById("company").readOnly = true;
+                  }
+                });
+              }
+            </script>
+            <input class="id_birthDate_postcode_button" id="check_company" onclick="check()" type="button"
+                   value="기관명 확인">
+          </div>
+        </div>
+        <div class="member_name">
+          <div class="category_container">
+            <p class="category_text">이름 <span style="color: red">*</span></p>
+          </div>
+          <div class="real_input">
+            <input name="name" required type="text">
+          </div>
+        </div>
+        <div class="member_id">
+          <div class="category_container">
+            <p class="category_text">아이디&nbsp;<span style="color: red">*</span></p>
+          </div>
+          <div class="real_input">
+            <input name="id" required type="text">
+          </div>
+        </div>
+        <div class="member_password">
+          <div class="category_container">
+            <p class="category_text">비밀번호&nbsp;<span style="color: red">*</span></p>
+          </div>
+          <div class="real_input">
+            <input id="pw" name="pw" required type="password">
+          </div>
+        </div>
+        <div class="member_password_check">
+          <div class="category_container">
+            <p class="category_text">비밀번호 확인&nbsp;<span style="color: red">*</span></p>
+          </div>
+          <div class="real_input">
+            <input id="pw_repeat" required type="password">
+          </div>
+        </div>
+        <div class="member_birthDate">
+          <div class="category_container">
+            <p class="category_text">생년월일&nbsp;<span style="color: red">*</span></p>
+          </div>
+          <div class="real_input">
+            <input id="input_birth" name="birth" type="hidden">
+            <input id="birth" required type="date">
+          </div>
+        </div>
+        <div class="member_gender">
+          <div class="category_container">
+            <p class="category_text">성별&nbsp;<span style="color: red">*</span></p>
+          </div>
+          <div class="real_input">
+            <input checked class="radio_item_1" name="gender" type="radio" value="0">&nbsp;남자
+            <input class="radio_item_2" name="gender" type="radio" value="1">&nbsp;여자
+          </div>
+        </div>
+        <div class="member_address">
+          <div class="category_container">
+            <p class="category_text">주소&nbsp;<span style="color: red">*</span></p>
+          </div>
+          <div class="real_input basics_detail_address">
+            <script>
+              function open_address() {
+                new daum.Postcode({
+                  oncomplete: function (data) {
+                    document.getElementById('zipcode').value = data.zonecode;
+                    document.getElementById("address1").value = data.roadAddress;
+                    document.getElementById("address2").focus();
+                  }
+                }).open();
+              }
+            </script>
+
+            <div>
+              <input id="zipcode" placeholder="우편번호" required style="background-color: #F5F5F5" type="text">
+              <input class="id_birthDate_postcode_button" onclick="open_address()" type="button" value="우편번호검색">
+            </div>
+            <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+            <input class="basics_address" id="address1" name="address1" placeholder="기본주소" required type="text">
+            <input class="detail_address" id="address2" name="address2" placeholder="상세주소" type="text">
+          </div>
+        </div>
+        <div class="member_phoneNumber">
+          <input id="tel" name="tel" type="hidden">
+          <div class="category_container">
+            <p class="category_text">연락처&nbsp;<span style="color: red">*</span></p>
+          </div>
+          <div class="real_input">
+            <select class="short_box" id="tel1">
+              <option value="010">010</option>
+              <option value="011">011</option>
+              <option value="016">016</option>
+              <option value="017">017</option>
+              <option value="018">018</option>
+              <option value="019">019</option>
+            </select>
+            <span>-</span>
+            <input class="short_box" id="tel2" required type="text">
+            <span>-</span>
+            <input class="short_box" id="tel3" required type="text">
+          </div>
+        </div>
+        <div class="member_email">
+          <div class="category_container">
+            <p class="category_text">이메일&nbsp;<span style="color: red">*</span></p>
+          </div>
+          <div class="real_input">
+            <input id="email" name="email" type="hidden">
+            <script>
+              function form_submit() {
+                document.getElementById("email").value = document.getElementById("email1").value + "@" + document.getElementById("email2").value;
+                document.getElementById("tel").value = document.getElementById("tel1").value + document.getElementById("tel2").value + document.getElementById("tel3").value;
+                document.getElementById("input_birth").value = document.getElementById("birth").value.replaceAll("-", "");
+              }
+
+              function change() {
+                document.getElementById("email2").value = document.getElementById("email3").value;
+              }
+            </script>
+            <input id="email1" required type="text">
+            <span> @ </span>
+            <input id="email2" placeholder="직접입력" required type="text">
+            <select class="short_box" id="email3" name="" onchange="change()">
+              <option value="naver.com">naver.com</option>
+              <option value="google.com">google.com</option>
+              <option value="hanmail.net">hanmail.net</option>
+              <option value="nate.com">nate.com</option>
+              <option value="kakao.com">kakao.com</option>
+              <option value="msn.com">msn.com</option>
+            </select>
+          </div>
+        </div>
+        <div class="member_information_decision">
+          <input class="check" id="submit" onclick="form_submit()" type="submit" value="확 인">
+          <input class="cancel" type="submit" value="취 소">
+        </div>
+      </form>
+    </div>
+    <!-- 회원가입_회원정보입력 html 끝 -->
+  </div>
+
+  <!-- 푸터 html 시작 -->
+  <footer th:replace="~{/common/footer::footer}"></footer>
+  <!-- 푸터 html 끝 -->
+
+  <script th:inline="javascript">
+    const f = document.getElementById("reg_form");
+    f.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      await fetch("register", {
+        method: "POST",
+        body: new FormData(f)
+      }).then(data => {
+        if (data.status === 400) {
+          window.alert("이미 사용중인 아이디 입니다!");
+        } else if (data.status === 200) {
+          window.location.href = "/register/complete";
+        }
+      });
+    })
+  </script>
+</body>
+</html>

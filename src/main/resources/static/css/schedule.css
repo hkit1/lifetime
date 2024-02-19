@@ -1,0 +1,124 @@
+body {
+    overflow-x: hidden;
+}
+
+.schedule_title_container {
+    width: 100vw;
+    height: 100px;
+    display: flex;
+    margin-left: calc(-50vw + 50%);
+    align-items: center;
+    background-color: #05294B;
+}
+
+.schedule_title {
+    width: 500px;
+    height: 70px;
+    margin-left: 168px;
+}
+
+.year_month_container {
+    width: 100%;
+    height: 70px;
+    margin-top: 90px;
+}
+
+.year_month {
+    width: 250px;
+    height: 70px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+}
+
+.year_month a {
+    color: #000000;
+    font-weight: 700;
+    font-size: 28px;
+    line-height: 70px;
+    text-align: center;
+    text-decoration: none;
+}
+
+table {
+    width: 100%;
+    height: 800px;
+    margin-top: 40px;
+    border: 1px solid #DDDDDD;
+    border-collapse: collapse;
+}
+
+table thead th {
+    width: calc(100% / 7);
+    height: 50px;
+    color: #FFFFFF;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 36px;
+    text-align: center;
+    border: 1px solid #DDDDDD;
+}
+
+table thead th:first-child {
+    background-color: #CC2D2D;
+}
+
+table thead th:nth-child(n+2):nth-child(-n+6) {
+    background-color: rgb(137, 137, 137);
+}
+
+table thead th:last-child {
+    background-color: #2F5CCF;
+}
+
+table tbody td {
+    height: 150px;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 36px;
+    vertical-align: top;
+    border: 1px solid #DDDDDD;
+}
+
+.content_wrap {
+    width: 100%;
+    height: 130px;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 27px;
+}
+
+.content {
+    width: 170px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.content_text {
+    all: initial;
+    color: #ffffff;
+    display: none;
+    font-size: 11px;
+    padding: 15px 20px;
+    border-radius: 5px;
+    background-color: #444444;
+}
+
+.content:hover > .content_text {
+    display: block;
+}
+
+.holiday {
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 36px;
+    color: #DD0000;
+}
+
+.holiday_content {
+    font-weight: 400;
+    font-size: 11px;
+    line-height: 25px;
+    color: #DD0000;
+}

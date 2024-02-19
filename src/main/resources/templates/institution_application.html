@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>수강신청등록기관</title>
+  <link rel="stylesheet" href="../css/common/header.css" >
+  <link rel="stylesheet" href="../css/common/footer.css" >
+  <link rel="stylesheet" href="../css/institution_application.css" >
+</head>
+<body>
+  <div class="container">
+    <!-- 헤더 html 시작 -->
+    <header th:replace="~{/common/header::header}"></header>
+    <!-- 헤더 html 끝 -->
+
+    <!-- 수강신청등록기관 html 시작-->
+    <div class="title_container">
+      <div class="title">
+        <p>수강신청등록기관</p>
+      </div>
+    </div>
+
+    <div class="personal_information_use_policy">
+      <ul style="list-style: disc">
+        <li class="personal_information_use_policy_title">개인정보 이용방침</li>
+      </ul>
+      <textarea class="personal_information_use_policy_text" cols="30" rows="10" readonly>대통령·국무총리·국무위원·행정각부의 장·헌법재판소 재판관·법관·중앙선거관리위원회 위원·감사원장·감사위원 기타 법률이 정한 공무원이 그 직무집행에 있어서 헌법이나 법률을 위배한 때에는 국회는 탄핵의 소추를 의결할 수 있다.
+
+대통령이 궐위된 때 또는 대통령 당선자가 사망하거나 판결 기타의 사유로 그 자격을 상실한 때에는 60일 이내에 후임자를 선거한다. 모든 국민은 직업선택의 자유를 가진다.
+
+형사피고인은 유죄의 판결이 확정될 때까지는 무죄로 추정된다. 대통령은 국가의 원수이며, 외국에 대하여 국가를 대표한다. 국가는 주택개발정책등을 통하여 모든 국민이 쾌적한 주거생활을 할 수 있도록 노력하여야 한다.
+
+모든 국민은 양심의 자유를 가진다. 헌법재판소 재판관은 정당에 가입하거나 정치에 관여할 수 없다. 사법권은 법관으로 구성된 법원에 속한다. 모든 국민은 자기의 행위가 아닌 친족의 행위로 인하여 불이익한 처우를 받지 아니한다.
+
+대통령후보자가 1인일 때에는 그 득표수가 선거권자 총수의 3분의 1 이상이 아니면 대통령으로 당선될 수 없다. 한 회계연도를 넘어 계속하여 지출할 필요가 있을 때에는 정부는 연한을 정하여 계속비로서 국회의 의결을 얻어야 한다.
+
+모든 국민은 법률이 정하는 바에 의하여 국가기관에 문서로 청원할 권리를 가진다. 대통령은 제1항과 제2항의 처분 또는 명령을 한 때에는 지체없이 국회에 보고하여 그 승인을 얻어야 한다.
+
+연소자의 근로는 특별한 보호를 받는다. 훈장등의 영전은 이를 받은 자에게만 효력이 있고, 어떠한 특권도 이에 따르지 아니한다. 선거와 국민투표의 공정한 관리 및 정당에 관한 사무를 처리하기 위하여 선거관리위원회를 둔다.
+
+모든 국민의 재산권은 보장된다. 그 내용과 한계는 법률로 정한다. 여자의 근로는 특별한 보호를 받으며, 고용·임금 및 근로조건에 있어서 부당한 차별을 받지 아니한다.
+
+국회가 재적의원 과반수의 찬성으로 계엄의 해제를 요구한 때에는 대통령은 이를 해제하여야 한다. 공무원은 국민전체에 대한 봉사자이며, 국민에 대하여 책임을 진다.
+
+대통령은 법률에서 구체적으로 범위를 정하여 위임받은 사항과 법률을 집행하기 위하여 필요한 사항에 관하여 대통령령을 발할 수 있다. 대법원장의 임기는 6년으로 하며, 중임할 수 없다.</textarea>
+      &ensp;<input type="checkbox">&ensp;개인정보 수집내용 동의
+    </div>
+
+    <hr>
+
+    <div class="institution_input_container">
+      <form th:action="@{/api/company/create}" method="post" class="institution_form">
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+        <div class="institution_name">
+          <div class="category_container">
+            <p class="category_text">기관명&nbsp;<span style="color: red">*</span></p>
+          </div>
+          <div class="real_input">
+            <input type="text" required style="background-color: #F5F5F5" name="name">
+          </div>
+        </div>
+        <div class="representative_name">
+          <div class="category_container">
+            <p class="category_text">대표자명&nbsp;<span style="color: red">*</span></p>
+          </div>
+          <div class="real_input">
+            <input type="text" required name="admin">
+          </div>
+        </div>
+        <div class="corporate_registration_number">
+          <div class="category_container">
+            <p class="category_text">사업자등록번호&nbsp;<span style="color: red">*</span></p>
+          </div>
+          <div class="real_input">
+            <input type="text" required name="id">
+            &ensp;&ensp;&ensp;&ensp;<span style="color: red; font-size: 12px">* 사업자등록번호는 '-' 포함하여 입력해주시길 바랍니다.</span>
+          </div>
+        </div>
+
+        <div class="email">
+          <div class="category_container">
+            <p class="category_text">이메일&nbsp;<span style="color: red">*</span></p>
+          </div>
+          <div class="real_input">
+            <input id="email" name="email" type="hidden">
+            <input id="email1" required type="text">
+            <span> @ </span>
+            <input id="email2" placeholder="직접입력" required type="text">
+            <select class="short_box" id="email3" name="" onchange="change()">
+              <option value="naver.com">naver.com</option>
+              <option value="google.com">google.com</option>
+              <option value="hanmail.net">hanmail.net</option>
+              <option value="nate.com">nate.com</option>
+              <option value="kakao.com">kakao.com</option>
+              <option value="msn.com">msn.com</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="address">
+          <div class="category_container">
+            <p class="category_text">주소&nbsp;<span style="color: red">*</span></p>
+          </div>
+          <div class="real_input basics_detail_address">
+            <script>
+              function open_address() {
+                new daum.Postcode({
+                  oncomplete: function (data) {
+                    document.getElementById('zipcode').value = data.zonecode;
+                    document.getElementById("address1").value = data.roadAddress;
+                    document.getElementById("address2").focus();
+                  }
+                }).open();
+              }
+            </script>
+
+            <div>
+              <input id="zipcode" placeholder="우편번호" required style="background-color: #F5F5F5" type="text">
+              <input class="id_birthDate_postcode_button" onclick="open_address()" type="button" value="우편번호검색">
+            </div>
+            <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+            <input class="basics_address" id="address1" name="address1" placeholder="기본주소" required type="text">
+            <input class="detail_address" id="address2" name="address2" placeholder="상세주소" type="text">
+          </div>
+        </div>
+        <div class="representative_number">
+          <input id="tel" name="tel" type="hidden">
+          <div class="category_container">
+            <p class="category_text">대표번호&nbsp;<span style="color: red">*</span></p>
+          </div>
+          <div class="real_input">
+            <input class="short_box" id="tel1" required type="text">
+            <span>-</span>
+            <input class="short_box" id="tel2" required type="text">
+            <span>-</span>
+            <input class="short_box" id="tel3" required type="text">
+          </div>
+        </div>
+        <script>
+          function form_submit() {
+            document.getElementById("email").value = document.getElementById("email1").value + "@" + document.getElementById("email2").value;
+            document.getElementById("tel").value = document.getElementById("tel1").value + document.getElementById("tel2").value + document.getElementById("tel3").value;
+          }
+
+          function change() {
+            document.getElementById("email2").value = document.getElementById("email3").value;
+          }
+        </script>
+        <div class="application_enrollment_decision">
+          <input type="submit" value="등&nbsp;록" class="enrollment" onclick="form_submit()">
+          <input type="submit" value="목&nbsp;록" class="list">
+        </div>
+      </form>
+    </div>
+    <!-- 수강신청등록기관 html 끝-->
+  </div>
+
+  <!-- 푸터 html 시작 -->
+  <footer th:replace="~{/common/footer::footer}"></footer>
+  <!-- 푸터 html 끝 -->
+</body>
+</html>

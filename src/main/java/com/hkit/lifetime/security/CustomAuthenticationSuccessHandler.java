@@ -26,13 +26,13 @@ public class CustomAuthenticationSuccessHandler extends SimpleUrlAuthenticationS
 
         HttpSession session = request.getSession();
         session.setAttribute("loginName", authentication.getName());
-        //요청 캐시를 통해 로그인 성공 후 요청 페이지가 있을 시 요청 페이지로 바로 이동
+
         setDefaultTargetUrl("/");
 
         SavedRequest savedRequest = requestCache.getRequest(request, response);
+        //로그인 성공 시 home 으로 redirect
         if (savedRequest != null) {
-            String targetUrl = savedRequest.getRedirectUrl();
-            redirectStrategy.sendRedirect(request, response, targetUrl);
+            redirectStrategy.sendRedirect(request, response, getDefaultTargetUrl());
         } else {
             redirectStrategy.sendRedirect(request, response, getDefaultTargetUrl());
         }

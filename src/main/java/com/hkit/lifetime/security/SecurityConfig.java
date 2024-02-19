@@ -17,7 +17,7 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
 
     @Bean
-    public WebSecurityCustomizer webSecurityCustomizer() {
+    public WebSecurityCustomizer webSecurityCustomizer(){
         return web -> web.ignoring().requestMatchers(PathRequest.toStaticResources().atCommonLocations());
     }
 
@@ -26,7 +26,7 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests(requsts -> requsts
                         //권한 없이 들어갈 수 있는 페이지
-                        .requestMatchers("/", "/api/account/login", "/register").permitAll()
+                        .requestMatchers("/", "/member/login", "/account/register", "/error", "/api/lecture/{id}/image").permitAll()
                         //이외의 페이지는 모두 권한 필요
                         .anyRequest().authenticated()
                 )
@@ -35,15 +35,13 @@ public class SecurityConfig {
                         //.loginPage()
 
                         //로그인 URL 매핑
+                        .loginPage("/member/login")
                         .loginProcessingUrl("/api/account/login")
-
                         //로그인 정보 파라미터
                         .usernameParameter("id")
                         .passwordParameter("pw")
-
                         //로그인 성공시 URL 후에 핸들러 작성시 아래의 실패 핸들러 처럼 등록
-                        .successForwardUrl("/")
-
+                        .successHandler(new CustomAuthenticationSuccessHandler())
                         //로그인 실패 핸들러 등록
                         .failureHandler(new CustomAuthenticationFailHandler())
                 )
@@ -51,6 +49,7 @@ public class SecurityConfig {
                 .logout(Customizer.withDefaults())
                 .httpBasic(Customizer.withDefaults())
                 .csrf(Customizer.withDefaults());
+
 
         return http.build();
     }

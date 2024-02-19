@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>마이페이지_강좌관리</title>
+  <link rel="stylesheet" href="../css/common/header.css">
+  <link rel="stylesheet" href="../css/common/footer.css">
+  <link rel="stylesheet" href="../css/mypage_lecture.css">
+</head>
+<body>
+
+  <div class="container">
+    <!-- 헤더 html 시작 -->
+    <header th:replace="~{/common/header::header}"></header>
+    <!-- 헤더 html 끝 -->
+
+    <div style="display: flex; flex-direction: row">
+      <div class="profile_container">
+        <div class="profile_greeting_container">
+          <div class="profile_container_wrap">
+<!--              <p><span style="font-family: 'Droid Sans'; font-weight: 700; font-size: 12px; line-height: 27px" sec:authentication="name"></span>-->
+<!--                <span style="font-family: 'Droid Sans'; font-weight: 400; font-size: 12px; line-height: 27px; color: #3D3D3D">님 안녕하세요.</span></p>-->
+<!--              <p><span style="font-family: 'Droid Sans'; font-weight: 400; font-size: 10px; line-height: 22px">수강중인 강좌 수 :</span>-->
+<!--                <span style="font-family: 'Droid Sans'; font-weight: 400; font-size: 12px; line-height: 27px" th:text="${my_lecture.take}"></span></p>-->
+<!--              <p><span style="font-family: 'Droid Sans'; font-weight: 400; font-size: 10px; line-height: 22px">수강완료한 강좌 수 : </span>-->
+<!--                <span style="font-family: 'Droid Sans'; font-weight: 400; font-size: 12px; line-height: 27px" th:text="${my_lecture.end}">&ensp;&ensp;&nbsp;</span></p>-->
+          </div>
+        </div>
+        <div class="menu_container">
+          <div class="menu">
+            <a href="">메뉴1</a>
+            <a href="">메뉴2</a>
+            <a href="">메뉴3</a>
+            <a href="">메뉴4</a>
+            <a href="">메뉴5</a>
+            <a href="">메뉴6</a>
+          </div>
+        </div>
+      </div>
+
+      <div style="display: flex; flex-direction: column">
+        <table>
+          <form action="/api/lecture/delete/">
+          <thead>
+          <tr>
+            <th></th>
+            <th>강좌번호</th>
+            <th>이름</th>
+            <th>시작일</th>
+            <th>종료일</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr th:each="lecture: ${lectureList}">
+            <td><input type="checkbox"></td>
+            <td th:text="${lecture.id()}"/>
+            <td th:text="${lecture.name()}"/>
+            <td th:text="${lecture.created_at()}"/>
+            <td th:text="${lecture.closed_at()}"/>
+          </tr>
+          </tbody>
+          </form>
+        </table>
+
+        <div class="register_delete_button_container">
+          <input type="button" value="강좌삭제" class="lecture_delete_button">
+          <input class="lecture_register_button" onclick="location.href='/c/admin/register'" type="button" value="강좌등록">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 푸터 html 시작 -->
+  <footer th:replace="~{/common/footer::footer}"></footer>
+  <!-- 푸터 html 끝 -->
+
+</body>
+</html>

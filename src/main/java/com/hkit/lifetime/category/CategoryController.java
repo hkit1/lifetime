@@ -39,10 +39,6 @@ public class CategoryController {
                                  @RequestParam(name = "oldName") String oldName,
                                  @RequestParam(name = "newName") String newName){
 
-        log.info("category :" + main);
-        log.info("oldName :" + oldName);
-        log.info("newName :" + newName);
-
         if (!StringUtils.hasText(main)){
             CategoryDto oldCategoryDto = new CategoryDto(null, oldName);
             CategoryDto newCategoryDto = new CategoryDto(null, newName);
