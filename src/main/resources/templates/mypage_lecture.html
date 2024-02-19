@@ -40,8 +40,10 @@
 
       <div style="display: flex; flex-direction: column">
         <table>
+          <form action="/api/lecture/delete/">
           <thead>
           <tr>
+            <th></th>
             <th>강좌번호</th>
             <th>이름</th>
             <th>시작일</th>
@@ -49,18 +51,20 @@
           </tr>
           </thead>
           <tbody>
-          <tr>
-            <td>1</td>
-            <td>코틀린으로 배우는 안드로이드 프로그래밍</td>
-            <td>2024-02-16</td>
-            <td>2024-02-23</td>
+          <tr th:each="lecture: ${lectureList}">
+            <td><input type="checkbox"></td>
+            <td th:text="${lecture.id()}"/>
+            <td th:text="${lecture.name()}"/>
+            <td th:text="${lecture.created_at()}"/>
+            <td th:text="${lecture.closed_at()}"/>
           </tr>
           </tbody>
+          </form>
         </table>
 
         <div class="register_delete_button_container">
           <input type="button" value="강좌삭제" class="lecture_delete_button">
-          <input type="button" value="강좌등록" class="lecture_register_button">
+          <input class="lecture_register_button" onclick="location.href='/c/admin/register'" type="button" value="강좌등록">
         </div>
       </div>
     </div>
