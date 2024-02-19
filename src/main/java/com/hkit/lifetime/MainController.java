@@ -141,7 +141,7 @@ public class MainController {
         return "satisfaction";
     }
 
-    @GetMapping("/c")
+    @GetMapping("/mypage")
     public String zxc(Model model){
         MyLecture myLecture = new MyLecture("1", "15");
         TakeLectutreTime takeLectutreTime = new TakeLectutreTime("15h", "15h", "15h", "15h", "15h", "15h", "15h");
@@ -173,7 +173,7 @@ public class MainController {
         return "mypage";
     }
 
-    @GetMapping("/c/admin")
+    @GetMapping("/mypage/admin")
     public String zz(Model model) {
         List<Lecture> lectures = lectureService.getAllByPage(PageRequest.of(0, 10));
         List<LectureOutputDto> lectureOutputDto = new ArrayList<>();
@@ -195,7 +195,7 @@ public class MainController {
         return "mypage_lecture";
     }
 
-    @GetMapping("/c/admin/register")
+    @GetMapping("/mypage/admin/register")
     public String zzz(Model mode) {
         return "mypage_lecture_create";
     }
