@@ -20,9 +20,10 @@ public class AccountSecurityService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String id) throws UsernameNotFoundException {
-        try {
+
+
             Account findAccount = accountRepository.findAccountById(id)
-                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Account Not Found"));
+                    .orElseThrow(() -> new UsernameNotFoundException("사용자가 존재하지 않습니다."));
 
             AccountSecurity accountSecurity = new AccountSecurity(
                     findAccount.getId(),
@@ -34,9 +35,5 @@ public class AccountSecurityService implements UserDetailsService {
             accountSecurity.setAuthorities(Collections.singleton(new SimpleGrantedAuthority(role.name())));
 
             return accountSecurity;
-        } catch (Exception e) {
-            return null;
-        }
-
     }
 }
