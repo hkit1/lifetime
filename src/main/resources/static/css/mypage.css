@@ -1,0 +1,215 @@
+/* 마이페이지 css 시작 */
+.profile_container {
+    width: 230px;
+    height: 670px;
+    margin-top: 40px;
+    border-radius: 10px;
+    background-color: #9AB0C3;
+}
+
+.profile_greeting_container {
+    width: 185px;
+    height: 230px;
+    margin: 25px auto 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #FFFFFF;
+}
+
+.profile_container_wrap {
+    width: 130px;
+    height: 80px;
+    margin: 0 auto;
+}
+
+.menu_container {
+    width: 185px;
+    height: 380px;
+    margin: 10px auto 0;
+    background-color: #FFFFFF;
+}
+
+.menu {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.menu a {
+    width: 165px;
+    height: 35px;
+    line-height: 35px;
+    color: black;
+    text-decoration: none;
+    margin-left: 20px;
+}
+
+.menu a:hover {
+    border-width: 0 5px 0 0;
+    border-style: solid;
+    border-color: grey;
+    box-sizing: border-box;
+}
+
+.dashboard {
+    width: 950px;
+    height: 670px;
+    margin-top: 40px;
+    margin-left: 40px;
+    border-radius: 10px;
+    background-color: #9AAFC3;
+}
+
+.lecture_viewing_time_container {
+    width: 620px;
+    height: 400px;
+    float: left;
+    margin-top: 25px;
+    margin-left: 25px;
+    border-radius: 5px;
+    background-color: #FFFFFF;
+}
+
+.lecture_viewing_time_text {
+    width: 100%;
+    height: 36px;
+}
+
+.lecture_viewing_time {
+    width: 100%;
+    height: calc(100% - 36px);
+    display: flex;
+    position: relative;
+    flex-direction: row;
+}
+
+.item_bar {
+    width: 40px;
+    height: 100%;
+    margin: 0 30px;
+}
+
+.lecture_calendar_container {
+    width: 240px;
+    height: 200px;
+    float: right;
+    margin-top: 25px;
+    margin-right: 25px;
+    border-radius: 5px;
+    background-color: #FFFFFF;
+}
+
+.lecture_calendar_text {
+    width: 80px;
+    height: 35px;
+    margin-top: 5px;
+    margin-left: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.year {
+    width: 100%;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.month {
+    width: 100%;
+    height: 35px;
+    margin-top: 15px;
+}
+
+.day {
+    width: 100%;
+    height: 45px;
+    margin-top: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.next_lecture_schedule_container {
+    width: 240px;
+    height: 400px;
+    margin-top: 25px;
+    margin-right: 25px;
+    border-radius: 5px;
+    float: right;
+    background-color: #FFFFFF;
+}
+
+.next_lecture_schedule_text {
+    width: 100px;
+    height: 50px;
+    margin-top: 5px;
+    margin-left: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.next_lecture_schedule_list {
+    width: 225px;
+    height: 300px;
+    margin: 10px auto 0;
+}
+
+.next_lecture_item {
+    width: 100%;
+    height: 60px;
+}
+
+.date {
+    width: 60px;
+    height: 60px;
+    display: flex;
+    float: left;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #D9D9D9;
+}
+
+.not_submission_homework {
+    width: 620px;
+    height: 200px;
+    float: left;
+    margin-top: 25px;
+    margin-left: 25px;
+    border-radius: 5px;
+    background-color: #FFFFFF;
+}
+
+table {
+    width: 95%;
+    margin: 0 auto;
+    border-top: none;
+    border-collapse: collapse;
+}
+
+th, td {
+    border-bottom: 1px solid #DDDDDD;
+    padding: 10px;
+}
+
+.lecture_name {
+    width: 460px;
+    text-align: center;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    display: inline-block;
+}
+
+.lecture_deadline {
+    width: 90px;
+    text-align: center;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}

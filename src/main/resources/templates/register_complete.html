@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>회원가입_회원가입완료</title>
+  <link rel="stylesheet" href="/css/common/header.css" >
+  <link rel="stylesheet" href="/css/common/footer.css" >
+  <link rel="stylesheet" href="/css/register_complete.css" >
+</head>
+<body>
+
+  <div class="container">
+    <!-- 헤더 html 시작 -->
+    <header th:replace="~{/common/header::header}"></header>
+    <!-- 헤더 html 끝 -->
+
+    <!-- 회원가입_회원가입완료 html 시작 -->
+    <div class="reg_container">
+      <div class="reg_procedure">
+        <div>
+          <p>회원가입</p>
+        </div>
+        <div class="reg_order_icon">
+          <div class="reg_order_round_sub">
+            <span class="reg_order_text">회원유형 선택</span>
+          </div>
+          <img src="../images/sub_line.png" alt="">
+          <div class="reg_order_round_sub">
+            <span class="reg_order_text">약관동의</span>
+          </div>
+          <img src="../images/sub_line.png" alt="">
+          <div class="reg_order_round_sub">
+            <span class="reg_order_text">회원정보 입력</span>
+          </div>
+          <img src="../images/sub_line.png" alt="">
+          <div class="reg_order_round">
+            <span class="reg_order_text">가입완료</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <hr>
+
+    <div class="register_complete_container">
+      <div class="register_complete_window">
+        <div class="register_complete_title">
+          <p>회원가입 완료</p>
+        </div>
+        <div class="register_complete_content">
+          <img src="../images/group.png" alt="">
+          <p>회원가입이 완료되었습니다.</p>
+          <p>이제 온라인 평생학습 플랫폼의 다양한 서비스를 만나보세요.</p>
+        </div>
+        <div class="register_complete_decision">
+          <a class="login" href="/login">로 그 인</a>
+          <a class="main" href="/">메 인</a>
+        </div>
+      </div>
+    </div>
+    <!-- 회원가입_회원가입완료 html 시작 -->
+  </div>
+
+  <!-- 푸터 html 시작 -->
+  <footer th:replace="~{/common/footer::footer}"></footer>
+  <!-- 푸터 html 끝 -->
+
+</body>
+</html>

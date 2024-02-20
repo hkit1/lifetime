@@ -1,11 +1,16 @@
 package com.hkit.lifetime.lecture;
 
+import jakarta.annotation.Nullable;
+
 import java.io.Serializable;
-import java.time.LocalDate;
 
 /**
  * DTO for {@link LectureContent}
  */
-public record LectureContentDto(Integer id, Integer lectureId, String lectureName, LocalDate lectureCreatedAt,
-                                LocalDate lectureClosedAt, String name, String description, String url) implements Serializable {
+public record LectureContentDto(Integer id,
+                                Integer lecture_id,
+                                String name,
+                                String description,
+                                @Nullable String url
+) implements Serializable {
 }

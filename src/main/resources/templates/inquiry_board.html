@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>공지사항_문의게시판</title>
+  <link rel="stylesheet" href="/css/common/header.css" >
+  <link rel="stylesheet" href="/css/common/footer.css" >
+  <link rel="stylesheet" href="/css/inquiry_board.css" >
+</head>
+<body>
+
+  <div class="container">
+    <!-- 헤더 html 시작 -->
+    <header th:replace="~{/common/header::header}"></header>
+    <!-- 헤더 html 끝 -->
+
+    <div class="board_title_container">
+      <div class="board_title">
+        <p style="font-weight: 700; font-size: 27px; line-height: 40px; color: #FFFFFF">문의 게시판</p>
+        <p style="font-weight: 400; font-size: 11px; line-height: 25px; color: #FFFFFF">평생학습플랫폼을 사용하면서 불편한 점, 문의하고 싶은 내용을 작성해 주세요!</p>
+      </div>
+    </div>
+
+    <div class="search_container">
+      <form method="post" class="search_wrap">
+        <select name="search_select">
+          <option value="">제목</option>
+          <option value="">작성자</option>
+          <option value="">작성일</option>
+        </select>
+        <input type="text" class="search">
+        <input type="button" value="검색" class="search_button">
+      </form>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th><input type="checkbox" id="inquiry_all_checkbox"></th>
+          <th>글번호</th>
+          <th class="title">제목</th>
+          <th>작성자</th>
+          <th>작성일</th>
+          <th>조회수</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><input type="checkbox" class="inquiry_checkbox"></td>
+          <td>10</td>
+          <td><a href="">강의 재생시 미리보기가 되지 않습니다. ㅠㅠ</a></td>
+          <td><a href="">남궁민수</a></td>
+          <td>2024.01.21</td>
+          <td>100</td>
+        </tr>
+        <tr>
+          <td><input type="checkbox" class="inquiry_checkbox"></td>
+          <td>9</td>
+          <td><a href="">12시가 넘었는데 출석체크가 정상적으로 안되는것 같아요!</a></td>
+          <td><a href="">김민지</a></td>
+          <td>2023.12.11</td>
+          <td>30</td>
+        </tr>
+        <tr>
+          <td><input type="checkbox" class="inquiry_checkbox"></td>
+          <td>8</td>
+          <td><a href="">오늘까지 마감인 강의를 신청했는데, 이미 마감되었다고 나옵니다.</a></td>
+          <td><a href="">박혁거세</a></td>
+          <td>2023.12.01</td>
+          <td>252</td>
+        </tr>
+        <tr>
+          <td><input type="checkbox" class="inquiry_checkbox"></td>
+          <td>7</td>
+          <td><a href="">기관 등록 페이지에서 로그인이 되어있는데 인증되지 않은 사용자라고 나옵니다.</a></td>
+          <td><a href="">광개토대왕</a></td>
+          <td>2023.05.01</td>
+          <td>1350</td>
+        </tr>
+        <tr>
+          <td><input type="checkbox" class="inquiry_checkbox"></td>
+          <td>6</td>
+          <td><a href="">챗봇상담을 통해 안내를 받아 강의를 수강중인데, 계속 창이 꺼집니다.</a></td>
+          <td><a href="">흥민손</a></td>
+          <td>2023.04.28</td>
+          <td>800</td>
+        </tr>
+        <tr>
+          <td><input type="checkbox" class="inquiry_checkbox"></td>
+          <td>5</td>
+          <td><a href="">홈페이지 접속이 간헐적으로 끊깁니다. 도와주세요</a></td>
+          <td><a href="">푸에르토리코</a></td>
+          <td>2022.12.22</td>
+          <td>812</td>
+        </tr>
+        <tr>
+          <td><input type="checkbox" class="inquiry_checkbox"></td>
+          <td>4</td>
+          <td><a href="">강좌를 잘 듣고있는데 혹시 25배속 재생은 안되는걸까요?</a></td>
+          <td><a href="">강의잘듣고있음</a></td>
+          <td>2022.12.18</td>
+          <td>1352</td>
+        </tr>
+        <tr>
+          <td><input type="checkbox" class="inquiry_checkbox"></td>
+          <td>3</td>
+          <td><a href="">종합평가과제가 보여지지 않습니다.</a></td>
+          <td><a href="">스프링전문가</a></td>
+          <td>2021.10.31</td>
+          <td>66</td>
+        </tr>
+        <tr>
+          <td><input type="checkbox" class="inquiry_checkbox"></td>
+          <td>2</td>
+          <td><a href="">매번 로그인할때마다 보안프로그램 충돌로 로그인을 두번해야 합니다.</a></td>
+          <td><a href="">아무거나입력</a></td>
+          <td>2021.10.08</td>
+          <td>3</td>
+        </tr>
+        <tr>
+          <td><input type="checkbox" class="inquiry_checkbox"></td>
+          <td>1</td>
+          <td><a href="">약관동의에서 회원가입이 넘어가지 않습니다.</a></td>
+          <td><a href="">김기범</a></td>
+          <td>2021.09.21</td>
+          <td>800</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="write_delete_button_container">
+      <input type="button" value="글삭제" class="delete_button">
+      <input type="button" value="글쓰기" class="write_button">
+    </div>
+
+    <div class="page">
+      <input type="button" value="<<" class="before_next_button">
+      <input type="button" value="<" class="before_next_button">
+      <input type="button" value="1" class="selected_button">
+      <input type="button" value="2" class="not_selected_button">
+      <input type="button" value="3" class="not_selected_button">
+      <input type="button" value="4" class="not_selected_button">
+      <input type="button" value="5" class="not_selected_button">
+      <input type="button" value=">" class="before_next_button">
+      <input type="button" value=">>" class="before_next_button">
+    </div>
+  </div>
+
+  <!-- 푸터 html 시작 -->
+  <footer th:replace="~{/common/footer::footer}"></footer>
+  <!-- 푸터 html 끝 -->
+
+  <script src="../js/inquiry_board.js"></script>
+</body>
+</html>

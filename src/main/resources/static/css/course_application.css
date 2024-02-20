@@ -1,0 +1,263 @@
+/* 수강신청 css 시작 */
+.register_course_title {
+  margin-top: 80px;
+  margin-bottom: 50px;
+  color: #363C5A;
+  font-family: "Droid Sans";
+  font-weight: 700;
+  font-size: 34px;
+  line-height: 75px;
+}
+
+.online_learning_platform_lecture_search_wrap {
+  width: 100%;
+  height: 250px;
+  background: url("../images/online_learning_platform_lecture_search.png") no-repeat;
+  background-size: contain;
+}
+
+.online_learning_platform_lecture_search {
+  color: #FFFFFF;
+  font-family: "Droid Sans";
+  font-weight: 700;
+  font-size: 28px;
+  line-height: 60px;
+  text-align: center;
+  margin-top: 60px;
+}
+
+.lectureCategory_search {
+  width: 100%;
+  height: 50px;
+  display: flex;
+  margin-top: 20px;
+  justify-content: center;
+}
+
+.lectureCategory {
+  width: 130px;
+  height: 100%;
+  margin-right: 10px;
+  padding-left: 10px;
+  border: 1px #7D7D7D;
+  border-radius: 10px;
+}
+
+.search_wrap {
+  width: 500px;
+  height: 100%;
+  padding-left: 20px;
+  border: 1px #7D7D7D;
+  border-radius: 10px;
+  background-color: white;
+}
+
+.search {
+  width: 450px;
+  height: 100%;
+  border-width: 0;
+}
+
+.search_button {
+  width: 25px;
+  height: 25px;
+  border: none;
+  cursor: pointer;
+  vertical-align: middle;
+  background: url("../images/magnifier_3.png") no-repeat;
+}
+
+.lecture_list {
+  width: 100%;
+  height: 1500px;
+  margin-top: 50px;
+}
+
+.totalLecture_sortingMethod {
+  width: 100%;
+  height: 50px;
+}
+
+.total_lecture {
+  width: 120px;
+  height: 100%;
+  font-family: "Droid Sans";
+  font-weight: 700;
+  font-size: 19px;
+  line-height: 50px;
+  float: left;
+}
+
+.sorting_method_wrap {
+  width: 110px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  float: right;
+}
+
+.sorting_method {
+  width: 110px;
+  height: 80%;
+  padding-left: 10px;
+  border-radius: 5px;
+  border: 2px solid #434343;
+}
+
+hr {
+  margin: 30px 0;
+  color: #444444;
+}
+
+.lecture_list_container {
+  width: 1270px;
+  height: 1170px;
+  margin: 0 auto;
+}
+
+.card {
+  width: 288px;
+  height: 260px;
+  margin-right: 15px;
+  margin-bottom: 40px;
+  float: left;
+  display: flex;
+  flex-direction: column;
+  border-radius: 5px;
+  border: 1px solid rgb(220, 220, 220);
+}
+
+.card a {
+  color: black;
+  text-decoration: none;
+}
+
+.card_img {
+  width: 100%;
+  height: 80%;
+  border-radius: 5px;
+  background-image: linear-gradient(to left, #424242, #aaaaaa);
+}
+
+.card_img_tag_schedule {
+  width: 55px;
+  height: 25px;
+  margin-top: 10px;
+  margin-left: 10px;
+  color: #FFFFFF;
+  font-family: "Droid Sans";
+  font-weight: 700;
+  font-size: 11px;
+  line-height: 25px;
+  text-align: center;
+  border-radius: 2px;
+  background-color: #017E24;
+}
+
+.card_img_tag_end {
+  width: 55px;
+  height: 25px;
+  margin-top: 10px;
+  margin-left: 10px;
+  color: #FFFFFF;
+  font-family: "Droid Sans";
+  font-weight: 700;
+  font-size: 11px;
+  line-height: 25px;
+  text-align: center;
+  border-radius: 2px;
+  background-color: #C89D03;
+}
+
+.card_img_tag_impendence {
+  width: 55px;
+  height: 25px;
+  margin-top: 10px;
+  margin-left: 10px;
+  color: #FFFFFF;
+  font-family: "Droid Sans";
+  font-weight: 700;
+  font-size: 11px;
+  line-height: 25px;
+  text-align: center;
+  border-radius: 2px;
+  background-color: #7E012E;
+}
+
+.card_img_tag_ongoing {
+  width: 55px;
+  height: 25px;
+  margin-top: 10px;
+  margin-left: 10px;
+  color: #FFFFFF;
+  font-family: "Droid Sans";
+  font-weight: 700;
+  font-size: 11px;
+  line-height: 25px;
+  text-align: center;
+  border-radius: 2px;
+  background-color: #145087;
+}
+
+.card_body {
+  width: 100%;
+  height: 10%;
+  margin-top: 5px;
+  text-align: center;
+}
+
+.card_title {
+  width: 288px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.card_footer {
+  width: 100%;
+  height: 10%;
+  margin-top: 5px;
+  text-align: center;
+}
+
+.navigation_button {
+  width: 310px;
+  height: 40px;
+  margin: 70px auto 0;
+  display: flex;
+  align-items: center;
+}
+
+.page_fast_selected {
+  width: 25px;
+  height: 25px;
+  color: black;
+  margin: 0 5px;
+  border: 1px solid black;
+  border-radius: 5px;
+  text-align: center;
+  text-decoration: none;
+}
+
+.page_selected {
+  width: 25px;
+  height: 25px;
+  color: white;
+  margin: 0 5px;
+  border: 1px solid black;
+  border-radius: 5px;
+  text-align: center;
+  text-decoration: none;
+  background-color: #003CD7;
+}
+
+.page_none_selected {
+  width: 25px;
+  height: 25px;
+  color: black;
+  margin: 0 5px;
+  border-width: 0;
+  text-align: center;
+  text-decoration: none;
+}
+/* 수강신청 css 끝 */

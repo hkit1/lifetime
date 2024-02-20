@@ -1,123 +1,69 @@
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
-<header th:fragment="header">
-    <nav class="inner_1280">
-        <div class="top_nav">
-            <div class="nav_login">
-                <ul>
-                    <li sec:authorize="isAnonymous()">
-                        <a href="/member/login">로그인</a>
-                    </li>
-                    <li sec:authorize="isAnonymous()">
-                        <a href="/member/register">회원가입</a>
-                    </li>
-                    <li sec:authorize="isAuthenticated()">
-                        <a sec:authentication="name"></a>
-                        <span> 님 환영합니다.</span>
-                    </li>
-                    <li sec:authorize="isAuthenticated()">
-                        <a href="/member/logout">로그아웃</a>
-                    </li>
-                    <li sec:authorize="hasRole('ROLE_ADMIN')">
-                        <a href="/seller/item/register">상품등록</a>
-                    </li>
-                    <li>
-                        <a href="#">고객센터</a>
-                    </li>
-                    <li>
-                        <a href="#">장바구니</a>
-                    </li>
-                </ul>
-            </div>
+<html lang="ko" xmlns:sec="http://www.thymeleaf.org" xmlns:th="http://www.thymeleaf.org">
+    <!-- 헤더 html 시작 -->
+    <header th:fragment="header">
+      <div class="logo">
+        <a href="/">
+          <h5>평생학습플랫폼</h5>
+          <img src="../images/book.png">
+        </a>
+      </div>
+
+      <nav>
+        <ul class="topMenu">
+          <li>
+            <a href="">온라인 학습</a>
+          </li>
+          <li>
+            <a href="">오프라인 교육정보</a>
+          </li>
+          <li>
+            <a href="">행정교육자료</a>
+          </li>
+          <li>
+            <a href="">늘배움 알림</a>
+          </li>
+          <li>
+            <a href="">늘배움 소개</a>
+          </li>
+        </ul>
+
+        <div class="subMenu_cate">
+          <ul class="subMenu">
+            <li><a href="">가</a></li>
+            <li><a href="">나</a></li>
+            <li><a href="">다</a></li>
+          </ul>
+          <ul class="subMenu">
+            <li><a href="">라</a></li>
+            <li><a href="">마</a></li>
+            <li><a href="">바</a></li>
+          </ul>
+          <ul class="subMenu">
+            <li><a href="">사</a></li>
+            <li><a href="">아</a></li>
+            <li><a href="">자</a></li>
+          </ul>
+          <ul class="subMenu">
+            <li><a href="">차</a></li>
+            <li><a href="">카</a></li>
+            <li><a href="">타</a></li>
+          </ul>
+          <ul class="subMenu">
+            <li><a href="">파</a></li>
+            <li><a href="">하</a></li>
+            <li><a href="">굿</a></li>
+          </ul>
         </div>
-        <div class="btm_nav">
-            <div class="nav_logo">
-                <a href="/" class="logo_img"></a>
-            </div>
-            <div class="nav_menu">
-                <input type="text" placeholder="상품을 검색하세요">
-                <a href="#" class="search_ico">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                </a>
-            </div>
-            <div class="nav_cate">
-                <a href="#">
-                    <i class="fa-solid fa-bars"></i>
-                </a>
-                <div class="nav_cate_lst">
-                    <ul class="nav_cate_left">
-                        <li>
-                            <a href="#">패션의류 잡화 뷰티</a>
-                        </li>
-                        <li>
-                            <a href="#">유아동</a>
-                        </li>
-                        <li>
-                            <a href="#">식품</a>
-                        </li>
-                        <li>
-                            <a href="#">메뉴1</a>
-                        </li>
-                        <li>
-                            <a href="#">메뉴2</a>
-                        </li>
-                        <li>
-                            <a href="#">메뉴3</a>
-                        </li>
-                    </ul>
-                    <div class="nav_cate_right">
-                        <ul>
-                            <li>
-                                <a href="#" class="nav_cate_tit">세부메뉴1</a>
-                            </li>
-                            <li>
-                                <a href="#">세부메뉴1-1</a>
-                            </li>
-                            <li>
-                                <a href="#">세부메뉴1-2</a>
-                            </li>
-                            <li>
-                                <a href="#">세부메뉴1-3</a>
-                            </li>
-                        </ul>
-                        <ul>
-                            <li>
-                                <a href="#" class="nav_cate_tit">세부메뉴2</a>
-                            </li>
-                            <li>
-                                <a href="#">세부메뉴2-1</a>
-                            </li>
-                            <li>
-                                <a href="#">세부메뉴2-2</a>
-                            </li>
-                            <li>
-                                <a href="#">세부메뉴2-3</a>
-                            </li>
-                            <li>
-                                <a href="#">세부메뉴2-4</a>
-                            </li>
-                        </ul>
-                        <ul>
-                            <li>
-                                <a href="#" class="nav_cate_tit">세부메뉴3</a>
-                            </li>
-                            <li>
-                                <a href="#">세부메뉴3-1</a>
-                            </li>
-                            <li>
-                                <a href="#">세부메뉴3-2</a>
-                            </li>
-                            <li>
-                                <a href="#">세부메뉴3-3</a>
-                            </li>
-                            <li>
-                                <a href="#">세부메뉴3-4</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </nav>
-</header>
+      </nav>
+
+      <div class="member_btn" sec:authorize="isAnonymous()">
+        <a href="/account/register" class="reg">👦회원가입</a>
+        <a class="login" href="/member/login">🔒로그인</a>
+      </div>
+      <div class="member_btn" sec:authorize="isAuthenticated()">
+        <a class="reg" href="/mypage" sec:authentication="name"></a>
+        <a href="/account/logout" class="login">🔒로그아웃</a>
+      </div>
+    </header>
+    <!-- 헤더 html 끝 -->
 </html>

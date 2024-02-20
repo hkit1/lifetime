@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>강의스케줄</title>
+  <link rel="stylesheet" href="/css/common/header.css" >
+  <link rel="stylesheet" href="/css/common/footer.css" >
+  <link rel="stylesheet" href="/css/schedule.css" >
+</head>
+<body>
+
+  <div class="container">
+    <!-- 헤더 html 시작 -->
+    <header th:replace="~{/common/header::header}"></header>
+    <!-- 헤더 html 끝 -->
+
+    <div class="schedule_title_container">
+      <div class="schedule_title">
+        <p style="font-weight: 700; font-size: 27px; line-height: 40px; color: #FFFFFF">강좌 스케줄</p>
+        <p style="font-weight: 400; font-size: 11px; line-height: 25px; color: #FFFFFF">강좌 스케줄을 확인할 수 있는 페이지입니다.</p>
+      </div>
+    </div>
+
+    <div class="year_month_container">
+      <div class="year_month">
+        <a href=""><</a>
+        <div style="margin: 0 35px; font-weight: 700; font-size: 32px; line-height: 70px; text-align: center">2024. 02</div>
+        <a href="">></a>
+      </div>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>SUN</th>
+          <th>MON</th>
+          <th>TUE</th>
+          <th>WED</th>
+          <th>THU</th>
+          <th>FRI</th>
+          <th>SAT</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>1</td>
+          <td>2</td>
+          <td style="color: #0047FC">3</td>
+        </tr>
+        <tr>
+          <td style="color: #DD0000">4</td>
+          <td>5</td>
+          <td>6</td>
+          <td>7</td>
+          <td>8
+            <div class="content_wrap">
+              <div class="content" title="프론트엔드 기초">
+                프론트엔드 기초
+              </div>
+            </div>
+          </td>
+          <td>
+            <span class="holiday">9</span> &ensp;<span class="holiday_content">설날 연휴</span>
+            <div class="content_wrap">
+              <div class="content" title="블록체인 개발에 빠질 수 없는 Scope 만들기">
+                블록체인 개발에 빠질 수 없는 Scope 만들기
+              </div>
+              <div class="content" title="kotlin 으로 배우는 안드로이드 프로그래밍">
+                kotlin 으로 배우는 안드로이드 프로그래밍
+              </div>
+            </div>
+          </td>
+          <td><span class="holiday">10</span> &ensp;<span class="holiday_content">설날</span></td>
+        </tr>
+        <tr>
+          <td><span class="holiday">11</span> &ensp;<span class="holiday_content">설날 연휴</span></td>
+          <td><span class="holiday">12</span> &ensp;<span class="holiday_content">대체공휴일(설날)</span></td>
+          <td>13
+            <div class="content_wrap">
+              <div class="content" title="백엔드 개발자 성능 개선 초석 다지기">
+                백엔드 개발자 성능 개선 초석 다지기
+              </div>
+            </div>
+          </td>
+          <td>14
+            <div class="content_wrap">
+              <div class="content" title="[유튜브 초고속 수익화]맨땅에서 가장 빠르게 유튜브 수익화하기">
+                [유튜브 초고속 수익화]맨땅에서 가장 빠르게 유튜브 수익화하기
+              </div>
+            </div>
+          </td>
+          <td>15</td>
+          <td>16
+            <div class="content_wrap">
+              <div class="content" title="[C#과 유니티로 만드는 MMORPG 게임 개발 시리즈] Part1: C# 기초 프로그래밍 입문">
+                [C#과 유니티로 만드는 MMORPG 게임 개발 시리즈] Part1: C# 기초 프로그래밍 입문
+              </div>
+            </div>
+          </td>
+          <td style="color: #0047FC">17</td>
+        </tr>
+        <tr>
+          <td><span class="holiday">18</span></td>
+          <td>19
+            <div class="content_wrap">
+              <div class="content" title="비전공자를 위한 진짜 입문 올인원 개발 부트캠프">
+                비전공자를 위한 진짜 입문 올인원 개발 부트캠프
+              </div>
+            </div>
+          </td>
+          <td>20</td>
+          <td>21</td>
+          <td>22
+            <div class="content_wrap">
+              <div class="content" title="개발자 취업 전략 시크릿 - 7CODE">
+                개발자 취업 전략 시크릿 - 7CODE
+              </div>
+            </div>
+          </td>
+          <td>23
+            <div class="content_wrap">
+              <div class="content" title="비전공자를 위한 진짜 입문 올인원 개발 부트캠프">
+                비전공자를 위한 진짜 입문 올인원 개발 부트캠프
+              </div>
+            </div>
+          </td>
+          <td style="color: #0047FC">24</td>
+        </tr>
+        <tr>
+          <td><span class="holiday">25</span></td>
+          <td>26
+            <div class="content_wrap">
+              <div class="content" title="Three.js로 1인칭 3D 웹사이트 만들기">
+                Three.js로 1인칭 3D 웹사이트 만들기
+              </div>
+            </div>
+          </td>
+          <td>27</td>
+          <td>28
+            <div class="content_wrap">
+              <div class="content" title="React Three fiber(R3F)로 배우는 인터렉티브 3D 웹 개발">
+                React Three fiber(R3F)로 배우는 인터렉티브 3D 웹 개발
+              </div>
+            </div>
+          </td>
+          <td>29</td>
+          <td></td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 푸터 html 시작 -->
+  <footer th:replace="~{/common/footer::footer}"></footer>
+  <!-- 푸터 html 끝 -->
+
+</body>
+</html>

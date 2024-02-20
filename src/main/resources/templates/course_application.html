@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>수강신청</title>
+  <link rel="stylesheet" href="/css/common/header.css" >
+  <link rel="stylesheet" href="/css/common/footer.css" >
+  <link rel="stylesheet" href="/css/course_application.css" >
+</head>
+<body>
+
+  <div class="container">
+    <!-- 헤더 html 시작 -->
+    <header th:replace="~{/common/header::header}"></header>
+    <!-- 헤더 html 끝 -->
+
+    <!-- 수강신청 html 시작 -->
+    <div class="register_course_title">
+      <p>평생학습강좌 수강신청</p>
+    </div>
+    <div class="online_learning_platform_lecture_search_wrap">
+      <div class="online_learning_platform_lecture_search">
+        <p>온라인 평생학습 플랫폼 강의 검색</p>
+      </div>
+      <form class="lectureCategory_search">
+        <select name="" class="lectureCategory">
+          <option value="">강좌분류</option>
+          <option value="">IT</option>
+          <option value="">미래기술</option>
+          <option value="">코딩</option>
+          <option value="">인문소양</option>
+          <option value="">문학 / 철학</option>
+          <option value="">기초인문</option>
+          <option value="">생활 / 취미</option>
+          <option value="">생활상식</option>
+          <option value="">부모배움</option>
+          <option value="">아동기</option>
+          <option value="">부모교양</option>
+          <option value="">문해교육</option>
+          <option value="">청소년배움</option>
+          <option value="">기초능력</option>
+        </select>
+        <div class="search_wrap">
+          <input type="text" class="search" placeholder="검색어를 입력해주세요.">
+          <input type="button" class="search_button">
+        </div>
+      </form>
+    </div>
+    <div class="lecture_list">
+      <div class="totalLecture_sortingMethod">
+        <div class="total_lecture">총 <span style="color: #0034BB">3,150</span>강좌</div>
+        <div class="sorting_method_wrap">
+          <select name="" class="sorting_method">
+            <option value="">정렬방식</option>
+            <option value="">조회수</option>
+          </select>
+        </div>
+      </div>
+
+      <hr>
+
+      <div class="lecture_list_container">
+        <div class="card">
+          <a href="" class="card_img">
+            <div class="card_img_tag_schedule">개강예정</div>
+          </a>
+          <a href="" class="card_body">
+            <h4 class="card_title" title="플랫폼, 세상을 바꾸다">플랫폼, 세상을 바꾸다</h4>
+          </a>
+          <div class="card_footer">
+            <span>2024-02-01</span>
+          </div>
+        </div>
+        <div class="card">
+          <a href="" class="card_img">
+            <div class="card_img_tag_schedule">개강예정</div>
+          </a>
+          <a href="" class="card_body">
+            <h4 class="card_title" title="부모가 먼저 배우는 창의코딩">부모가 먼저 배우는 창의코딩</h4>
+          </a>
+          <div class="card_footer">
+            <span>2024-02-01</span>
+          </div>
+        </div>
+        <div class="card">
+          <a href="" class="card_img">
+            <div class="card_img_tag_impendence">개강임박</div>
+          </a>
+          <a href="" class="card_body">
+            <h4 class="card_title" title="인문과 종교의 만남 - 종교 전반의 이해">인문과 종교의 만남 - 종교 전반의 이해</h4>
+          </a>
+          <div class="card_footer">
+            <span>2024-02-01</span>
+          </div>
+        </div>
+        <div class="card">
+          <a href="" class="card_img">
+            <div class="card_img_tag_schedule">개강예정</div>
+          </a>
+          <a href="" class="card_body">
+            <h4 class="card_title" title="인문학개론">인문학개론</h4>
+          </a>
+          <div class="card_footer">
+            <span>2024-02-01</span>
+          </div>
+        </div>
+        <div class="card">
+          <a href="" class="card_img">
+            <div class="card_img_tag_ongoing">진행중</div>
+          </a>
+          <a href="" class="card_body">
+            <h4 class="card_title" title="셀프 인테리어를 위한 초보 가이드">셀프 인테리어를 위한 초보 가이드</h4>
+          </a>
+          <div class="card_footer">
+            <span>2024-02-01</span>
+          </div>
+        </div>
+        <div class="card">
+          <a href="" class="card_img">
+            <div class="card_img_tag_schedule">개강예정</div>
+          </a>
+          <a href="" class="card_body">
+            <h4 class="card_title" title="플랫폼, 세상을 바꾸다">플랫폼, 세상을 바꾸다</h4>
+          </a>
+          <div class="card_footer">
+            <span>2024-02-01</span>
+          </div>
+        </div>
+        <div class="card">
+          <a href="" class="card_img">
+            <div class="card_img_tag_end">종료</div>
+          </a>
+          <a href="" class="card_body">
+            <h4 class="card_title" title="한글 첫걸음 - 가나다라부터 시작하기">한글 첫걸음 - 가나다라부터 시작하기</h4>
+          </a>
+          <div class="card_footer">
+            <span>2024-02-01</span>
+          </div>
+        </div>
+        <div class="card">
+          <a href="" class="card_img">
+            <div class="card_img_tag_impendence">개강임박</div>
+          </a>
+          <a href="" class="card_body">
+            <h4 class="card_title" title="플랫폼, 세상을 바꾸다">플랫폼, 세상을 바꾸다</h4>
+          </a>
+          <div class="card_footer">
+            <span>2024-02-01</span>
+          </div>
+        </div>
+        <div class="card">
+          <a href="" class="card_img">
+            <div class="card_img_tag_impendence">개강임박</div>
+          </a>
+          <a href="" class="card_body">
+            <h4 class="card_title" title="플랫폼, 세상을 바꾸다">플랫폼, 세상을 바꾸다</h4>
+          </a>
+          <div class="card_footer">
+            <span>2024-02-01</span>
+          </div>
+        </div>
+        <div class="card">
+          <a href="" class="card_img">
+            <div class="card_img_tag_end">종료</div>
+          </a>
+          <a href="" class="card_body">
+            <h4 class="card_title" title="부모가 먼저 배우는 창의코딩">부모가 먼저 배우는 창의코딩</h4>
+          </a>
+          <div class="card_footer">
+            <span>2024-02-01</span>
+          </div>
+        </div>
+        <div class="card">
+          <a href="" class="card_img">
+            <div class="card_img_tag_schedule">개강예정</div>
+          </a>
+          <a href="" class="card_body">
+            <h4 class="card_title" title="인문과 종교의 만남 - 종교 전반의 이해">인문과 종교의 만남 - 종교 전반의 이해</h4>
+          </a>
+          <div class="card_footer">
+            <span>2024-02-01</span>
+          </div>
+        </div>
+        <div class="card">
+          <a href="" class="card_img">
+            <div class="card_img_tag_schedule">개강예정</div>
+          </a>
+          <a href="" class="card_body">
+            <h4 class="card_title" title="인문학개론">인문학개론</h4>
+          </a>
+          <div class="card_footer">
+            <span>2024-02-01</span>
+          </div>
+        </div>
+        <div class="card">
+          <a href="" class="card_img">
+            <div class="card_img_tag_end">종료</div>
+          </a>
+          <a href="" class="card_body">
+            <h4 class="card_title" title="셀프 인테리어를 위한 초보 가이드">셀프 인테리어를 위한 초보 가이드</h4>
+          </a>
+          <div class="card_footer">
+            <span>2024-02-01</span>
+          </div>
+        </div>
+        <div class="card">
+          <a href="" class="card_img">
+            <div class="card_img_tag_impendence">개강임박</div>
+          </a>
+          <a href="" class="card_body">
+            <h4 class="card_title" title="플랫폼, 세상을 바꾸다">플랫폼, 세상을 바꾸다</h4>
+          </a>
+          <div class="card_footer">
+            <span>2024-02-01</span>
+          </div>
+        </div>
+        <div class="card">
+          <a href="" class="card_img">
+            <div class="card_img_tag_impendence">개강임박</div>
+          </a>
+          <a href="" class="card_body">
+            <h4 class="card_title" title="한글 첫걸음 - 가나다라부터 시작하기">한글 첫걸음 - 가나다라부터 시작하기</h4>
+          </a>
+          <div class="card_footer">
+            <span>2024-02-01</span>
+          </div>
+        </div>
+        <div class="card">
+          <a href="" class="card_img">
+            <div class="card_img_tag_end">종료</div>
+          </a>
+          <a href="" class="card_body">
+            <h4 class="card_title" title="플랫폼, 세상을 바꾸다">플랫폼, 세상을 바꾸다</h4>
+          </a>
+          <div class="card_footer">
+            <span>2024-02-01</span>
+          </div>
+        </div>
+      </div>
+      <div class="navigation_button">
+        <a href="" class="page_fast_selected"><<</a>
+        <a href="" class="page_fast_selected"><</a>
+        <a href="" class="page_selected">1</a>
+        <a href="" class="page_none_selected" style="border-width: 0">2</a>
+        <a href="" class="page_none_selected" style="border-width: 0">3</a>
+        <a href="" class="page_none_selected" style="border-width: 0">4</a>
+        <a href="" class="page_none_selected" style="border-width: 0">5</a>
+        <a href="" class="page_fast_selected">></a>
+        <a href="" class="page_fast_selected">>></a>
+      </div>
+    </div>
+
+    <!-- 수강신청 html 끝 -->
+  </div>
+
+  <!-- 푸터 html 시작 -->
+  <footer th:replace="~{/common/footer::footer}"></footer>
+  <!-- 푸터 html 끝 -->
+
+</body>
+</html>

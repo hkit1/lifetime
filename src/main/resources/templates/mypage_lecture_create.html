@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>마이페이지_강좌관리</title>
+  <link href="/css/common/header.css" rel="stylesheet">
+  <link href="/css/common/footer.css" rel="stylesheet">
+  <link href="/css/mypage_lecture_create.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="container">
+  <!-- 헤더 html 시작 -->
+  <header th:replace="~{/common/header::header}"></header>
+  <!-- 헤더 html 끝 -->
+
+  <div style="display: flex; flex-direction: row">
+    <div class="profile_container">
+      <div class="profile_greeting_container">
+        <div class="profile_container_wrap">
+          <!--              <p><span style="font-family: 'Droid Sans'; font-weight: 700; font-size: 12px; line-height: 27px" sec:authentication="name"></span>-->
+          <!--                <span style="font-family: 'Droid Sans'; font-weight: 400; font-size: 12px; line-height: 27px; color: #3D3D3D">님 안녕하세요.</span></p>-->
+          <!--              <p><span style="font-family: 'Droid Sans'; font-weight: 400; font-size: 10px; line-height: 22px">수강중인 강좌 수 :</span>-->
+          <!--                <span style="font-family: 'Droid Sans'; font-weight: 400; font-size: 12px; line-height: 27px" th:text="${my_lecture.take}"></span></p>-->
+          <!--              <p><span style="font-family: 'Droid Sans'; font-weight: 400; font-size: 10px; line-height: 22px">수강완료한 강좌 수 : </span>-->
+          <!--                <span style="font-family: 'Droid Sans'; font-weight: 400; font-size: 12px; line-height: 27px" th:text="${my_lecture.end}">&ensp;&ensp;&nbsp;</span></p>-->
+        </div>
+      </div>
+      <div class="menu_container">
+        <div class="menu">
+          <a href="">메뉴1</a>
+          <a href="">메뉴2</a>
+          <a href="">메뉴3</a>
+          <a href="">메뉴4</a>
+          <a href="">메뉴5</a>
+          <a href="">메뉴6</a>
+        </div>
+      </div>
+    </div>
+
+    <div style="display: flex; flex-direction: column">
+      <table>
+        <thead>
+        <tr>
+          <th>회차번호</th>
+          <th>회차이름</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:text="">
+          <td th:text="">1</td>
+          <td>show me the money</td>
+        </tr>
+        </tbody>
+      </table>
+
+      <div class="register_edit_delete_button_container">
+        <input class="delete" onclick="return a(null)" type="button" value="회차삭제">
+        <input class="edit" onclick="return a(true)" type="button" value="회차수정">
+        <input class="register" onclick="return a(false)" type="button" value="회차등록">
+        <input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token}">
+        <script>
+          async function a(value) {
+            let url;
+            if (value === null) {
+              url = "/api/lecture/delete";
+            } else if (value === true) {
+              url = "/api/lecture/update";
+            } else if (value === false) {
+              url = "/api/lecture/create";
+            }
+
+            await fetch(url, {
+              method: "POST",
+              body: "{\"company\", \"" + f.value + "\"}"
+            }).then(data => {
+              location.href = ""
+              if (data.status === 400) {
+                window.alert("없는 기관입니다!");
+              } else if (data.status === 200) {
+                window.alert("기관 확인 완료!");
+                document.getElementById("company").readOnly = true;
+              }
+            });
+          }
+        </script>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 푸터 html 시작 -->
+<footer th:replace="~{/common/footer::footer}"></footer>
+<!-- 푸터 html 끝 -->
+
+</body>
+</html>

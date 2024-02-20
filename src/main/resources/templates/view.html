@@ -1,305 +1,208 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>수강신청-강좌 상세정보</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="/css/common/header.css">
+    <link rel="stylesheet" href="/css/common/footer.css">
+    <link rel="stylesheet" href="/css/view.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
-    <script src="../js/script.js"></script>
+<!--    <script src="../js/script.js"></script>-->
 </head>
 <body>
-<header th:replace="~{/common/header::header}"></header>
-    <section>
-        <div class="lec_view_container">
-            
-            <div class="lec_img_info inner_1280">
-                <div class="lec_img"></div>
-                <div class="lec_info">
-                    <p class="info_tit">템플스테이로 경험하는 한국 불교 I</p>
-                    <div class="info_cate">
-                        <ul>
-                            <li>
-                                <span>인문소양</span>
-                            </li>
-                            <li>
-                                <span>문학 / 철학</span>
-                            </li>
-                        </ul>
-                    </div>
+    <div class="container">
+        <header th:replace="~{/common/header::header}"></header>
 
-                    <div class="info_desc_wrap">
-                        <ul>
-                            <li>
-                                <div class="desc_lt">
-                                    <span>• 분야</span>
-                                    <span>인문 (인문과학)</span>
-                                </div>
-                                <div class="desc_rt">
-                                    <span>• 강사</span>
-                                    <span>홍길동</span>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="desc_lt">
-                                    <span>• 강좌개설일</span>
-                                    <span>24.02.20 ~ 24.04.11</span>
-                                </div>
-                                <div class="desc_rt">
-                                    <span>• 기관명</span>
-                                    <span>한국IT교육원</span>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                    
-                    <div class="info_btn_wrap">
-                        <ul>
-                            <li>
-                                <a href="#">❤</a>
-                            </li>
-                            <li>
-                                <a href="#">공유하기</a>
-                            </li>
-                            <li>
-                                <a href="#">수강신청하기</a>
-                            </li>
-                        </ul>
-                    </div>
+        <section>
+            <div class="lec_view_container">
 
-                </div>
-            </div>
-            <div class="lec_menu">
-                <ul class="inner_1280">
-                    <li>
-                        <a href="#" class="active">메뉴1</a>
-                    </li>
-                    <li>
-                        <a href="#">메뉴2</a>
-                    </li>
-                    <li>
-                        <a href="#">메뉴3</a>
-                    </li>
-                    <li>
-                        <a href="#">메뉴4</a>
-                    </li>
-                </ul>
-            </div>
-            <div class="lec_desc_container">
-                <div class="lec_desc_wrap inner_1280">
-                    <div class="lec_desc_lt">
-                        <div class="lec_desc_lt_top">
+                <div class="lec_img_info inner_1200">
+                    <img class="lec_img" th:src="@{/api/lecture/{lectureId}/image(lectureId = ${lecture.id()})}"></img>
+                    <div class="lec_info">
+                        <p class="info_tit" th:text="${lecture.name()}"></p>
+                        <div class="info_cate">
                             <ul>
                                 <li>
+                                    <span th:text="${lecture.sub_category()}">인문소양</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="info_desc_wrap">
+                            <ul>
+                                <li>
+                                    <div class="desc_lt">
+                                        <span>• 분야</span>
+                                        <span th:text="${lecture.sub_category()}"></span>
+                                    </div>
+                                    <div class="desc_rt">
+                                        <span>• 강사</span>
+                                        <span th:text="${lecture.teacher_name()}"></span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="desc_lt">
+                                        <span>• 강좌개설일</span>
+                                        <span th:text="${lecture.created_at() + ' ~ ' + lecture.closed_at()}"></span>
+                                    </div>
+                                    <div class="desc_rt">
+                                        <span>• 기관명</span>
+                                        <span th:text="${lecture.company_name()}"></span>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="info_btn_wrap">
+                            <ul>
+                                <li>
+                                    <a href="#">❤</a>
+                                </li>
+                                <li>
+                                    <a href="#">공유하기</a>
+                                </li>
+                                <li>
+                                    <a href="#">수강신청하기</a>
+                                </li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="lec_menu">
+                    <ul class="inner_1200">
+                        <li>
+                            <a href="#" class="active">메뉴1</a>
+                        </li>
+                        <li>
+                            <a href="#">메뉴2</a>
+                        </li>
+                        <li>
+                            <a href="#">메뉴3</a>
+                        </li>
+                        <li>
+                            <a href="#">메뉴4</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="lec_desc_container">
+                    <div class="lec_desc_wrap inner_1200">
+                        <div class="lec_desc_lt">
+                            <div class="lec_desc_lt_top">
+                                <ul>
+                                    <li>
                                     <span class="desc_tit">
                                         강좌소개
                                     </span>
-                                    <p class="desc_content">
-                                        네트워크/멀티쓰레드/운영체제 등 핵심 전공 지식을 공부하고 게임 서버를 바닥부터 만들어보면서 MMORPG기술을 학습하는 강의입니다.
-                                    </p>
-
-                                    <div class="desc_img"></div>
-                                </li>
-                                <li class="lec_lst_container">
+                                        <p class="desc_content" th:text="${lecture.description()}"></p>
+                                        <!--<div class="desc_img"></div>-->
+                                    </li>
+                                    <li class="lec_lst_container">
                                     <span class="desc_tit">
                                         강의목록
                                     </span>
-                                    <div class="lec_lst_wrap">
-                                        <ul>
-                                            <li class="lec_lst_subject">
-                                                <span><i class="fa-solid fa-chevron-up"></i> 01. 한국 사찰 여행</span>
-                                            </li>
-                                            <li>
-                                                <div class="lec_lst">
-                                                    <i class="fa-solid fa-circle-play"></i>
-                                                    <p class="lec_lst_tit">한국 사찰 여행</p>
-                                                    <button>바로보기</button>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="lec_lst">
-                                                    <i class="fa-solid fa-circle-play"></i>
-                                                    <p class="lec_lst_tit">사찰 구성의 의미</p>
-                                                    <button>바로보기</button>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="lec_lst">
-                                                    <i class="fa-solid fa-circle-play"></i>
-                                                    <p class="lec_lst_tit">부처의 세계로 들어가는 문</p>
-                                                    <button>바로보기</button>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="lec_lst">
-                                                    <i class="fa-solid fa-circle-play"></i>
-                                                    <p class="lec_lst_tit">불교 수호신을 모시는 곳</p>
-                                                    <button>바로보기</button>
-                                                </div>
-                                            </li>
-                                            <li class="lec_lst_subject">
-                                                <span><i class="fa-solid fa-chevron-up"></i> 02. 불상의 기원과 전파</span>
-                                            </li>
-                                            <li>
-                                                <div class="lec_lst">
-                                                    <i class="fa-solid fa-circle-play"></i>
-                                                    <p class="lec_lst_tit">불상 제작의 규칙 및 형식</p>
-                                                    <button>바로보기</button>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="lec_lst">
-                                                    <i class="fa-solid fa-circle-play"></i>
-                                                    <p class="lec_lst_tit">불상의 종류와 역할</p>
-                                                    <button>바로보기</button>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="lec_lst">
-                                                    <i class="fa-solid fa-circle-play"></i>
-                                                    <p class="lec_lst_tit">보살에 대한 이해</p>
-                                                    <button>바로보기</button>
-                                                </div>
-                                            </li>
-                                            <li class="lec_lst_subject">
-                                                <span><i class="fa-solid fa-chevron-up"></i> 03. 황금색과 금동 불상의 의미</span>
-                                            </li>
-                                            <li>
-                                                <div class="lec_lst">
-                                                    <i class="fa-solid fa-circle-play"></i>
-                                                    <p class="lec_lst_tit">황금색과 금동 불상의 의미</p>
-                                                    <button>바로보기</button>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="lec_lst">
-                                                    <i class="fa-solid fa-circle-play"></i>
-                                                    <p class="lec_lst_tit">법당 안의 금동불</p>
-                                                    <button>바로보기</button>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </li>
-                            </ul>
-                            <ul>
-                                <li>
+                                        <div class="lec_lst_wrap">
+                                            <ul>
+                                                <li th:each="content: ${contentList}">
+                                                    <div class="lec_lst">
+                                                        <i class="fa-solid fa-circle-play"></i>
+                                                        <p class="lec_lst_tit" th:text="${content.name()}"></p>
+                                                        <button th:onclick="|location.href='@{/lecture/{lecture_id}/{content_id}(lecture_id = ${content.lecture_id()}, content_id = ${content.id()})}'|">
+                                                            바로보기
+                                                        </button>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                </ul>
+                                <ul>
+                                    <li>
                                     <span class="desc_tit">
                                         수강후기
                                     </span>
-                                </li>
-                                <li class="review_container">
-                                    <div class="review_wrap">
-                                        <ul>
-                                            <li class="review_lst">
-                                                <div class="review_star">
-                                                    <i class="fa-solid fa-star"></i>
-                                                    <i class="fa-solid fa-star"></i>
-                                                    <i class="fa-solid fa-star"></i>
-                                                    <i class="fa-solid fa-star"></i>
-                                                    <i class="fa-solid fa-star"></i>
-                                                </div>
-                                                <div class="review_content">
-                                                    <p>이거 하나면 든든</p>
-                                                </div>
-                                                <div class="review_writer">
-                                                    GOSPEL
-                                                </div>
-                                            </li>
-                                            <li class="review_lst">
-                                                <div class="review_star">
-                                                    <i class="fa-solid fa-star"></i>
-                                                    <i class="fa-solid fa-star"></i>
-                                                    <i class="fa-solid fa-star"></i>
-                                                    <i class="fa-regular fa-star"></i>
-                                                    <i class="fa-regular fa-star"></i>
-                                                </div>
-                                                <div class="review_content">
-                                                    <p>법당 안의 금동불이 무엇인지 알게되는 강좌였습니다.</p>
-                                                </div>
-                                                <div class="review_writer">
-                                                    KimChulSoo
-                                                </div>
-                                            </li>
-                                            <li class="review_lst">
-                                                <div class="review_star">
-                                                    <i class="fa-solid fa-star"></i>
-                                                    <i class="fa-solid fa-star"></i>
-                                                    <i class="fa-solid fa-star"></i>
-                                                    <i class="fa-solid fa-star"></i>
-                                                    <i class="fa-regular fa-star"></i>
-                                                </div>
-                                                <div class="review_content">
-                                                    <p>커리큘럼의 구성이 약간 아쉬웠지만 무난한 강의였습니다.</p>
-                                                </div>
-                                                <div class="review_writer">
-                                                    이순신
-                                                </div>
-                                            </li>
-                                            
-                                        </ul>
-                                    </div>
-                                </li>
-                            </ul>
+                                    </li>
+                                    <li class="review_container">
+                                        <div class="review_wrap">
+                                            <ul>
+                                                <li class="review_lst" th:each="rate: ${rating}">
+                                                    <div class="review_star">
+                                                        <i class="fa-solid fa-star"
+                                                           th:each="star: ${#numbers.sequence(1, rate.star())}"></i>
+                                                        <i class="fa-regular fa-star"
+                                                           th:each="star: ${#numbers.sequence(rate.star(), 4)}"></i>
+                                                    </div>
+                                                    <div class="review_content">
+                                                        <p th:text="${rate.text()}"></p>
+                                                    </div>
+                                                    <div class="review_writer" th:text="${rate.name()}"></div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
-                    </div>
-                    <div class="lec_desc_rt">
-                        <div class="lec_rt_btn">
-                            <div class="lec_review_container">
-                                <ul>
-                                    <li>
-                                        <a href="#">수강신청하기</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">❤</a>
-                                        <a href="#">공유하기</a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="lec_review_star_wrap">
-                                <div class="review_star">
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-regular fa-star"></i>
+                        <div class="lec_desc_rt">
+                            <div class="lec_rt_btn">
+                                <div class="lec_review_container">
+                                    <ul>
+                                        <li>
+                                            <a href="#">수강신청하기</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">❤</a>
+                                            <a href="#">공유하기</a>
+                                        </li>
+                                    </ul>
                                 </div>
-                                <span>만족도 : <strong>4.45</strong> / 5.0</span>
-                            </div>
-                            <div class="lec_rt_info">
-                                <ul>
-                                    <li>
-                                        <div>
-                                            <span>• 분야 : </span>
-                                            <span>인문 (인문과학)</span>
-                                        </div>
-                                        <div>
-                                            <span>• 강사 : </span>
-                                            <span>홍길동</span>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div>
-                                            <span>• 강좌개설일 : </span>
-                                            <span>24.02.20 ~ 24.04.11</span>
-                                        </div>
-                                        <div>
-                                            <span>• 기관명 : </span>
-                                            <span>한국IT교육원</span>
-                                        </div>
-                                    </li>
-                                </ul>
+                                <div class="lec_review_star_wrap">
+                                    <div class="review_star">
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-regular fa-star"></i>
+                                    </div>
+                                    <span>만족도 : <strong>4.45</strong> / 5.0</span>
+                                </div>
+                                <div class="lec_rt_info">
+                                    <ul>
+                                        <li>
+                                            <div>
+                                                <span>• 분야 : </span>
+                                                <span th:text="${lecture.sub_category()}"></span>
+                                            </div>
+                                            <div>
+                                                <span>• 강사 : </span>
+                                                <span>홍길동</span>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div>
+                                                <span>• 강좌개설일 : </span>
+                                                <span th:text="${lecture.created_at() + ' ~ ' + lecture.closed_at()}"></span>
+                                            </div>
+                                            <div>
+                                                <span>• 기관명 : </span>
+                                                <span th:text="${lecture.company_name()}"></span>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+
             </div>
-            
-        </div>
-    </section>
-<footer th:replace="~{/common/footer::footer}"></footer>
+        </section>
+    </div>
+
+    <footer th:replace="~{/common/footer::footer}"></footer>
 </body>
 </html>

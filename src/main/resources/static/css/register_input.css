@@ -1,0 +1,248 @@
+/* 회원가입_회원정보입력 css 시작 */
+.reg_container {
+  width: 1200px;
+  margin: 0 auto;
+}
+
+.reg_procedure p {
+  margin-top: 50px;
+  font-weight: bold;
+  font-size: large;
+  text-align: center;
+}
+
+.reg_order_icon {
+  margin-top: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.reg_order_icon img {
+  width: 110px;
+  height: 12px;
+  margin: 0 40px;
+}
+
+.reg_order_round {
+  width: 100px;
+  height: 100px;
+  margin-left: 10px;
+  border-radius: 50%;
+  background-color: #0077cc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.reg_order_round_sub {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background-color: rgb(156, 185, 215);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.reg_order_text {
+  font-size: 14px;
+  font-weight: bold;
+  color: white;
+  text-align: center;
+}
+
+hr {
+  margin-top: 100px;
+}
+
+.member_information_input_container {
+  width: 830px;
+  height: 950px;
+  margin: 50px auto 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.member_information_input_title {
+  font-size: 26px;
+  font-weight: 700;
+  line-height: 59px;
+  text-align: center;
+}
+
+.member_information_input_content {
+  font-family: "Droid Sans", monospace;
+  color: #767676;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 25px;
+  text-align: center;
+}
+
+.member_form {
+  margin-top: 80px;
+}
+
+.member_division {
+  width: 100%;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.category_container {
+  width: 120px;
+}
+
+.category_text {
+  font-family: "Droid Sans";
+}
+
+.real_input {
+  margin-left: 60px;
+}
+
+.radio_item_1 {
+  font-family: "Droid Sans";
+}
+
+.radio_item_2 {
+  margin-left: 40px;
+  font-family: "Droid Sans";
+}
+
+.member_name {
+  width: 100%;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.member_id {
+  width: 100%;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.member_password {
+  width: 100%;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.member_password_check {
+  width: 100%;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.member_birthDate {
+  width: 100%;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.id_birthDate_postcode_button {
+  width: 90px;
+  height: 30px;
+  border: 1px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 400;
+  font-family: "Droid Sans";
+  line-height: 25px;
+  color: #FFFFFF;
+  background-color: #4F4F4F;
+  cursor: pointer;
+}
+
+.member_gender {
+  width: 100%;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.member_address {
+  width: 100%;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.basics_detail_address {
+  display: grid;
+}
+
+.basics_detail_address input {
+margin: 5px 0;
+}
+
+.short_box {
+  width: 100px;
+}
+
+.basics_address {
+  width: 340px;
+  background-color: #F5F5F5;
+}
+
+.detail_address {
+  width: 340px;
+}
+
+.member_phoneNumber {
+  width: 100%;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.member_email {
+  width: 100%;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.member_information_decision {
+  margin-top: 80px;
+  text-align: center;
+}
+
+.check {
+  width: 100px;
+  height: 55px;
+  margin-right: 30px;
+  color: #FFFFFF;
+  border-width: 0;
+  border-radius: 10px;
+  cursor: pointer;
+  background-color: #559CE3;
+}
+
+.cancel {
+  width: 100px;
+  height: 55px;
+  color: #A1A1A1;
+  border-width: 0;
+  border-radius: 10px;
+  cursor: pointer;
+  background-color: #F2F2F2;
+}
+/* 회원가입_회원정보입력 css 끝 */

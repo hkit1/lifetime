@@ -1,0 +1,614 @@
+@import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Merienda:wght@700&family=Noto+Sans+KR:wght@100;200&family=Single+Day&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.sidebar {
+    width: 240px;
+    height: 1000px;
+    top: 0;
+    left: 0;
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+}
+
+.logo {
+    width: 240px;
+    height: 50px;
+    border-bottom: 1px solid #DDDDDD;
+    text-decoration: none;
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo h5 {
+    margin-left: 5px;
+    font-size: 25px;
+    font-weight: 700;
+    font-family: 'Single Day', cursive;
+}
+
+.logo img {
+    width: 50px;
+    height: 50px;
+}
+
+.welcome_container {
+    width: 240px;
+    height: 150px;
+    border-bottom: 1px solid #DDDDDD;
+}
+
+.welcome_text {
+    width: 185px;
+    height: 40px;
+    margin: 35px auto 0;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 45px;
+    text-align: center;
+}
+
+.mainpage_logout_button {
+    width: 240px;
+    height: 30px;
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mainpage_logout_button a {
+    width: 65px;
+    height: 25px;
+    margin: 0 25px;
+    font-weight: 700;
+    font-size: 11px;
+    line-height: 25px;
+    text-align: center;
+    border-radius: 5px;
+    background-color: #D9D9D9;
+    text-decoration: none;
+}
+
+#mainpage {
+    color: #123CAA;
+}
+
+#logout {
+    color: #494949;
+}
+
+.total_stats_wrap {
+    width: 240px;
+    height: 40px;
+    display: flex;
+    cursor: pointer;
+    align-items: center;
+    border-bottom: 1px solid #DDDDDD;
+}
+
+.total_stats_wrap:hover {
+    border-right: 5px solid grey;
+    box-sizing: border-box;
+}
+
+.total_stats {
+    display: flex;
+    margin-left: 25px;
+    align-items: center;
+}
+
+.member_attendance_wrap {
+    width: 240px;
+    height: 40px;
+    display: flex;
+    cursor: pointer;
+    align-items: center;
+    border-bottom: 1px solid #DDDDDD;
+}
+
+.member_attendance_wrap:hover {
+    border-right: 5px solid grey;
+    box-sizing: border-box;
+}
+
+.member_attendance {
+    display: flex;
+    margin-left: 25px;
+    align-items: center;
+}
+
+.test_wrap {
+    width: 240px;
+    height: 40px;
+    display: flex;
+    cursor: pointer;
+    align-items: center;
+    border-bottom: 1px solid #DDDDDD;
+}
+
+.test_wrap:hover {
+    border-right: 5px solid grey;
+    box-sizing: border-box;
+}
+
+.test {
+    display: flex;
+    margin-left: 25px;
+    align-items: center;
+}
+
+.evaluation_wrap {
+    width: 240px;
+    height: 40px;
+    display: flex;
+    cursor: pointer;
+    align-items: center;
+    border-bottom: 1px solid #DDDDDD;
+}
+
+.evaluation_wrap:hover {
+    border-right: 5px solid grey;
+    box-sizing: border-box;
+}
+
+.evaluation {
+    display: flex;
+    margin-left: 25px;
+    align-items: center;
+}
+
+.dashboard_container {
+    width: calc(100% - 240px);
+    height: 500vh;
+    margin-left: 240px;
+    background-color: #A1B3CA;
+}
+
+.dashboard_title {
+    height: 50px;
+    margin-left: 45px;
+}
+
+.institution_container {
+    width: 1200px;
+    height: 650px;
+    margin: 45px auto 0;
+    border-radius: 5px;
+    background-color: #FFFFFF;
+}
+
+.institution_stats_title {
+    width: 100%;
+    height: 60px;
+    display: flex;
+    align-items: center;
+}
+
+.stats_container {
+    width: 1000px;
+    height: 450px;
+    display: flex;
+    margin: 25px auto 0;
+}
+
+.week_stats {
+    width: 325px;
+    height: 450px;
+}
+
+.week_stats_title {
+    width: 100%;
+    height: 50px;
+    text-align: center;
+}
+
+.week_stats_content {
+    width: 100%;
+    height: 400px;
+}
+
+.new_member {
+    width: 325px;
+    height: 50px;
+    padding-top: 40px;
+}
+
+.new_lecture {
+    width: 325px;
+    height: 50px;
+    padding-top: 90px;
+}
+
+.average_satisfaction {
+    width: 325px;
+    height: 50px;
+    padding-top: 90px;
+}
+
+.month_stats {
+    width: 350px;
+    height: 450px;
+    padding: 0 30px;
+    border-left: 1px solid #DDDDDD;
+    border-right: 1px solid #DDDDDD;
+}
+
+.month_stats_title {
+    width: 100%;
+    height: 50px;
+    text-align: center;
+}
+
+.month_stats_content {
+    width: 100%;
+    height: 400px;
+}
+
+.accrue_stats {
+    width: 325px;
+    height: 450px;
+    margin-left: 30px;
+}
+
+.accrue_stats_title {
+    width: 100%;
+    height: 50px;
+    text-align: center;
+}
+
+.accrue_stats_content {
+    width: 100%;
+    height: 400px;
+}
+
+.member_attendance_container {
+    width: 1200px;
+    height: 700px;
+    margin: 150px auto 0;
+}
+
+.member_attendance_title {
+    width: 100%;
+    height: 50px;
+    border-radius: 5px;
+    background-color: #EDF0F1;
+}
+
+.total_member_search_container {
+    width: 100%;
+    height: 40px;
+    margin-top: 30px;
+}
+
+.total_member_number {
+    width: 200px;
+    height: 40px;
+    float: left;
+}
+
+.search_container {
+    width: 500px;
+    height: 40px;
+    float: right;
+}
+
+.search_container select {
+    width: 100px;
+    height: 32px;
+    font-weight: 400;
+    font-size: 10px;
+    text-align: center;
+    border: 1px solid #7D7D7D;
+    border-radius: 5px;
+}
+
+.search {
+    width: 285px;
+    height: 31px;
+    border: 1px solid #7D7D7D;
+    margin-left: 10px;
+    border-radius: 5px;
+}
+
+.search_button {
+    width: 80px;
+    height: 32px;
+    float: right;
+    font-weight: 700;
+    font-size: 9px;
+    line-height: 20px;
+    text-align: center;
+    color: #FFFFFF;
+    cursor: pointer;
+    border-radius: 5px;
+    border-width: 0;
+    background-color: #0D9DA6;
+}
+
+table {
+    width: 100%;
+    height: 90px;
+    border: 1px solid #DDDDDD;
+    border-radius: 5px;
+    text-align: center;
+    border-collapse: collapse;
+}
+
+.member_attendance_container thead tr {
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 45px;
+    color: #FFFFFF;
+    border-bottom: 1px solid #DDDDDD;
+    background-color: #104679;
+}
+
+.member_id {
+    max-width: 105px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.studying_lecture {
+    max-width: 500px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+tbody tr {
+    font-weight: 400;
+    font-size: 11px;
+    line-height: 40px;
+    border-bottom: 1px solid #DDDDDD;
+    background-color: #FFFCFC;
+}
+
+.sendText_fail_button_container {
+    width: 100%;
+    height: 30px;
+    margin-top: 10px;
+}
+
+.sendText_button {
+    width: 50px;
+    height: 30px;
+    float: right;
+    cursor: pointer;
+    margin-right: 5px;
+    border-width: 0;
+    border-radius: 5px;
+    font-weight: 700;
+    font-size: 9px;
+    line-height: 20px;
+    text-align: center;
+    color: #FFFFFF;
+    background-color: #31668C;
+}
+
+.fail_button {
+    width: 50px;
+    height: 30px;
+    float: right;
+    cursor: pointer;
+    border-width: 0;
+    border-radius: 5px;
+    font-weight: 700;
+    font-size: 9px;
+    line-height: 20px;
+    text-align: center;
+    color: #FFFFFF;
+    background-color: #8C3131;
+}
+
+.page {
+    width: 250px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    margin: 10px auto 0;
+}
+
+.before_next_button {
+    width: 23px;
+    height: 23px;
+    display: flex;
+    cursor: pointer;
+    margin-right: 5px;
+    font-weight: 700;
+    font-size: 8px;
+    line-height: 18px;
+    justify-content: center;
+    align-items: center;
+    border-width: 0;
+    border-radius: 5px;
+    background-color: #FFFFFF;
+}
+
+.selected_button {
+    width: 23px;
+    height: 23px;
+    display: flex;
+    color: #FFFFFF;
+    cursor: pointer;
+    margin-right: 5px;
+    font-weight: 700;
+    font-size: 9px;
+    line-height: 20px;
+    justify-content: center;
+    align-items: center;
+    border-width: 0;
+    border-radius: 5px;
+    background-color: #4892BB;
+}
+
+.not_selected_button {
+    width: 23px;
+    height: 23px;
+    display: flex;
+    color: #05294B;
+    cursor: pointer;
+    margin-right: 5px;
+    font-weight: 700;
+    font-size: 9px;
+    line-height: 20px;
+    justify-content: center;
+    align-items: center;
+    border-width: 0;
+    background-color: transparent;
+}
+
+.test_container {
+    width: 1200px;
+    height: 700px;
+    margin: 150px auto 0;
+}
+
+.test_management_title {
+    width: 100%;
+    height: 50px;
+    border-radius: 5px;
+    background-color: #EDF0F1;
+}
+
+.total_test_search_container {
+    width: 100%;
+    height: 40px;
+    margin-top: 30px;
+}
+
+.total_test_number {
+    width: 200px;
+    height: 40px;
+    float: left;
+}
+
+.test_container thead tr {
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 45px;
+    color: #FFFFFF;
+    border-bottom: 1px solid #DDDDDD;
+    background-color: #05294B;
+}
+
+.lecture_name {
+    max-width: 500px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.test_name {
+    max-width: 290px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.delete_button_container {
+    width: 100%;
+    height: 30px;
+    margin-top: 10px;
+}
+
+.test_delete_button {
+    width: 50px;
+    height: 30px;
+    float: right;
+    cursor: pointer;
+    border-width: 0;
+    border-radius: 5px;
+    font-weight: 700;
+    font-size: 9px;
+    line-height: 20px;
+    text-align: center;
+    color: #FFFFFF;
+    background-color: #8C3131;
+}
+
+.evaluation_container {
+    width: 1200px;
+    height: 700px;
+    margin: 150px auto 0;
+}
+
+.evaluation_management_title {
+    width: 100%;
+    height: 50px;
+    border-radius: 5px;
+    background-color: #EDF0F1;
+}
+
+.total_evaluation_search_container {
+    width: 100%;
+    height: 40px;
+    margin-top: 30px;
+}
+
+.total_evaluation_number {
+    width: 200px;
+    height: 40px;
+    float: left;
+}
+
+.evaluation_container thead tr {
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 45px;
+    color: #FFFFFF;
+    border-bottom: 1px solid #DDDDDD;
+    background-color: #071D69;
+}
+
+.teacher_name {
+    max-width: 125px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.edit_delete_button_container {
+    width: 100%;
+    height: 30px;
+    margin-top: 10px;
+}
+
+.edit_button {
+    width: 60px;
+    height: 30px;
+    float: right;
+    cursor: pointer;
+    margin-right: 5px;
+    border-width: 0;
+    border-radius: 5px;
+    font-weight: 700;
+    font-size: 9px;
+    line-height: 20px;
+    text-align: center;
+    color: #FFFFFF;
+    background-color: #31668C;
+}
+
+.delete_button {
+    width: 60px;
+    height: 30px;
+    float: right;
+    cursor: pointer;
+    border-width: 0;
+    border-radius: 5px;
+    font-weight: 700;
+    font-size: 9px;
+    line-height: 20px;
+    text-align: center;
+    color: #FFFFFF;
+    background-color: #8C3131;
+}

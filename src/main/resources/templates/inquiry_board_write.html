@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>공지사항_문의게시판_글쓰기</title>
+  <link rel="stylesheet" href="/css/common/header.css" >
+  <link rel="stylesheet" href="/css/common/footer.css">
+  <link rel="stylesheet" href="/css/inquiry_board_write.css" >
+</head>
+<body>
+  <div class="container">
+    <!-- 헤더 html 시작 -->
+    <header th:replace="~{/common/header::header}"></header>
+    <!-- 헤더 html 끝 -->
+
+    <div class="board_title_container">
+      <div class="board_title">
+        <p style="font-weight: 700; font-size: 27px; line-height: 40px; color: #FFFFFF">문의 게시판</p>
+        <p style="font-weight: 400; font-size: 11px; line-height: 25px; color: #FFFFFF">평생학습플랫폼을 사용하면서 불편한 점, 문의하고 싶은 내용을 작성해 주세요!</p>
+      </div>
+    </div>
+
+    <div class="inquire">
+        <span style="font-weight: 400; font-size: 24px; line-height: 54px">문의하기</span>
+    </div>
+
+    <div class="board_container">
+      <div class="title_wrap">
+        <input type="text" placeholder="제목" class="title">
+      </div>
+      <div class="content_wrap">
+        <textarea name="content" cols="30" rows="10" placeholder="내용" class="content"></textarea>
+      </div>
+    </div>
+
+    <div class="cancel_write_button_container">
+      <a href="" class="write"><span style="font-weight: 700; font-size: 13px; line-height: 29px; text-align: center; color: #FFFFFF">글쓰기</span></a>
+      <a href="" class="cancel"><span style="font-weight: 700; font-size: 13px; line-height: 29px; text-align: center; color: #FFFFFF">취소</span></a>
+    </div>
+  </div>
+
+  <!-- 푸터 html 시작 -->
+  <footer th:replace="~{/common/footer::footer}"></footer>
+  <!-- 푸터 html 끝 -->
+</body>
+</html>

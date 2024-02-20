@@ -2,15 +2,17 @@ package com.hkit.lifetime.lecture;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
 @Entity
+@NoArgsConstructor
 @Table(name = "lecture_content")
 public class LectureContent {
-
     @Id
+    @GeneratedValue
     @Column(name = "id", nullable = false)
     private Integer id;
 
@@ -18,15 +20,39 @@ public class LectureContent {
     @JoinColumn(name = "lecture_id", nullable = false)
     private Lecture lecture;
 
-    @Lob
     @Column(name = "name", nullable = false)
     private String name;
 
-    @Lob
     @Column(name = "description", nullable = false)
     private String description;
 
-    @Lob
     @Column(name = "url", nullable = false)
     private String url;
+
+    @Column(name = "content_id")
+    private Integer content;
+
+    public LectureContent(Integer id, Lecture lecture, String name, String description, String url, Integer contentId) {
+        this.id = id;
+        this.lecture = lecture;
+        this.name = name;
+        this.description = description;
+        this.url = url;
+        this.content = contentId;
+    }
+
+    public void UpdateLectureContent(LectureContentDto lectureContentDto) {
+        if (!lectureContentDto.name().isEmpty()){
+            this.name = lectureContentDto.name();
+        }
+        if (!lectureContentDto.description().isEmpty()){
+            this.description = lectureContentDto.description();
+        }
+        if (lectureContentDto.url() != null &&!lectureContentDto.url().isEmpty()){
+            this.url = lectureContentDto.url();
+        }
+
+
+
+    }
 }

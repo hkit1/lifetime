@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form id="reg_form">
+    <input th:name="${_csrf.parameterName}" th:value="${_csrf.token}" type="hidden"/>
+    <input name="name" placeholder="강좌 이름" type="text">
+    <input name="description" placeholder="강좌 설명" type="text">
+    <input name="file" type="file">
+    <input type="submit">
+</form>
+<script th:inline="javascript">
+    const f = document.getElementById("reg_form");
+    f.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        await fetch("/api/lecture/create", {
+            method: "POST",
+            body: new FormData(f)
+        }).then(data => {
+            if (data.status === 400) {
+                window.alert("이미 있는 강좌 입니다!");
+            } else if (data.status === 200) {
+                window.location.href = "/";
+            }
+        });
+    })
+</script>
+</body>
+</html>

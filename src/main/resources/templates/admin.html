@@ -2,101 +2,347 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>관리 페이지</title>
-    <style>
-        * {
-            /* 브라우저마다 이 값이 다르므로, 똑같은 값으로 설정 */
-            margin: 0;
-            padding: 0;
-        }
-        nav {
-            width: 300px;
-            height: 100%;
-            position: fixed;
-            top: 0;
-            bottom: 0;
-            left: 0;
-            background-color: blue;
-        }
-        #body {
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            background-color: green;
-            margin-left: 300px;
-        }
-        .menu, ul.submenu li {
-            width: 100%;
-            height: 30px;
-            line-height: 30px;
-            padding: 0 20px;
-            background-color: orange;
-        }
-        a {
-            color: inherit;
-            text-decoration: none;
-        }
-        ul.submenu, #check01, #check02 {
-            display: none;
-        }
-        label {
-            position: relative;
-            display: block;
-            cursor: pointer;
-        }
-        input:checked~ul.submenu {
-            display: block;
-        }
-        @media (700px > width) {
-            nav {
-                width: 150px;
-            }
-            #body {
-                margin-left: 150px;
-            }
-        }
-    </style>
-    <script>
-        const form = document.getElementById("add_company_form");
-        form.addEventListener("submit", (e) => {
-            e.preventDefault();
-            const formData = new FormData(form);
-            fetch("/api/company/create", {
-                method: "POST",
-                body: formData,
-            })
-                .then((response) => {
-                    window.alert(response.ok)
-                })
-                .then((data) => console.log(data))
-                .catch((error) => console.error(error));
-        });
-    </script>
+    <title>관리자 페이지</title>
+    <link rel="stylesheet" href="/css/admin.css">
 </head>
 <body>
-<nav>
-    <div>
-        <input type="checkbox" id="check01" name="menu"/>
-        <label for="check01" class="menu">메뉴</label>
-        <ul class="submenu">
-            <li><a href="#">회사 등록</a></li>
-        </ul>
+    <div class="sidebar">
+        <div class="logo">
+            <h5>평생학습플랫폼</h5>
+            <img src="../images/book.png">
+        </div>
+        <div class="welcome_container">
+            <div class="welcome_text">
+                <span>관리자님 환영합니다.</span>
+            </div>
+            <div class="mainpage_logout_button">
+                <a href="" id="mainpage">메인페이지</a>
+                <a href="" id="logout">로그아웃</a>
+            </div>
+        </div>
+        <div class="total_stats_wrap">
+            <div class="total_stats">
+                <img src="../images/stats.png" alt="">
+                <span>&ensp;전체통계</span>
+            </div>
+        </div>
+        <div class="member_wrap">
+            <div class="member">
+                <img src="../images/member.png" alt="">
+                <span>&ensp;회원관리</span>
+            </div>
+        </div>
+        <div class="institution_wrap">
+            <div class="institution">
+                <img src="../images/institution.png" alt="">
+                <span>&ensp;기관관리</span>
+            </div>
+        </div>
+        <div class="lecture_wrap">
+            <div class="lecture">
+                <img src="../images/lecture.png" alt="">
+                <span>&ensp;강좌관리</span>
+            </div>
+        </div>
     </div>
-    <div>
-        <input type="checkbox" id="check02" name="menu"/>
-        <label for="check02" class="menu">로그인</label>
-        <ul class="submenu">
-            <li><a href="#">아무튼 로그인</a></li>
-        </ul>
+    <div class="dashboard_container">
+        <div class="dashboard_title">
+            <div style="width: 100px; height: 50px">
+                <span style="font-weight: 700; font-size: 20px; line-height: 43px; color: #FFFFFF">대시보드</span>
+            </div>
+        </div>
+        <div class="platform_total_stats_container">
+            <div class="platform_total_stats_title">
+                <span style="margin-left: 20px; font-weight: 400; font-size: 14px; line-height: 31px; color: #05294B">플랫폼 전체 통계</span>
+            </div>
+            <div class="stats_container">
+                <div class="week_stats">
+                    <div class="week_stats_title">
+                        <span style="color: #004973; font-weight: 400; font-size: 18px; line-height: 40px;">주간통계</span>
+                    </div>
+                    <div class="week_stats_content">
+                        <div class="registerd_member_number">
+                            <span style="font-weight: 400; font-size: 17px; line-height: 38px">가입 회원수&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;</span>
+                            <span style="font-weight: 400; font-size: 16px; line-height: 36px"><span
+                                    style="font-weight: 700; font-size: 35px; line-height: 79px; color: #3B6FD4"
+                                    th:text="${week_created}"></span> 명</span>
+                        </div>
+                        <div class="new_lecture_number">
+                            <span style="font-weight: 400; font-size: 17px; line-height: 38px">신규강좌 수&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;</span>
+                            <span style="font-weight: 400; font-size: 16px; line-height: 36px"><span
+                                    style="font-weight: 700; font-size: 35px; line-height: 79px; color: #3B6FD4"
+                                    th:text="${week_lecture}"></span> 개 강좌</span>
+                        </div>
+                        <div class="new_institution_number">
+                            <span style="font-weight: 400; font-size: 17px; line-height: 38px">신규 기관 수&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;</span>
+                            <span style="font-weight: 400; font-size: 16px; line-height: 36px"><span
+                                    style="font-weight: 700; font-size: 35px; line-height: 79px; color: #3B6FD4"
+                                    th:text="${week_company}"></span> 개 기관</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="month_stats">
+                    <div class="month_stats_title">
+                        <span style="color: #004973; font-weight: 400; font-size: 18px; line-height: 40px;">월간통계</span>
+                    </div>
+                    <div class="month_stats_content">
+                        <div class="registerd_member_number" style="margin: 0 auto">
+                            <span style="font-weight: 400; font-size: 17px; line-height: 38px">가입 회원수&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;</span>
+                            <span style="font-weight: 400; font-size: 16px; line-height: 36px"><span
+                                    style="font-weight: 700; font-size: 35px; line-height: 79px; color: #3B6FD4"
+                                    th:text="${month_created}"></span> 명</span>
+                        </div>
+                        <div class="new_lecture_number" style="margin: 0 auto">
+                            <span style="font-weight: 400; font-size: 17px; line-height: 38px">신규강좌 수&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;</span>
+                            <span style="font-weight: 400; font-size: 16px; line-height: 36px"><span
+                                    style="font-weight: 700; font-size: 35px; line-height: 79px; color: #3B6FD4"
+                                    th:text="${month_lecture}"></span> 개 강좌</span>
+                        </div>
+                        <div class="new_institution_number" style="margin: 0 auto">
+                            <span style="font-weight: 400; font-size: 17px; line-height: 38px">신규 기관 수&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;</span>
+                            <span style="font-weight: 400; font-size: 16px; line-height: 36px"><span
+                                    style="font-weight: 700; font-size: 35px; line-height: 79px; color: #3B6FD4"
+                                    th:text="${month_company}"></span> 개 기관</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="accrue_stats">
+                    <div class="accrue_stats_title">
+                        <span style="color: #004973; font-weight: 400; font-size: 18px; line-height: 40px;">누적통계</span>
+                    </div>
+                    <div class="accrue_stats_content">
+                        <div class="registerd_member_number" style="margin: 0 auto">
+                            <span style="font-weight: 400; font-size: 17px; line-height: 38px">총 가입 회원수&ensp;&ensp;&ensp;&ensp;</span>
+                            <span style="font-weight: 400; font-size: 16px; line-height: 36px"><span
+                                    style="font-weight: 700; font-size: 35px; line-height: 79px; color: #3B6FD4"
+                                    th:text="${total_created}"></span> 명</span>
+                        </div>
+                        <div class="new_lecture_number" style="margin: 0 auto">
+                            <span style="font-weight: 400; font-size: 17px; line-height: 38px">총 강좌 수&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;</span>
+                            <span style="font-weight: 400; font-size: 16px; line-height: 36px"><span
+                                    style="font-weight: 700; font-size: 35px; line-height: 79px; color: #3B6FD4"
+                                    th:text="${total_lecture}"></span> 개 강좌</span>
+                        </div>
+                        <div class="new_institution_number" style="margin: 0 auto">
+                            <span style="font-weight: 400; font-size: 17px; line-height: 38px">총 기관 수&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;</span>
+                            <span style="font-weight: 400; font-size: 16px; line-height: 36px"><span
+                                    style="font-weight: 700; font-size: 35px; line-height: 79px; color: #3B6FD4"
+                                    th:text="${total_company}"></span> 개 기관</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="member_container">
+            <div class="member_management_title">
+                <div style="width: 100px; height: 50px; display: flex; align-items: center; margin-left: 15px">
+                    <div style="width: 5px; height: 20px; background-color: #15CCE5"></div><span style="font-weight: 700; font-size: 18px; line-height: 40px; color: #05294B">&nbsp;회원관리</span>
+                </div>
+            </div>
+            <div class="total_member_search_container">
+                <div class="total_member_number">
+                    <span style="font-weight: 400; font-size: 14px; line-height: 32px">&ensp;&ensp;전체 회원&ensp;&ensp;<span
+                            style="font-weight: 700; font-size: 14px; line-height: 32px; color: #024BD9"
+                            th:text="${total_created}"></span>&ensp;명</span>
+                </div>
+                <form method="post" class="search_container">
+                    <select name="search_select">
+                        <option value="">회원 아이디</option>
+                        <option value="">이름</option>
+                        <option value="">연락처</option>
+                        <option value="">이메일</option>
+                    </select>
+                    <input type="text" class="search">
+                    <input type="button" value="회원검색" class="search_button">
+                </form>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th><input type="checkbox" id="member_all_checkbox"></th>
+                        <th>번호</th>
+                        <th class="member_id">회원 아이디</th>
+                        <th class="member_name">회원 이름</th>
+                        <th>생년월일</th>
+                        <th>연락처</th>
+                        <th class="member_email">이메일</th>
+                        <th>성별</th>
+                        <th class="member_address">주소</th>
+                        <th>가입일자</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <tr th:each="account : ${accountList}">
+                    <td><input type="checkbox"></td>
+                    <td></td>
+                    <td class="member_id" th:title="${account.id()}" th:text="${account.id()}"></td>
+                    <td class="member_name" th:title="${account.name()}" th:text="${account.name()}"></td>
+                    <td th:text="${account.birth()}"></td>
+                    <td th:text="${account.tel()}"></td>
+                    <td class="member_email" th:title="${account.email()}" th:text="${account.email()}"></td>
+                    <td th:text="${account.gender()}"></td>
+                    <td class="member_address" th:title="${account.address1() + account.address2()}" th:text="${account.address1() + account.address2()}"></td>
+                    <td th:text="${account.created_at()}"></td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="edit_drop_button_container">
+                <input type="button" value="회원탈퇴" class="member_drop_button">
+                <input type="button" value="정보수정" class="info_edit_button">
+            </div>
+            <div class="page">
+                <input type="button" value="<<" class="before_next_button">
+                <input type="button" value="<" class="before_next_button">
+                <input type="button" value="1" class="selected_button">
+                <input type="button" value="2" class="not_selected_button">
+                <input type="button" value="3" class="not_selected_button">
+                <input type="button" value="4" class="not_selected_button">
+                <input type="button" value="5" class="not_selected_button">
+                <input type="button" value=">" class="before_next_button">
+                <input type="button" value=">>" class="before_next_button">
+            </div>
+        </div>
+
+        <div class="institution_container">
+            <div class="institution_management_title">
+                <div style="width: 100px; height: 50px; display: flex; align-items: center; margin-left: 15px">
+                    <div style="width: 5px; height: 20px; background-color: #15CCE5"></div><span style="font-weight: 700; font-size: 18px; line-height: 40px; color: #05294B">&nbsp;기관관리</span>
+                </div>
+            </div>
+            <div class="total_institution_search_container">
+                <div class="total_institution_number">
+                    <span style="font-weight: 400; font-size: 14px; line-height: 32px">&ensp;&ensp;전체 기관&ensp;&ensp;<span
+                            style="font-weight: 700; font-size: 14px; line-height: 32px; color: #024BD9"
+                            th:text="${total_company}"></span>&ensp;개</span>
+                </div>
+                <form method="post" class="search_container">
+                    <select name="search_select">
+                        <option value="">기관 ID</option>
+                        <option value="">기관명</option>
+                        <option value="">사업자등록번호</option>
+                        <option value="">연락처</option>
+                    </select>
+                    <input type="text" class="search">
+                    <input type="button" value="검색" class="search_button">
+                </form>
+            </div>
+            <table>
+                <thead>
+                <tr>
+                    <th><input type="checkbox" id="institution_all_checkbox"></th>
+                    <th class="institution_name">기관명</th>
+                    <th class="representative">대표자</th>
+                    <th>사업자등록번호</th>
+                    <th class="institution_email">이메일</th>
+                    <th>연락처</th>
+                    <th class="institution_address">주소</th>
+                    <th>승인여부</th>
+                    <th>승인날짜</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="company : ${companyList}">
+                    <td><input type="checkbox" class="institution_checkbox"></td>
+                    <td class="institution_name" th:title="${company.name()}" th:text="${company.name()}"></td>
+                    <td class="representative" th:title="${company.admin()}" th:text="${company.admin()}"></td>
+                    <td th:text="${company.id()}"></td>
+                    <td class="institution_email" th:title="${company.email()}" th:text="${company.email()}"></td>
+                    <td th:text="${company.tel()}"></td>
+                    <td class="institution_address" th:title="${company.address1() + company.address2()}" th:text="${company.address1() + company.address2()}"></td>
+                    <td th:text="${company.authorized()}"></td>
+                    <td th:text="${company.authorizedDate()}"></td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="approval_return_delete_button_container">
+                <input type="button" value="기관삭제" class="institution_delete_button">
+                <input type="button" value="반려" class="return_button">
+                <input type="button" value="승인" class="approval_button">
+            </div>
+            <div class="page">
+                <input type="button" value="<<" class="before_next_button">
+                <input type="button" value="<" class="before_next_button">
+                <input type="button" value="1" class="selected_button">
+                <input type="button" value="2" class="not_selected_button">
+                <input type="button" value="3" class="not_selected_button">
+                <input type="button" value="4" class="not_selected_button">
+                <input type="button" value="5" class="not_selected_button">
+                <input type="button" value=">" class="before_next_button">
+                <input type="button" value=">>" class="before_next_button">
+            </div>
+        </div>
+
+        <div class="lecture_container">
+            <div class="lecture_management_title">
+                <div style="width: 100px; height: 50px; display: flex; align-items: center; margin-left: 15px">
+                    <div style="width: 5px; height: 20px; background-color: #15CCE5"></div><span style="font-weight: 700; font-size: 18px; line-height: 40px; color: #05294B">&nbsp;강좌관리</span>
+                </div>
+            </div>
+            <div class="total_lecture_search_container">
+                <div class="total_lecture_number">
+                    <span style="font-weight: 400; font-size: 14px; line-height: 32px">&ensp;&ensp;전체 강좌&ensp;&ensp;<span
+                            style="font-weight: 700; font-size: 14px; line-height: 32px; color: #024BD9"
+                            th:text="${total_lecture}"></span>&ensp;개</span>
+                </div>
+                <form method="post" class="search_container">
+                    <select name="search_select">
+                        <option value="">강좌번호</option>
+                        <option value="">강좌명</option>
+                        <option value="">강사</option>
+                    </select>
+                    <input type="text" class="search">
+                    <input type="button" value="검색" class="search_button">
+                </form>
+            </div>
+            <table>
+                <thead>
+                <tr>
+                    <th><input type="checkbox" id="lecture_all_checkbox"></th>
+                    <th>강좌번호</th>
+                    <th class="lecture_name">강좌명</th>
+                    <th class="teacher_name">강사</th>
+                    <th>개설일</th>
+                    <th>종료일</th>
+                    <th>분류</th>
+                    <th>조회수</th>
+                    <th>만족도</th>
+                    <th>개강여부</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="l : ${lectureList}">
+                    <td><input type="checkbox" class="lecture_checkbox"></td>
+                    <td th:text="${l.id()}"></td>
+                    <td class="lecture_name" th:title="${l.name()}" th:text="${l.name()}"></td>
+                    <td class="teacher_name"></td>
+                    <td th:text="${l.created_at()}"></td>
+                    <td th:text="${l.closed_at()}"></td>
+                    <td th:text="${l.sub_category()}"></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="edit_cancel_button_container">
+                <input type="button" value="휴강처리" class="cancel_button">
+                <input type="button" value="정보수정" class="edit_button">
+            </div>
+            <div class="page">
+                <input type="button" value="<<" class="before_next_button">
+                <input type="button" value="<" class="before_next_button">
+                <input type="button" value="1" class="selected_button">
+                <input type="button" value="2" class="not_selected_button">
+                <input type="button" value="3" class="not_selected_button">
+                <input type="button" value="4" class="not_selected_button">
+                <input type="button" value="5" class="not_selected_button">
+                <input type="button" value=">" class="before_next_button">
+                <input type="button" value=">>" class="before_next_button">
+            </div>
+        </div>
     </div>
-</nav>
-<div id="body">
-    <form action="/api/company/create" method="post" id="add_company_form">
-        <label>
-            등록할 회사 이름 : <input type="text" name="name"/>
-        </label>
-        <button type="submit">전송</button>
-    </form>
-</div>
+
+    <script src="../js/admin.js"></script>
 </body>
 </html>
