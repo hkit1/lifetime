@@ -10,11 +10,14 @@ import com.hkit.lifetime.lecture.Lecture;
 import com.hkit.lifetime.lecture.LectureOutputDto;
 import com.hkit.lifetime.lecture.LectureService;
 import lombok.RequiredArgsConstructor;
+import lombok.Value;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestAttribute;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -35,8 +38,15 @@ public class MainController {
         return "home";
     }
 
+    //로그인 페이지
     @GetMapping("/member/login")
-    public String mypage(){
+    public String login() throws Exception{
+        return "login";
+    }
+    //로그인 에러 페이지
+    @GetMapping("/member/login-error")
+    public String loginError(Model model) throws Exception{
+        model.addAttribute("loginError", true);
         return "login";
     }
 
@@ -146,7 +156,7 @@ public class MainController {
         return "satisfaction";
     }
 
-    @GetMapping("/c")
+    @GetMapping("/mypage")
     public String zxc(Model model){
         MyLecture myLecture = new MyLecture("1", "15");
         TakeLectutreTime takeLectutreTime = new TakeLectutreTime("15h", "15h", "15h", "15h", "15h", "15h", "15h");
@@ -178,7 +188,7 @@ public class MainController {
         return "mypage";
     }
 
-    @GetMapping("/c/admin")
+    @GetMapping("/mypage/admin")
     public String zz(Model model) {
         List<Lecture> lectures = lectureService.getAllByPage(PageRequest.of(0, 10));
         List<LectureOutputDto> lectureOutputDto = new ArrayList<>();
@@ -200,7 +210,7 @@ public class MainController {
         return "mypage_lecture";
     }
 
-    @GetMapping("/c/admin/register")
+    @GetMapping("/mypage/admin/register")
     public String zzz(Model mode) {
         return "mypage_lecture_create";
     }

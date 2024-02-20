@@ -39,9 +39,11 @@ nav {
 #end {
   width: 100px;
   height: 50px;
+  margin-left: 820px;
   border-radius: 5px;
   color: #FFFFFF;
   display: flex;
+  cursor: pointer;
   justify-content: center;
   align-items: center;
   text-decoration: none;
