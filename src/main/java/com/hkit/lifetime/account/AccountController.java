@@ -32,6 +32,16 @@ public class AccountController {
         return "redirect:/";
     }
 
+    @GetMapping("/account/register/agree")
+    public String agree() {
+        return "register_clause";
+    }
+
+    @GetMapping("/account/register/choose")
+    public String choose() {
+        return "register_division";
+    }
+
     @GetMapping("/account/register")
     public String inRegister(Model model) {
         model.addAttribute("address", "/register/comple");

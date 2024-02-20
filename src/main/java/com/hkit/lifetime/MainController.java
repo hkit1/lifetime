@@ -10,14 +10,12 @@ import com.hkit.lifetime.lecture.Lecture;
 import com.hkit.lifetime.lecture.LectureOutputDto;
 import com.hkit.lifetime.lecture.LectureService;
 import lombok.RequiredArgsConstructor;
-import lombok.Value;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestAttribute;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -38,7 +36,6 @@ public class MainController {
         return "home";
     }
 
-    //로그인 페이지
     @GetMapping("/member/login")
     public String login() throws Exception{
         return "login";
@@ -211,9 +208,19 @@ public class MainController {
         return "mypage_lecture";
     }
 
-    @GetMapping("/mypage/admin/register")
-    public String zzz(Model mode) {
-        return "mypage_lecture_create";
+    @GetMapping("/mypage/admin/lecture/create")
+    public String zzz(Model model) {
+        return "lecture_create";
+    }
+
+    @GetMapping("/company/register")
+    public String register_company() {
+        return "institution_application";
+    }
+
+    @PostMapping("/company/register")
+    public String register_company_empty() {
+        return "institution_application";
     }
 
     static class MyLecture{

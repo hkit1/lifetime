@@ -9,8 +9,9 @@
     <input th:name="${_csrf.parameterName}" th:value="${_csrf.token}" type="hidden"/>
     <input name="name" placeholder="강좌 이름" type="text">
     <input name="description" placeholder="강좌 설명" type="text">
-    <input name="file" type="file">
+    <input name="file" placeholder="미리보기 사진" type="file">
     <input type="submit">
+    <a href="/mypage/admin">뒤로가기</a>
 </form>
 <script th:inline="javascript">
     const f = document.getElementById("reg_form");
@@ -23,7 +24,7 @@
             if (data.status === 400) {
                 window.alert("이미 있는 강좌 입니다!");
             } else if (data.status === 200) {
-                window.location.href = "/";
+                window.location.href = "/mypage/admin";
             }
         });
     })

@@ -18,4 +18,6 @@ public interface AccountRepository extends JpaRepository<Account, UUID> {
 
     @Query("select count(a) from Account a where a.created_at > ?1")
     long countByCreated_atAfter(LocalDate date);
+
+    Optional<Account> findByUuid(String uuid);
 }
