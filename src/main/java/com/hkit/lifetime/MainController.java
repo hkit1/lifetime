@@ -65,6 +65,12 @@ public class MainController {
         return "admin";
     }
 
+    @GetMapping("/admin/category/create")
+    public String cate_create() { return "category_create";}
+
+    @GetMapping("/admin/video/upload")
+    public String video_create() { return "video_upload";}
+
     // Test site mapping
     @GetMapping("/admin")
     public String admin(Model model) {
