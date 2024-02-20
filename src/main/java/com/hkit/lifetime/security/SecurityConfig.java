@@ -27,7 +27,7 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests(requsts -> requsts
                         //권한 없이 들어갈 수 있는 페이지
-                        .requestMatchers("/", "/member/login**", "/account/register", "/api/lecture/{id}/image").permitAll()
+                        .requestMatchers("/", "/member/login", "/account/register", "/register/complete", "/api/lecture/{id}/image").permitAll()
                         //이외의 페이지는 모두 권한 필요
                         .anyRequest().authenticated()
                 )

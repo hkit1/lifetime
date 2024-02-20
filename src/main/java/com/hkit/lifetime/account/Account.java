@@ -5,7 +5,10 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.cglib.core.Local;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -74,7 +77,7 @@ public class Account {
                 accountDto.name(),
                 accountDto.id(),
                 accountDto.pw(),
-                LocalDate.parse(accountDto.birth(), DateTimeFormatter.ofPattern("yyyy-MM-dd")),
+                LocalDate.parse(accountDto.birth(), DateTimeFormatter.ofPattern("yyyyMMdd")),
                 accountDto.email(),
                 accountDto.tel(),
                 accountDto.gender(),
