@@ -30,7 +30,7 @@ public class MainController {
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @GetMapping("/")
-    public String index(Model model) {
+    public String index(Model model){
         model.addAttribute("lectureList", lectureService.findLectureByTop12());
         return "home";
     }
@@ -48,6 +48,11 @@ public class MainController {
     @GetMapping("/admin/lecture/create")
     public String lecture_create() {
         return "lecture_create";
+    }
+
+    @GetMapping("/admin/category/create")
+    public String cate_create(){
+        return "category_create";
     }
 
     @GetMapping("/b")

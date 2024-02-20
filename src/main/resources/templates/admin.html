@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>관리자 페이지</title>
+    <link rel="stylesheet" href="../css/common/default.css">
     <link rel="stylesheet" href="../css/admin.css">
 </head>
 <body>
@@ -173,16 +174,20 @@
                     </tr>
                 </thead>
                 <tbody>
-                <tr th:each="account : ${accountList}">
+                <tr th:each="account, i : ${accountList}">
                     <td><input class="member_checkbox" type="checkbox"></td>
-                    <td></td>
+                    <td th:text="${i.count}"></td>
                     <td th:text="${account.id()}"></td>
+                    <td th:text="${account.name()}"></td>
                     <td th:text="${account.birth()}"></td>
                     <td th:text="${account.tel()}"></td>
                     <td th:text="${account.email()}"></td>
-                    <td th:text="${account.gender()}"></td>
+
+                    <td th:if="${account.gender() == true}">여자</td>
+                    <td th:if="${account.gender() == false}">남자</td>
+
                     <td th:text="${account.address1()}"></td>
-                    <td th:text="${account.address1() + account.address2()}"></td>
+<!--                    <td th:text="${account.address1() + account.address2()}"></td>-->
                     <td th:text="${account.created_at()}"></td>
                     </tr>
                 </tbody>
@@ -281,7 +286,7 @@
             </div>
             <div class="total_lecture_search_container">
                 <div class="total_lecture_number">
-                    <span style="font-weight: 400; font-size: 14px; line-height: 32px">&ensp;&ensp;전체 강좌&ensp;&ensp;<span
+                    <span style="font-weight: 400; font-size: 14px; line-height: 32px">전체 강좌&ensp;<span
                             style="font-weight: 700; font-size: 14px; line-height: 32px; color: #024BD9"
                             th:text="${total_lecture}"></span>&ensp;개</span>
                 </div>
@@ -328,6 +333,7 @@
             <div class="edit_cancel_button_container">
                 <input type="button" value="휴강처리" class="cancel_button">
                 <input type="button" value="정보수정" class="edit_button">
+                <input type="button" value="카테고리추가" class="cate_button">
             </div>
             <div class="page">
                 <input type="button" value="<<" class="before_next_button">
