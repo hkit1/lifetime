@@ -172,9 +172,10 @@
                         <th>가입일자</th>
                     </tr>
                 </thead>
+                <form action="" id="account_form">
                 <tbody>
                 <tr th:each="account : ${accountList}">
-                    <td><input type="checkbox"></td>
+                    <td><input name="checked[]" th:value="${account.id()}" type="checkbox"></td>
                     <td></td>
                     <td class="member_id" th:title="${account.id()}" th:text="${account.id()}"></td>
                     <td class="member_name" th:title="${account.name()}" th:text="${account.name()}"></td>
@@ -186,9 +187,21 @@
                     <td th:text="${account.created_at()}"></td>
                     </tr>
                 </tbody>
+                </form>
             </table>
             <div class="edit_drop_button_container">
-                <input type="button" value="회원탈퇴" class="member_drop_button">
+                <script>
+                    async function s() {
+                        let f = new FormData(document.getElementById("account_form"));
+                        for (let i = 0; i < f.getAll("checked[]").length; i++) {
+                            await fetch("/api/account/delete/" + f.getAll("checked[]")[i], {
+                                method: "GET"
+                            });
+                        }
+                        window.location = "/admin";
+                    }
+                </script>
+                <input class="member_drop_button" onclick="s()" type="button" value="회원탈퇴">
                 <input type="button" value="정보수정" class="info_edit_button">
             </div>
             <div class="page">
@@ -242,9 +255,8 @@
                 </tr>
                 </thead>
                 <tbody>
-                <form action="" id="company_form" method="post">
                 <tr th:each="company : ${companyList}">
-                    <td><input class="institution_checkbox" th:name="${company.id()}" type="checkbox"></td>
+                    <td><input class="institution_checkbox" type="checkbox"></td>
                     <td class="institution_name" th:title="${company.name()}" th:text="${company.name()}"></td>
                     <td class="representative" th:title="${company.admin()}" th:text="${company.admin()}"></td>
                     <td th:text="${company.id()}"></td>
@@ -254,47 +266,11 @@
                     <td th:text="${company.authorized()}"></td>
                     <td th:text="${company.authorizedDate()}"></td>
                 </tr>
-                </form>
                 </tbody>
             </table>
             <div class="approval_return_delete_button_container">
-                <script>
-                    async function accept() {
-                        let ee = document.getElementById("company_form").formData;
-                        await fetch("/api/company/accept", {
-                            method: "POST",
-                            body: new URLSearchParams({
-                                company: ee.get("name")
-                            }),
-                            headers: {[header]: token}
-                        }).then(data => {
-                            if (data.status === 401) {
-                                window.alert("이미 등록 요청 또는 등록된 기업입니다!");
-                            } else if (data.status === 200) {
-                                fetch("/api/company/create", {
-                                    method: "POST",
-                                    body: new FormData(ee),
-                                    headers: {[header]: token}
-                                }).then(data => {
-                                    if (data.status === 200) {
-                                        window.alert("기관 등록 요청을 했습니다.")
-                                        location.href = "/";
-                                    }
-                                });
-                            }
-                        });
-                    }
-
-                    function denied() {
-
-                    }
-
-                    function remove() {
-
-                    }
-                </script>
                 <input type="button" value="기관삭제" class="institution_delete_button">
-                <input class="return_button" onsubmit="" type="button" value="반려">
+                <input class="return_button" type="button" value="반려">
                 <input type="button" value="승인" class="approval_button">
             </div>
             <div class="page">

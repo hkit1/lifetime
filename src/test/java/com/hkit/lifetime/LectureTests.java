@@ -101,6 +101,10 @@ public class LectureTests {
         Faker faker = new Faker(Locale.KOREAN);
 
         TestTransaction.flagForCommit();
+        for (int i = 0; i < 30; i++) {
+            MultiValueMap<String, String> accountInfo = createAccountInfo();
+            mockMvc.perform(post("/account/register").params(accountInfo).with(csrf())).andExpect(status().is3xxRedirection());
+        }
         MultiValueMap<String, String> accountInfo = createAccountInfo();
         mockMvc.perform(post("/account/register").params(accountInfo).with(csrf())).andExpect(status().is3xxRedirection());
         Account account = accountRepository.findAccountById(accountInfo.getFirst("id")).get();
