@@ -41,7 +41,7 @@ footer {
 }
 
 .bottom_logo {
-    width: 125px;
+    width: 15%;
     height: 130px;
     margin-top: 10px;
     margin-left: 25px;
@@ -62,7 +62,7 @@ footer {
 }
 
 .company {
-    width: 650px;
+    width: 79%;
     height: 130px;
     margin-top: 20px;
     margin-left: 40px;
@@ -74,7 +74,7 @@ footer {
 }
 
 .sns {
-    width: 80px;
+    width: 16%;
     height: 60px;
     float: right;
     margin-top: 20px;

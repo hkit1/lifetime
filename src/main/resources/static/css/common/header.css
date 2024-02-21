@@ -25,7 +25,6 @@ ul {
 .logo {
     width: 200px;
     height: 100px;
-    background: salmon;
     float: left;
     display: inline-grid;
 }
@@ -54,13 +53,8 @@ ul {
 nav {
     width: 800px;
     height: 100px;
-    background: orange;
     float: left;
     position: relative;
-}
-
-nav:hover .subMenu_cate {
-    display: flex;
 }
 
 .topMenu {
@@ -89,61 +83,38 @@ nav:hover .subMenu_cate {
     text-shadow: 0 -1px #07c;
 }
 
-.subMenu_cate {
-    width: 100%;
-    height: 300px;
-    left: 0;
-    top: 100px;
-    background: greenyellow;
-    position: absolute;
-    display: none;
-    z-index: 999;
-}
-
-.subMenu {
-    width: calc(100% / 5);
-    text-align: center;
-}
-
-.subMenu li {
-    width: 100%;
-}
-
-.subMenu li a {
-    font-size: 20px;
-    text-decoration: none;
-}
-
 .member_btn {
     width: 200px;
     height: 100px;
     float: right;
     display: flex;
     align-items: center;
-    background: aqua;
 }
 
 .reg {
     width: 100px;
     height: 50px;
-    font-size: 0.8em;
+    line-height: 50px;
+    font-size: 13px;
     color: white;
-    border: 1px solid black;
+    border-width: 0;
     border-radius: 30px;
     background: #0077cc;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     text-decoration: none;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    display: inline-block;
+    text-align: center;
 }
 
 .login {
     width: 100px;
     height: 50px;
     margin-left: 5px;
-    font-size: 0.8em;
+    font-size: 13px;
     color: white;
-    border: 1px solid black;
+    border-width: 0;
     border-radius: 30px;
     background: mediumslateblue;
     display: flex;

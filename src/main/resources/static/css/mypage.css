@@ -207,9 +207,10 @@ th, td {
 }
 
 .lecture_deadline {
-    width: 90px;
+    width: 89px;
     text-align: center;
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
+    display: inline-block;
 }
