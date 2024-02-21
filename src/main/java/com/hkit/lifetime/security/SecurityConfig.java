@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 
 @Configuration
 @EnableWebSecurity
@@ -26,8 +27,8 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests(requsts -> requsts
                         //권한 없이 들어갈 수 있는 페이지
-                        .requestMatchers("/error", "/", "/member/login", "/member/login-error", "/account/register", "/account/register/**", "/register/complete", "/api/lecture/{id}/image").permitAll()
-                        .requestMatchers("/admin").hasRole("ADMIN")
+                        .requestMatchers("/error", "/", "/member/login", "/account/register", "/account/register/**", "/register/complete", "/api/lecture/{id}/image").permitAll()
+                        .requestMatchers("/admin").hasAuthority("ADMIN")
                         //이외의 페이지는 모두 권한 필요
                         .anyRequest().authenticated()
                 )
@@ -66,3 +67,4 @@ public class SecurityConfig {
     }
 
 }
+
