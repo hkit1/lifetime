@@ -35,18 +35,33 @@ public class AccountController {
     }
 
     @GetMapping("/account/register/agree")
-    public String agree() {
+    public String agree(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        if (session != null){
+            return "home";
+        }
+
         return "register_clause";
     }
 
     @GetMapping("/account/register/choose")
-    public String choose() {
+    public String choose(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        if (session != null){
+            return "home";
+        }
+
         return "register_division";
     }
 
     @GetMapping("/account/register")
-    public String inRegister(Model model) {
-        model.addAttribute("address", "/register/comple");
+    public String inRegister(Model model, HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        if (session != null){
+            return "home";
+        }
+
+        model.addAttribute("address", "/register/complete");
         return "register_input";
     }
 
