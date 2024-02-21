@@ -14,10 +14,12 @@
 </div>
 <nav>
   <span id="text">강의 이동하기</span>
-  <a id="next"
-     th:href="@{/api/lecture/{lecture_id}/{content_id}(lecture_id = ${lecture_id}, content_id = ${content_id})}"
-     th:if="${content_id != null}">다음</a>
-  <a id="end" onclick="window.close()">종료</a>
+  <div style="display: flex; flex-direction: row">
+    <a id="next"
+       th:href="@{/api/lecture/{lecture_id}/{content_id}(lecture_id = ${lecture_id}, content_id = ${content_id})}"
+       th:if="${content_id != null}">다음</a>
+    <a id="end" onclick="window.close()">종료</a>
+  </div>
 </nav>
 </body>
 </html>
