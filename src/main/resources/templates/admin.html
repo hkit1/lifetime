@@ -172,9 +172,10 @@
                         <th>가입일자</th>
                     </tr>
                 </thead>
+                <form action="" id="account_form">
                 <tbody>
                 <tr th:each="account : ${accountList}">
-                    <td><input type="checkbox"></td>
+                    <td><input name="checked[]" th:value="${account.id()}" type="checkbox"></td>
                     <td></td>
                     <td class="member_id" th:title="${account.id()}" th:text="${account.id()}"></td>
                     <td class="member_name" th:title="${account.name()}" th:text="${account.name()}"></td>
@@ -186,9 +187,21 @@
                     <td th:text="${account.created_at()}"></td>
                     </tr>
                 </tbody>
+                </form>
             </table>
             <div class="edit_drop_button_container">
-                <input type="button" value="회원탈퇴" class="member_drop_button">
+                <script>
+                    async function s() {
+                        let f = new FormData(document.getElementById("account_form"));
+                        for (let i = 0; i < f.getAll("checked[]").length; i++) {
+                            await fetch("/api/account/delete/" + f.getAll("checked[]")[i], {
+                                method: "GET"
+                            });
+                        }
+                        window.location = "/admin";
+                    }
+                </script>
+                <input class="member_drop_button" onclick="s()" type="button" value="회원탈퇴">
                 <input type="button" value="정보수정" class="info_edit_button">
             </div>
             <div class="page">
