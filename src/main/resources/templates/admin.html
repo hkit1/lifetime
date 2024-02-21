@@ -242,9 +242,8 @@
                 </tr>
                 </thead>
                 <tbody>
-                <form action="" id="company_form" method="post">
                 <tr th:each="company : ${companyList}">
-                    <td><input class="institution_checkbox" th:name="${company.id()}" type="checkbox"></td>
+                    <td><input class="institution_checkbox" type="checkbox"></td>
                     <td class="institution_name" th:title="${company.name()}" th:text="${company.name()}"></td>
                     <td class="representative" th:title="${company.admin()}" th:text="${company.admin()}"></td>
                     <td th:text="${company.id()}"></td>
@@ -254,47 +253,11 @@
                     <td th:text="${company.authorized()}"></td>
                     <td th:text="${company.authorizedDate()}"></td>
                 </tr>
-                </form>
                 </tbody>
             </table>
             <div class="approval_return_delete_button_container">
-                <script>
-                    async function accept() {
-                        let ee = document.getElementById("company_form").formData;
-                        await fetch("/api/company/accept", {
-                            method: "POST",
-                            body: new URLSearchParams({
-                                company: ee.get("name")
-                            }),
-                            headers: {[header]: token}
-                        }).then(data => {
-                            if (data.status === 401) {
-                                window.alert("이미 등록 요청 또는 등록된 기업입니다!");
-                            } else if (data.status === 200) {
-                                fetch("/api/company/create", {
-                                    method: "POST",
-                                    body: new FormData(ee),
-                                    headers: {[header]: token}
-                                }).then(data => {
-                                    if (data.status === 200) {
-                                        window.alert("기관 등록 요청을 했습니다.")
-                                        location.href = "/";
-                                    }
-                                });
-                            }
-                        });
-                    }
-
-                    function denied() {
-
-                    }
-
-                    function remove() {
-
-                    }
-                </script>
                 <input type="button" value="기관삭제" class="institution_delete_button">
-                <input class="return_button" onsubmit="" type="button" value="반려">
+                <input class="return_button" type="button" value="반려">
                 <input type="button" value="승인" class="approval_button">
             </div>
             <div class="page">

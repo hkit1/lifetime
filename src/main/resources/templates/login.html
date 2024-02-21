@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>로그인</title>
-    <link href="../css/common/header.css" rel="stylesheet">
-    <link href="../css/common/footer.css" rel="stylesheet">
-    <link href="../css/login.css" rel="stylesheet">
+    <link href="/css/common/header.css" rel="stylesheet">
+    <link href="/css/common/footer.css" rel="stylesheet">
+    <link href="/css/login.css" rel="stylesheet">
 <!--    <meta th:content="${_csrf.token}" th:name="_csrf"/>-->
 <!--    <meta th:content="${_csrf.headerName}" th:name="_csrf_header"/>-->
 </head>
@@ -15,37 +15,12 @@
         <!-- 헤더 html 시작 -->
         <header th:replace="~{/common/header::header}"></header>
         <!-- 헤더 html 끝 -->
-
         <!-- 로그인 html 시작 -->
-        <iframe name="lo" style="display: none"></iframe>
-        <script>
-            async function check() {
-                const token = document.querySelector('meta[name="_csrf"]').content;
-                const header = document.querySelector('meta[name="_csrf_header"]').content;
-                const jsonHeaders = {
-                    "Content-Type": "x-www-form-urlencoded",
-                };
-                jsonHeaders[header] = header;
-                const formData = document.getElementById("login_form").formData;
-
-                await fetch("/api/account/login", {
-                    method: "POST",
-                    headers: jsonHeaders,
-                    body: new URLSearchParams({
-                        id: formData.get("id"),
-                        pw: formData.get("pw")
-                    })
-                }).then(data => {
-                    if (data.status === 401) {
-                        window.alert("아이디 또는 비밀번호가 틀렸습니다.");
-                    }
-                });
-            }
-        </script>
-        <form id="login_form" method="post" onsubmit="check()" th:action="@{/api/account/login}">
-            <input th:name="${_csrf.parameterName}" th:value="${_csrf.token}" type="hidden">
+        <form id="login_form" method="post" th:action="@{/api/account/login}">
+            <input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token}">
             <div class="login_text">
                 <p style="font-weight: 700; font-size: 32px; line-height: 72px">로그인</p>
+                <div id="message" th:if="${loginError}">아이디 또는 비밀번호가 일치하지 않습니다.</div>
             </div>
             <div class="login_form">
                 <input name="id" type="text" autofocus placeholder="아이디">
