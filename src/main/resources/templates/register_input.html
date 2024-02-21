@@ -107,7 +107,7 @@
             <p class="category_text">이름 <span style="color: red">*</span></p>
           </div>
           <div class="real_input">
-            <input name="name" required type="text">
+              <input id="name" name="name" required type="text">
           </div>
         </div>
         <div class="member_id">
@@ -213,12 +213,14 @@
 
               function change() {
                 document.getElementById("email2").value = document.getElementById("email3").value;
+                  document.getElementById("email2").readOnly = document.getElementById("email2").value !== '';
               }
             </script>
             <input id="email1" required type="text">
             <span> @ </span>
             <input id="email2" placeholder="직접입력" required type="text">
             <select class="short_box" id="email3" name="" onchange="change()">
+                <option value="">직접 입력</option>
               <option value="naver.com">naver.com</option>
               <option value="google.com">google.com</option>
               <option value="hanmail.net">hanmail.net</option>
@@ -241,22 +243,22 @@
   <footer th:replace="~{/common/footer::footer}"></footer>
   <!-- 푸터 html 끝 -->
 
-  <script th:inline="javascript">
+  <script>
     const f = document.getElementById("reg_form");
     f.addEventListener("submit", async (e) => {
       e.preventDefault();
-      if (f.formData.get("name").length > 6) {
+        if (document.getElementById("name").value.length > 6) {
         window.alert("이름은 최대 6글자 까지 입니다.");
       } else if (document.getElementById("pw").value !== document.getElementById("pw_repeat").value) {
         window.alert("비밀번호 확인 값이 일치하지 않습니다.")
-      } else if (document.getElementById("zipcode").value === '' | document.getElementById("address1").value === '') {
+        } else if (document.getElementById("zipcode").value === '' || document.getElementById("address1").value === '') {
         window.alert("주소를 입력 해 주세요.")
-      } else if (!/^\d+$/.test(document.getElementById("tel2").value) || /^\d+$/.test(document.getElementById("tel3").value)) {
+        } else if (!/^\d+$/.test(document.getElementById("tel2").value) || !/^\d+$/.test(document.getElementById("tel3").value)) {
         window.alert("연락처는 반드시 숫자이어야 합니다.")
-      } else if (!document.getElementById("email2").value.includes('@') || document.getElementById("email2").value.includes('.')) {
+        } else if (!document.getElementById("email2").value.includes('.')) {
         window.alert("올바른 이메일 주소를 입력 해 주세요.")
       } else {
-        await fetch("register", {
+            await fetch("/account/register", {
           method: "POST",
           body: new FormData(f)
         }).then(data => {
