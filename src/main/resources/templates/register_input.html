@@ -170,11 +170,11 @@
             </script>
 
             <div>
-              <input id="zipcode" placeholder="우편번호" required style="background-color: #F5F5F5" type="text">
+              <input id="zipcode" placeholder="우편번호" readonly style="background-color: #F5F5F5" type="text">
               <input class="id_birthDate_postcode_button" onclick="open_address()" type="button" value="우편번호검색">
             </div>
             <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-            <input class="basics_address" id="address1" name="address1" placeholder="기본주소" required type="text">
+            <input class="basics_address" id="address1" name="address1" placeholder="기본주소" readonly type="text">
             <input class="detail_address" id="address2" name="address2" placeholder="상세주소" type="text">
           </div>
         </div>
@@ -193,9 +193,9 @@
               <option value="019">019</option>
             </select>
             <span>-</span>
-            <input class="short_box" id="tel2" required type="text">
+            <input class="short_box" id="tel2" maxlength="4" required type="text">
             <span>-</span>
-            <input class="short_box" id="tel3" required type="text">
+            <input class="short_box" id="tel3" maxlength="4" required type="text">
           </div>
         </div>
         <div class="member_email">
@@ -245,16 +245,28 @@
     const f = document.getElementById("reg_form");
     f.addEventListener("submit", async (e) => {
       e.preventDefault();
-      await fetch("register", {
-        method: "POST",
-        body: new FormData(f)
-      }).then(data => {
-        if (data.status === 400) {
-          window.alert("이미 사용중인 아이디 입니다!");
-        } else if (data.status === 200) {
-          window.location.href = "/register/complete";
-        }
-      });
+      if (f.formData.get("name").length > 6) {
+        window.alert("이름은 최대 6글자 까지 입니다.");
+      } else if (document.getElementById("pw").value !== document.getElementById("pw_repeat").value) {
+        window.alert("비밀번호 확인 값이 일치하지 않습니다.")
+      } else if (document.getElementById("zipcode").value === '' | document.getElementById("address1").value === '') {
+        window.alert("주소를 입력 해 주세요.")
+      } else if (!/^\d+$/.test(document.getElementById("tel2").value) || /^\d+$/.test(document.getElementById("tel3").value)) {
+        window.alert("연락처는 반드시 숫자이어야 합니다.")
+      } else if (!document.getElementById("email2").value.includes('@') || document.getElementById("email2").value.includes('.')) {
+        window.alert("올바른 이메일 주소를 입력 해 주세요.")
+      } else {
+        await fetch("register", {
+          method: "POST",
+          body: new FormData(f)
+        }).then(data => {
+          if (data.status === 400) {
+            window.alert("이미 사용중인 아이디 입니다!");
+          } else if (data.status === 200) {
+            window.location.href = "/register/complete";
+          }
+        });
+      }
     })
   </script>
 </body>
