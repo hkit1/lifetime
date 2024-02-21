@@ -6,6 +6,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,20 +26,16 @@ public class AccountController {
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @GetMapping("/account/logout")
-    public String logout(HttpServletRequest httpServletRequest){
-        HttpSession session = httpServletRequest.getSession(false);
-        if (session != null){
-            session.invalidate();
-            return "redirect:/";
-        }
-
+    public String logout(HttpServletRequest request){
+        HttpSession session = request.getSession(false);
+        session.invalidate();
+        request.getSession(true);
         return "redirect:/";
     }
 
     @GetMapping("/account/register/agree")
-    public String agree(HttpServletRequest request) {
-        HttpSession session = request.getSession();
-        if (session != null){
+    public String agree(@AuthenticationPrincipal UserDetails userDetails) {
+        if (userDetails != null){
             return "home";
         }
 
@@ -45,9 +43,8 @@ public class AccountController {
     }
 
     @GetMapping("/account/register/choose")
-    public String choose(HttpServletRequest request) {
-        HttpSession session = request.getSession();
-        if (session != null){
+    public String choose(@AuthenticationPrincipal UserDetails userDetails) {
+        if (userDetails != null){
             return "home";
         }
 
@@ -55,9 +52,8 @@ public class AccountController {
     }
 
     @GetMapping("/account/register")
-    public String inRegister(Model model, HttpServletRequest request) {
-        HttpSession session = request.getSession();
-        if (session != null){
+    public String inRegister(@AuthenticationPrincipal UserDetails userDetails, Model model, HttpServletRequest request) {
+        if (userDetails != null){
             return "home";
         }
 
