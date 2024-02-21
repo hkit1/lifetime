@@ -4,7 +4,7 @@
       <div class="logo">
         <a href="/">
           <h5>평생학습플랫폼</h5>
-          <img src="../images/book.png">
+          <img src="/images/book.png">
         </a>
       </div>
 
@@ -26,43 +26,15 @@
             <a href="">늘배움 소개</a>
           </li>
         </ul>
-
-        <div class="subMenu_cate">
-          <ul class="subMenu">
-            <li><a href="">가</a></li>
-            <li><a href="">나</a></li>
-            <li><a href="">다</a></li>
-          </ul>
-          <ul class="subMenu">
-            <li><a href="">라</a></li>
-            <li><a href="">마</a></li>
-            <li><a href="">바</a></li>
-          </ul>
-          <ul class="subMenu">
-            <li><a href="">사</a></li>
-            <li><a href="">아</a></li>
-            <li><a href="">자</a></li>
-          </ul>
-          <ul class="subMenu">
-            <li><a href="">차</a></li>
-            <li><a href="">카</a></li>
-            <li><a href="">타</a></li>
-          </ul>
-          <ul class="subMenu">
-            <li><a href="">파</a></li>
-            <li><a href="">하</a></li>
-            <li><a href="">굿</a></li>
-          </ul>
-        </div>
       </nav>
 
       <div class="member_btn" sec:authorize="isAnonymous()">
-        <a class="reg" href="/account/register/agree">👦회원가입</a>
-        <a class="login" href="/member/login">🔒로그인</a>
+        <a class="reg" href="/account/register/agree">회원가입</a>
+        <a class="login" href="/member/login">로그인</a>
       </div>
       <div class="member_btn" sec:authorize="isAuthenticated()">
-        <a class="reg" href="/mypage" sec:authentication="name"></a>
-        <a href="/account/logout" class="login">🔒로그아웃</a>
+        <a class="reg" href="/mypage" sec:authentication="name">님</a>
+        <a href="/account/logout" class="login">로그아웃</a>
       </div>
     </header>
     <!-- 헤더 html 끝 -->

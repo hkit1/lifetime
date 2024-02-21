@@ -14,7 +14,7 @@
 .satisfaction_title {
     width: 500px;
     height: 70px;
-    margin-left: 50px;
+    margin-left: 160px;
 }
 
 .satisfaction_content_container {
@@ -83,6 +83,14 @@
     width: 99.9%;
     height: 230px;
     resize: none;
+}
+
+input:focus {
+    outline: none;
+}
+
+textarea:focus {
+    outline: none;
 }
 
 .submit_button {
