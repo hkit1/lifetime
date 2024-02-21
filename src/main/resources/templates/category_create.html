@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>온라인 평생학습 플랫폼</title>
+    <link rel="stylesheet" href="../css/common/header.css" >
+    <link rel="stylesheet" href="../css/common/footer.css" >
+    <link rel="stylesheet" href="../css/common/default.css">
+    <link rel="stylesheet" href="../css/admin.css">
+</head>
+<body>
+
+    <!-- 헤더 html 시작 -->
+<!--    <header th:replace="~{/common/header::header}"></header>-->
+    <!-- 헤더 html 끝 -->
+
+<!--    <div class="sidebar">-->
+<!--        <div class="logo">-->
+<!--            <h5>평생학습플랫폼</h5>-->
+<!--            <img src="../images/book.png">-->
+<!--        </div>-->
+<!--        <div class="welcome_container">-->
+<!--            <div class="welcome_text">-->
+<!--                <span>관리자님 환영합니다.</span>-->
+<!--            </div>-->
+<!--            <div class="mainpage_logout_button">-->
+<!--                <a href="" id="mainpage">메인페이지</a>-->
+<!--                <a href="" id="logout">로그아웃</a>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div class="total_stats_wrap">-->
+<!--            <div class="total_stats">-->
+<!--                <img src="../images/stats.png" alt="">-->
+<!--                <span>&ensp;전체통계</span>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div class="member_wrap">-->
+<!--            <div class="member">-->
+<!--                <img src="../images/member.png" alt="">-->
+<!--                <span>&ensp;회원관리</span>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div class="institution_wrap">-->
+<!--            <div class="institution">-->
+<!--                <img src="../images/institution.png" alt="">-->
+<!--                <span>&ensp;기관관리</span>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div class="lecture_wrap">-->
+<!--            <div class="lecture">-->
+<!--                <img src="../images/lecture.png" alt="">-->
+<!--                <span>&ensp;강좌관리</span>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+
+    <div class="cate_tit">
+        <h1>카테고리 추가 페이지</h1>
+    </div>
+    <form th:action="@{/api/category/add}" method="post">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+        <ul>
+            <li>
+                <span>대분류</span>
+                <input type="text" name="main" placeholder="대분류를 입력해주세요">
+            </li>
+            <li>
+                <span>소분류</span>
+                <input type="text" name="sub" placeholder="소분류를 입력해주세요">
+            </li>
+        </ul>
+        <input type="submit" value="카테고리 추가">
+    </form>
+
+    <!-- 푸터 html 시작 -->
+<!--    <footer th:replace="~{/common/footer::footer}"></footer>-->
+    <!-- 푸터 html 끝 -->
+</body>
+</html>

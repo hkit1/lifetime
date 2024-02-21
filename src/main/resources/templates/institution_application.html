@@ -6,6 +6,8 @@
   <link rel="stylesheet" href="/css/common/header.css" >
   <link rel="stylesheet" href="/css/common/footer.css" >
   <link rel="stylesheet" href="/css/institution_application.css" >
+  <meta th:content="${_csrf.token}" th:name="_csrf"/>
+  <meta th:content="${_csrf.headerName}" th:name="_csrf_header"/>
 </head>
 <body>
   <div class="container">
@@ -49,8 +51,9 @@
     <hr>
 
     <div class="institution_input_container">
-      <form th:action="@{/api/company/create}" method="post" class="institution_form">
-        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+      <iframe name="ld" style="display: none"></iframe>
+      <form class="institution_form" id="register_form" method="post" target="ld">
+        <input th:name="${_csrf.parameterName}" th:value="${_csrf.token}" type="hidden">
         <div class="institution_name">
           <div class="category_container">
             <p class="category_text">기관명&nbsp;<span style="color: red">*</span></p>
@@ -151,6 +154,37 @@
           <input type="submit" value="목&nbsp;록" class="list">
         </div>
       </form>
+      <script>
+        const f = document.getElementById("register_form");
+        f.addEventListener("submit", async (e) => {
+          e.preventDefault();
+          const token = document.querySelector('meta[name="_csrf"]').content;
+          const header = document.querySelector('meta[name="_csrf_header"]').content;
+
+          await fetch("/api/company/check", {
+            method: "POST",
+            // body: "{\"company\", \"" + f.value + "\"}"
+            body: "{\"company\", \"" + new FormData(f).get("name") + "\"}",
+            headers: {[header]: token}
+          }).then(data => {
+            // 시간상 fallback 안만듬
+            if (data.status === 200) {
+              window.alert("이미 등록 요청 또는 등록된 기업입니다!");
+            } else if (data.status === 400) {
+              fetch("/api/company/create", {
+                method: "POST",
+                body: new FormData(f),
+                headers: {[header]: token}
+              }).then(data => {
+                if (data.status === 200) {
+                  window.alert("기관 등록 요청을 했습니다.")
+                  location.href = "/";
+                }
+              });
+            }
+          });
+        })
+      </script>
     </div>
     <!-- 수강신청등록기관 html 끝-->
   </div>

@@ -47,8 +47,8 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:text="">
-          <td th:text="">1</td>
+        <tr>
+            <td>1</td>
           <td>show me the money</td>
         </tr>
         </tbody>
@@ -58,7 +58,7 @@
         <input class="delete" onclick="return a(null)" type="button" value="회차삭제">
         <input class="edit" onclick="return a(true)" type="button" value="회차수정">
         <input class="register" onclick="return a(false)" type="button" value="회차등록">
-        <input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token}">
+          <input th:name="${_csrf.parameterName}" th:value="${_csrf.token}" type="hidden">
         <script>
           async function a(value) {
             let url;

@@ -20,17 +20,22 @@ public class CategoryController {
     public String createCategory(@RequestParam(name = "main") String main,
                                  @RequestParam(name = "sub") String sub){
 
+        log.error("이게 불러와졋냐");
+
         //공백을 제외한 실제 문자를 포함 하는 지 검사
         if (!StringUtils.hasText(main) || !StringUtils.hasText(sub)){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Input Param null");
         }
+
+
+
 
         CategoryDto categoryDto = new CategoryDto(null, main);
         SubCategoryDto subCategoryDto = new SubCategoryDto(null, null, sub);
 
         categoryService.register(categoryDto, subCategoryDto);
 
-        return "home";
+        return "redirect:/admin";
 
     }
 

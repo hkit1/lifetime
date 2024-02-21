@@ -54,7 +54,8 @@
           <tr th:each="lecture: ${lectureList}">
             <td><input type="checkbox"></td>
             <td th:text="${lecture.id()}"/>
-            <td th:text="${lecture.name()}"/>
+            <td th:onclick="|location.href='@{/mypage/admin/lecture/@{id}(id = ${lecture.id()})'|"
+                th:text="${lecture.name()}"/>
             <td th:text="${lecture.created_at()}"/>
             <td th:text="${lecture.closed_at()}"/>
           </tr>
@@ -64,7 +65,8 @@
 
         <div class="register_delete_button_container">
           <input type="button" value="강좌삭제" class="lecture_delete_button">
-          <input class="lecture_register_button" onclick="location.href='/c/admin/register'" type="button" value="강좌등록">
+          <input class="lecture_register_button" onclick="location.href='/mypage/admin/lecture/create'" type="button"
+                 value="강좌등록">
         </div>
       </div>
     </div>
