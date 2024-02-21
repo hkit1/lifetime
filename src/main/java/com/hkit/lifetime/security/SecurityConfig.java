@@ -26,7 +26,7 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests(requsts -> requsts
                         //권한 없이 들어갈 수 있는 페이지
-                        .requestMatchers("/", "/member/login", "/member/login-error", "/account/register**", "/register/complete", "/api/lecture/{id}/image").permitAll()
+                        .requestMatchers("/error", "/", "/member/login", "/member/login-error", "/account/register", "/account/register/**", "/register/complete", "/api/lecture/{id}/image").permitAll()
                         .requestMatchers("/admin").hasRole("ADMIN")
                         //이외의 페이지는 모두 권한 필요
                         .anyRequest().authenticated()
@@ -47,9 +47,12 @@ public class SecurityConfig {
                         .successHandler(new CustomAuthenticationSuccessHandler())
 
                 )
-                //로그아웃 기능은 Security가 제공하는 default 기능 사용
-                .logout(Customizer.withDefaults())
-                .httpBasic(Customizer.withDefaults())
+//                //로그아웃 기능은 Security가 제공하는 default 기능 사용
+//                .logout(logout -> logout
+//                        .logoutUrl("/account/logout")
+//                        .invalidateHttpSession(true)
+//                        .logoutSuccessUrl("/")
+//                )
                 .csrf(Customizer.withDefaults());
 
 
