@@ -9,6 +9,12 @@
     <input th:name="${_csrf.parameterName}" th:value="${_csrf.token}" type="hidden"/>
     <input name="name" placeholder="강좌 이름" type="text">
     <input name="description" placeholder="강좌 설명" type="text">
+    <input name="teacher_id" placeholder="강사 이름" type="text">
+    <input name="company_name" placeholder="회사 이름" type="text">
+    <input name="main_category" placeholder="메인 카테고리" type="text">
+    <input name="sub_category" placeholder="서브 카테고리" type="text">
+    <input name="created_at" placeholder="강좌 시작일" type="text">
+    <input name="closed_at" placeholder="강좌 종료일" type="text">
     <input name="file" placeholder="미리보기 사진" type="file">
     <input type="submit">
     <a href="/mypage/admin">뒤로가기</a>

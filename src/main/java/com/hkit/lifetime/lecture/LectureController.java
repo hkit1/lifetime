@@ -37,6 +37,12 @@ public class LectureController {
         return "home";
     }
 
+    @PostMapping("/api/lecture/update/{id}")
+    public String lectureUpdate(@PathVariable Integer id){
+        service.delete(id);
+        return "home";
+    }
+
     @GetMapping("/lecture/{lectureId}")
     public String viewLecture(@PathVariable("lectureId") Integer lectureId, Model model){
         LectureOutputDto lecturedto = service.findlecture(lectureId);
