@@ -215,12 +215,12 @@ public class MainController {
 
     @GetMapping("/company/register")
     public String register_company() {
-        return "institution_application";
+        return "company_register";
     }
 
     @PostMapping("/company/register")
     public String register_company_empty() {
-        return "institution_application";
+        return "company_register";
     }
 
     static class MyLecture{
