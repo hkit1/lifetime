@@ -4,7 +4,6 @@ import com.hkit.lifetime.rating.RatingDto;
 import com.hkit.lifetime.rating.RatingService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -32,10 +31,10 @@ public class LectureController {
         return "home";
     }
 
-    @GetMapping("/api/lecture/delete/{id}")
-    public ResponseEntity<?> lectureDelete(@PathVariable Integer id){
+    @PostMapping("/api/lecture/delete/{id}")
+    public String lectureDelete(@PathVariable Integer id){
         service.delete(id);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return "home";
     }
 
     @PostMapping("/api/lecture/update/{id}")
