@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" xmlns="">
 <head>
     <meta charset="UTF-8">
     <title>관리자 페이지</title>
@@ -254,9 +254,11 @@
                     <th>승인날짜</th>
                 </tr>
                 </thead>
+                <form action=" " id="company_form">
+                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
                 <tbody>
                 <tr th:each="company : ${companyList}">
-                    <td><input class="institution_checkbox" type="checkbox"></td>
+                    <td><input name="company_check" class="institution_checkbox" type="checkbox" th:value ="${company.id()}"></td>
                     <td class="institution_name" th:title="${company.name()}" th:text="${company.name()}"></td>
                     <td class="representative" th:title="${company.admin()}" th:text="${company.admin()}"></td>
                     <td th:text="${company.id()}"></td>
@@ -267,11 +269,48 @@
                     <td th:text="${company.authorizedDate()}"></td>
                 </tr>
                 </tbody>
+                </form>
             </table>
             <div class="approval_return_delete_button_container">
-                <input type="button" value="기관삭제" class="institution_delete_button">
-                <input class="return_button" type="button" value="반려">
-                <input type="button" value="승인" class="approval_button">
+                <script>
+                    async function company_accept() {
+                        let f = new FormData(document.getElementById("company_form"));
+                        for (let i = 0; i < f.getAll("company_check").length; i++) {
+
+                            await fetch("/api/company/accept/"+f.getAll("company_check")[i], {
+                                method: "GET",
+                            });
+                        }
+                        window.location = "/admin";
+                    }
+
+                    async function company_delete() {
+                        let f = new FormData(document.getElementById("company_form"));
+                        for (let i = 0; i < f.getAll("company_check").length; i++) {
+
+                            await fetch("/api/company/delete/"+f.getAll("company_check")[i], {
+                                method: "GET",
+                            });
+                        }
+                        window.location = "/admin";
+
+                    }
+
+                    async function company_reject() {
+                        let f = new FormData(document.getElementById("company_form"));
+                        for (let i = 0; i < f.getAll("company_check").length; i++) {
+
+                            await fetch("/api/company/denied/"+f.getAll("company_check")[i], {
+                                method: "GET",
+                            });
+                        }
+                        window.location = "/admin";
+                    }
+                </script>
+                <input type="button" value="기관삭제" class="institution_delete_button" onmouseup="company_delete()">
+                <input class="return_button" type="button" value="반려" onmouseup="company_reject()">
+                <input type="button" value="승인" class="approval_button" onmouseup="company_accept()">
+
             </div>
             <div class="page">
                 <input type="button" value="<<" class="before_next_button">

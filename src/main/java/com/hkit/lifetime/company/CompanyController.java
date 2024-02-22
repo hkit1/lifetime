@@ -4,6 +4,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -43,25 +45,25 @@ public class CompanyController {
     /*
         company delete
      */
-    @PostMapping("/api/company/delete")
-    public String companyDelete(@RequestParam(name = "id") String id) {
+    @GetMapping("/api/company/delete/{id}")
+    public ResponseEntity<?> companyDelete(@PathVariable String id) {
         companyService.deleteCompany(id);
-        return "home";
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     /*
         company authorization
      */
-    @PostMapping("/api/company/accept")
-    public String companyAuthorization(@RequestParam(name = "id") String id){
+    @GetMapping("/api/company/accept/{id}")
+    public ResponseEntity<?> companyAuthorization(@PathVariable String id){
         companyService.authorization(id);
-        return "home";
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PostMapping("/api/company/denied")
-    public String companyDenied(@RequestParam(name = "id") String id){
+    @GetMapping("/api/company/denied/{id}")
+    public ResponseEntity<?> companyDenied(@PathVariable String id){
         companyService.denied(id);
-        return "home";
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 }
