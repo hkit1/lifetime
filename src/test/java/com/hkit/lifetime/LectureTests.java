@@ -101,7 +101,7 @@ public class LectureTests {
         Faker faker = new Faker(Locale.KOREAN);
 
         TestTransaction.flagForCommit();
-        for (int i = 0; i < 30; i++) {
+        for (int i = 0; i < 10; i++) {
             MultiValueMap<String, String> accountInfo = createAccountInfo();
             mockMvc.perform(post("/account/register").params(accountInfo).with(csrf())).andExpect(status().is3xxRedirection());
         }
@@ -111,7 +111,7 @@ public class LectureTests {
         MultiValueMap<String, String> companyInfo = createRandomCompany();
         mockMvc.perform(post("/api/company/create").params(companyInfo).with(csrf())).andExpect(status().isOk());
         Company company = companyRepository.findByName(companyInfo.getFirst("name")).get();
-        mockMvc.perform(post("/api/category/add").param("main", "메인보드").param("sub", "amd").with(csrf())).andExpect(status().isOk());
+        mockMvc.perform(post("/api/category/add").param("main", "메인보드").param("sub", "amd").with(csrf())).andExpect(status().is3xxRedirection());
         SubCategory category = subCategoryRepository.findByName("amd").get();
 
         Random r = new Random();

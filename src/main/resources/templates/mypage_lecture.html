@@ -53,7 +53,7 @@
           <tbody>
           <tr th:each="lecture: ${lectureList}">
             <td><input type="checkbox"></td>
-            <td th:text=<td><input type="checkbox" th:name="${lecture.id()}"/>
+            <td><input th:name="${lecture.id()}" type="checkbox"/></td>
             <td th:onclick="|location.href='@{/mypage/admin/lecture/@{id}(id = ${lecture.id()})'|"
                 th:text="${lecture.name()}"/>
             <td th:text="${lecture.created_at()}"/>

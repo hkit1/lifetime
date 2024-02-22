@@ -19,4 +19,5 @@ spring:
       dialect: org.hibernate.dialect.MySQL8InnoDBDialect
 
 logging.level:
+  org.springframework.security: debug
   org.hibernate.SQL: debug
